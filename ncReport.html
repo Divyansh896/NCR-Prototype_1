@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="ncReport.css">
     <link rel="stylesheet" href="details.css">
+    <link rel="stylesheet" href="breadcrumb.css">
 </head>
 
 <body>
@@ -43,6 +44,17 @@
     </header>
 
     <main>
+        <!-- indication of current page -->
+        <div class="container" id="brdcrmb">
+            <!-- nav element add an attribute "aria-label="breadcrumb""-->
+            <nav aria-label="breadcrumb">
+                <!-- create ol or ul list and add class="breadcrumb" -->
+                <ul class="breadcrumb" id="brdcrb">
+                    <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ul>
+            </nav>
+        </div>
         <!-- Main Content -->
         <h1>Non-Conformance Report</h1>
         <details>
@@ -215,13 +227,13 @@
 
             <!-- Buttons -->
             <div class="btn-report">
-                <button class="edit" id="eng-edit"  tabindex="33">Edit</button>
-                <button class="save" id="eng-save"  tabindex="34">Save</button>
+                <button class="edit" id="eng-edit" tabindex="33">Edit</button>
+                <button class="save" id="eng-save" tabindex="34">Save</button>
             </div>
         </details>
 
 
-<!-- purchasing department -->
+        <!-- purchasing department -->
         <details>
             <summary class="custom-summary" aria-label="Purchasing department details">Purchasing Decision</summary>
             <div class="form-row-engineer">
@@ -310,7 +322,7 @@
 
             <!-- Buttons -->
             <div class="btn-report">
-                <button class="edit" id="purch-edit"  tabindex="47">Edit</button>
+                <button class="edit" id="purch-edit" tabindex="47">Edit</button>
                 <button class="save" id="purch-save" tabindex="48">Save</button>
             </div>
 
@@ -328,6 +340,7 @@
     </footer>
 
     <script src="script/ncReport.js"></script>
+    <script src="script/breadcrumb.js"></script>
 
 </body>
 

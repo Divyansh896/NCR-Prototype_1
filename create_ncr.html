@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style_2.css">
     <link rel="stylesheet" href="ncReport.css">
     <link rel="stylesheet" href="details.css">
+    <link rel="stylesheet" href="breadcrumb.css">
 </head>
 
 <body>
@@ -48,6 +49,17 @@
     </header>
 
     <main>
+        <!-- indication of current page -->
+        <div class="container" id="brdcrmb">
+            <!-- nav element add an attribute "aria-label="breadcrumb""-->
+            <nav aria-label="breadcrumb">
+                <!-- create ol or ul list and add class="breadcrumb" -->
+                <ul class="breadcrumb" id="brdcrb">
+                    <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ul>
+            </nav>
+        </div>
         <div class="createNcr-verticalLayout">
             <!-- Status Bar for Tracking Progress -->
             <div class="status-bar">
@@ -202,52 +214,52 @@
                     <legend id="product-desc">Product Description</legend>
                     <p class="indicator">* indicate required fields.</p>
 
-                        <div class="two-rows">
-                            <div>
-                                <label for="description-item">Description of Item (including SAP Number):<span
-                                        class="required">*</span></label>
-                                <textarea id="description-item" name="description_item"
-                                    placeholder="Enter item description, including SAP Number"
-                                    aria-label="Enter item description, including SAP Number" tabindex="17"></textarea>
+                    <div class="two-rows">
+                        <div>
+                            <label for="description-item">Description of Item (including SAP Number):<span
+                                    class="required">*</span></label>
+                            <textarea id="description-item" name="description_item"
+                                placeholder="Enter item description, including SAP Number"
+                                aria-label="Enter item description, including SAP Number" tabindex="17"></textarea>
 
-                            </div>
-                            <div>
-                                <label for="description-defect">Description of Defect:<span
-                                        class="required">*</span></label>
-                                <textarea id="description-defect" name="description_defect"
-                                    placeholder="Describe the defect" aria-label="Describe the defect of the product"
-                                    tabindex="18"></textarea>
-                            </div>
                         </div>
-                        <div class="fieldset-margin">
-                            <fieldset class="item-conforming" for="item-marked-nonconforming">
-                                <legend for="item-marked-nonconforming">Item Marked Non-Conforming?<span
-                                        class="required">*</span></legend>
-                                <div class="item-conforming">
+                        <div>
+                            <label for="description-defect">Description of Defect:<span
+                                    class="required">*</span></label>
+                            <textarea id="description-defect" name="description_defect"
+                                placeholder="Describe the defect" aria-label="Describe the defect of the product"
+                                tabindex="18"></textarea>
+                        </div>
+                    </div>
+                    <div class="fieldset-margin">
+                        <fieldset class="item-conforming" for="item-marked-nonconforming">
+                            <legend for="item-marked-nonconforming">Item Marked Non-Conforming?<span
+                                    class="required">*</span></legend>
+                            <div class="item-conforming">
 
-                                    <input type="radio" id="item-marked-yes" name="item_marked_nonconforming"
-                                        value="yes" tabindex="19">
-                                    <label for="item-marked-yes">Yes</label>
+                                <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
+                                    tabindex="19">
+                                <label for="item-marked-yes">Yes</label>
 
 
-                                    <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
-                                        tabindex="20">
-                                    <label for="item-marked-no">No</label>
+                                <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
+                                    tabindex="20">
+                                <label for="item-marked-no">No</label>
 
-                                </div>
+                            </div>
 
+                        </fieldset>
+                        <div>
+                            <fieldset class="media" id="add-media">
+                                <legend id="media-btns">Add Media</legend>
+                                <button type="button" id="add-photo-btn" tabindex="23">Add Photos</button>
+                                <button type="button" id="add-video-btn" tabindex="24">Add Videos</button>
+                                <input type="file" id="photo-input" accept="image/*" multiple style="display:none;">
+                                <input type="file" id="video-input" accept="video/*" multiple style="display:none;">
                             </fieldset>
-                            <div>
-                                <fieldset class="media" id="add-media">
-                                    <legend id="media-btns">Add Media</legend>
-                                    <button type="button" id="add-photo-btn" tabindex="23">Add Photos</button>
-                                    <button type="button" id="add-video-btn" tabindex="24">Add Videos</button>
-                                    <input type="file" id="photo-input" accept="image/*" multiple style="display:none;">
-                                    <input type="file" id="video-input" accept="video/*" multiple style="display:none;">
-                                </fieldset>
-                            </div>
                         </div>
-                    
+                    </div>
+
 
 
 
@@ -306,7 +318,7 @@
     </footer>
 
     <script src="script/create-ncr.js"></script>
-
+    <script src="script/breadcrumb.js"></script>
 
 </body>
 
