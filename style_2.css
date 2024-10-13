@@ -124,7 +124,7 @@ nav:hover ul {
 }
 
 /* Adjust submenu styling */
-nav li ul.link-dropdown {
+nav li ul.dropdown {
     display: none;
     position: relative;
     top: 100%;
@@ -135,11 +135,11 @@ nav li ul.link-dropdown {
 
 }
 
-nav li ul.link-dropdown li {
+nav li ul.dropdown li {
     margin: 8px 0;
 }
 
-nav li:hover ul.link-dropdown {
+nav li:hover ul.dropdown {
     display: block;
 }
 
@@ -921,7 +921,7 @@ input[type="radio"] {
         position: absolute;
         z-index: 999;
         display: none;
-        background: #f4f4f4;
+        background: #aae7f1;
         padding: 0;
         margin: 45px 0;
     }
