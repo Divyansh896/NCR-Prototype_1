@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile - Crossfire</title>
+    <meta name="description" content="Edit your profile information including name, email, and phone number.">
+    <meta name="keywords" content="NCR Profile, Crossfire Profile, Profile">
+    <meta name="author" content="Mark">
+    <!-- Style-sheet link -->
+    <link rel="stylesheet" href="style_2.css">
+</head>
+
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header>
+        <div class="logo-container" aria-label="Crossfire Company Logo">
+            <img src="images/logo.webp" alt="Crossfire Company Logo">
+        </div>
+        
+        <nav aria-label="Primary Navigation">
+            <a href="#" id="menu-icon"></a>
+            <ul>
+                <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
+                <li><a href="contact_us.html" class="linksNav" tabindex="2" aria-label="Contact us">Contact Us</a></li>
+                <li>
+                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false" aria-label="NCR options">NCRs</a>
+                    <ul class="dropdown" aria-label="NCR Dropdown Menu">
+                        <li><a href="create_ncr.html" class="linksNav" tabindex="4" aria-label="Create a new Non-Conformance Report">Create</a></li>
+                        <li><a href="view_ncr.html" class="linksNav" tabindex="5" aria-label="View existing Non-Conformance Reports">View</a></li>
+                    </ul>
+                </li>
+                <li><a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="gradient-acc">
+        <div>
+            <h1 tabindex="4">Edit Profile</h1>
+            <form action="https://webdevbasics.net/scripts/demo.php" method="post" id="profileForm">
+                <fieldset class="account">
+                    <legend>
+                        <img src="images/female-image.png" alt="User Avatar" loading="lazy" width="250" height="250">
+                    </legend>
+                
+                    <p class="indicator">* indicate required fields.</p>
+                    
+                    <div>
+                        <label for="fname">First Name <span class="required">*</span></label>
+                        <input type="text" id="fname" name="fname" placeholder="Enter your first name" required tabindex="7">
+                    </div>
+                
+                    <div>
+                        <label for="lname">Last Name <span class="required">*</span></label>
+                        <input type="text" id="lname" name="lname" placeholder="Enter your last name" required tabindex="8">
+                    </div>
+                
+                    <div>
+                        <label for="Uname">User Name <span class="required">*</span></label>
+                        <input type="text" id="Uname" name="Uname" placeholder="Choose a user name" required tabindex="9">
+                    </div>
+                
+                    <div>
+                        <label for="UserId">User ID <span class="required">*</span></label>
+                        <input type="text" id="employeeId" name="employeeID" placeholder="Enter your employee ID" required tabindex="10">
+                    </div>
+                
+                    <div>
+                        <label for="emailId">Email Id <span class="required">*</span></label>
+                        <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required tabindex="11">
+                    </div>
+                
+                    <div>
+                        <label for="phone">Phone Number <span class="required">*</span></label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\d{10}" title="Please enter a valid 10-digit phone number" tabindex="12">
+                    </div>
+                    
+                    <div>
+                        <label for="bday">Date of birth <span class="required">*</span></label>
+                        <input type="date" id="bday" name="bday" placeholder="MM/DD/YYYY" required tabindex="13">
+                    </div>
+                
+                    <div>
+                        <label for="gender">Select Gender <span class="required">*</span></label>
+                        <select id="gender" name="gender" required tabindex="14">
+                            <option value="" disabled selected>Select your gender</option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="password">Password <span class="required">*</span></label>
+                        <input type="text" id="password" name="password" placeholder="Choose a Password" required tabindex="15">
+                    </div>
+                
+                    <button type="submit" id="submit-btn" form="profileForm" value="Submit" tabindex="16">Submit</button>
+                </form>
+            </fieldset>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer-scroll">
+        <p>&copy; 2024 Crossfire. All rights reserved.</p>
+        <p>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="17">Privacy Policy</a> |
+            <a href="contact_us.html" class="linksFooter" aria-label="Go to Contact Us" tabindex="18">Contact Us</a>
+        </p>
+    </footer>
+    <script src="script/account.js"></script>
+</body>
+
+</html>

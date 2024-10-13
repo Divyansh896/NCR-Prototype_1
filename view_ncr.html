@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="View and filter NCRs (Non-Conformance Reports) in Crossfire.">
+    <meta name="keywords" content="NCR, view NCR, filter NCR, Crossfire">
+    <meta name="author" content="Mark">
+    <title>View NCRs - Crossfire</title>
+    <link rel="stylesheet" href="style_2.css">
+</head>
+
+<body>
+
+    <!-- Header with Logo and Navigation -->
+    <header>
+        <div class="logo-container" aria-label="Crossfire Company Logo">
+            <img src="images/logo.webp" alt="Crossfire Company Logo">
+        </div>
+
+        <nav aria-label="Primary Navigation">
+            <a href="#" id="menu-icon"></a>
+            <ul>
+                <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
+                <!-- Set tabindex to sequential order -->
+                <li><a href="contact_us.html" class="linksNav" tabindex="2" aria-label="Contact us">Contact Us</a></li>
+                <!-- Set tabindex to sequential order -->
+                <li>
+                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false"
+                        aria-label="NCR options">NCRs</a>
+                    <ul class="dropdown" aria-label="NCR Dropdown Menu">
+                        <li><a href="create_ncr.html" class="linksNav" tabindex="4"
+                                aria-label="Create a new Non-Conformance Report">Create</a></li>
+                        <!-- Set tabindex to sequential order -->
+                        <li><a href="view_ncr.html" class="linksNav" tabindex="5"
+                                aria-label="View existing Non-Conformance Reports">View</a></li>
+                        <!-- Set tabindex to sequential order -->
+                    </ul>
+                </li>
+                <li><a href="account.html" class="linksNav" tabindex="6"
+                        aria-label="Manage your account settings">Account</a></li>
+                <!-- Set tabindex to sequential order -->
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Section -->
+    <main>
+
+        <div class="verticalLayout">
+            <h1>View NCRs</h1>
+
+            <!-- Search Filter Section -->
+            <div class="filter-section">
+                <div>
+                    <label for="search">Search by supplier:</label>
+                    <select name="search" id="search" class="serach-bar" required tabindex="7"
+                        aria-label="Search by supplier">
+                        <option value="All">All Supplier</option>
+                        <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
+                        <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
+                        <option value="Gamma Electronics">Gamma Electronics</option>
+                        <option value="Delta Logistics">Delta Logistics</option>
+                        <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
+                    </select>
+                    <!-- <input type="text" class="serach-bar" id="search" name="search" placeholder="Search by supplier." tabindex="7" aria-label="Search by supplier"> -->
+                </div>
+
+                <!-- Date Picker -->
+                <div>
+                    <label for="date-filter">Date Filter:</label>
+                    <input type="date" class="date-filter" id="date-filter" placeholder="Select date" name="date"
+                        tabindex="8" aria-label="Date filter">
+                </div>
+
+                <!-- Status Filter Section -->
+                <div>
+                    <label>Status Filter:</label>
+                    <div class="horizontal">
+                        <label for="status-all">
+                            <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
+                        </label>
+                        <label for="status-yes">
+                            <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
+                                tabindex="10"> Completed
+                        </label>
+                        <label for="status-no">
+                            <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
+                                tabindex="11"> Incomplete
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Records Found -->
+            <p id="record-count" aria-live="polite">Records found:</p> <!-- Added aria-live for dynamic updates -->
+
+            <!-- NCRs Table -->
+            <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
+                <thead>
+                    <tr>
+                        <th>Supplier</th>
+                        <th>NCR Number</th>
+                        <th>Item</th>
+                        <th>Date</th>
+                        <th>NCR Status</th>
+                        <th>NCR Stage</th>
+                    </tr>
+                </thead>
+                <tbody id="ncr-tbody">
+                    <!-- Rows will be dynamically generated here -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer id="footer-scroll">
+        <p>&copy; 2024 Crossfire. All rights reserved.</p>
+        <p>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="12">Privacy
+                Policy</a> |
+            <a href="contact_us.html" class="linksFooter" aria-label="Go to Contact Us" tabindex="13">Contact Us</a>
+        </p>
+    </footer>
+
+    <script src="script/view-ncr.js"></script>
+
+</body>
+
+</html>

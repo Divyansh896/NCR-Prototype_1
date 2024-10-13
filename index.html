@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Login page for Crossfire. Access your account to manage, generate, view NCRs.">
+    <meta name="keywords" content="login, create NCRs, view NCRs, Crossfire">
+    <meta name="author" content="Mark">
+    <title>Login - Crossfire</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body id="login">
+
+    <main>
+        <div id="wrapper">
+            <div class="login-container" role="form" aria-labelledby="login-header">
+                <div class="logo-container">
+                    <img src="images/logo.webp" alt="Crossfire Company Logo" width="125" height="30">
+                    <h1 id="login-header">Login</h1>
+                </div>
+
+                <div aria-live="polite">
+                    <label for="username">Username:</label>
+                    <div class="tooltip">
+                        <input type="text" id="username" name="username" placeholder="Enter your username" required
+                            aria-required="true" aria-describedby="username-tooltip"
+                            aria-label="Enter you Crossfire username" tabindex="1">
+                        <!-- <span class="tooltip-text" id="username-tooltip" role="tooltip" aria-hidden="false">Enter your
+                            username.</span> -->
+                    </div>
+
+                    <label for="password">Password:</label>
+                    <div class="tooltip">
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required
+                            aria-required="true" aria-describedby="password-tooltip"
+                            aria-label="Enter you Crossfire password" tabindex="2">
+                        <!-- <span class="tooltip-text" id="password-tooltip" role="tooltip" aria-hidden="false">Enter your
+                            password.</span> -->
+                    </div>
+
+                    <button id="btn-login" aria-label="Log in to your account" tabindex="3">Login</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer id="login-footer">
+        <p>&copy; 2024 Crossfire. All rights reserved.</p>
+        <p><a href="privacy_policy.html">Privacy Policy</a> | <a href="contact_us.html">Contact Us</a></p>
+    </footer>
+    <script src="script/login-ncr.js"></script>
+
+</body>
+
+</html>

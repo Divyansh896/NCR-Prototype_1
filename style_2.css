@@ -1,0 +1,1223 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.required {
+    color: red;
+    margin: 5px;
+}
+
+.indicator {
+    color: red;
+}
+
+/* Set full height for the body and html */
+html,
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f4f4f4;
+    color: #333;
+}
+
+/*general*/
+a {
+    text-decoration: none;
+}
+
+button,
+input[type="text"],
+input[type="password"],
+input[type="date"],
+input[type="email"],
+input[type="number"],
+input[type="tel"],
+select {
+    padding: 0px 10px;
+    height: 40px;
+    border-radius: 4px;
+    border: 2px solid #163650;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #f4f4f4;
+    color: #163650;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(244, 244, 244, 0.7);
+}
+
+h1 {
+    padding: 20px 0px;
+    text-align: center;
+    color: #1a3153;
+    font-size: 1.2rem;
+}
+
+
+/*header*/
+header {
+    padding: 10px 25px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #163650;
+    height: 70px;
+}
+
+header img {
+    max-width: 250px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+/* Navigation */
+nav {
+    float: right;
+    padding-right: 25px;
+}
+
+#menu-icon {
+    background: url("images/hamburger.png");
+    display: block;
+    width: 40px;
+    height: 40px;
+}
+
+nav ul {
+    background: beige;
+    list-style-type: none;
+    position: absolute;
+    right: 100%;
+    top: 0;
+    width: 100%;
+    height: 300px;
+    transition: 1s all ease;
+    text-align: center;
+    height: auto;
+}
+
+nav li {
+    margin-top: 25px;
+    padding: 9px;
+}
+
+nav:hover ul {
+    right: 0;
+    display: block;
+}
+
+/* Adjust submenu styling */
+nav li ul.link-dropdown {
+    display: none;
+    position: relative;
+    top: 100%;
+    left: 0;
+    background: rgb(254, 254, 218);
+    z-index: 1;
+    height: auto;
+
+}
+
+nav li ul.link-dropdown li {
+    margin: 8px 0;
+}
+
+nav li:hover ul.link-dropdown {
+    display: block;
+}
+
+
+/* DETAILS */
+
+details {
+    position: relative;
+    /* Position relative to place the arrow */
+    width: 100%;
+    /* Ensure it spans the entire width */
+}
+
+.custom-summary {
+    list-style: none;
+    /* Remove default list style */
+    cursor: pointer;
+    /* Change cursor to pointer */
+    padding: 10px 30px;
+    /* Add vertical padding for better spacing */
+    display: block;
+    /* Make the summary a block element to span full width */
+    position: relative;
+    /* Position relative for the underline */
+    text-decoration: none;
+    /* Remove default underline */
+    font-weight: 600;
+}
+
+/* Underline effect only for the summary */
+.custom-summary::after {
+    content: "";
+    /* Create an underline effect */
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* Position at the bottom of the summary */
+    height: 2px;
+    /* Thickness of the underline */
+    width: 100%;
+    /* Full width underline */
+    background-color: black;
+    /* Color of the underline */
+}
+
+.custom-summary::before {
+    content: '<';
+    /* Custom arrow */
+    position: absolute;
+    /* Position absolute to place the arrow */
+    right: 50px;
+    /* Align the arrow to the right */
+    top: 50%;
+    /* Center vertically */
+    transform: translateY(-50%);
+    /* Adjust to be centered */
+    font-size: 1.5em;
+    /* Adjust size if needed */
+    transition: transform 0.3s ease;
+    /* Smooth transition for rotation */
+}
+
+details[open] .custom-summary::before {
+    transform: translateY(-50%) rotate(-90deg);
+    /* Rotate to point down */
+}
+
+/* Header styles */
+
+
+/* Label styles */
+label {
+    display: block;
+    /* Makes labels take up the full width */
+    margin-top: 1rem;
+    /* Space above each label */
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+
+/* Footer for all pages */
+.linksNav,
+.linksFooter {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.linksNav {
+    color: #1a3153;
+}
+
+.linksNav:hover {
+    color: #1d3456;
+}
+
+.linksFooter {
+    color: #dbc7c0;
+}
+
+.linksFooter:hover {
+    color: #9e7c70
+}
+
+#footer-scroll {
+    background-color: #163650;
+    text-align: center;
+    padding: 20px 0;
+
+}
+
+#footer-scroll p {
+    color: #dbc7c0;
+}
+
+/* Home page */
+.main-container {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 40px;
+    padding: 15px;
+    margin: 25px auto;
+}
+
+.featuresCreateNCR,
+.featuresViewNCR,
+.featuresManageAcc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    flex: 0 1 30%;
+    padding: 10px 0;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 100%;
+
+}
+
+.featuresCreateNCR {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/CreateNCR.webp");
+}
+
+.featuresViewNCR {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ViewNCR.webp");
+}
+
+.featuresManageAcc {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
+}
+
+.featuresCreateNCR h2,
+.featuresViewNCR h2,
+.featuresManageAcc h2 {
+    font-size: 1.5em;
+}
+
+.featuresCreateNCR p,
+.featuresViewNCR p,
+.featuresManageAcc p {
+    font-size: 0.99em;
+    margin: 20px 0;
+}
+
+.featuresCreateNCR button,
+.featuresViewNCR button,
+.featuresManageAcc button {
+    border-radius: 20px;
+    width: 50%;
+    height: 35px;
+}
+
+/* Create page */
+/* Status Bar */
+.status-bar {
+    display: flex;
+    margin: 40px 0 20px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.status-bar div {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    transition: color 0.3s ease;
+
+}
+
+.status-bar div.active {
+    color: #1a3153;
+    font-weight: 600;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #1a3153;
+    transition: left 0.4s ease, width 0.4s ease;
+    width: var(--underline-width, 30%);
+    left: var(--underline-left, 0%);
+}
+
+/* create page  */
+/* Fieldset Styles */
+fieldset {
+    border: 1px solid #163650;
+    /* Example border style */
+    border-radius: 5px;
+    /* Rounded corners */
+    margin: 10px 0;
+    /* Space between fieldsets */
+}
+
+fieldset legend {
+    margin-top: 10px;
+    /* Space above the legend */
+    font-weight: bold;
+    /* Optional: make the legend text bold */
+    font-size: 1.2rem;
+    /* Optional: adjust the font size */
+}
+
+.createNcr-verticalLayout,
+.verticalLayout {
+    display: flex;
+    flex-direction: column;
+}
+
+#ncr-form {
+    text-align: center;
+}
+
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: flex;
+    padding: 20px;
+    margin: 25px 5px;
+    border-radius: 5px;
+    border: 2px solid #163650;
+    /* Added border style */
+    flex-direction: column;
+    text-align: center;
+}
+
+.form-section.active label {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.form-section.active button {
+    background-color: #1a3153;
+    color: #f4f4f4;
+    margin: 10px 10px;
+    height: 55px;
+    width: 95%;
+}
+
+.form-section p {
+    font-weight: bold;
+    text-align: center;
+    margin: 0;
+    /* Added margin reset */
+}
+
+.form-section span {
+    font-weight: normal;
+}
+
+.affirmation {
+    margin-top: 30px;
+}
+
+.btn-qa-create {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.form-section label,
+.form-section input,
+.form-section select {
+    display: block;
+    text-align: left;
+    margin-top: 10px;
+}
+
+.form-section textarea {
+    height: 200px;
+    font-size: 1rem;
+}
+
+.form-section textarea::placeholder {
+    padding: 10px;
+}
+
+.qa-info-section input,
+.qa-info-section select {
+    width: 100%;
+}
+
+.qa-process {
+    text-align: left;
+    border: none;
+    margin-top: 20px;
+}
+
+.item-marked-nonconforming {
+    border: none;
+}
+
+.qa-process input {
+    display: inline;
+    height: 15px;
+    width: 45px;
+}
+
+.item-conforming input,
+.item-conforming label {
+    display: inline;
+}
+
+.confirmation p {
+    text-align: left;
+    margin-top: 10px;
+    font-size: 1.05em;
+}
+
+.affirmation input,
+.affirmation label {
+    display: inline;
+    font-size: 0.85em;
+}
+
+/* Dropdown for qa-section  */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    /* Ensures label and span stack vertically */
+    padding: 5px;
+    /* Adds space inside the div */
+    overflow: hidden;
+    /* Clips any overflow */
+}
+
+#qa-section {
+    display: grid;
+    grid-template-rows: 1fr;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    /* or overflow: auto; */
+    box-sizing: border-box;
+}
+
+#qa-section label {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+#qa-section span {
+    white-space: normal;
+    text-align: left;
+    word-break: break-word;
+    /* Breaks long words */
+    overflow-wrap: break-word;
+
+}
+
+#qa-section label,
+#qa-section span {
+    margin-left: 25px;
+}
+
+/* View NCR */
+.verticalLayout {
+    width: 100%;
+    /* Ensure full width but no overflow */
+    text-align: center;
+    margin: 0 auto;
+}
+
+/* Filter Section */
+.filter-section {
+    margin: 0 auto;
+    /* Center align and prevent overflow */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 100%;
+    /* Prevent overflow on smaller screens */
+}
+
+/* Search Bar */
+#search,
+#date-filter {
+    width: 150px;
+    height: 30px;
+    color: #1a3153;
+}
+
+/* Status Filter */
+input[type="radio"].status-filter {
+    color: #1a3153;
+}
+
+/* Fieldset View NCR */
+.fieldset-viewncr {
+    border: 2px solid rgba(0, 0, 0, 0.621);
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    padding: 10px;
+    max-width: 100%;
+    border: none;
+    text-align: center;
+}
+
+.fieldset-viewncr label {
+    margin-top: 0px;
+    font-size: 1rem;
+}
+
+/* General Radio Button Style */
+input[type="radio"] {
+    color: #1a3153;
+}
+
+/* Radio Button Margin */
+.radio-btn {
+    margin-left: 30px;
+}
+
+/* Bold Text for Status and Record Count */
+#status-filter,
+#record-count {
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+#record-count {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/* Table */
+.ncr-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+.ncr-table thead th {
+    background-color: #4c6488;
+    color: #f4f4f4;
+    padding: 18px;
+    border-bottom: 2px solid #ccc;
+    font-weight: bold;
+}
+
+.ncr-table tbody td {
+    padding: 12px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.ncr-table tbody tr:nth-child(even) {
+    background-color: #d7e4f9;
+}
+
+.ncr-table tbody tr:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+
+.ncr-table tbody tr:hover {
+    background-color: #b8c4d5;
+}
+
+/* Responsive Layout - Show only selected columns on small screens */
+.ncr-table th,
+.ncr-table td {
+    display: none;
+}
+
+/* Mobile view - Show only 1st, 2nd, and 5th columns */
+.ncr-table thead th:nth-child(1),
+.ncr-table thead th:nth-child(2),
+.ncr-table thead th:nth-child(5),
+.ncr-table tbody td:nth-child(1),
+.ncr-table tbody td:nth-child(2),
+.ncr-table tbody td:nth-child(5) {
+    display: table-cell;
+}
+
+/* Manage account */
+.account {
+    border-radius: 10px 10px 0 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f4;
+    border: none;
+    margin-bottom: 0px;
+}
+
+.account legend {
+    justify-content: center;
+    text-align: center;
+}
+
+.account label {
+    margin-top: 20px;
+}
+
+.gradient-acc {
+    background: linear-gradient(to bottom, #a7bcdc, #1a3153);
+}
+
+.account button {
+    margin: 30px 0px;
+    background-color: #1a3153;
+    color: #f4f4f4;
+    width: 200px;
+}
+
+.account input,
+.account select {
+    width: 200px;
+}
+
+.account legend img {
+    height: 170px;
+    width: 170px;
+}
+
+
+/* Contact us */
+.fieldset-contact {
+    display: flex;
+    flex-direction: column;
+    /* Stack elements vertically */
+    text-align: left;
+}
+
+.fieldset-contact label {
+    font-weight: 600;
+}
+
+.fieldset-contact #name,
+.fieldset-contact #email {
+    height: 35px;
+    width: 95%;
+}
+
+.fieldset-contact #message {
+    width: 95%;
+    height: 90px;
+
+}
+
+/* Button Styling */
+.fieldset-contact button {
+    align-self: flex-end;
+    height: 45px;
+    width: 90px;
+    background-color: #4c6488;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    margin-right: 18px;
+}
+
+/* Button Hover Effect */
+.fieldset-contact button:hover {
+    background-color: #394b6a;
+}
+
+
+
+@media screen and (min-width: 768px) {
+
+    /*home*/
+    .main-container {
+        display: block;
+        text-align: center;
+        margin: 10px auto;
+    }
+
+    .main-container section {
+        display: inline-block;
+        width: 65%;
+    }
+
+    p {
+        margin-top: 5px;
+    }
+
+    .featuresCreateNCR,
+    .featuresViewNCR,
+    .featuresManageAcc {
+        margin: 20px 0px;
+        height: 150px;
+    }
+
+    .featuresCreateNCR h2,
+    .featuresViewNCR h2,
+    .featuresManageAcc h2 {
+        font-size: 1.5rem;
+    }
+
+    .featuresCreateNCR p,
+    .featuresViewNCR p,
+    .featuresManageAcc p {
+        font-size: 1rem;
+    }
+
+    /* create ncr*/
+
+    textarea {
+        height: 250px;
+        width: 85%;
+    }
+
+    #description-item {
+        margin: 18;
+    }
+
+    .qa-info-section {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+    }
+
+    .btn-qa-create {
+        align-self: flex-end;
+        width: 50%;
+    }
+
+    .two-rows {
+        display: grid;
+        grid-template-rows: repeat(2, 1fr);
+        align-self: flex-start;
+    }
+
+    .two-rows label {
+        margin-left: 36px;
+        margin-bottom: 10px;
+    }
+
+    .two-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .fieldset-margin fieldset {
+        margin-top: 10px;
+    }
+
+    .filter-section {
+        margin: 0px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+
+    .filter-section div {
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: left;
+    }
+
+    
+    .serach-bar,
+    .date-filter {
+        width: 65%;
+    }
+
+    .fieldset-viewncr {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+        width: 350px;
+    }
+
+    .ncr-table th,
+    .ncr-table td {
+        display: table-cell;
+        /* Show all table cells */
+    }
+
+    .fieldset-viewncr legend {
+        font-size: 1.2rem;
+        text-align: left;
+        margin-left: 8px;
+    }
+
+    .ncr-table {
+        font-size: 14px;
+    }
+
+    /*view ncr*/
+
+    .filter-section {
+        margin: 0 10px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: row;
+    }
+    .filter-section label{
+        margin-bottom: 10px;
+    }
+
+
+    /* account */
+    .account input,
+    .account select {
+        width: 500px;
+    }
+
+    .ncr-table th,
+    .ncr-table td {
+        display: table-cell;
+    }
+
+    /* Nav bar */
+    #menu-icon {
+        display: none;
+        /* Hide hamburger menu icon */
+    }
+
+    nav {
+        margin-left: auto;
+        /* Push nav to the right */
+    }
+
+    nav ul {
+        right: 0;
+        transition: none;
+        display: block;
+        background: transparent;
+        padding: 0;
+        margin: 0;
+        position: relative;
+    }
+
+    nav li {
+        display: inline-block;
+        position: relative;
+        margin: 0;
+    }
+
+    nav li a {
+        display: block;
+        padding: 5px 5px;
+        text-align: center;
+        text-decoration: none;
+        color: #000;
+    }
+
+    nav li ul.dropdown {
+        width: 100%;
+        position: absolute;
+        z-index: 999;
+        display: none;
+        background: #f4f4f4;
+        padding: 0;
+        margin: 45px 0;
+    }
+
+    nav li:hover ul.dropdown {
+        display: block;
+    }
+
+    nav li ul.dropdown li {
+        display: block;
+        margin: 0;
+    }
+     nav a:hover{
+        text-decoration: underline;
+     }
+
+}
+
+
+
+
+@media screen and (min-width: 1024px) {
+
+    /*header*/
+    header {
+        padding: 10px 25px;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid #163650;
+        height: 70px;
+    }
+
+    header img {
+        max-width: 250px;
+        margin-top: 0;
+    }
+
+    .logo-container {
+        display: flex;
+        align-items: center;
+    }
+
+
+    /*general*/
+    h1 {
+        font-size: 2rem;
+    }
+
+    label,
+    label {
+        font-size: 1rem;
+    }
+
+    /*home page*/
+    .main-container {
+        padding: 40px;
+    }
+
+    /*view ncr*/
+    .filter-section {
+        flex-direction: row;
+        margin: 20px 15px;
+    }
+
+    .serach-bar,
+    .date-filter {
+        width: 200px;
+    }
+
+    #record-count {
+        margin-bottom: 10px;
+    }
+
+
+
+
+    /* Home Page - Three-column Layout */
+    /*home*/
+    .main-container {
+        display: grid;
+        text-align: center;
+        margin: 10px auto;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .featuresCreateNCR,
+    .featuresViewNCR,
+    .featuresManageAcc {
+        padding-top: 315px;
+    }
+
+    .main-container section {
+        display: inline-block;
+        width: 95%;
+    }
+
+    .featuresCreateNCR,
+    .featuresViewNCR,
+    .featuresManageAcc {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        color: #fff;
+        flex: 0 1 30%;
+        height: 500px;
+        padding: 20px;
+        text-align: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        transition: transform 0.3s ease;
+        position: relative;
+    }
+
+    /* view ncr */
+
+    #search,
+    #date-filter {
+        width: 180px;
+    }
+
+    .filter-section {
+        margin: 0px 40px;
+    }
+
+    
+
+
+
+    p {
+        margin-top: 5px;
+    }
+
+
+
+    .featuresCreateNCR h2,
+    .featuresViewNCR h2,
+    .featuresManageAcc h2 {
+        font-size: 1.5rem;
+    }
+
+    .featuresCreateNCR p,
+    .featuresViewNCR p,
+    .featuresManageAcc p {
+        font-size: 1rem;
+    }
+
+    .featuresCreateNCR:hover,
+    .featuresViewNCR:hover,
+    .featuresManageAcc:hover {
+        transform: scale(1.05);
+    }
+
+}
+
+
+@media screen and (min-width: 2560px) {
+
+    /* General */
+    header img {
+        max-width: 400px;
+    }
+
+    footer {
+        font-size: 1.3em;
+        padding: 20px;
+    }
+
+    .linksNav,
+    .linksFooter {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    footer p {
+        font-size: 1.5rem;
+        padding: 10px 0px;
+    }
+
+    .indicator {
+        font-size: 1.7rem;
+        position: absolute;
+    }
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    label,
+    .featuresCreateNCR p,
+    .featuresViewNCR p,
+    .featuresManageAcc p {
+        font-size: 2rem;
+    }
+
+
+    .account input {
+        width: 600px;
+        font-size: 1.7rem;
+    }
+
+    .account select {
+        width: 620px;
+    }
+
+    .date-filter {
+        width: 500px;
+    }
+
+    .serach-bar {
+        width: 500px;
+    }
+
+    /*home page */
+    .main-container {
+        gap: 200px;
+        padding: 20px;
+        max-width: 1800px;
+    }
+
+    .featuresCreateNCR h2,
+    .featuresViewNCR h2,
+    .featuresManageAcc h2 {
+        font-size: 2.5rem;
+    }
+
+    button,
+    input[type="text"],
+    input[type="password"],
+    input[type="date"],
+    input[type="email"],
+    input[type="number"],
+    input[type="tel"],
+    select {
+        height: 60px;
+        font-size: 1.7rem;
+    }
+
+    .featuresCreateNCR,
+    .featuresViewNCR,
+    .featuresManageAcc {
+        height: 600px;
+    }
+
+    /* view ncr */
+    .filter-section {
+        margin: 40px 200px;
+    }
+
+    #search,
+    #date-filter {
+        width: 500px;
+    }
+
+    #status-filter,
+    #record-count {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .filter-section {
+        margin: 40px 200px;
+    }
+
+    .ncr-table thead th,
+    .ncr-table tbody td {
+        font-size: 1.7rem;
+    }
+
+
+    /* account*/
+
+    .account {
+        margin: 0px 300px;
+    }
+
+    .account label {
+        font-size: 2rem;
+    }
+
+    .fieldset-viewncr {
+        width: 550px;
+    }
+
+    /* account */
+    .account {
+        margin: 10px 300px 0px 300px;
+    }
+
+    .account legend img {
+        width: 350px;
+        height: 350px;
+    }
+}

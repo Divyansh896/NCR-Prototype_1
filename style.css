@@ -1,0 +1,1202 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+}
+.required{
+    color: red;
+    margin: 5px;
+}
+a {
+    text-decoration: none;
+}
+
+button, input[type="text"], input[type="password"], input[type="date"], input[type="email"], input[type="number"], input[type="tel"], select{
+    padding: 0px 10px;
+    height: 40px;
+    border-radius: 4px;
+    border: 2px solid #163650;
+    font-size: 1rem;
+}
+
+button {
+    background-color: #f4f4f4;
+    color: #163650;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: rgba(244, 244, 244, 0.7);
+}
+
+h1{
+    padding: 20px 0px;
+    text-align: center;
+    color: #1a3153;
+    font-size: 3rem;
+}
+
+
+.indicator{
+    color: red;
+    position: absolute;
+}
+/* Header */
+header {
+    padding: 10px 25px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #163650;
+}
+
+header img {
+    max-width: 300px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+/* Navigation */
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    display: inline-block; /* Keeps items inline but allows dropdown positioning */
+    margin-left: 20px;
+    position: relative; /* Enables dropdown positioning relative to this li */
+    padding: 10px 0; /* Ensures consistent spacing in the nav bar */
+}
+
+ul li ul.dropdown {
+    position: absolute; /* Absolutely position relative to parent */
+    top: 100%; /* Places dropdown just below the NCR item */
+    left: 0; /* Aligns dropdown exactly with the parent li */
+    background: beige;
+    display: none; /* Hides the dropdown by default */
+    padding: 0; /* Remove padding that may cause white space */
+    min-width: 100%; /* Ensure dropdown width matches the parent */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    z-index: 1000; /* Ensure dropdown appears above other elements */
+}
+
+ul li ul.dropdown li {
+    display: block;
+    padding: 10px 20px;
+    white-space: nowrap; /* Prevents text wrapping in the dropdown */
+}
+
+ul li:hover ul.dropdown {
+    display: block; /* Show the dropdown on hover */
+}
+
+.linksNav, .linksFooter {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.linksNav {
+    color: #1a3153;
+}
+
+.linksNav:hover{
+    color: #1d3456;
+}
+
+.linksFooter {
+    color: #dbc7c0;
+}
+
+.linksFooter:hover {
+    color: #9e7c70
+}
+
+.burger-menu {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.burger-menu img {
+    width: 30px;
+    height: auto;
+}
+
+/* Login Page */
+#login {
+    background-image: url('images/login.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.login-container {
+    max-width: 400px;
+    margin: auto;
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+/* Tooltip */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    cursor: help;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    bottom: 100%;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Footer */
+footer {
+    background-color: #163650;
+    padding: 7px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #dbc7c0;
+    
+}
+
+footer p{
+    padding: 10px 0px;
+}
+
+/* Home Page - Three-column Layout */
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 60px auto;
+}
+
+.featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #fff;
+    flex: 0 1 30%;
+    height: 500px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    position: relative;
+}
+
+.featuresCreateNCR:hover, .featuresViewNCR:hover, .featuresManageAcc:hover {
+    transform: scale(1.05);
+}
+
+.featuresCreateNCR {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/CreateNCR.webp");
+}
+
+.featuresViewNCR {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ViewNCR.webp");
+}
+
+.featuresManageAcc {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
+}
+
+.featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+    font-size: 2rem;
+}
+
+.featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p {
+    font-size: 1.5rem;
+    margin: 25px 0 20px;
+}
+
+/* Create NCR */
+.form-section {
+    display: none;
+}
+
+.form-section.active {
+    display: grid;
+    place-items: center;
+    position: relative;
+    padding: 20px;
+    margin: 30px 40px;
+    border-radius: 5px;
+    border-color: #163650;
+}
+
+.form-section.active label {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.form-section.active button {
+    background-color: #1a3153;
+    color: #f4f4f4;
+    margin: 20px;
+    width: 100px;
+}
+
+.confirm-create-qa{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    place-items: left;
+    gap: 200px;
+}
+
+.confirm-create-qa p{
+    margin-top: 15px;
+    font-size: 1.5rem;
+}
+
+.form-section p{
+    font-weight: bold;
+    left: 10px;
+    top: 0px;
+}
+
+.form-section span{
+    font-weight: normal;
+}
+
+.affirmation{
+    margin-top: 30px ;
+    display: flex;
+}
+
+input[type="checkbox"]{
+    margin-top: 10px;
+}
+
+.btn-qa-create {
+    display: flex;
+    justify-content: flex-end; /* Align the buttons to the right */
+    gap: 10px; /* Adds space between the buttons */
+}
+
+.qa-date, .qa-name {
+    font-size: 1rem;
+    border-color: #163650;
+}
+
+.qa-date {
+    height: 40px;
+    width: 300px;
+}
+
+.qa-name {
+    height: 30px;
+    width: 500px;
+    margin-bottom: 50px;
+}
+
+
+/* Status Bar */
+.status-bar {
+    display: flex;
+    margin: 40px 0 20px;
+    position: relative;
+    justify-content: space-between;
+}
+
+.status-bar div {
+    width: 30%;
+    padding: 10px;
+    text-align: center;
+    color: black;
+    transition: color 0.3s ease;
+    
+}
+
+.status-bar div.active {
+    color: #1a3153;
+    font-weight: 600;
+}
+
+.status-bar::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    height: 2px;
+    background-color: #1a3153;
+    transition: left 0.4s ease, width 0.4s ease;
+    width: var(--underline-width, 30%);
+    left: var(--underline-left, 0%);
+}
+
+/*View NCR*/
+
+/*search fields*/
+.filter-section{
+    margin: 0px 200px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.serach-bar{
+    width: 300px;
+    color: #1a3153;
+}
+
+.date-filter{
+    width: 300px;
+    color: #1a3153;
+}
+
+.status-filter[type="radio"]{
+    color: #1a3153;
+}
+
+.fieldset-viewncr {
+    border: none;
+    display: flex;
+    align-items: center;
+}
+
+input[type="radio" i]{
+    color: #1a3153;
+}
+
+.radio-btn{
+    margin-left: 30px;
+}
+
+#status-filter, #record-count{
+    font-weight: bold;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+#record-count{
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+/*table*/
+
+.ncr-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-family: Arial, sans-serif;
+}
+
+.ncr-table thead th {
+    background-color: #4c6488;
+    color: #f4f4f4;
+    padding: 22px;
+    border-bottom: 2px solid #ccc;
+    font-weight: bold;
+}
+
+.ncr-table tbody td {
+    padding: 22px;
+    border-bottom: 1px solid #e0e0e0;
+}
+  
+
+.ncr-table tbody tr:nth-child(even) {
+    background-color: #d7e4f9;
+}
+  
+.ncr-table tbody tr:nth-child(odd) {
+    background-color: #f4f4f4;
+}
+  
+.ncr-table tbody tr:hover {
+    background-color: #b8c4d5;
+}
+
+
+/* Contact Us */
+
+.fieldset-contact{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+    border-style: none;
+}
+
+.fieldset-contact legend{
+    font-weight: 600;
+    font-size: 2rem;
+    margin-top: 20px;
+    color: #1a3153;
+}
+
+.fieldset-contact input{
+    width: 300px;
+}
+
+.fieldset-contact label{
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+textarea{
+    width: 600px;
+    height: 350px;
+    padding: 10px;
+    font-size: 1rem;
+}
+
+.btn-contact{
+    margin-top: 30px;
+    background-color: #1a3153;
+    color: #f4f4f4;
+    width: 200px;
+
+}
+
+.btn-contact:hover{
+    background-color: #0a1a31;
+}
+
+
+/* Create NCR QA */
+
+.qa-info-section{
+    display: grid;
+    grid-template-columns:1fr 1fr;
+    gap: 200px;
+    justify-content: space-between;
+    align-items: center;
+    align-items: start;
+}
+
+.qa-info-section > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+}
+
+.qa-info-section input[type="text"],
+.qa-info-section input[type="number"]{
+    width: 300px;
+    margin-bottom: 10px;
+}
+
+.qa-process{
+    display: inline-flex;
+    justify-content: center;
+    border: none;
+}
+
+.qa-process label{
+    margin-right: 30px;
+}
+
+.qa-process legend{
+    text-align: center;
+    margin-top: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.form-section.active legend{
+    color: #1a3153;
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+#product-info, #product-desc, #confirmation{
+    font-size: 2rem;
+}
+
+/*Product decsription step*/
+
+.item-conforming{
+    display: flex;
+}
+
+/* Confiramtion section*/
+
+
+/* Account */
+
+.account{
+    margin: 0px 100px;
+    border-radius: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: #f4f4f4;
+    border: none;
+}
+
+.account legend{
+    justify-content: center;
+    text-align: center;
+}
+
+.account label{
+    margin-top: 20px;
+}
+
+.account input{
+    width: 500px;
+}
+
+.account select{
+    width: 520px;
+}
+
+.gradient-acc{
+    background: linear-gradient(to bottom, #a7bcdc, #1a3153);
+}
+
+.account button{
+    margin: 30px 0px;
+    background-color: #1a3153;
+    color: #f4f4f4;
+    width: 200px;
+}
+
+/* NcReport css */
+
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+.form-container {
+    width: 90%;
+    margin: 20px auto;
+    background: #f4f4f4;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-container label {
+    font-weight: bold;
+    color: #1a3151;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.form-row-engineer{
+    display: flex;
+    justify-content: center;
+    gap: 2%;
+    margin: 20px 0px;
+}
+
+.form-group {
+    color: #1a3151;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+textarea {
+    resize: vertical;
+    border-width: 2px;
+    border-radius: 5px;
+}
+
+.text-descr{
+    display: flex;
+    justify-content: center;
+    gap: 7%;
+}
+
+.desc-engineer{
+    align-items: center;
+}
+
+.rad-report, .btn-report{
+    display: flex;
+    justify-content: center;
+}
+
+.rad-report input[type="radio"] {
+    margin: 0px 5px 0px 15px;
+}
+
+.btn-report{
+    gap: 70px;
+}
+
+/* Dropdown Styling */
+.dropdown {
+    margin-bottom: 20px;
+    border-bottom: 2px solid #333;
+}
+
+.dropdown .dropdown-header {
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #1a3151;
+}
+
+.dropdown .arrow {
+    transition: transform 0.3s ease;
+    color: #1a3151;
+}
+
+.dropdown-content {
+    display: none;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.dropdown.open .dropdown-content {
+    display: block;
+}
+
+button.save {
+    background-color: #1a3151;
+    color: #f4f4f4;
+}
+
+button.edit {
+    background-color: #1a3151;
+    color: #f4f4f4;
+}
+
+/* DETAILS */
+
+details {
+    position: relative; /* Position relative to place the arrow */
+    width: 100%; /* Ensure it spans the entire width */
+}
+
+.custom-summary {
+    list-style: none; /* Remove default list style */
+    cursor: pointer; /* Change cursor to pointer */
+    padding: 10px 30px; /* Add vertical padding for better spacing */
+    display: block; /* Make the summary a block element to span full width */
+    position: relative; /* Position relative for the underline */
+    text-decoration: none; /* Remove default underline */
+    font-weight: 600;
+}
+
+/* Underline effect only for the summary */
+.custom-summary::after {
+    content: ""; /* Create an underline effect */
+    position: absolute;
+    left: 0;
+    bottom: 0; /* Position at the bottom of the summary */
+    height: 2px; /* Thickness of the underline */
+    width: 100%; /* Full width underline */
+    background-color: black; /* Color of the underline */
+}
+
+.custom-summary::before {
+    content: '<'; /* Custom arrow */
+    position: absolute; /* Position absolute to place the arrow */
+    right: 50px; /* Align the arrow to the right */
+    top: 50%; /* Center vertically */
+    transform: translateY(-50%); /* Adjust to be centered */
+    font-size: 1.5em; /* Adjust size if needed */
+    transition: transform 0.3s ease; /* Smooth transition for rotation */
+}
+
+details[open] .custom-summary::before {
+    transform: translateY(-50%) rotate(-90deg); /* Rotate to point down */
+}
+
+.record-summ{
+    display: inline-block;
+    align-items: center;
+}
+
+
+/* MEDIA */
+
+@media screen and (max-width: 1024px){
+
+    /*general*/
+    h1{font-size: 2rem;}
+
+    label, label{
+        font-size: 1rem;
+    }
+    /*home page*/
+    .main-container{
+        padding: 40px;
+    }
+
+    /*view ncr*/
+    .filter-section{
+        margin: 20px 70px;
+    }
+    .serach-bar, .date-filter {
+        width: 200px;
+    }
+
+    #record-count {
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 768px){
+
+    /* general*/
+
+    h1{ font-size: 2rem;}
+
+    header img {
+        max-width: 200px;
+    }
+
+    .burger-menu {
+        display: block; /* Show burger menu on smaller screens */
+        position:absolute;
+        right: 20px;
+    }
+
+    nav ul.nav-list {
+        display: none; /* Initially hide the navigation */
+        flex-direction: column;
+        padding-left: 0;
+    }
+
+    nav ul.nav-list.active {
+        display: flex; /* Show navigation when burger menu is active */
+    }
+
+    nav li {
+        display: block; /* Stack navigation items vertically */
+        margin-left: 0;
+    }
+
+    nav ul li ul.dropdown {
+        position: relative;
+    }
+
+    .linksNav{
+        display: none;
+    }
+
+    nav ul{
+        display: none;
+    }
+
+    footer p{
+        padding: 5px 0px;
+    }
+
+    /*home*/
+    .main-container {
+        display: block;
+        text-align: center; /* Centers the containers for smaller screens */
+        margin: 10px auto;
+    }
+
+    .main-container section {
+        display: inline-block;
+        width: 80%;
+    }
+
+    p{
+        margin-top: 5px;
+    }
+
+    .featuresCreateNCR div{
+        align-self: baseline;
+    }
+    .featuresCreateNCR, .featuresViewNCR, .featuresManageAcc{
+        margin: 20px 0px;
+        height: 150px;
+    }
+
+    .featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+        font-size: 1.5rem;
+    }
+    .featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p {
+        font-size: 1rem;
+    }
+
+    /* create ncr*/
+
+    .form-section.active{
+        margin: 30px 20px;
+    }
+    .qa-info-section{
+        display:inline-block;
+    }
+
+    .qa-process{
+        flex-direction: column;
+    }
+
+    .qa-info-section label, .qa-info-section input[type="text"], .qa-info-section input[type="number"] {
+        width: 200px;
+    }
+
+    .form-section.active legend, .fieldset-contact legend{
+        font-size: 1.5rem;
+    }
+
+    .form-section.active label, .filter-section label{
+        font-size: 1.2rem;
+        margin-bottom: 0px;
+    }
+
+    .form-section.active button{
+        margin: 10px 5px;
+    }
+   
+
+    textarea{
+        height: 200px;
+        width: 200px;
+    }
+
+   
+     /* view ncr */
+     .filter-section {
+        margin: 0px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .filter-section div {
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: center;
+    }
+    .serach-bar, .date-filter {
+        width: 65%;
+    }
+
+    .fieldset-viewncr {
+        flex-direction: row;
+        justify-content: center;
+        gap: 8px;
+    }
+    .fieldset-viewncr legend{
+        font-size: 1.2rem;
+    }
+
+    .ncr-table {
+        font-size: 14px;
+    }
+
+    /* Account */
+
+    .account{
+        margin: 0px 0px;
+        border-radius: 10px 10px 0 0;
+    }
+    .account label {
+        margin-top: 10px;
+    }
+
+    .account legend img {
+        height: 200px;
+        width: 200px;
+    }
+    
+        
+    .form-row, .text-descr, .form-row-engineer{
+        display: inline-block;
+    }
+}
+
+@media screen and (max-width: 426px){
+
+    h1{ font-size: 1.5rem;}
+
+    .filter-section input, .fieldset-contact input, .account input {
+        margin-bottom: 10px;
+    }
+
+    
+    /*account*/
+    .account select {
+        width: 220px;
+    }
+
+    .account legend img{ 
+        height: 170px;
+        width: 170px;
+    }
+    
+    /*view ncr*/
+    .filter-section {
+        margin: 0;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .filter-section div {
+        width: 100%;
+        margin-bottom: 10px;
+        text-align: center;
+    }
+
+    .serach-bar, .date-filter {
+        width: 45%; /* Take up most of the screen width */
+    }
+
+    .fieldset-viewncr {
+        justify-content: center;
+        flex-direction: row;
+        gap: 8px;
+    }
+
+    .radio-btn {
+        margin-left: 2px;
+    }
+
+    #record-count {
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .ncr-table thead th {
+        padding: 10px 5px;
+        font-size: 15px;
+    }
+
+    .ncr-table tbody td {
+        padding: 10px 5px;
+        font-size: 15px;
+    }
+}
+
+@media screen and (max-width: 376px){
+    .fieldset-viewncr {
+        flex-direction: row;
+        justify-content: center;
+        gap: 6px;
+    }
+
+    .ncr-table thead th {
+        padding: 10px 5px;
+        font-size: 13px;
+    }
+
+    .radio-btn {
+        margin-left: 2px;
+    }
+
+    .ncr-table tbody td {
+        padding: 10px 5px;
+        font-size: 12px;
+    }
+
+    .form-section.active label, .filter-section label {
+        font-size: 0.8rem;
+    }
+
+    .filter-section input, .fieldset-contact input, .account input {
+        font-size: 0.8rem;
+    }
+
+    .linksNav, .linksFooter {
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width:321px) {
+
+    .fieldset-viewncr {
+        flex-direction: row; /* Stack buttons vertically on very small screens */
+        align-items: center;
+        gap: 5px; /* Add vertical space between items */
+    }
+
+    .ncr-table thead th {
+        padding: 10px 5px;
+        font-size: 10px;
+    }
+
+    .radio-btn {
+        margin-left: 0; /* Remove margin when stacked vertically */
+    }
+    .ncr-table tbody td {
+        font-size: 10px;
+    }
+    .radio-btn {
+        margin-left: 0; /* Remove margin when stacked vertically */
+    }
+
+    #status-filter, #record-count {
+        font-weight: bold;
+        font-size: 0.8rem;
+    }
+}
+
+
+
+@media screen and (min-width: 1440px){
+    
+}
+
+@media screen and (min-width: 2560px){
+
+    /* General */
+    header img {
+        max-width: 400px;
+    }
+
+    footer{
+        font-size: 1.3em;
+        padding: 20px;
+    }
+
+    .linksNav, .linksFooter {
+        font-weight: bold;
+        font-size: 1.5rem;
+    }
+
+    footer p{
+        font-size: 1.5rem;
+        padding: 10px 0px;
+    }
+
+    .indicator{
+        font-size: 1.7rem;
+        position: absolute;
+    }
+
+    h1{
+        font-size: 3.5rem;
+    }
+
+    label, .featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p  {
+        font-size: 2rem;
+    }
+
+    .date-filter {
+        width: 500px;
+    }
+
+    .serach-bar{width: 500px;}
+    /*home page */
+    .main-container{
+    gap: 200px;
+    padding: 20px;
+    max-width: 1800px;
+    }
+
+    .featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+        font-size: 2.5rem;
+    }
+
+    button, input[type="text"], input[type="password"], input[type="date"], input[type="email"], input[type="number"], input[type="tel"], select {
+        height: 60px;
+        font-size: 1.7rem;
+    }
+
+    .featuresCreateNCR, .featuresViewNCR, .featuresManageAcc{
+        height: 600px;
+    }
+
+    /*view ncr*/
+    #status-filter, #record-count {
+        font-weight: bold;
+        font-size: 2rem;
+        margin-bottom: 15px;
+    }
+
+    .filter-section{
+        margin: 40px 200px;
+    }
+
+    .ncr-table thead th, .ncr-table tbody td {
+        font-size: 1.7rem;
+    }
+
+    /* account*/
+
+    .account{
+        margin: 0px 300px;
+    }
+
+    .account label {
+        font-size: 2rem;
+    }
+
+    .account input {
+        width: 600px;
+        font-size: 1.7rem;
+    }
+    
+    .account select {
+        width: 620px;
+    }
+
+    .account legend img{
+        width: 350px;
+        height: 350px;
+    }
+
+}

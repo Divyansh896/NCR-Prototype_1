@@ -1,0 +1,223 @@
+/* Set full height for the body and html */
+html,
+body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+main {
+    flex: 1;
+    /* Allow main content to grow and push footer to bottom */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    width: 95%;
+}
+
+/* header */
+header {
+    padding: 10px 25px;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #163650;
+    height: 70px;
+}
+
+header img {
+    max-width: 250px;
+    margin-top: 40px;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+
+
+#login {
+    background-image: url('images/login.webp');
+    background-size: cover;
+    background-position: center;
+    color: white;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+}
+
+/* Glassmorphism effect for the login container */
+.login-container {
+    background: rgba(255, 255, 255, 0.2);
+    /* Semi-transparent white background */
+    backdrop-filter: blur(10px);
+    /* Frosted glass effect */
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    /* Adjust the width as needed */
+    height: 400px;
+    text-align: left;
+    /* Align text to the left */
+}
+
+/* Logo and header alignment */
+.logo-container {
+    display: flex;
+    align-items: center;
+    /* Align logo and text vertically */
+    justify-content: center;
+    margin-bottom: 3rem;
+    /* Space below logo-container */
+}
+
+/* Header styles */
+#login-header {
+    font-size: 1.5rem;
+}
+
+/* Label styles */
+label {
+    display: block;
+    /* Makes labels take up the full width */
+    margin-top: 1rem;
+    /* Space above each label */
+    font-size: 1.1rem;
+}
+
+/* Input styles */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    /* Ensure full width */
+    padding-top: 10px;
+    margin: 5px 0;
+    /* Space above and below the input */
+    border: none;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+    /* Underlined effect */
+    border-width: 100%;
+    background: transparent;
+    /* No background */
+    color: white;
+    /* Input text color */
+    outline: none;
+    /* Remove default outline */
+    font-size: 1.1rem;
+}
+
+input[type="text"]::placeholder,
+input[type="password"]::placeholder {
+    color: #ffffff8a;
+    font-size: 0.95rem;
+}
+
+/* Button styles */
+#btn-login {
+    width: 100%;
+    margin-top: 25px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(0, 123, 255, 0.7);
+    /* Button background color */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border-radius: 25px;
+}
+
+#btn-login:hover {
+    background-color: rgba(1, 108, 221, 0.9);
+    /* Darker shade on hover */
+}
+
+#login-footer {
+    text-align: center;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.6);
+    /* Dark background for footer */
+    width: 100%;
+}
+
+#login-footer a {
+    color: white;
+}
+
+#login-footer a:hover {
+    color: #a7a3a1;
+}
+
+/* Footer for all pages */
+.linksNav,
+.linksFooter {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.linksNav {
+    color: #1a3153;
+}
+
+.linksNav:hover {
+    color: #1d3456;
+}
+
+.linksFooter {
+    color: #dbc7c0;
+}
+
+.linksFooter:hover {
+    color: #9e7c70
+}
+
+@media screen and (min-width: 768px) {
+
+    label {
+        font-size: 1.05em;
+        
+    }
+
+    input[type="text"],
+    input[type="password"] {
+        font-size: 1.15em;
+    }
+
+    input[type="text"]::placeholder,
+    input[type="password"]::placeholder {
+        color: #ffffff8a;
+        font-size: 1.1rem;
+    }
+    #login-header{
+        font-size: 1.8em;
+        text-align: center;
+        margin: 0;
+    }
+    .logo-container{
+        display: block;
+        text-align: center;
+    }
+    .login-container{
+        width: 350px;
+    }
+    .login-container img{
+        width: 155px;
+        height: auto;
+    }
+
+    
+}
+
+@media screen and (min-width: 1024px){
+    label{
+        font-size: 1.45em;
+    }
+    
+}
