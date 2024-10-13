@@ -23,27 +23,18 @@
         </div>
 
         <nav aria-label="Primary Navigation">
-            <a href="#" id="menu-icon"></a>
+            <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
                 <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
-                <!-- Set tabindex to sequential order -->
                 <li><a href="contact_us.html" class="linksNav" tabindex="2" aria-label="Contact us">Contact Us</a></li>
-                <!-- Set tabindex to sequential order -->
                 <li>
-                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false"
-                        aria-label="NCR options">NCRs</a>
+                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false" aria-label="NCR options" id="ncr-toggle">NCRs</a>
                     <ul class="dropdown" aria-label="NCR Dropdown Menu">
-                        <li><a href="create_ncr.html" class="linksNav" tabindex="4"
-                                aria-label="Create a new Non-Conformance Report">Create</a></li>
-                        <!-- Set tabindex to sequential order -->
-                        <li><a href="view_ncr.html" class="linksNav" tabindex="5"
-                                aria-label="View existing Non-Conformance Reports">View</a></li>
-                        <!-- Set tabindex to sequential order -->
+                        <li><a href="create_ncr.html" class="linksNav" tabindex="4" aria-label="Create a new Non-Conformance Report">Create</a></li>
+                        <li><a href="view_ncr.html" class="linksNav" tabindex="5" aria-label="View existing Non-Conformance Reports">View</a></li>
                     </ul>
                 </li>
-                <li><a href="account.html" class="linksNav" tabindex="6"
-                        aria-label="Manage your account settings">Account</a></li>
-                <!-- Set tabindex to sequential order -->
+                <li><a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">Account</a></li>
             </ul>
         </nav>
     </header>
@@ -320,6 +311,7 @@
 
     <script src="script/create-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
+    <script src="script/navbar.js"></script>
 
 </body>
 

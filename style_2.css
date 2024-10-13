@@ -603,22 +603,11 @@ input[type="radio"] {
 #status-filter,
 #record-count {
     font-weight: bold;
-    margin-top: 10px;
+    margin-bottom: 15px;
 }
 
 #record-count {
     margin-top: 10px;
-}
-
-#status-filter{
-    text-align: center;
-}
-
-.rdn-view{
-    border: none;
-}
-.horizontal{
-    display: flex;
 }
 
 /* Table */
@@ -855,11 +844,10 @@ input[type="radio"] {
     }
 
 
-    .filter-section {
-        margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+    .filter-section div {
+        margin-bottom: 15px;
+        width: 100%;
+        text-align: left;
     }
 
     
@@ -895,27 +883,19 @@ input[type="radio"] {
 
     
 
-    .filter-section label, #status-filter {
-        text-align: left;
+    .filter-section {
+        margin: 0 10px;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: row;
+    }
+    .filter-section label{
+        margin-bottom: 10px;
     }
 
     .main-container section {
         width: 100%;
     }
-
-    #record-count {
-        text-align: left;
-    }
-
-    #search, #date-filter {
-        width: 350px;
-    }
-
-    .ncr-table th, .ncr-table td {
-        font-size: 16px;
-    }
-    #search, #date-filter {
-    width: 350px;
     /* account */
     .account input,
     .account select {
@@ -932,8 +912,8 @@ input[type="radio"] {
         display: table-cell;
     }
 
-    /* Nav bar */
-    #menu-icon {
+     /* Nav bar */
+     #menu-icon {
         display: none;
         /* Hide hamburger menu icon */
     }
@@ -1046,7 +1026,7 @@ input[type="radio"] {
         margin-bottom: 10px;
     }
 
-    
+
 
 
     /* Home Page - Three-column Layout */
@@ -1094,16 +1074,13 @@ input[type="radio"] {
     }
     /* view ncr */
 
-    #search, #date-filter {
-        width: 250px;
+    #search,
+    #date-filter {
+        width: 180px;
     }
 
     .filter-section {
         margin: 0px 40px;
-    }
-
-    #record-count {
-        margin: 20px 0px 10px 0px;
     }
 
     p {
@@ -1121,8 +1098,6 @@ input[type="radio"] {
         transform: scale(1.05);
     }
 
-    
-
     /*account*/
     .account {
         margin: 0px 100px;
@@ -1131,7 +1106,6 @@ input[type="radio"] {
 }
 @media screen and (min-width: 1440px){
 
-    /*geenral*/
     h1{
         font-size: 3rem
     }
@@ -1144,6 +1118,7 @@ input[type="radio"] {
         font-size: 2rem;
     }
 
+
     /*account*/
     .account {
         margin: 0px 100px;
@@ -1155,8 +1130,6 @@ input[type="radio"] {
     }
 
     /*view ncr*/
-
-    
     #search, #date-filter {
         width: 350px;
     }
@@ -1285,13 +1258,13 @@ input[type="radio"] {
     #search,
     #date-filter {
         width: 500px;
-        height: 60px;
     }
 
     #status-filter,
     #record-count {
         font-weight: bold;
         font-size: 2rem;
+        margin-bottom: 15px;
     }
 
     .filter-section {
@@ -1301,7 +1274,6 @@ input[type="radio"] {
     .ncr-table thead th,
     .ncr-table tbody td {
         font-size: 1.7rem;
-        padding: 20px;
     }
 
     /*create cncr*/
@@ -1350,4 +1322,4 @@ input[type="radio"] {
         width: 350px;
         height: 350px;
     }
-}}
+}
