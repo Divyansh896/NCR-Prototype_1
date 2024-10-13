@@ -10,6 +10,7 @@
     <meta name="author" content="Mark">
     <title>Home - Crossfire</title>
     <link rel="stylesheet" href="style_2.css">
+    <link rel="stylesheet" href="breadcrumb.css">
 </head>
 
 <body>
@@ -37,7 +38,7 @@
                         <li><a href="view_ncr.html" class="linksNav" tabindex="5"
                                 aria-label="View existing Non-Conformance Reports">View</a></li>
                         <!-- Set tabindex to sequential order -->
-                    </ul> 
+                    </ul>
                 </li>
                 <li><a href="account.html" class="linksNav" tabindex="6"
                         aria-label="Manage your account settings">Account</a></li>
@@ -48,6 +49,17 @@
 
     <!-- Main Section -->
     <main class="main-container" aria-label="Main Content">
+        <!-- indication of current page -->
+        <div class="container" id="brdcrmb">
+            <!-- nav element add an attribute "aria-label="breadcrumb""-->
+            <nav aria-label="breadcrumb">
+                <!-- create ol or ul list and add class="breadcrumb" -->
+                <ul class="breadcrumb" id="brdcrb">
+                    <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ul>
+            </nav>
+        </div>
         <!-- Section 1: Create NCR -->
         <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
             <div>
@@ -90,6 +102,7 @@
     </footer>
 
     <script src="script/home-ncr.js"></script>
+    <script src="script/breadcrumb.js"></script>
 </body>
 
 </html>

@@ -9,6 +9,7 @@
     <meta name="author" content="Mark">
     <title>Contact Us - Crossfire</title>
     <link rel="stylesheet" href="style_2.css">
+    <link rel="stylesheet" href="breadcrumb.css">
 </head>
 
 <body>
@@ -17,59 +18,81 @@
         <div class="logo-container" aria-label="Crossfire Company Logo">
             <img src="images/logo.webp" alt="Crossfire Company Logo">
         </div>
-       
+
         <nav aria-label="Primary Navigation">
             <a href="#" id="menu-icon"></a>
             <ul>
                 <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
                 <li><a href="contact_us.html" class="linksNav" tabindex="2" aria-label="Contact us">Contact Us</a></li>
                 <li>
-                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false" aria-label="NCR options">NCRs</a>
+                    <a href="#" class="linksNav" tabindex="3" aria-haspopup="true" aria-expanded="false"
+                        aria-label="NCR options">NCRs</a>
                     <ul class="dropdown" aria-label="NCR Dropdown Menu">
-                        <li><a href="create_ncr.html" class="linksNav" tabindex="4" aria-label="Create a new Non-Conformance Report">Create</a></li>
-                        <li><a href="view_ncr.html" class="linksNav" tabindex="5" aria-label="View existing Non-Conformance Reports">View</a></li>
+                        <li><a href="create_ncr.html" class="linksNav" tabindex="4"
+                                aria-label="Create a new Non-Conformance Report">Create</a></li>
+                        <li><a href="view_ncr.html" class="linksNav" tabindex="5"
+                                aria-label="View existing Non-Conformance Reports">View</a></li>
                     </ul>
                 </li>
-                <li><a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">Account</a></li>
+                <li><a href="account.html" class="linksNav" tabindex="6"
+                        aria-label="Manage your account settings">Account</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Main Section -->
     <main>
+        <!-- indication of current page -->
+        <div class="container" id="brdcrmb">
+            <!-- nav element add an attribute "aria-label="breadcrumb""-->
+            <nav aria-label="breadcrumb">
+                <!-- create ol or ul list and add class="breadcrumb" -->
+                <ul class="breadcrumb" id="brdcrb">
+                    <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                    <li class="breadcrumb-item active" aria-current="page">Home</li>
+                </ul>
+            </nav>
+        </div>
         <div>
-        <h1>Do you have any queries?</h1>
-        <form action="https://webdevbasics.net/scripts/demo.php" method="post" aria-labelledby="contact-form-header">
-            <fieldset class="fieldset-contact">
-                <legend id="contact-form-header">Contact Us!</legend>
-                
-                <label for="name" aria-label="Your name">Name:<span class="required">*</span></label>
-                <input type="text" id="name" name="name" placeholder="Enter your name" required aria-required="true" aria-describedby="name-tooltip" tabindex="7">
-                <span id="name-tooltip" class="tooltip"></span>
+            <h1>Do you have any queries?</h1>
+            <form action="https://webdevbasics.net/scripts/demo.php" method="post"
+                aria-labelledby="contact-form-header">
+                <fieldset class="fieldset-contact">
+                    <legend id="contact-form-header">Contact Us!</legend>
 
-                <label for="email" aria-label="Your email address">Email:<span class="required">*</span></label>
-                <input type="email" id="email" name="email" placeholder="Enter your email" required aria-required="true" aria-describedby="email-tooltip" tabindex="8">
-                <span id="email-tooltip" class="tooltip"></span>
+                    <label for="name" aria-label="Your name">Name:<span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Enter your name" required aria-required="true"
+                        aria-describedby="name-tooltip" tabindex="7">
+                    <span id="name-tooltip" class="tooltip"></span>
 
-                <label for="message" aria-label="Your message">Message:<span class="required">*</span></label>
-                <textarea id="message" name="message" rows="4" placeholder="Write your message here" required aria-required="true" aria-describedby="message-tooltip" tabindex="9"></textarea>
-                <span id="message-tooltip" class="tooltip"></span>
+                    <label for="email" aria-label="Your email address">Email:<span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required
+                        aria-required="true" aria-describedby="email-tooltip" tabindex="8">
+                    <span id="email-tooltip" class="tooltip"></span>
 
-                <button class="btn-contact" id="send-msg" type="submit" tabindex="10">Send</button>
-            </fieldset>
-        </form>
-    </div>
+                    <label for="message" aria-label="Your message">Message:<span class="required">*</span></label>
+                    <textarea id="message" name="message" rows="4" placeholder="Write your message here" required
+                        aria-required="true" aria-describedby="message-tooltip" tabindex="9"></textarea>
+                    <span id="message-tooltip" class="tooltip"></span>
+
+                    <button class="btn-contact" id="send-msg" type="submit" tabindex="10">Send</button>
+                </fieldset>
+            </form>
+        </div>
     </main>
 
     <!-- Footer -->
     <footer id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="11">Privacy Policy</a> | 
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="11">Privacy
+                Policy</a> |
             <a href="contact_us.html" class="linksFooter" aria-label="Go to Contact Us" tabindex="12">Contact Us</a>
         </p>
     </footer>
     <script src="script/contactUs.js"></script>
+    <script src="script/breadcrumb.js"></script>
 
 </body>
+
 </html>
