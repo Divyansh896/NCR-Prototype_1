@@ -977,10 +977,6 @@ input[type="radio"] {
         margin: 45px 0;
     }
 
-    nav li:hover ul.dropdown {
-        display: block;
-    }
-
     nav li ul.dropdown li {
         display: block;
         margin: 0;
