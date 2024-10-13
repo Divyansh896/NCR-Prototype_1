@@ -11,6 +11,7 @@
 
 .indicator {
     color: red;
+    text-align: left;
 }
 
 /* Set full height for the body and html */
@@ -63,7 +64,7 @@ h1 {
     padding: 20px 0px;
     text-align: center;
     color: #1a3153;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 
@@ -73,7 +74,7 @@ header {
     background-color: #f4f4f4;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     border-bottom: 1px solid #163650;
     height: 70px;
 }
@@ -124,7 +125,7 @@ nav:hover ul {
 }
 
 /* Adjust submenu styling */
-nav li ul.dropdown {
+ nav li ul.dropdown {
     display: none;
     position: relative;
     top: 100%;
@@ -264,9 +265,7 @@ label {
     margin: 25px auto;
 }
 
-.featuresCreateNCR,
-.featuresViewNCR,
-.featuresManageAcc {
+.featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -280,7 +279,6 @@ label {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     width: 100%;
-
 }
 
 .featuresCreateNCR {
@@ -405,13 +403,12 @@ fieldset legend {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
-    height: 55px;
+    height: 40px;
     width: 95%;
 }
 
 .form-section p {
     font-weight: bold;
-    text-align: center;
     margin: 0;
     /* Added margin reset */
 }
@@ -441,6 +438,7 @@ fieldset legend {
 .form-section textarea {
     height: 200px;
     font-size: 1rem;
+    width: 100%;
 }
 
 .form-section textarea::placeholder {
@@ -468,9 +466,19 @@ fieldset legend {
     width: 45px;
 }
 
+.item-conforming{
+    text-align: left;
+    border: none;
+}
+
 .item-conforming input,
 .item-conforming label {
     display: inline;
+    
+}
+
+.item-conforming legend{
+    text-align: left;
 }
 
 .confirmation p {
@@ -484,6 +492,13 @@ fieldset legend {
     display: inline;
     font-size: 0.85em;
 }
+
+.media{
+    border: none;
+    margin-top: 20px;
+}
+
+
 
 /* Dropdown for qa-section  */
 .form-group {
@@ -733,20 +748,28 @@ input[type="radio"] {
 }
 
 
+/*media*/
+@media screen and (min-width: 320px) {
+    header {
+        padding: 10px 10px;
+    }
+
+    header img {
+        max-width: 200px;
+    }
+}
 
 @media screen and (min-width: 768px) {
-
+    h1 {
+        font-size: 2rem;
+    }
     /*home*/
     .main-container {
         display: block;
         text-align: center;
-        margin: 10px auto;
+        margin: 10px 100px;
     }
 
-    .main-container section {
-        display: inline-block;
-        width: 65%;
-    }
 
     p {
         margin-top: 5px;
@@ -755,14 +778,14 @@ input[type="radio"] {
     .featuresCreateNCR,
     .featuresViewNCR,
     .featuresManageAcc {
-        margin: 20px 0px;
-        height: 150px;
+        margin: 40px 0px;
+        height: 250px;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
     .featuresManageAcc h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .featuresCreateNCR p,
@@ -859,6 +882,8 @@ input[type="radio"] {
 
     /*view ncr*/
 
+    
+
     .filter-section {
         margin: 0 10px;
         display: flex;
@@ -869,11 +894,18 @@ input[type="radio"] {
         margin-bottom: 10px;
     }
 
-
+    .main-container section {
+        width: 100%;
+    }
     /* account */
     .account input,
     .account select {
         width: 500px;
+    }
+
+    .account legend img {
+        height: 200px;
+        width: 200px;
     }
 
     .ncr-table th,
@@ -881,8 +913,8 @@ input[type="radio"] {
         display: table-cell;
     }
 
-    /* Nav bar */
-    #menu-icon {
+     /* Nav bar */
+     #menu-icon {
         display: none;
         /* Hide hamburger menu icon */
     }
@@ -936,7 +968,7 @@ input[type="radio"] {
     }
      nav a:hover{
         text-decoration: underline;
-     }
+    }
 
 }
 
@@ -957,7 +989,7 @@ input[type="radio"] {
     }
 
     header img {
-        max-width: 250px;
+        max-width: 300px;
         margin-top: 0;
     }
 
@@ -983,6 +1015,8 @@ input[type="radio"] {
     }
 
     /*view ncr*/
+
+
     .filter-section {
         flex-direction: row;
         margin: 20px 15px;
@@ -1002,11 +1036,14 @@ input[type="radio"] {
 
     /* Home Page - Three-column Layout */
     /*home*/
+    
     .main-container {
-        display: grid;
-        text-align: center;
-        margin: 10px auto;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 60px auto;
+        justify-content: space-between;
+        padding: 40px;
     }
 
     .featuresCreateNCR,
@@ -1016,13 +1053,10 @@ input[type="radio"] {
     }
 
     .main-container section {
-        display: inline-block;
-        width: 95%;
+        width: 100%;
     }
 
-    .featuresCreateNCR,
-    .featuresViewNCR,
-    .featuresManageAcc {
+    .featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -1040,6 +1074,9 @@ input[type="radio"] {
         position: relative;
     }
 
+    .featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+        font-size: 2rem;
+    }
     /* view ncr */
 
     #search,
@@ -1051,26 +1088,13 @@ input[type="radio"] {
         margin: 0px 40px;
     }
 
-    
-
-
-
     p {
         margin-top: 5px;
     }
 
-
-
-    .featuresCreateNCR h2,
-    .featuresViewNCR h2,
-    .featuresManageAcc h2 {
+    .featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p {
         font-size: 1.5rem;
-    }
-
-    .featuresCreateNCR p,
-    .featuresViewNCR p,
-    .featuresManageAcc p {
-        font-size: 1rem;
+        margin: 25px 0 20px;
     }
 
     .featuresCreateNCR:hover,
@@ -1079,14 +1103,36 @@ input[type="radio"] {
         transform: scale(1.05);
     }
 
+    /*account*/
+    .account {
+        margin: 0px 100px;
+    }
+
+}
+@media screen and (min-width: 1440px){
+
+    h1{
+        font-size: 3rem
+    }
+    .account {
+        margin: 0px 100px;
+        border-radius: 25px;
+    }
+    .account legend img {
+        height: 250px;
+        width: 250px;
+    }
 }
 
-
-@media screen and (min-width: 2560px) {
+@media screen and (min-width: 1760px) {
 
     /* General */
     header img {
         max-width: 400px;
+    }
+
+    header{
+        height: 100px;
     }
 
     footer {
@@ -1107,7 +1153,6 @@ input[type="radio"] {
 
     .indicator {
         font-size: 1.7rem;
-        position: absolute;
     }
 
     h1 {
@@ -1122,13 +1167,9 @@ input[type="radio"] {
     }
 
 
-    .account input {
+    .account input, .account select {
         width: 600px;
         font-size: 1.7rem;
-    }
-
-    .account select {
-        width: 620px;
     }
 
     .date-filter {
@@ -1168,6 +1209,12 @@ input[type="radio"] {
     .featuresViewNCR,
     .featuresManageAcc {
         height: 600px;
+    }
+
+    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button {
+        border-radius: 20px;
+        width: 50%;
+        height: 75px;
     }
 
     /* view ncr */
