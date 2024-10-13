@@ -610,6 +610,14 @@ input[type="radio"] {
     margin-top: 10px;
 }
 
+
+.rdn-view{
+    border: none;
+}
+.horizontal{
+    display: flex;
+}
+
 /* Table */
 .ncr-table {
     width: 100%;
