@@ -73,7 +73,7 @@ header {
     background-color: #f4f4f4;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-end;
     border-bottom: 1px solid #163650;
     height: 70px;
 }
@@ -124,7 +124,7 @@ nav:hover ul {
 }
 
 /* Adjust submenu styling */
-nav li ul.dropdown {
+ nav li ul.dropdown {
     display: none;
     position: relative;
     top: 100%;
@@ -135,11 +135,11 @@ nav li ul.dropdown {
 
 }
 
-nav li ul.dropdown {
+nav li ul.dropdown li {
     margin: 8px 0;
 }
 
-nav li ul.dropdown {
+nav li:hover ul.dropdown {
     display: block;
 }
 
@@ -264,9 +264,7 @@ label {
     margin: 25px auto;
 }
 
-.featuresCreateNCR,
-.featuresViewNCR,
-.featuresManageAcc {
+.featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -280,7 +278,6 @@ label {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     width: 100%;
-
 }
 
 .featuresCreateNCR {
@@ -733,6 +730,16 @@ input[type="radio"] {
 }
 
 
+/*media*/
+@media screen and (min-width: 320px) {
+    header {
+        padding: 10px 10px;
+    }
+    
+    header img {
+        max-width: 200px;
+    }
+}
 
 @media screen and (min-width: 768px) {
 
@@ -743,9 +750,6 @@ input[type="radio"] {
         margin: 10px 100px;
     }
 
-    .main-container section {
-        width: 65%;
-    }
 
     p {
         margin-top: 5px;
@@ -754,14 +758,14 @@ input[type="radio"] {
     .featuresCreateNCR,
     .featuresViewNCR,
     .featuresManageAcc {
-        margin: 20px 0px;
-        height: 150px;
+        margin: 40px 0px;
+        height: 250px;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
     .featuresManageAcc h2 {
-        font-size: 1.5rem;
+        font-size: 2rem;
     }
 
     .featuresCreateNCR p,
@@ -884,8 +888,8 @@ input[type="radio"] {
         display: table-cell;
     }
 
-    /* Nav bar */
-    #menu-icon {
+     /* Nav bar */
+     #menu-icon {
         display: none;
         /* Hide hamburger menu icon */
     }
@@ -924,7 +928,7 @@ input[type="radio"] {
         position: absolute;
         z-index: 999;
         display: none;
-        background: #f4f4f4;
+        background: #aae7f1;
         padding: 0;
         margin: 45px 0;
     }
@@ -939,7 +943,7 @@ input[type="radio"] {
     }
      nav a:hover{
         text-decoration: underline;
-     }
+    }
 
 }
 
@@ -960,7 +964,7 @@ input[type="radio"] {
     }
 
     header img {
-        max-width: 250px;
+        max-width: 300px;
         margin-top: 0;
     }
 
@@ -1007,6 +1011,7 @@ input[type="radio"] {
 
     /* Home Page - Three-column Layout */
     /*home*/
+    
     .main-container {
         display: flex;
         flex-direction: row;
@@ -1044,6 +1049,9 @@ input[type="radio"] {
         position: relative;
     }
 
+    .featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+        font-size: 2rem;
+    }
     /* view ncr */
 
     #search,
@@ -1055,26 +1063,13 @@ input[type="radio"] {
         margin: 0px 40px;
     }
 
-    
-
-
-
     p {
         margin-top: 5px;
     }
 
-
-
-    .featuresCreateNCR h2,
-    .featuresViewNCR h2,
-    .featuresManageAcc h2 {
+    .featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p {
         font-size: 1.5rem;
-    }
-
-    .featuresCreateNCR p,
-    .featuresViewNCR p,
-    .featuresManageAcc p {
-        font-size: 1rem;
+        margin: 25px 0 20px;
     }
 
     .featuresCreateNCR:hover,
@@ -1086,11 +1081,15 @@ input[type="radio"] {
 }
 
 
-@media screen and (min-width: 2560px) {
+@media screen and (min-width: 1760px) {
 
     /* General */
     header img {
         max-width: 400px;
+    }
+
+    header{
+        height: 100px;
     }
 
     footer {
@@ -1172,6 +1171,12 @@ input[type="radio"] {
     .featuresViewNCR,
     .featuresManageAcc {
         height: 600px;
+    }
+
+    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button {
+        border-radius: 20px;
+        width: 50%;
+        height: 75px;
     }
 
     /* view ncr */
