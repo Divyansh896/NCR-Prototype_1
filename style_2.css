@@ -11,6 +11,7 @@
 
 .indicator {
     color: red;
+    text-align: left;
 }
 
 /* Set full height for the body and html */
@@ -402,13 +403,12 @@ fieldset legend {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
-    height: 55px;
+    height: 40px;
     width: 95%;
 }
 
 .form-section p {
     font-weight: bold;
-    text-align: center;
     margin: 0;
     /* Added margin reset */
 }
@@ -438,6 +438,7 @@ fieldset legend {
 .form-section textarea {
     height: 200px;
     font-size: 1rem;
+    width: 100%;
 }
 
 .form-section textarea::placeholder {
@@ -465,9 +466,19 @@ fieldset legend {
     width: 45px;
 }
 
+.item-conforming{
+    text-align: left;
+    border: none;
+}
+
 .item-conforming input,
 .item-conforming label {
     display: inline;
+    
+}
+
+.item-conforming legend{
+    text-align: left;
 }
 
 .confirmation p {
@@ -481,6 +492,13 @@ fieldset legend {
     display: inline;
     font-size: 0.85em;
 }
+
+.media{
+    border: none;
+    margin-top: 20px;
+}
+
+
 
 /* Dropdown for qa-section  */
 .form-group {
