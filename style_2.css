@@ -124,7 +124,7 @@ nav:hover ul {
 }
 
 /* Adjust submenu styling */
-nav li ul.link-dropdown {
+nav li ul.dropdown {
     display: none;
     position: relative;
     top: 100%;
@@ -135,11 +135,11 @@ nav li ul.link-dropdown {
 
 }
 
-nav li ul.link-dropdown li {
+nav li ul.dropdown {
     margin: 8px 0;
 }
 
-nav li:hover ul.link-dropdown {
+nav li ul.dropdown {
     display: block;
 }
 
@@ -740,11 +740,10 @@ input[type="radio"] {
     .main-container {
         display: block;
         text-align: center;
-        margin: 10px auto;
+        margin: 10px 100px;
     }
 
     .main-container section {
-        display: inline-block;
         width: 65%;
     }
 
@@ -859,6 +858,8 @@ input[type="radio"] {
 
     /*view ncr*/
 
+    
+
     .filter-section {
         margin: 0 10px;
         display: flex;
@@ -869,7 +870,9 @@ input[type="radio"] {
         margin-bottom: 10px;
     }
 
-
+    .main-container section {
+        width: 100%;
+    }
     /* account */
     .account input,
     .account select {
@@ -983,6 +986,8 @@ input[type="radio"] {
     }
 
     /*view ncr*/
+
+
     .filter-section {
         flex-direction: row;
         margin: 20px 15px;
@@ -1003,10 +1008,12 @@ input[type="radio"] {
     /* Home Page - Three-column Layout */
     /*home*/
     .main-container {
-        display: grid;
-        text-align: center;
-        margin: 10px auto;
-        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-direction: row;
+        max-width: 1200px;
+        margin: 60px auto;
+        justify-content: space-between;
+        padding: 40px;
     }
 
     .featuresCreateNCR,
@@ -1016,13 +1023,10 @@ input[type="radio"] {
     }
 
     .main-container section {
-        display: inline-block;
-        width: 95%;
+        width: 100%;
     }
 
-    .featuresCreateNCR,
-    .featuresViewNCR,
-    .featuresManageAcc {
+    .featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
