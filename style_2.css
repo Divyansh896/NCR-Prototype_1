@@ -562,8 +562,8 @@ fieldset legend {
 /* Search Bar */
 #search,
 #date-filter {
-    width: 150px;
-    height: 30px;
+    width: 250px;
+    height: 40px;
     color: #1a3153;
 }
 
@@ -607,8 +607,7 @@ input[type="radio"] {
 }
 
 #record-count {
-    margin-left: 20px;
-    margin-bottom: 20px;
+    margin-top: 10px;
 }
 
 /* Table */
