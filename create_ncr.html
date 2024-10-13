@@ -213,42 +213,43 @@
                 <fieldset class="form-section" aria-labelledby="product-desc" aria-label="Product description">
                     <legend id="product-desc">Product Description</legend>
                     <p class="indicator">* indicate required fields.</p>
-
-                    <div class="two-rows">
-                        <div>
-                            <label for="description-item">Description of Item (including SAP Number):<span
-                                    class="required">*</span></label>
-                            <textarea id="description-item" name="description_item"
-                                placeholder="Enter item description, including SAP Number"
-                                aria-label="Enter item description, including SAP Number" tabindex="17"></textarea>
-
-                        </div>
-                        <div>
-                            <label for="description-defect">Description of Defect:<span
-                                    class="required">*</span></label>
-                            <textarea id="description-defect" name="description_defect"
-                                placeholder="Describe the defect" aria-label="Describe the defect of the product"
-                                tabindex="18"></textarea>
-                        </div>
-                    </div>
-                    <div class="fieldset-margin">
-                        <fieldset class="item-conforming" for="item-marked-nonconforming">
-                            <legend for="item-marked-nonconforming">Item Marked Non-Conforming?<span
-                                    class="required">*</span></legend>
-                            <div class="item-conforming">
-
-                                <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
-                                    tabindex="19">
-                                <label for="item-marked-yes">Yes</label>
-
-
-                                <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
-                                    tabindex="20">
-                                <label for="item-marked-no">No</label>
+                    <div class="descr-create-center">
+                        <div class="two-rows">
+                            <div>
+                                <label for="description-item">Description of Item (including SAP Number):<span
+                                        class="required">*</span></label>
+                                <textarea id="description-item" name="description_item"
+                                    placeholder="Enter item description, including SAP Number"
+                                    aria-label="Enter item description, including SAP Number" tabindex="17"></textarea>
 
                             </div>
+                            <div>
+                                <label for="description-defect">Description of Defect:<span
+                                        class="required">*</span></label>
+                                <textarea id="description-defect" name="description_defect"
+                                    placeholder="Describe the defect" aria-label="Describe the defect of the product"
+                                    tabindex="18"></textarea>
+                            </div>
+                        </div>
+                        <div class="fieldset-margin">
+                            <fieldset class="item-conforming" for="item-marked-nonconforming">
+                                <legend for="item-marked-nonconforming">Item Marked Non-Conforming?<span
+                                        class="required">*</span></legend>
+                                <div class="item-conforming">
 
-                        </fieldset>
+                                    <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
+                                        tabindex="19">
+                                    <label for="item-marked-yes">Yes</label>
+
+
+                                    <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
+                                        tabindex="20">
+                                    <label for="item-marked-no">No</label>
+
+                                </div>
+
+                            </fieldset>
+                    </div>
                         <div>
                             <fieldset class="media" id="add-media">
                                 <legend id="media-btns">Add Media</legend>

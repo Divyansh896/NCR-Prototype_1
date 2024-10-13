@@ -806,7 +806,7 @@ input[type="radio"] {
 
     /* create ncr*/
 
-    textarea {
+    .form-section textarea {
         height: 250px;
         width: 85%;
     }
@@ -833,7 +833,7 @@ input[type="radio"] {
     }
 
     .two-rows label {
-        margin-left: 36px;
+        margin-left: 8%;
         margin-bottom: 10px;
     }
 
@@ -1140,6 +1140,9 @@ input[type="radio"] {
         font-size: 1.2rem;
     }
 
+    fieldset legend {
+        font-size: 2rem;
+    }
 
     /*account*/
     .account {
@@ -1152,12 +1155,29 @@ input[type="radio"] {
     }
 
     /*view ncr*/
+
+    
     #search, #date-filter {
         width: 350px;
     }
 
     .ncr-table th, .ncr-table td {
         font-size: 18px;
+    }
+
+    /*create ncr*/
+    
+    .qa-process legend{
+        font-size: 1.2rem;
+    }
+
+    .status-bar div{
+        font-size: 1.2rem;
+    }
+
+    .form-section.active button{
+        height: 50px;
+        width: 75%;
     }
 }
 
@@ -1203,6 +1223,9 @@ input[type="radio"] {
         font-size: 2rem;
     }
 
+    fieldset legend {
+        font-size: 2rem;
+    }
 
     .account input, .account select {
         width: 600px;
@@ -1281,6 +1304,23 @@ input[type="radio"] {
         padding: 20px;
     }
 
+    /*create cncr*/
+    .qa-info-section input[type="text"],.qa-info-section input[type="number"],.qa-info-section select {
+        width: 90%;
+    }
+
+    .form-section.active label{
+        font-size: 2rem;
+    }
+
+    .status-bar div {
+        font-size: 1.7rem;
+    }
+
+    .qa-process legend {
+        font-size: 2rem;
+    }
+
 
     /* account*/
 
@@ -1294,6 +1334,11 @@ input[type="radio"] {
 
     .fieldset-viewncr {
         width: 550px;
+    }
+
+    .form-section.active button {
+        height: 65px;
+        width: 35%;
     }
 
     /* account */
