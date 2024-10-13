@@ -63,7 +63,7 @@ h1 {
     padding: 20px 0px;
     text-align: center;
     color: #1a3153;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
 }
 
 
@@ -735,14 +735,16 @@ input[type="radio"] {
     header {
         padding: 10px 10px;
     }
-    
+
     header img {
         max-width: 200px;
     }
 }
 
 @media screen and (min-width: 768px) {
-
+    h1 {
+        font-size: 2rem;
+    }
     /*home*/
     .main-container {
         display: block;
@@ -881,6 +883,11 @@ input[type="radio"] {
     .account input,
     .account select {
         width: 500px;
+    }
+
+    .account legend img {
+        height: 200px;
+        width: 200px;
     }
 
     .ncr-table th,
@@ -1078,8 +1085,26 @@ input[type="radio"] {
         transform: scale(1.05);
     }
 
-}
+    /*account*/
+    .account {
+        margin: 0px 100px;
+    }
 
+}
+@media screen and (min-width: 1440px){
+
+    h1{
+        font-size: 3rem
+    }
+    .account {
+        margin: 0px 100px;
+        border-radius: 25px;
+    }
+    .account legend img {
+        height: 250px;
+        width: 250px;
+    }
+}
 
 @media screen and (min-width: 1760px) {
 
@@ -1110,7 +1135,6 @@ input[type="radio"] {
 
     .indicator {
         font-size: 1.7rem;
-        position: absolute;
     }
 
     h1 {
@@ -1125,13 +1149,9 @@ input[type="radio"] {
     }
 
 
-    .account input {
+    .account input, .account select {
         width: 600px;
         font-size: 1.7rem;
-    }
-
-    .account select {
-        width: 620px;
     }
 
     .date-filter {
