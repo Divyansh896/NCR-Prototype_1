@@ -235,6 +235,7 @@ label {
     /* Space above each label */
     font-size: 1.1rem;
     font-weight: bold;
+    text-align: left;
 }
 
 
@@ -577,6 +578,8 @@ fieldset legend {
     /* Prevent overflow on smaller screens */
 }
 
+
+
 /* Search Bar */
 #search,
 #date-filter {
@@ -588,6 +591,10 @@ fieldset legend {
 /* Status Filter */
 input[type="radio"].status-filter {
     color: #1a3153;
+}
+
+.horizontal{
+    display: flex;
 }
 
 /* Fieldset View NCR */
@@ -616,20 +623,35 @@ input[type="radio"] {
 .radio-btn {
     margin-left: 30px;
 }
+/* Reset Button*/
+#btn-reset{
+    height: 40px;
+    background-color: #1a3153;
+    color: #f4f4f4;
+    width: 150px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 20px 0px;
+}
 
 /* Bold Text for Status and Record Count */
 #status-filter,
 #record-count {
     font-weight: bold;
-    margin-top: 10px;
+
 }
 
 #record-count {
-    margin-top: 10px;
+    text-align: left;
+    margin:10px;
 }
 
 #status-filter {
     text-align: center;
+    font-size: 1.1rem;
+    text-align: left;
 }
 
 /* Table */
@@ -908,7 +930,6 @@ input[type="radio"] {
 
 
     .filter-section div {
-        margin-bottom: 15px;
         width: 100%;
         text-align: left;
     }
@@ -944,18 +965,17 @@ input[type="radio"] {
 
     /*view ncr*/
 
-
-
-    .filter-section {
-        margin: 0 10px;
-        display: flex;
-        align-items: flex-start;
-        flex-direction: row;
-    }
-
     .filter-section label,
     #status-filter {
         text-align: left;
+    }
+
+    #search, #date-filter{
+        width: 100%;
+    }
+
+    .ncr-table tbody td{
+        padding: 15px;
     }
 
     .main-container section {
@@ -1206,7 +1226,7 @@ input[type="radio"] {
 
     #search,
     #date-filter {
-        width: 180px;
+        width: 90%;
     }
 
     .filter-section {
@@ -1228,6 +1248,10 @@ input[type="radio"] {
     .featuresViewNCR:hover,
     .featuresManageAcc:hover {
         transform: scale(1.05);
+    }
+
+    .ncr-table th, .ncr-table td{
+        font-size: 1.1rem;
     }
 
     /*account*/
@@ -1264,7 +1288,7 @@ input[type="radio"] {
 
     label,
     p {
-        font-size: 1.2rem;
+        font-size: 1.4rem;
     }
 
     fieldset legend {
@@ -1284,14 +1308,14 @@ input[type="radio"] {
     }
 
     /*view ncr*/
-    #search,
-    #date-filter {
-        width: 350px;
-    }
 
     .ncr-table th,
     .ncr-table td {
         font-size: 18px;
+    }
+
+    #status-filter{
+        font-size: 1.4rem;
     }
 
     /*create ncr*/
@@ -1456,9 +1480,8 @@ input[type="radio"] {
         margin: 40px 200px;
     }
 
-    #search,
-    #date-filter {
-        width: 500px;
+    #search, #date-filter {
+        height: 60px;
     }
 
     #status-filter,
@@ -1475,6 +1498,12 @@ input[type="radio"] {
     .ncr-table thead th,
     .ncr-table tbody td {
         font-size: 1.7rem;
+        padding: 20px;
+    }
+
+    #btn-reset{
+        height: 60px;
+        width: 300px;
     }
 
     /*create cncr*/
