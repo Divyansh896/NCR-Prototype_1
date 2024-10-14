@@ -1,61 +1,52 @@
 let ncrData = []; // Define a variable to hold the data
-const footer = document.getElementById('footer-scroll') 
-footer.addEventListener('click', ()=>{
+const footer = document.getElementById('footer-scroll');
+
+// Smooth scroll to the top on footer click
+footer.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-// DOMContentLoaded ensures that first all of the HTML is loaded in the web page before adding anything to the HTML structure.
+    });
+});
+
+// Load data after DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
-    // 1. Loading the data
     fetch('Data/ncr_reports.json')
-        .then(response => response.json()) // Convert the response to JSON format
+        .then(response => response.json())
         .then(data => {
-            ncrData = data; // Assign fetched data to ncrData
+            ncrData = data;
             populateTable(ncrData); // Populate table initially
             document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`;
-            document.getElementById('status-all').checked = true
+            document.getElementById('status-all').checked = true;
         })
         .catch(error => console.error("An error occurred while retrieving data: ", error));
 });
 
-document.getElementById('date-filter').value = new Date().toISOString().slice(0, 10);
-
+// Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-      const activeElement = document.activeElement;
-      if (activeElement.type === 'radio') {
-        activeElement.click(); // Programmatically click the radio button
-      }
+        const activeElement = document.activeElement;
+        if (activeElement.type === 'radio') {
+            activeElement.click(); // Programmatically click the radio button
+        }
     }
-  });
-  
+});
 
 function getReportStage(ncr) {
-    if (!ncr.qa.resolved) {
-        return 'QA'; // QA stage is open
-    } else if (!ncr.engineering.resolved) {
-        return 'engineering'; // Engineering stage is open
-    } else if (!ncr.purchasing_decision.resolved) {
-        return 'Purchasing'; // Purchasing stage is open
-    } else {
-        return 'Closed'; // All stages are closed
-    }
+    if (!ncr.qa.resolved) return 'QA';
+    if (!ncr.engineering.resolved) return 'Engineering';
+    if (!ncr.purchasing_decision.resolved) return 'Purchasing';
+    return 'Closed';
 }
-// 2. Function to populate the table
-function populateTable(data) {
-    const tBody = document.getElementById('ncr-tbody'); // Get the table body
-    tBody.innerHTML = ''; // Resetting the table to empty
 
-    // Populate the table with data
+function populateTable(data) {
+    const tBody = document.getElementById('ncr-tbody');
+    tBody.innerHTML = ''; // Clear the table
+
     data.forEach(ncr => {
-        // Create a new row
         const row = document.createElement('tr');
         const reportStage = getReportStage(ncr);
 
-
-        // Add table cells (td) for each piece of data
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
@@ -66,7 +57,7 @@ function populateTable(data) {
         `;
 
         row.addEventListener('click', () => {
-            let data = {
+            const data = {
                 supplier_name: ncr.qa.supplier_name,
                 product_no: ncr.qa.po_no,
                 sales_order_no: ncr.qa.sales_order_no,
@@ -92,7 +83,6 @@ function populateTable(data) {
                 revision_date: ncr.engineering.revision_date,
                 engineering_review_date: ncr.engineering.engineering_review_date,
                 eng_resolved: ncr.engineering.resolved,
-                
                 preliminary_decision: ncr.purchasing_decision.preliminary_decision,
                 options: ncr.purchasing_decision.options,
                 car_raised: ncr.purchasing_decision.car_raised,
@@ -105,34 +95,24 @@ function populateTable(data) {
                 inspector_name: ncr.purchasing_decision.inspector_name,
                 ncr_closed: ncr.purchasing_decision.ncr_closed,
                 pu_resolved: ncr.purchasing_decision.resolved,
-                }
-            sessionStorage.setItem('data', JSON.stringify(data))
-            window.location.href = `ncReport.html`; // Adjust the URL to your routing
+            };
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = `ncReport.html`; // Adjust the URL as needed
         });
 
-        // Append the row to the table body
         tBody.appendChild(row);
     });
 }
-// 3. Filtering the NCR reports logic
+
 function filterNcr(ncrData) {
-    // Getting the data from the filtering options
-    const search = document.getElementById('search').value; // Get the selected option value
-    const date = document.getElementById('date-filter').value;
-
-    // Getting the selected status filter value
-    const status = document.querySelector('input[name="status"]:checked')?.value; // Optional chaining for safety
-
-    let records = document.getElementById('record-count');
+    const search = document.getElementById('search');
+    const date = document.getElementById('date-filter');
+    const status = document.querySelector('input[name="status"]:checked')?.value;
+    const records = document.getElementById('record-count');
 
     const filteredData = ncrData.filter(ncr => {
-        // Filtering the data based on search by supplier name
-        const matchedSearch = (search === "All") || (ncr.qa.supplier_name === search);
-
-        // Filtering the data based on date
-        const matchedDate = !date || (date === ncr.qa.date);
-
-        // Filtering by status
+        const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value);
+        const matchedDate = !date.value || (date.value === ncr.qa.date);
         const matchedStatus = !status ||
             (status === 'all') ||
             (status === 'completed' && ncr.status === 'completed') ||
@@ -142,20 +122,20 @@ function filterNcr(ncrData) {
     });
 
     records.textContent = `Records found: ${filteredData.length}`;
-    populateTable(filteredData); // Re-populate table with filtered data
+    populateTable(filteredData);
 }
 
-// Attaching the events to the filter inputs
+// Attach filter events
 document.getElementById('search').addEventListener('change', () => filterNcr(ncrData));
 document.getElementById('date-filter').addEventListener('change', () => filterNcr(ncrData));
 document.querySelectorAll('input[name="status"]').forEach(input => {
     input.addEventListener('change', () => filterNcr(ncrData));
 });
 
-
-// 4. Attaching the events to the filter inputs
-document.getElementById('search').addEventListener('input', () => filterNcr(ncrData));
-document.getElementById('date-filter').addEventListener('change', () => filterNcr(ncrData));
-document.querySelectorAll('input[name="status"]').forEach(input => {
-    input.addEventListener('change', () => filterNcr(ncrData));
+// Reset filter inputs and update table
+document.getElementById('btn-reset').addEventListener('click', () => {
+    document.getElementById('search').value = "All";
+    document.getElementById('date-filter').value = null;
+    document.getElementById('status-all').checked = true;
+    filterNcr(ncrData); // Update the table after resetting filters
 });
