@@ -12,16 +12,10 @@
 .indicator {
     color: red;
     text-align: left;
+    margin: 10px;
 }
 
-/* Set full height for the body and html */
-html,
-body {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    font-family: Arial, sans-serif;
-}
+
 
 body {
     background-color: #f4f4f4;
@@ -112,6 +106,7 @@ nav ul {
     transition: 1s all ease;
     text-align: center;
     height: auto;
+    z-index: 999;
 }
 
 nav li {
@@ -125,13 +120,13 @@ nav:hover ul {
 }
 
 /* Adjust submenu styling */
- nav li ul.dropdown {
+nav li ul.dropdown {
     display: none;
     position: relative;
     top: 100%;
     left: 0;
     background: rgb(254, 254, 218);
-    z-index: 1;
+    z-index: 999;
     height: auto;
 
 }
@@ -149,63 +144,84 @@ nav li:hover ul.dropdown {
 
 details {
     position: relative;
-    /* Position relative to place the arrow */
     width: 100%;
-    /* Ensure it spans the entire width */
 }
 
 .custom-summary {
     list-style: none;
-    /* Remove default list style */
     cursor: pointer;
-    /* Change cursor to pointer */
     padding: 10px 30px;
-    /* Add vertical padding for better spacing */
     display: block;
-    /* Make the summary a block element to span full width */
     position: relative;
-    /* Position relative for the underline */
     text-decoration: none;
-    /* Remove default underline */
-    font-weight: 600;
+    font-weight: 800;
 }
 
-/* Underline effect only for the summary */
+
 .custom-summary::after {
     content: "";
-    /* Create an underline effect */
     position: absolute;
     left: 0;
     bottom: 0;
-    /* Position at the bottom of the summary */
     height: 2px;
-    /* Thickness of the underline */
     width: 100%;
-    /* Full width underline */
     background-color: black;
-    /* Color of the underline */
 }
 
 .custom-summary::before {
     content: '<';
-    /* Custom arrow */
     position: absolute;
-    /* Position absolute to place the arrow */
     right: 50px;
-    /* Align the arrow to the right */
     top: 50%;
-    /* Center vertically */
     transform: translateY(-50%);
-    /* Adjust to be centered */
     font-size: 1.5em;
-    /* Adjust size if needed */
     transition: transform 0.3s ease;
-    /* Smooth transition for rotation */
 }
 
 details[open] .custom-summary::before {
     transform: translateY(-50%) rotate(-90deg);
-    /* Rotate to point down */
+}
+
+
+.form-row label {
+
+    margin: 5px 10px;
+
+}
+
+.form-row textarea {
+    padding: 10px;
+    height: 180px;
+}
+
+.form-row input,
+.form-row select,
+.form-row textarea,
+.form-row p {
+    display: block;
+    width: 95%;
+    margin: 0 10px;
+}
+
+.rad-report input,
+.rad-report label,
+.resolved input,
+.resolved label {
+    width: 20px;
+    display: inline;
+    margin-top: 10px;
+}
+
+.btn-report {
+    text-align: right;
+    padding-right: 10px;
+}
+
+.btn-report button {
+    background: #163650;
+    color: #b8c4d5;
+    width: 85px;
+    margin-top: 15px;
 }
 
 /* Header styles */
@@ -265,7 +281,9 @@ label {
     margin: 25px auto;
 }
 
-.featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
+.featuresCreateNCR,
+.featuresViewNCR,
+.featuresManageAcc {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -466,7 +484,7 @@ fieldset legend {
     width: 45px;
 }
 
-.item-conforming{
+.item-conforming {
     text-align: left;
     border: none;
 }
@@ -474,10 +492,10 @@ fieldset legend {
 .item-conforming input,
 .item-conforming label {
     display: inline;
-    
+
 }
 
-.item-conforming legend{
+.item-conforming legend {
     text-align: left;
 }
 
@@ -493,7 +511,7 @@ fieldset legend {
     font-size: 0.85em;
 }
 
-.media{
+.media {
     border: none;
     margin-top: 20px;
 }
@@ -610,7 +628,7 @@ input[type="radio"] {
     margin-top: 10px;
 }
 
-#status-filter{
+#status-filter {
     text-align: center;
 }
 
@@ -753,6 +771,43 @@ input[type="radio"] {
 }
 
 
+/* privacy policy page */
+#privacy-wrapper{
+    width: 95%;
+    margin: 0 auto;
+}
+
+#table-of-contents{
+    font-size: 1.35em;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+#privacy-wrapper strong {
+    margin-bottom: 10px; 
+    display: inline-block; 
+}
+
+#privacy-wrapper p {
+    line-height: 1.6; 
+}
+
+
+#privacy-wrapper h1 {
+    font-size: 2em; 
+    margin-bottom: 20px; 
+}
+
+#privacy-wrapper h2 {
+    font-size: 1.65em; 
+    margin-top: 50px; 
+    margin-bottom: 15px; 
+}
+#privacy-wrapper h3 {
+    font-size: 1.25em; 
+    margin-top: 20px; 
+    margin-bottom: 8px; 
+}
+
 /*media*/
 @media screen and (min-width: 320px) {
     header {
@@ -768,6 +823,7 @@ input[type="radio"] {
     h1 {
         font-size: 2rem;
     }
+
     /*home*/
     .main-container {
         display: block;
@@ -855,7 +911,7 @@ input[type="radio"] {
         text-align: left;
     }
 
-    
+
     .serach-bar,
     .date-filter {
         width: 65%;
@@ -886,7 +942,7 @@ input[type="radio"] {
 
     /*view ncr*/
 
-    
+
 
     .filter-section {
         margin: 0 10px;
@@ -894,13 +950,16 @@ input[type="radio"] {
         align-items: flex-start;
         flex-direction: row;
     }
-    .filter-section label, #status-filter {
+
+    .filter-section label,
+    #status-filter {
         text-align: left;
     }
 
     .main-container section {
         width: 100%;
     }
+
     /* account */
     .account input,
     .account select {
@@ -917,8 +976,8 @@ input[type="radio"] {
         display: table-cell;
     }
 
-     /* Nav bar */
-     #menu-icon {
+    /* Nav bar */
+    #menu-icon {
         display: none;
         /* Hide hamburger menu icon */
     }
@@ -959,29 +1018,34 @@ input[type="radio"] {
         display: none;
         background: #aae7f1;
         padding: 0;
-        margin: 45px 0;
+        margin: 0;
     }
 
     nav li ul.dropdown li {
         display: block;
+        padding: 0;
         margin: 0;
     }
-     nav a:hover{
+
+    nav a:hover {
         text-decoration: underline;
     }
 
 
     /* contacat us */
-    .fieldset-contact{
+    .fieldset-contact {
         padding: 0px 40px;
     }
 
     .fieldset-contact label {
         margin-left: 18%;
     }
-    .fieldset-contact #name, .fieldset-contact #email {
+
+    .fieldset-contact #name,
+    .fieldset-contact #email {
         width: 65%;
     }
+    
 }
 
 
@@ -1043,12 +1107,50 @@ input[type="radio"] {
         margin-bottom: 10px;
     }
 
+    /* ncr  report page */
+    .form-group {
+        align-items: center;
+    }
 
+    .form-row label,
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+        width: 65%;
+    }
 
+    .two-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+    }
+
+    .rad-report, .resolved{
+        align-self: flex-start;
+        margin-left: 82px;
+        margin-top: 15px;
+    }
+    .rad-report input, .resolved input {
+        width: 20px;
+        margin-top: 10px;
+    }
+    
+    .btn-report button{
+        width: 185px;
+        margin: 25px;
+    }
+    .indicator{
+        margin-left: 95px;
+    }
+
+    .custom-summary{
+        font-size: 1.5em;
+        padding-left: 95px;
+    }
 
     /* Home Page - Three-column Layout */
     /*home*/
-    
+
     .main-container {
         display: flex;
         flex-direction: row;
@@ -1068,7 +1170,9 @@ input[type="radio"] {
         width: 100%;
     }
 
-    .featuresCreateNCR, .featuresViewNCR, .featuresManageAcc {
+    .featuresCreateNCR,
+    .featuresViewNCR,
+    .featuresManageAcc {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -1086,9 +1190,12 @@ input[type="radio"] {
         position: relative;
     }
 
-    .featuresCreateNCR h2, .featuresViewNCR h2, .featuresManageAcc h2 {
+    .featuresCreateNCR h2,
+    .featuresViewNCR h2,
+    .featuresManageAcc h2 {
         font-size: 2rem;
     }
+
     /* view ncr */
 
     #search,
@@ -1104,7 +1211,9 @@ input[type="radio"] {
         margin-top: 5px;
     }
 
-    .featuresCreateNCR p, .featuresViewNCR p, .featuresManageAcc p {
+    .featuresCreateNCR p,
+    .featuresViewNCR p,
+    .featuresManageAcc p {
         font-size: 1.5rem;
         margin: 25px 0 20px;
     }
@@ -1120,14 +1229,17 @@ input[type="radio"] {
         margin: 0px 100px;
     }
 
+    
 }
-@media screen and (min-width: 1440px){
 
-    h1{
+@media screen and (min-width: 1440px) {
+
+    h1 {
         font-size: 3rem
     }
 
-    label, p{
+    label,
+    p {
         font-size: 1.2rem;
     }
 
@@ -1141,33 +1253,73 @@ input[type="radio"] {
         margin: 0px 100px;
         border-radius: 25px;
     }
+
     .account legend img {
         height: 250px;
         width: 250px;
     }
 
     /*view ncr*/
-    #search, #date-filter {
+    #search,
+    #date-filter {
         width: 350px;
     }
 
-    .ncr-table th, .ncr-table td {
+    .ncr-table th,
+    .ncr-table td {
         font-size: 18px;
     }
 
     /*create ncr*/
-    
-    .qa-process legend{
+
+    .qa-process legend {
         font-size: 1.2rem;
     }
 
-    .status-bar div{
+    .status-bar div {
         font-size: 1.2rem;
     }
 
-    .form-section.active button{
+    .form-section.active button {
         height: 50px;
         width: 75%;
+    }
+
+    
+
+    .form-row label,
+    .form-row input,
+    .form-row select,
+    .form-row textarea {
+        width: 65%;
+    }
+
+    .two-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2px;
+    }
+
+    .rad-report, .resolved{
+        align-self: flex-start;
+        margin-left: 115px;
+        margin-top: 15px;
+    }
+    .rad-report input, .resolved input {
+        width: 20px;
+        margin-top: 10px;
+    }
+    
+    .btn-report button{
+        width: 185px;
+        margin: 25px;
+    }
+    .indicator{
+        margin-left: 128px;
+    }
+    .custom-summary{
+        font-size: 1.45em;
+        padding-left: 128px;
     }
 }
 
@@ -1178,7 +1330,7 @@ input[type="radio"] {
         max-width: 400px;
     }
 
-    header{
+    header {
         height: 100px;
     }
 
@@ -1217,7 +1369,8 @@ input[type="radio"] {
         font-size: 2rem;
     }
 
-    .account input, .account select {
+    .account input,
+    .account select {
         width: 600px;
         font-size: 1.7rem;
     }
@@ -1261,7 +1414,9 @@ input[type="radio"] {
         height: 600px;
     }
 
-    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button {
+    .featuresCreateNCR button,
+    .featuresViewNCR button,
+    .featuresManageAcc button {
         border-radius: 20px;
         width: 50%;
         height: 75px;
@@ -1294,11 +1449,13 @@ input[type="radio"] {
     }
 
     /*create cncr*/
-    .qa-info-section input[type="text"],.qa-info-section input[type="number"],.qa-info-section select {
+    .qa-info-section input[type="text"],
+    .qa-info-section input[type="number"],
+    .qa-info-section select {
         width: 90%;
     }
 
-    .form-section.active label{
+    .form-section.active label {
         font-size: 2rem;
     }
 
@@ -1338,5 +1495,27 @@ input[type="radio"] {
     .account legend img {
         width: 350px;
         height: 350px;
+    }
+
+    .rad-report, .resolved{
+        align-self: flex-start;
+        margin-left: 140px;
+        margin-top: 15px;
+    }
+    .rad-report input, .resolved input {
+        width: 20px;
+        margin-top: 10px;
+    }
+    
+    .btn-report button{
+        width: 185px;
+        margin: 25px;
+    }
+    .indicator{
+        margin-left: 153px;
+    }
+    .custom-summary{
+        font-size: 2em;
+        padding-left: 153px;
     }
 }

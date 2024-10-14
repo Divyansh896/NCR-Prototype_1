@@ -1,16 +1,27 @@
-/* Breadcrumb Styles */
-.breadcrumb {
-    display: flex;
-    list-style: none; /* Remove default list styling */
-    padding: 0;
-    margin: 0;
+/* breadcrumbs container */
+.brdcontainer {
+    display: ruby;
+    padding: 10px 0; /* Adjust padding as needed */
+    margin-left: 32px; /* Remove any default margin */
+    width: auto; /* Ensure it spans the full width of the page */
 }
 
+.breadcrumb {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+
+
 .breadcrumb-item {
-    margin: 0 5px; /* Space between items */
+    margin-right: 1px; /* Space between items */
 }
 
 .breadcrumb-item a {
+    display: inline;
     text-decoration: none; /* Remove underline from links */
     color: #007bff; /* Link color */
 }
@@ -21,7 +32,7 @@
 
 /* Separator styles */
 .breadcrumb-item::after {
-    content: " > "; /* Separator character */
+    content: "/"; /* Separator character */
     margin-left: 5px; /* Space between the item and the separator */
 }
 

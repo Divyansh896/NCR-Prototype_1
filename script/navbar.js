@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const ncrToggle = document.getElementById('ncr-toggle');
     const dropdown = ncrToggle.nextElementSibling; // Get the dropdown
-
+    dropdown.style.display = 'none';
     // Show/hide dropdown on header click
     ncrToggle.addEventListener('click', (e) => {
         e.preventDefault(); // Prevent default anchor behavior
