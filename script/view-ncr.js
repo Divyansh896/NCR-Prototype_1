@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => console.error("An error occurred while retrieving data: ", error));
 });
 
+document.getElementById('date-filter').value = new Date().toISOString().slice(0, 10);
+
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       const activeElement = document.activeElement;
