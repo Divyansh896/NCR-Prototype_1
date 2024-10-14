@@ -23,7 +23,7 @@
 .breadcrumb-item a {
     display: inline;
     text-decoration: none; /* Remove underline from links */
-    color: #007bff; /* Link color */
+    color: #174185; /* Link color */
 }
 
 .breadcrumb-item a:hover {
