@@ -772,40 +772,42 @@ input[type="radio"] {
 
 
 /* privacy policy page */
-#privacy-wrapper{
+#privacy-wrapper {
     width: 95%;
     margin: 0 auto;
 }
 
-#table-of-contents{
+#table-of-contents {
     font-size: 1.35em;
     font-weight: 800;
     margin-bottom: 15px;
 }
+
 #privacy-wrapper strong {
-    margin-bottom: 10px; 
-    display: inline-block; 
+    margin-bottom: 10px;
+    display: inline-block;
 }
 
 #privacy-wrapper p {
-    line-height: 1.6; 
+    line-height: 1.6;
 }
 
 
 #privacy-wrapper h1 {
-    font-size: 2em; 
-    margin-bottom: 20px; 
+    font-size: 2em;
+    margin-bottom: 20px;
 }
 
 #privacy-wrapper h2 {
-    font-size: 1.65em; 
-    margin-top: 50px; 
-    margin-bottom: 15px; 
+    font-size: 1.65em;
+    margin-top: 50px;
+    margin-bottom: 15px;
 }
+
 #privacy-wrapper h3 {
-    font-size: 1.25em; 
-    margin-top: 20px; 
-    margin-bottom: 8px; 
+    font-size: 1.25em;
+    margin-top: 20px;
+    margin-bottom: 8px;
 }
 
 /*media*/
@@ -1045,7 +1047,7 @@ input[type="radio"] {
     .fieldset-contact #email {
         width: 65%;
     }
-    
+
 }
 
 
@@ -1125,25 +1127,29 @@ input[type="radio"] {
         gap: 2px;
     }
 
-    .rad-report, .resolved{
+    .rad-report,
+    .resolved {
         align-self: flex-start;
         margin-left: 82px;
         margin-top: 15px;
     }
-    .rad-report input, .resolved input {
+
+    .rad-report input,
+    .resolved input {
         width: 20px;
         margin-top: 10px;
     }
-    
-    .btn-report button{
+
+    .btn-report button {
         width: 185px;
         margin: 25px;
     }
-    .indicator{
+
+    .indicator {
         margin-left: 95px;
     }
 
-    .custom-summary{
+    .custom-summary {
         font-size: 1.5em;
         padding-left: 95px;
     }
@@ -1229,7 +1235,25 @@ input[type="radio"] {
         margin: 0px 100px;
     }
 
+    form {
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
+        width: 80%;
+    }
+
+    /* create ncr */
+    .form-section.active {
+        align-self: center;
+        width: 85%;
+    }
+    fieldset{
+        padding-left: 50px;
+    }
+
     
+
+
 }
 
 @media screen and (min-width: 1440px) {
@@ -1285,7 +1309,7 @@ input[type="radio"] {
         width: 75%;
     }
 
-    
+
 
     .form-row label,
     .form-row input,
@@ -1300,24 +1324,29 @@ input[type="radio"] {
         gap: 2px;
     }
 
-    .rad-report, .resolved{
+    .rad-report,
+    .resolved {
         align-self: flex-start;
         margin-left: 115px;
         margin-top: 15px;
     }
-    .rad-report input, .resolved input {
+
+    .rad-report input,
+    .resolved input {
         width: 20px;
         margin-top: 10px;
     }
-    
-    .btn-report button{
+
+    .btn-report button {
         width: 185px;
         margin: 25px;
     }
-    .indicator{
+
+    .indicator {
         margin-left: 128px;
     }
-    .custom-summary{
+
+    .custom-summary {
         font-size: 1.45em;
         padding-left: 128px;
     }
@@ -1497,24 +1526,29 @@ input[type="radio"] {
         height: 350px;
     }
 
-    .rad-report, .resolved{
+    .rad-report,
+    .resolved {
         align-self: flex-start;
         margin-left: 140px;
         margin-top: 15px;
     }
-    .rad-report input, .resolved input {
+
+    .rad-report input,
+    .resolved input {
         width: 20px;
         margin-top: 10px;
     }
-    
-    .btn-report button{
+
+    .btn-report button {
         width: 185px;
         margin: 25px;
     }
-    .indicator{
+
+    .indicator {
         margin-left: 153px;
     }
-    .custom-summary{
+
+    .custom-summary {
         font-size: 2em;
         padding-left: 153px;
     }
