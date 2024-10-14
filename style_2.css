@@ -1279,7 +1279,7 @@ input[type="radio"] {
         align-self: center;
         width: 85%;
     }
-    fieldset{
+    fieldset.account{
         padding: 0px 100px;
     }
 
