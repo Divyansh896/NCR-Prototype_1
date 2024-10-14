@@ -1303,7 +1303,7 @@ input[type="radio"] {
         font-size: 2rem;
     }
 
-    fieldset {
+    fieldset.account {
         padding: 0px 200px;
     }
 
@@ -1431,7 +1431,7 @@ input[type="radio"] {
         font-size: 2rem;
     }
 
-    fieldset {
+    fieldset.account {
         padding: 0px 500px;
     }
 
