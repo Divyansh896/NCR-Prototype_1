@@ -1,6 +1,6 @@
 /* breadcrumbs container */
 .brdcontainer {
-    display: ruby;
+    display: flex;
     padding: 10px 0; /* Adjust padding as needed */
     margin-left: 32px; /* Remove any default margin */
     width: auto; /* Ensure it spans the full width of the page */

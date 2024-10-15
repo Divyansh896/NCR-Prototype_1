@@ -1079,6 +1079,10 @@ input[type="radio"] {
     .fieldset-contact #email {
         width: 65%;
     }
+    .brdcontainer nav{
+        float: left;
+        margin: 0;
+    }
 
 }
 
@@ -1283,6 +1287,9 @@ input[type="radio"] {
         padding: 0px 100px;
     }
 
+    .indicator{
+        margin-left: 85px;
+    }
     
 
 
@@ -1382,6 +1389,9 @@ input[type="radio"] {
     .custom-summary {
         font-size: 1.45em;
         padding-left: 128px;
+    }
+    .indicator{
+        margin-left: 125px;
     }
 }
 

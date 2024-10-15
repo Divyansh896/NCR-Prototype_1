@@ -226,7 +226,8 @@ if (user.role === 'QA Inspector') {
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
                 starElement.style.display = 'inline'; // Show star if empty
-                isvalid = false;
+                isValid = false;
+                console.log(isValid)
             } else {
                 starElement.style.display = 'none'; // Hide star if filled
             }
@@ -241,8 +242,6 @@ if (user.role === 'QA Inspector') {
         if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {
             alert('Quantity defective cannot be greater than quantity received!!')
             isValid = false
-        } else {
-            isvalid = true
         }
 
         // Validate checkboxes
@@ -275,9 +274,9 @@ if (user.role === 'QA Inspector') {
             const starElement = labelElement.querySelector('.required');
 
             // Check if the input is empty
-            if (inputElement.value.trim() === '') {
+            if (inputElement.value.trim() === '' || inputElement.value.trim() ==  null) {
                 starElement.style.display = 'inline'; // Show star if empty
-                isvalid = false;
+                isValid = false;
             } else {
                 starElement.style.display = 'none'; // Hide star if filled
             }
@@ -293,7 +292,6 @@ if (user.role === 'QA Inspector') {
             isValid = false;
         } else {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
-            isValid = true; // Set valid to true if at least one radio button is checked
         }
 
         return isValid
