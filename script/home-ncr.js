@@ -35,6 +35,8 @@ function initializeButtons() {
     const btnCreate = document.getElementById('createNcr');
     const btnView = document.getElementById('viewNcr');
     const btnManage = document.getElementById('ManageAcc');
+    const p = document.getElementById('create-ncr-p');
+    const header = document.getElementById('create-ncr-header');
 
     if(user.role == 'QA Inspector'){
 
@@ -43,7 +45,9 @@ function initializeButtons() {
         });
     }
     else{
-        btnCreate.innerHTML = 'Open NCR'
+        btnCreate.innerHTML = 'Open Logged NCR'
+        header.innerHTML = 'Open NCR'
+        p.innerHTML = 'Open Recent Non-Conformance Reports'
         btnCreate.addEventListener('click', ()=>{
             const queryString = createQueryString(ncr[0]);
             window.location.href = `create.html?${queryString}`
