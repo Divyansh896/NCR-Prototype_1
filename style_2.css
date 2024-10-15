@@ -851,6 +851,18 @@ input[type="radio"] {
     margin-bottom: 8px;
 }
 
+.contact-info{
+    font-size: 1.7rem;
+}
+
+.contact-info a{
+    color: #1a3153;
+    text-decoration-line: underline;
+}
+.summ-policy a{
+    color: #1a3153;
+    text-decoration-line: underline;
+}
 /*media*/
 @media screen and (min-width: 320px) {
     header {
@@ -1650,5 +1662,26 @@ input[type="radio"] {
     .custom-summary {
         font-size: 2em;
         padding-left: 153px;
+    }
+    /*privacy policy*/
+    .contact-info p{
+    margin: 20px 0px;
+    font-size: 1.7rem;
+    }
+
+    #privacy-wrapper p, .summ-policy a, strong{
+        font-size: 1.7rem;
+    }
+
+    #privacy-wrapper h2{
+        font-size: 2.5rem;
+    }
+
+    #privacy-wrapper h3, #table-of-contents{
+        font-size: 2rem;
+    }
+
+    #privacy-wrapper h1{
+        font-size: 3.5rem;
     }
 }
