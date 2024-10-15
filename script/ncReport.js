@@ -29,18 +29,19 @@ const enableFieldsForRole = (role) => {
         document.querySelectorAll('.qa-editable').forEach(field => {
             field.disabled = false; // Enable QA editable fields
         });
+        // Enable radio buttons
+        document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
+            radio.disabled = false; // Enable all radio buttons
+        });
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
                 // Implement your save logic here, like sending the data to the server
                 alert('Changes saved!'); // Example feedback message
                 disableFields();
-                // Enable radio buttons
-                document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-                    radio.disabled = false; // Enable all radio buttons
-                });
+
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
 
@@ -62,7 +63,7 @@ const enableFieldsForRole = (role) => {
                 // Optionally, disable fields again after saving
                 disableFields();
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
         });
@@ -77,11 +78,11 @@ const enableFieldsForRole = (role) => {
 
                 disableFields();
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
         });
-    } else if (role === "Project Manager"){
+    } else if (role === "Project Manager") {
         document.querySelectorAll('.qa-editable').forEach(field => {
             field.disabled = false; // Enable QA editable fields
         });
@@ -91,12 +92,9 @@ const enableFieldsForRole = (role) => {
                 // Implement your save logic here, like sending the data to the server
                 alert('Changes saved!'); // Example feedback message
                 disableFields();
-                // Enable radio buttons
-                document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-                    radio.disabled = false; // Enable all radio buttons
-                });
+
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
 
@@ -104,6 +102,9 @@ const enableFieldsForRole = (role) => {
         });
         document.querySelectorAll('.eng-editable').forEach(field => {
             field.disabled = false; // Enable Engineering editable fields
+        });// Enable radio buttons
+        document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
+            radio.disabled = false; // Enable all radio buttons
         });
         // Save changes when "Save" button is clicked
         document.querySelector('#eng-save').addEventListener('click', function () {
@@ -115,7 +116,7 @@ const enableFieldsForRole = (role) => {
                 // Optionally, disable fields again after saving
                 disableFields();
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
         });
@@ -129,7 +130,7 @@ const enableFieldsForRole = (role) => {
 
                 disableFields();
             }
-            else{
+            else {
                 alert("Please fill in all the required fields before submitting.")
             }
         });
@@ -156,7 +157,7 @@ else if (user.role == "Purchasing") {
     document.getElementById('purch-edit').addEventListener('click', () => {
         enableFieldsForRole(user.role)
     })
-}else if (user.role == "Project Manager") {
+} else if (user.role == "Project Manager") {
     document.getElementById('purch-edit').addEventListener('click', () => {
         enableFieldsForRole(user.role)
     })
@@ -303,6 +304,17 @@ invalid.forEach(star => {
     star.style.display = 'none'; // Hide each star element initially
 });
 
+function preventNegativeInput(event) {
+    if (event.target.value < 0) {
+        alert("The quantity cannot be in negative!!\nEnter only positive values.")
+        event.target.value = 0;
+    }
+}
+const quantityReceivedInput = document.getElementById('quantity-received');
+const quantityDefectiveInput = document.getElementById('quantity-defective');
+// Attach the preventNegativeInput function to both inputs
+quantityReceivedInput.addEventListener('input', preventNegativeInput);
+quantityDefectiveInput.addEventListener('input', preventNegativeInput);
 const validateQaSection = () => {
     let isValid = true;
     const formElements = [
@@ -310,6 +322,8 @@ const validateQaSection = () => {
         'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
         'process', 'description-item', 'description-defect'
     ];
+
+
 
     formElements.forEach(field => {
         const inputElement = document.getElementById(field);
@@ -336,6 +350,15 @@ const validateQaSection = () => {
             isValid = false;
         }
     });
+    const quantityReceived = parseInt(quantityReceivedInput.value, 10);
+    const quantityDefective = parseInt(quantityDefectiveInput.value, 10);
+
+
+    // Check if quantities are valid numbers
+    if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {
+        alert('Quantity defective cannot be greater than quantity received!!')
+        isValid = false
+    }
 
     return isValid;
 };
@@ -383,7 +406,7 @@ const validateEngSection = () => {
         'disposition-details', 'original-rev-number', 'updated-rev-number',
         'revision-date', 'engineering-review-date'
     ];
-    
+
     let isValid = true;
 
     formElements.forEach(field => {
