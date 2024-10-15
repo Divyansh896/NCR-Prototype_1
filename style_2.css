@@ -520,7 +520,7 @@ fieldset legend {
 
 .confirmation p {
     text-align: left;
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 1.05em;
 }
 
@@ -880,8 +880,12 @@ input[type="radio"] {
 }
 
 @media screen and (min-width: 768px) {
+    /*genral*/
     h1 {
         font-size: 2rem;
+    }
+    .breadcrumb-item {
+        font-size: 1.2rem;
     }
 
     /*home*/
@@ -952,6 +956,12 @@ input[type="radio"] {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .col-confirm {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
 
     .item-conforming, .item-conforming legend{
         text-align: center;
@@ -1115,6 +1125,7 @@ input[type="radio"] {
         float: left;
         margin: 0;
     }
+    
 
 }
 
@@ -1323,11 +1334,10 @@ input[type="radio"] {
     fieldset.account{
         padding: 0px 100px;
     }
-
-    .indicator{
-        margin-left: 85px;
-    }
     
+    .form-section.active {
+        width: 75%;
+    }
 
 
 }
@@ -1341,6 +1351,10 @@ input[type="radio"] {
     label,
     p {
         font-size: 1.4rem;
+    }
+
+    #footer-scroll p {
+        font-size: 1.2rem;
     }
 
     fieldset legend {
@@ -1442,9 +1456,11 @@ input[type="radio"] {
         font-size: 1.45em;
         padding-left: 128px;
     }
-    .indicator{
-        margin-left: 125px;
+
+    .confirmation p {
+        font-size: 1.5em;
     }
+    
 
     .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
         width: 80%;
@@ -1470,6 +1486,10 @@ input[type="radio"] {
     footer {
         font-size: 1.3em;
         padding: 20px;
+    }
+
+    #footer-scroll p {
+        font-size: 1.7rem;
     }
 
     .linksNav,
@@ -1520,6 +1540,14 @@ input[type="radio"] {
         width: 500px;
     }
 
+    .breadcrumb-item {
+        font-size: 1.5rem;
+    }
+    
+    input[type="radio"] {
+        transform: scale(1.7);
+        margin: 0px 10px;
+    }
     /*home page */
     .main-container {
         gap: 200px;
@@ -1614,6 +1642,10 @@ input[type="radio"] {
     }
     .form-section.active button {
         margin: 20px 10px;
+    }
+
+    .confirmation p {
+        font-size: 2em;
     }
 
     /* account*/
