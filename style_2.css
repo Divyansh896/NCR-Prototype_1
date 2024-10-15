@@ -1208,7 +1208,7 @@ input[type="radio"] {
         display: flex;
         flex-direction: row;
         max-width: 1200px;
-        margin: 60px auto;
+        margin: 0 auto;
         justify-content: space-between;
         padding: 40px;
     }
@@ -1427,6 +1427,10 @@ input[type="radio"] {
     }
     .indicator{
         margin-left: 125px;
+    }
+
+    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
+        width: 80%;
     }
 }
 
