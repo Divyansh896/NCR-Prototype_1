@@ -176,12 +176,19 @@ if (user.role === 'QA Inspector') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="product-info"]')
         clearSection(section1)
+        // Clear checkboxes
+    const checkboxes = document.querySelectorAll('input[name="process"]');
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+
     })
 
     // Clear fields in Section 2
     document.getElementById("clear-btn2").addEventListener("click", () => {
         const section2 = document.querySelector('fieldset[aria-labelledby="product-desc"]')
         clearSection(section2)
+        // Clear radio buttons
+    const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
+    radioButtons.forEach(radioButton => radioButton.checked = false);
     })
 
     // Open file dialog for images when the button is clicked

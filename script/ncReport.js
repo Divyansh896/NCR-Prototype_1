@@ -31,16 +31,22 @@ const enableFieldsForRole = (role) => {
         });
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
-            // Implement your save logic here, like sending the data to the server
-            alert('Changes saved!'); // Example feedback message
+            if (validateQaSection()) {
+                // Implement your save logic here, like sending the data to the server
+                alert('Changes saved!'); // Example feedback message
+                disableFields();
+                // Enable radio buttons
+                document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
+                    radio.disabled = false; // Enable all radio buttons
+                });
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
 
-            // Optionally, disable fields again after saving
-            disableFields();
+
         });
-        // Enable radio buttons
-        document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-            radio.disabled = false; // Enable all radio buttons
-        });
+
     } else if (role === 'Lead Engineer') {
         console.log(user.role)
         document.querySelectorAll('.eng-editable').forEach(field => {
@@ -48,11 +54,17 @@ const enableFieldsForRole = (role) => {
         });
         // Save changes when "Save" button is clicked
         document.querySelector('#eng-save').addEventListener('click', function () {
-            // Implement your save logic here, like sending the data to the server
-            alert('Changes saved!'); // Example feedback message
+            if (validateEngSection()) {
 
-            // Optionally, disable fields again after saving
-            disableFields();
+                // Implement your save logic here, like sending the data to the server
+                alert('Changes saved!'); // Example feedback message
+
+                // Optionally, disable fields again after saving
+                disableFields();
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
         });
     } else if (role === 'Purchasing') {
         document.querySelectorAll('.purch-editable').forEach(field => {
@@ -60,11 +72,14 @@ const enableFieldsForRole = (role) => {
         });
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
-            // Implement your save logic here, like sending the data to the server
-            alert('Changes saved!'); // Example feedback message
+            if (validatePurchSection()) {
+                alert('Changes saved!'); // Example feedback message
 
-            // Optionally, disable fields again after saving
-            disableFields();
+                disableFields();
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
         });
     }
 
@@ -219,3 +234,121 @@ function loadData() {
     }
 
 }
+
+
+const invalid = document.querySelectorAll('.required');
+invalid.forEach(star => {
+    star.style.display = 'none'; // Hide each star element initially
+});
+
+const validateQaSection = () => {
+    let isValid = true;
+    const formElements = [
+        'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
+        'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
+        'process', 'description-item', 'description-defect'
+    ];
+
+    formElements.forEach(field => {
+        const inputElement = document.getElementById(field);
+        const labelElement = document.querySelector(`label[for="${field}"]`);
+        const invalid = labelElement.querySelector('.required');
+
+        // Check if the input is empty
+        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
+            invalid.style.display = 'inline'; // Show star if empty
+            isValid = false;
+        } else {
+            invalid.style.display = 'none'; // Hide star if filled
+        }
+
+        // Custom validation for number input
+        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
+            invalid.style.display = 'inline'; // Show star if invalid number
+            isValid = false;
+        }
+
+        // Custom validation for date input
+        if (inputElement.type === 'date' && !inputElement.value) {
+            invalid.style.display = 'inline'; // Show star if empty date
+            isValid = false;
+        }
+    });
+
+    return isValid;
+};
+
+const validatePurchSection = () => {
+    const formElements = [
+        'preliminary-decision',
+        'options', 'car-number', 'operations-manager-name', 'operations-manager-date',
+        'new-ncr-number', 'inspector-name'
+    ];
+    let isValid = true;
+
+    formElements.forEach(field => {
+        const inputElement = document.getElementById(field);
+        const labelElement = document.querySelector(`label[for="${field}"]`);
+        const invalid = labelElement.querySelector('.required');
+
+        // Check if the input is empty
+        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
+            invalid.style.display = 'inline'; // Show star if empty
+            isValid = false;
+        } else {
+            invalid.style.display = 'none'; // Hide star if filled
+        }
+
+        // Custom validation for number input
+        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
+            invalid.style.display = 'inline'; // Show star if invalid number
+            isValid = false;
+        }
+
+        // Custom validation for date input
+        if (inputElement.type === 'date' && !inputElement.value) {
+            invalid.style.display = 'inline'; // Show star if empty date
+            isValid = false;
+        }
+    });
+
+    return isValid;
+};
+
+const validateEngSection = () => {
+    const formElements = [
+        'engineer-name',
+        'disposition-details', 'original-rev-number', 'updated-rev-number',
+        'revision-date', 'engineering-review-date'
+    ];
+    
+    let isValid = true;
+
+    formElements.forEach(field => {
+        const inputElement = document.getElementById(field);
+        const labelElement = document.querySelector(`label[for="${field}"]`);
+        const invalid = labelElement.querySelector('.required');
+
+        // Check if the input is empty
+        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
+            invalid.style.display = 'inline'; // Show star if empty
+            isValid = false;
+        } else {
+            invalid.style.display = 'none'; // Hide star if filled
+        }
+
+        // Custom validation for number input
+        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
+            invalid.style.display = 'inline'; // Show star if invalid number
+            isValid = false;
+        }
+
+        // Custom validation for date input
+        if (inputElement.type === 'date' && !inputElement.value) {
+            invalid.style.display = 'inline'; // Show star if empty date
+            isValid = false;
+        }
+    });
+
+    return isValid;
+};
