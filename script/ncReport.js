@@ -48,7 +48,7 @@ const enableFieldsForRole = (role) => {
         });
 
     } else if (role === 'Lead Engineer') {
-        console.log(user.role)
+        // console.log(user.role)
         document.querySelectorAll('.eng-editable').forEach(field => {
             field.disabled = false; // Enable Engineering editable fields
         });
@@ -67,6 +67,58 @@ const enableFieldsForRole = (role) => {
             }
         });
     } else if (role === 'Purchasing') {
+        document.querySelectorAll('.purch-editable').forEach(field => {
+            field.disabled = false; // Enable Purchasing editable fields
+        });
+        // Save changes when "Save" button is clicked
+        document.querySelector('#purch-save').addEventListener('click', function () {
+            if (validatePurchSection()) {
+                alert('Changes saved!'); // Example feedback message
+
+                disableFields();
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
+        });
+    } else if (role === "Project Manager"){
+        document.querySelectorAll('.qa-editable').forEach(field => {
+            field.disabled = false; // Enable QA editable fields
+        });
+        // Save changes when "Save" button is clicked
+        document.querySelector('#qa-save').addEventListener('click', function () {
+            if (validateQaSection()) {
+                // Implement your save logic here, like sending the data to the server
+                alert('Changes saved!'); // Example feedback message
+                disableFields();
+                // Enable radio buttons
+                document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
+                    radio.disabled = false; // Enable all radio buttons
+                });
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
+
+
+        });
+        document.querySelectorAll('.eng-editable').forEach(field => {
+            field.disabled = false; // Enable Engineering editable fields
+        });
+        // Save changes when "Save" button is clicked
+        document.querySelector('#eng-save').addEventListener('click', function () {
+            if (validateEngSection()) {
+
+                // Implement your save logic here, like sending the data to the server
+                alert('Changes saved!'); // Example feedback message
+
+                // Optionally, disable fields again after saving
+                disableFields();
+            }
+            else{
+                alert("Please fill in all the required fields before submitting.")
+            }
+        });
         document.querySelectorAll('.purch-editable').forEach(field => {
             field.disabled = false; // Enable Purchasing editable fields
         });
@@ -102,6 +154,16 @@ else if (user.role == "Lead Engineer") {
 }
 else if (user.role == "Purchasing") {
     document.getElementById('purch-edit').addEventListener('click', () => {
+        enableFieldsForRole(user.role)
+    })
+}else if (user.role == "Project Manager") {
+    document.getElementById('purch-edit').addEventListener('click', () => {
+        enableFieldsForRole(user.role)
+    })
+    document.getElementById('eng-edit').addEventListener('click', () => {
+        enableFieldsForRole(user.role)
+    })
+    document.getElementById('qa-edit').addEventListener('click', () => {
         enableFieldsForRole(user.role)
     })
 }
