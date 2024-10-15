@@ -50,6 +50,10 @@ select{
     font-size: 1rem;
 }
 
+textarea {
+    resize: vertical;
+}
+
 button {
     background-color: #f4f4f4;
     color: #163650;
@@ -786,10 +790,11 @@ input[type="radio"] {
 }
 
 .fieldset-contact #message {
-    width: 95%;
+    width: 65%;
     height: 300px;
     padding: 10px;
     font-size: 1rem;
+    margin: 0px 20px;
 }
 
 /* Button Styling */
@@ -1444,6 +1449,11 @@ input[type="radio"] {
     .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
         width: 80%;
     }
+
+    /*contact us*/
+    .fieldset-contact #message {
+        width: 95%;
+    }
 }
 
 @media screen and (min-width: 1760px) {
@@ -1485,7 +1495,7 @@ input[type="radio"] {
     .featuresCreateNCR p,
     .featuresViewNCR p,
     .featuresManageAcc p {
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     fieldset legend {
@@ -1626,8 +1636,8 @@ input[type="radio"] {
     }
 
     .col-confirm{
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
     }
 
@@ -1683,5 +1693,23 @@ input[type="radio"] {
 
     #privacy-wrapper h1{
         font-size: 3.5rem;
+    }
+
+    /*contact us*/
+    
+    .fieldset-contact {
+        padding: 0px 200px;
+    }
+
+    .fieldset-contact #message {
+        font-size: 1.7rem;
+    }
+
+    .fieldset-contact button{
+        font-size: 1.7rem;
+        height: 60px;
+    }
+    .fieldset-contact #name, .fieldset-contact #email {
+        height: 60px;
     }
 }
