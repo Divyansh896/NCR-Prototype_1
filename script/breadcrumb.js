@@ -5,34 +5,33 @@ function getCurrentPageName() {
     var path = window.location.pathname;
     var pageName = path.substring(path.lastIndexOf('/') + 1).split('.')[0];
 
-    switch (pageName) {
-        case 'view_ncr':
-            return 'View NCR';
-        case 'create_ncr':
-            return 'Create NCR';
-        case 'manage_ncr':
-            return 'Manage NCR';
-        // Add other specific cases as needed
-
-        default:
+    
             // General case: replace underscores with spaces and capitalize words
             return pageName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
-    }
+    
 }
 
 // Function to update and save the breadcrumb trail
 function updateBreadcrumb() {
     var currentPage = getCurrentPageName();
     var breadcrumbTrail = JSON.parse(sessionStorage.getItem("breadcrumbTrail")) || [];
-    
-    // Check if current page is already in breadcrumb to avoid duplicates
-    if (!breadcrumbTrail.includes(currentPage)) {
+
+    // Check if the current page is already in the breadcrumb trail
+    var pageIndex = breadcrumbTrail.indexOf(currentPage);
+    if (pageIndex !== -1) {
+        // If the page is found, keep all elements up to this page and discard the rest
+        breadcrumbTrail = breadcrumbTrail.slice(0, pageIndex + 1);
+    } else {
+        // If the page is not in the breadcrumb, add it to the trail
         breadcrumbTrail.push(currentPage);
-        sessionStorage.setItem("breadcrumbTrail", JSON.stringify(breadcrumbTrail));
     }
-    
+
+    // Update session storage with the modified breadcrumb trail
+    sessionStorage.setItem("breadcrumbTrail", JSON.stringify(breadcrumbTrail));
     renderBreadcrumb();
 }
+
+
 
 // Function to render the breadcrumb based on sessionStorage data
 function renderBreadcrumb() {

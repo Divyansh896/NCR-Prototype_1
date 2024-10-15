@@ -5,3 +5,4 @@ footer.addEventListener('click', ()=>{
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 })
+

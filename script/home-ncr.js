@@ -39,19 +39,19 @@ function initializeButtons() {
     if(user.role == 'QA Inspector'){
 
         btnCreate.addEventListener('click', () => {
-            window.location.href = `create_ncr.html?ncr_no=${generateNextNcrNumber(ncr)}`;
+            window.location.href = `create.html?ncr_no=${generateNextNcrNumber(ncr)}`;
         });
     }
     else{
         btnCreate.innerHTML = 'Open NCR'
         btnCreate.addEventListener('click', ()=>{
             const queryString = createQueryString(ncr[0]);
-            window.location.href = `create_ncr.html?${queryString}`
+            window.location.href = `create.html?${queryString}`
         })
     }
 
     btnView.addEventListener('click', () => {
-        window.location.href = 'view_ncr.html';
+        window.location.href = 'view.html';
     });
 
     btnManage.addEventListener('click', () => {
@@ -61,8 +61,9 @@ function initializeButtons() {
 
 // Generate the next NCR number
 function generateNextNcrNumber(ncrData) {
-    const lastNcrNumber = ncrData[ncrData.length - 1].ncr_no; // Get last NCR number from data
-    const [prefix, year, lastNumber] = lastNcrNumber.split('-');
+    const lastNcrNumber = ncrData[ncrData.length - 1].ncr_no; // Get the last NCR number from data
+    const year = lastNcrNumber.substring(0, 4); // Extract the first 4 digits as the year
+    const lastNumber = lastNcrNumber.slice(-3); // Extract the last 3 digits
     const currentYear = new Date().getFullYear().toString();
     let nextNumber;
 
@@ -75,6 +76,7 @@ function generateNextNcrNumber(ncrData) {
 
     return `${currentYear}${nextNumber}`; // Return new NCR number
 }
+
 
 // Create a query string from the NCR data
 function createQueryString(ncrData) {
