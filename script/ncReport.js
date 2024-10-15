@@ -10,7 +10,7 @@ const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'));
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
 const currentPage = window.location.pathname; // Get current page path
-const isCreateNCRPage = currentPage.includes('create_ncr'); // Check if it's the Create NCR page
+const isCreateNCRPage = currentPage.includes('create'); // Check if it's the Create NCR page
 console.log(user.role)
 
 // Get all input fields and textareas
