@@ -1,6 +1,6 @@
 [
     {
-        "firstname":"John",
+        "firstname":"Grace",
         "lastname":"Smith",
         "username": "jsmith",
         "employeeID": 1011,
@@ -10,7 +10,7 @@
         "password": "jsmithqa",
         "phone": 6325147889,
         "dob": "1990-06-12",
-        "gender": "Male"
+        "gender": "Female"
     },
     {
         "firstname":"Davis",
@@ -41,7 +41,7 @@
 
     },
     {
-        "firstname":"Grace",
+        "firstname":"John",
         "lastname":"White",
         "username": "gwhite",
         "employeeID": 4002,

@@ -42,6 +42,16 @@ select{
     border: 2px solid #163650;
     font-size: 1rem;
 }
+button:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="date"]:focus,
+input[type="email"]:focus,
+input[type="number"]:focus,
+input[type="tel"]:focus,
+select:focus{
+    border: 2px solid black;
+}
 
 .form-section textarea {
     padding: 10px 10px;
@@ -236,7 +246,7 @@ details[open] .custom-summary::before {
     background: #163650;
     color: #b8c4d5;
     width: 85px;
-    margin-top: 15px;
+    margin: 15px 0;
 }
 
 /* Header styles */
@@ -1190,8 +1200,11 @@ input[type="radio"] {
     }
 
     /* ncr  report page */
-    .form-group {
-        align-items: center;
+    .form-group{
+        margin-left: 90px;
+    }
+    .indicator{
+        margin-left: 90px;
     }
 
     .form-row label,
@@ -1199,6 +1212,9 @@ input[type="radio"] {
     .form-row select,
     .form-row textarea {
         width: 65%;
+    }
+    .form-row label{
+        font-size:1em;
     }
 
     .two-cols {
@@ -1228,6 +1244,7 @@ input[type="radio"] {
     .custom-summary {
         font-size: 1.5em;
         padding-left: 95px;
+        font-weight: 550;
     }
 
     /* Home Page - Three-column Layout */
@@ -1340,13 +1357,16 @@ input[type="radio"] {
         width: 75%;
     }
 
-
+    #qa-section{
+        align-items: flex-start;
+    }
+    
 }
 
 @media screen and (min-width: 1440px) {
 
     h1 {
-        font-size: 3rem
+        font-size: 2.5rem
     }
 
     label,
@@ -1378,6 +1398,9 @@ input[type="radio"] {
         font-size: 1.3rem;
     }
 
+    .indicator{
+        margin-left: 125px;
+    }
     /*account*/
     .account {
         margin: 0px 100px;
@@ -1456,6 +1479,7 @@ input[type="radio"] {
     .custom-summary {
         font-size: 1.45em;
         padding-left: 128px;
+        font-weight: 600;
     }
 
     .confirmation p {
