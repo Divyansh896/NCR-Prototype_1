@@ -50,6 +50,10 @@ select{
     font-size: 1rem;
 }
 
+textarea {
+    resize: vertical;
+}
+
 button {
     background-color: #f4f4f4;
     color: #163650;
@@ -104,7 +108,7 @@ nav {
 }
 
 nav ul {
-    background: #f4f4f4;
+    background: #d7e4f9;
     list-style-type: none;
     position: absolute;
     right: 100%;
@@ -135,9 +139,10 @@ nav li ul.dropdown {
     position: relative;
     top: 100%;
     left: 0;
-    background: rgb(254, 254, 218);
+    background: #bfd6fc;
     z-index: 999;
     height: auto;
+    margin: 0;
 
 }
 
@@ -516,7 +521,7 @@ fieldset legend {
 
 .confirmation p {
     text-align: left;
-    margin-top: 10px;
+    margin-top: 20px;
     font-size: 1.05em;
 }
 
@@ -786,10 +791,11 @@ input[type="radio"] {
 }
 
 .fieldset-contact #message {
-    width: 95%;
+    width: 65%;
     height: 300px;
     padding: 10px;
     font-size: 1rem;
+    margin: 0px 20px;
 }
 
 /* Button Styling */
@@ -851,6 +857,18 @@ input[type="radio"] {
     margin-bottom: 8px;
 }
 
+.contact-info{
+    font-size: 1.7rem;
+}
+
+.contact-info a{
+    color: #1a3153;
+    text-decoration-line: underline;
+}
+.summ-policy a{
+    color: #1a3153;
+    text-decoration-line: underline;
+}
 /*media*/
 @media screen and (min-width: 320px) {
     header {
@@ -863,8 +881,12 @@ input[type="radio"] {
 }
 
 @media screen and (min-width: 768px) {
+    /*genral*/
     h1 {
         font-size: 2rem;
+    }
+    .breadcrumb-item {
+        font-size: 1rem;
     }
 
     /*home*/
@@ -935,6 +957,12 @@ input[type="radio"] {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .col-confirm {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+    
 
     .item-conforming, .item-conforming legend{
         text-align: center;
@@ -1098,6 +1126,7 @@ input[type="radio"] {
         float: left;
         margin: 0;
     }
+    
 
 }
 
@@ -1306,11 +1335,10 @@ input[type="radio"] {
     fieldset.account{
         padding: 0px 100px;
     }
-
-    .indicator{
-        margin-left: 85px;
-    }
     
+    .form-section.active {
+        width: 75%;
+    }
 
 
 }
@@ -1324,6 +1352,10 @@ input[type="radio"] {
     label,
     p {
         font-size: 1.4rem;
+    }
+
+    #footer-scroll p {
+        font-size: 1.2rem;
     }
 
     fieldset legend {
@@ -1425,12 +1457,19 @@ input[type="radio"] {
         font-size: 1.45em;
         padding-left: 128px;
     }
-    .indicator{
-        margin-left: 125px;
+
+    .confirmation p {
+        font-size: 1.5em;
     }
+    
 
     .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
         width: 80%;
+    }
+
+    /*contact us*/
+    .fieldset-contact #message {
+        width: 95%;
     }
 }
 
@@ -1448,6 +1487,10 @@ input[type="radio"] {
     footer {
         font-size: 1.3em;
         padding: 20px;
+    }
+
+    #footer-scroll p {
+        font-size: 1.7rem;
     }
 
     .linksNav,
@@ -1473,7 +1516,7 @@ input[type="radio"] {
     .featuresCreateNCR p,
     .featuresViewNCR p,
     .featuresManageAcc p {
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     fieldset legend {
@@ -1498,6 +1541,14 @@ input[type="radio"] {
         width: 500px;
     }
 
+    .breadcrumb-item {
+        font-size: 1.5rem;
+    }
+    
+    input[type="radio"] {
+        transform: scale(1.7);
+        margin: 0px 10px;
+    }
     /*home page */
     .main-container {
         gap: 200px;
@@ -1594,6 +1645,10 @@ input[type="radio"] {
         margin: 20px 10px;
     }
 
+    .confirmation p {
+        font-size: 2em;
+    }
+
     /* account*/
 
     .account {
@@ -1614,8 +1669,8 @@ input[type="radio"] {
     }
 
     .col-confirm{
-        display: flex;
-        flex-direction: row;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
 
     }
 
@@ -1650,5 +1705,44 @@ input[type="radio"] {
     .custom-summary {
         font-size: 2em;
         padding-left: 153px;
+    }
+    /*privacy policy*/
+    .contact-info p{
+    margin: 20px 0px;
+    font-size: 1.7rem;
+    }
+
+    #privacy-wrapper p, .summ-policy a, strong{
+        font-size: 1.7rem;
+    }
+
+    #privacy-wrapper h2{
+        font-size: 2.5rem;
+    }
+
+    #privacy-wrapper h3, #table-of-contents{
+        font-size: 2rem;
+    }
+
+    #privacy-wrapper h1{
+        font-size: 3.5rem;
+    }
+
+    /*contact us*/
+    
+    .fieldset-contact {
+        padding: 0px 200px;
+    }
+
+    .fieldset-contact #message {
+        font-size: 1.7rem;
+    }
+
+    .fieldset-contact button{
+        font-size: 1.7rem;
+        height: 60px;
+    }
+    .fieldset-contact #name, .fieldset-contact #email {
+        height: 60px;
     }
 }
