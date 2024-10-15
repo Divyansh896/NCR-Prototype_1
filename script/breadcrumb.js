@@ -3,7 +3,21 @@ var breadcrumb = document.getElementById("brdcrb");
 // Helper function to get the current page name
 function getCurrentPageName() {
     var path = window.location.pathname;
-    return path.substring(path.lastIndexOf('/') + 1).split('.')[0];
+    var pageName = path.substring(path.lastIndexOf('/') + 1).split('.')[0];
+
+    switch (pageName) {
+        case 'view_ncr':
+            return 'View NCR';
+        case 'create_ncr':
+            return 'Create NCR';
+        case 'manage_ncr':
+            return 'Manage NCR';
+        // Add other specific cases as needed
+
+        default:
+            // General case: replace underscores with spaces and capitalize words
+            return pageName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
+    }
 }
 
 // Function to update and save the breadcrumb trail

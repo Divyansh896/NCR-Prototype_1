@@ -17,6 +17,7 @@
 
 
 
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -35,13 +36,14 @@ input[type="date"],
 input[type="email"],
 input[type="number"],
 input[type="tel"],
-select{
+select {
     padding: 0px 10px;
     height: 40px;
     border-radius: 4px;
     border: 2px solid #163650;
     font-size: 1rem;
 }
+
 button:focus,
 input[type="text"]:focus,
 input[type="password"]:focus,
@@ -49,7 +51,7 @@ input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
-select:focus{
+select:focus {
     border: 2px solid black;
 }
 
@@ -287,7 +289,7 @@ label {
     color: #9e7c70
 }
 
-nav ul a{
+nav ul a {
     color: #f4f4f4;
 }
 
@@ -622,7 +624,7 @@ input[type="radio"].status-filter {
     color: #1a3153;
 }
 
-.horizontal{
+.horizontal {
     display: flex;
 }
 
@@ -652,8 +654,9 @@ input[type="radio"] {
 .radio-btn {
     margin-left: 30px;
 }
+
 /* Reset Button*/
-#btn-reset{
+#btn-reset {
     height: 40px;
     background-color: #1a3153;
     color: #f4f4f4;
@@ -674,7 +677,7 @@ input[type="radio"] {
 
 #record-count {
     text-align: left;
-    margin:10px;
+    margin: 10px;
 }
 
 #status-filter {
@@ -764,7 +767,7 @@ input[type="radio"] {
     width: 200px;
 }
 
-.btns-acc{
+.btns-acc {
     text-align: center;
     margin: 20px 0px;
 }
@@ -866,19 +869,23 @@ input[type="radio"] {
     margin-top: 20px;
     margin-bottom: 8px;
 }
-
-.contact-info{
+#Privacy-policy ol{
+    margin-left: 40px;
+}
+.contact-info {
     font-size: 1.7rem;
 }
 
-.contact-info a{
+.contact-info a {
     color: #1a3153;
     text-decoration-line: underline;
 }
-.summ-policy a{
+
+.summ-policy a {
     color: #1a3153;
     text-decoration-line: underline;
 }
+
 /*media*/
 @media screen and (min-width: 320px) {
     header {
@@ -891,10 +898,12 @@ input[type="radio"] {
 }
 
 @media screen and (min-width: 768px) {
+
     /*genral*/
     h1 {
         font-size: 2rem;
     }
+
     .breadcrumb-item {
         font-size: 1rem;
     }
@@ -972,16 +981,17 @@ input[type="radio"] {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
-    
 
-    .item-conforming, .item-conforming legend{
+
+    .item-conforming,
+    .item-conforming legend {
         text-align: center;
     }
 
-    .media{
+    .media {
         padding: 0px 300px;
     }
-    
+
     .fieldset-margin fieldset {
         margin-top: 10px;
     }
@@ -1035,11 +1045,12 @@ input[type="radio"] {
         text-align: left;
     }
 
-    #search, #date-filter{
+    #search,
+    #date-filter {
         width: 100%;
     }
 
-    .ncr-table tbody td{
+    .ncr-table tbody td {
         padding: 15px;
     }
 
@@ -1132,11 +1143,12 @@ input[type="radio"] {
     .fieldset-contact #email {
         width: 65%;
     }
-    .brdcontainer nav{
+
+    .brdcontainer nav {
         float: left;
         margin: 0;
     }
-    
+
 
 }
 
@@ -1200,10 +1212,11 @@ input[type="radio"] {
     }
 
     /* ncr  report page */
-    .form-group{
+    .form-group {
         margin-left: 90px;
     }
-    .indicator{
+
+    .indicator {
         margin-left: 90px;
     }
 
@@ -1213,8 +1226,9 @@ input[type="radio"] {
     .form-row textarea {
         width: 65%;
     }
-    .form-row label{
-        font-size:1em;
+
+    .form-row label {
+        font-size: 1em;
     }
 
     .two-cols {
@@ -1323,7 +1337,8 @@ input[type="radio"] {
         transform: scale(1.05);
     }
 
-    .ncr-table th, .ncr-table td{
+    .ncr-table th,
+    .ncr-table td {
         font-size: 1.1rem;
     }
 
@@ -1349,18 +1364,19 @@ input[type="radio"] {
         align-self: center;
         width: 85%;
     }
-    fieldset.account{
+
+    fieldset.account {
         padding: 0px 100px;
     }
-    
+
     .form-section.active {
         width: 75%;
     }
 
-    #qa-section{
+    #qa-section {
         align-items: flex-start;
     }
-    
+
 }
 
 @media screen and (min-width: 1440px) {
@@ -1398,15 +1414,16 @@ input[type="radio"] {
         font-size: 1.3rem;
     }
 
-    .indicator{
+    .indicator {
         margin-left: 125px;
     }
+
     /*account*/
     .account {
         margin: 0px 100px;
         border-radius: 25px;
     }
-    
+
     .account legend img {
         height: 250px;
         width: 250px;
@@ -1419,7 +1436,7 @@ input[type="radio"] {
         font-size: 18px;
     }
 
-    #status-filter{
+    #status-filter {
         font-size: 1.4rem;
     }
 
@@ -1438,12 +1455,15 @@ input[type="radio"] {
         width: 75%;
     }
 
-    .media legend, .item-conforming legend{
+    .media legend,
+    .item-conforming legend {
         font-size: 1.5rem;
     }
-    .form-section.active label{
+
+    .form-section.active label {
         font-size: 1.5rem;
     }
+
     .form-row label,
     .form-row input,
     .form-row select,
@@ -1485,9 +1505,11 @@ input[type="radio"] {
     .confirmation p {
         font-size: 1.5em;
     }
-    
 
-    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
+
+    .featuresCreateNCR button,
+    .featuresViewNCR button,
+    .featuresManageAcc button {
         width: 80%;
     }
 
@@ -1568,11 +1590,12 @@ input[type="radio"] {
     .breadcrumb-item {
         font-size: 1.5rem;
     }
-    
+
     input[type="radio"] {
         transform: scale(1.7);
         margin: 0px 10px;
     }
+
     /*home page */
     .main-container {
         gap: 200px;
@@ -1598,7 +1621,7 @@ input[type="radio"] {
         font-size: 1.7rem;
     }
 
-    .form-section textarea{
+    .form-section textarea {
         font-size: 1.7rem;
     }
 
@@ -1621,7 +1644,8 @@ input[type="radio"] {
         margin: 40px 200px;
     }
 
-    #search, #date-filter {
+    #search,
+    #date-filter {
         height: 60px;
     }
 
@@ -1642,7 +1666,7 @@ input[type="radio"] {
         padding: 20px;
     }
 
-    #btn-reset{
+    #btn-reset {
         height: 60px;
         width: 300px;
     }
@@ -1662,9 +1686,12 @@ input[type="radio"] {
         font-size: 1.7rem;
     }
 
-    .qa-process legend, .media legend, .item-conforming legend {
+    .qa-process legend,
+    .media legend,
+    .item-conforming legend {
         font-size: 2rem;
     }
+
     .form-section.active button {
         margin: 20px 10px;
     }
@@ -1692,7 +1719,7 @@ input[type="radio"] {
         width: 35%;
     }
 
-    .col-confirm{
+    .col-confirm {
         display: grid;
         grid-template-columns: 1fr 1fr;
 
@@ -1730,30 +1757,34 @@ input[type="radio"] {
         font-size: 2em;
         padding-left: 153px;
     }
-    /*privacy policy*/
-    .contact-info p{
-    margin: 20px 0px;
-    font-size: 1.7rem;
-    }
 
-    #privacy-wrapper p, .summ-policy a, strong{
+    /*privacy policy*/
+    .contact-info p {
+        margin: 20px 0px;
         font-size: 1.7rem;
     }
 
-    #privacy-wrapper h2{
+    #privacy-wrapper p,
+    .summ-policy a,
+    strong {
+        font-size: 1.7rem;
+    }
+
+    #privacy-wrapper h2 {
         font-size: 2.5rem;
     }
 
-    #privacy-wrapper h3, #table-of-contents{
+    #privacy-wrapper h3,
+    #table-of-contents {
         font-size: 2rem;
     }
 
-    #privacy-wrapper h1{
+    #privacy-wrapper h1 {
         font-size: 3.5rem;
     }
 
     /*contact us*/
-    
+
     .fieldset-contact {
         padding: 0px 200px;
     }
@@ -1762,11 +1793,13 @@ input[type="radio"] {
         font-size: 1.7rem;
     }
 
-    .fieldset-contact button{
+    .fieldset-contact button {
         font-size: 1.7rem;
         height: 60px;
     }
-    .fieldset-contact #name, .fieldset-contact #email {
+
+    .fieldset-contact #name,
+    .fieldset-contact #email {
         height: 60px;
     }
 }
