@@ -13,11 +13,9 @@ starElements.forEach(star => {
 });
 
 function showRequiredFields() {
-    let isvalid = true;
-    const requiredFields = [
-        'name', 'email', 'message']
+    let isValid = true;
+    const requiredFields = ['name', 'email', 'message'];
 
-    
     requiredFields.forEach(field => {
         const inputElement = document.getElementById(field);
         const labelElement = document.querySelector(`label[for="${field}"]`);
@@ -26,14 +24,19 @@ function showRequiredFields() {
         // Check if the input is empty
         if (inputElement.value.trim() === '') {
             starElement.style.display = 'inline'; // Show star if empty
-            isvalid = false;
+            isValid = false;
+        } else if (field === 'email' && !inputElement.value.includes('@')) {
+            starElement.style.display = 'inline'; // Show star if '@' is missing in email
+            isValid = false;
+            alert("enter correct e-mail address.")
         } else {
-            starElement.style.display = 'none'; // Hide star if filled
+            starElement.style.display = 'none'; // Hide star if valid
         }
     });
 
-    return isvalid; // Return the final validation result
+    return isValid; // Return the final validation result
 }
+
 // Submit button event listener
 document.getElementById('send-msg').addEventListener('click', (e) => {
     if (!showRequiredFields()) {
