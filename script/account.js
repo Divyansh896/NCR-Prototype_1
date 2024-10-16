@@ -61,6 +61,10 @@ function showRequiredFields() {
 document.getElementById('submit-btn').addEventListener('click', (e) => {
     if (!showRequiredFields()) {
         e.preventDefault(); // Prevent form submission if invalid
+        alert("Please fill in the required fields before submitting.")
+    }else{
+
+        alert("Credentials updated  successfully.")
     }
 });
 

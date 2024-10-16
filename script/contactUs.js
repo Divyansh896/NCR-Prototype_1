@@ -38,5 +38,9 @@ function showRequiredFields() {
 document.getElementById('send-msg').addEventListener('click', (e) => {
     if (!showRequiredFields()) {
         e.preventDefault(); // Prevent form submission if invalid
+        alert("Please fill in the required fields before submitting.")
+    }else{
+
+        alert("Mail sent to the company head.")
     }
 });
