@@ -438,7 +438,7 @@ fieldset legend {
     border: 2px solid #163650;
     /* Added border style */
     flex-direction: column;
-    text-align: center;
+    text-align: left;
 }
 
 .form-section.active label {
@@ -945,7 +945,7 @@ input[type="radio"] {
 
     .form-section textarea {
         height: 250px;
-        width: 85%;
+        width: 100%;
     }
 
     #description-item {
@@ -1155,6 +1155,11 @@ input[type="radio"] {
 }
 .form-section.active label{
     margin-right: 40px;
+    margin-left: 0;
+}
+.account .indicator{
+    margin-left: 123px;
+    align-self: flex-start;
 }
 }
 
@@ -1534,6 +1539,10 @@ input[type="radio"] {
 
     .form-section.active label{
         margin-right: 35px;
+    }
+
+    .indicator{
+        margin-left: 125px;
     }
 }
 
