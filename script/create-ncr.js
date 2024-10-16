@@ -208,6 +208,7 @@ if (user.role === 'QA Inspector') {
         const files = event.target.files
         if (files.length > 0) {
             console.log('Selected photos:', Array.from(files).map(file => file.name))
+            alert(`${files.length} photos selected.`)
         }
     })
 
@@ -216,6 +217,8 @@ if (user.role === 'QA Inspector') {
         const files = event.target.files
         if (files.length > 0) {
             console.log('Selected videos:', Array.from(files).map(file => file.name))
+            alert(`${files.length} videos selected.`)
+
         }
     })
     // Validate Section 1
