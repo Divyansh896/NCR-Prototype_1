@@ -1152,8 +1152,12 @@ input[type="radio"] {
         float: left;
         margin: 0;
     }
-
-
+.form-section textarea::placeholder{
+    padding: 5px;
+}
+.form-section.active label{
+    margin-right: 40px;
+}
 }
 
 
@@ -1221,9 +1225,13 @@ input[type="radio"] {
     }
 
     .indicator {
-        margin-left: 90px;
+        margin-left: 100px;
     }
 
+    .account .indicator{
+        align-self:flex-start;
+        margin-left: 0;
+    }
     .form-row label,
     .form-row input,
     .form-row select,
@@ -1380,7 +1388,12 @@ input[type="radio"] {
     #qa-section {
         align-items: flex-start;
     }
-
+    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
+        width: 62%;
+    }
+    .form-section.active label{
+        margin-right: 10px;
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -1468,6 +1481,9 @@ input[type="radio"] {
         font-size: 1.5rem;
     }
 
+    .form-row{
+        margin-left: 26px;
+    }
     .form-row label,
     .form-row input,
     .form-row select,
@@ -1520,6 +1536,10 @@ input[type="radio"] {
     /*contact us*/
     .fieldset-contact #message {
         width: 95%;
+    }
+
+    .form-section.active label{
+        margin-right: 35px;
     }
 }
 
