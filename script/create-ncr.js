@@ -177,8 +177,10 @@ if (user.role === 'QA Inspector') {
         const section1 = document.querySelector('fieldset[aria-labelledby="product-info"]')
         clearSection(section1)
         // Clear checkboxes
-    const checkboxes = document.querySelectorAll('input[name="process"]');
-    checkboxes.forEach(checkbox => checkbox.checked = false);
+        const checkboxes = document.querySelectorAll('input[name="process"]');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+        quantityReceivedInput.value = 0
+        quantityDefectiveInput.value = 0
 
     })
 
@@ -187,8 +189,8 @@ if (user.role === 'QA Inspector') {
         const section2 = document.querySelector('fieldset[aria-labelledby="product-desc"]')
         clearSection(section2)
         // Clear radio buttons
-    const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
-    radioButtons.forEach(radioButton => radioButton.checked = false);
+        const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
+        radioButtons.forEach(radioButton => radioButton.checked = false);
     })
 
     // Open file dialog for images when the button is clicked
@@ -281,7 +283,7 @@ if (user.role === 'QA Inspector') {
             const starElement = labelElement.querySelector('.required');
 
             // Check if the input is empty
-            if (inputElement.value.trim() === '' || inputElement.value.trim() ==  null) {
+            if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
                 starElement.style.display = 'inline'; // Show star if empty
                 isValid = false;
             } else {
