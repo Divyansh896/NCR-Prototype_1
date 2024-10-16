@@ -132,7 +132,9 @@ input[type="password"]::placeholder {
     transition: background-color 0.3s;
     border-radius: 25px;
 }
-
+button:focus{
+    border: 2px solid black;
+}
 #btn-login:hover {
     background-color: rgba(1, 108, 221, 0.9);
     /* Darker shade on hover */

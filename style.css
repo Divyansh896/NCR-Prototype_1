@@ -49,8 +49,9 @@ input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
-select:focus {
-    border: 2px solid black;
+select:focus
+textarea:focus {
+    border: 3px solid black;
 }
 
 .form-section textarea {
@@ -1112,7 +1113,7 @@ input[type="radio"] {
     }
 
     nav li ul.dropdown {
-        width: 100%;
+        width: 115px;
         position: absolute;
         z-index: 999;
         display: none;
