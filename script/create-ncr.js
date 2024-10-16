@@ -127,6 +127,9 @@ if (user.role === 'QA Inspector') {
             sections[currentStep].classList.add("active")
             updateStatusBar()
         }
+        else{
+            alert("Please fill in the required fields.")
+        }
     })
 
     document.getElementById("next-btn2").addEventListener("click", () => {
@@ -136,6 +139,9 @@ if (user.role === 'QA Inspector') {
             sections[currentStep].classList.add("active")
             updateStatusBar()
             populateConfirmationData()
+        }
+        else{
+            alert("Please fill in the required fields.")
         }
     })
 
