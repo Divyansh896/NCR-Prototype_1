@@ -16,8 +16,6 @@
 }
 
 
-
-
 body {
     font-family: Arial, sans-serif;
     background-color: #f4f4f4;
@@ -1118,7 +1116,7 @@ input[type="radio"] {
         position: absolute;
         z-index: 999;
         display: none;
-        background: #aae7f1;
+        background: #bfd6fc;
         padding: 0;
         margin: 0;
     }
@@ -1431,10 +1429,6 @@ input[type="radio"] {
         font-size: 1.3rem;
     }
 
-    .indicator {
-        margin-left: 125px;
-    }
-
     /*account*/
     .account {
         margin: 0px 100px;
@@ -1572,10 +1566,6 @@ input[type="radio"] {
     footer p {
         font-size: 1.5rem;
         padding: 10px 0px;
-    }
-
-    .indicator {
-        font-size: 1.7rem;
     }
 
     h1 {
@@ -1786,6 +1776,10 @@ input[type="radio"] {
     .contact-info p {
         margin: 20px 0px;
         font-size: 1.7rem;
+    }
+
+    .form-row label {
+        font-size: 1.7em;
     }
 
     #privacy-wrapper p,
