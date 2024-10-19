@@ -18,6 +18,7 @@
 
 .breadcrumb-item {
     margin-right: 1px; /* Space between items */
+    font-size: 0.85em;
 }
 
 .breadcrumb-item a {
