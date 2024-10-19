@@ -128,7 +128,7 @@ if (user.role === 'QA Inspector') {
             updateStatusBar()
         }
         else {
-            showPopup('Required fields missing', 'Please fill in required fields')
+            showPopup('Required fields missing', 'Please fill in required fields', 'images/1382678.webp')
         }
     })
 
@@ -141,7 +141,7 @@ if (user.role === 'QA Inspector') {
             populateConfirmationData()
         }
         else {
-            showPopup('Required fields missing', 'Please fill in required fields')
+            showPopup('Required fields missing', 'Please fill in required fields', 'images/1382678.webp')
         }
     })
 
@@ -161,15 +161,18 @@ if (user.role === 'QA Inspector') {
         updateStatusBar()
     })
 
-    // Submit the form and show the confirmation message
+    // Event listener for the submit button
     document.getElementById("submit-btn").addEventListener("click", (e) => {
+        e.preventDefault(); // Prevent default form submission
 
-        submitForm(user.role)
-        sendMail()
-        showPopup('Form submitted', 'Your Qa form has been sent to the engineering department')
-        window.location.href = "home.html"
-
-    })
+        // Show the popup and wait for it to close
+        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
+            // This callback will execute after the popup is closed
+            submitForm(user.role); // Call the form submission
+            sendMail(); // Call the email sending function
+            window.location.href = "home.html"; // Redirect to home.html
+        });
+    });
 
     // Clear fields in Section 1
     document.getElementById("clear-btn1").addEventListener("click", () => {
@@ -446,7 +449,7 @@ function submitForm(role) {
         // ncr_data.push(newEntry)
         // data = JSON.stringify(ncr_data)
         // fs.writeFileSync("Data/ncr_reports.json",ncr_data,"utf-8");
-        alert('QA data submitted!');
+        // alert('QA data submitted!');
         ncrData.push(newEntry);  // Append new entry to the array
         console.log(ncrData)
 
@@ -496,45 +499,43 @@ const modal = document.getElementById("popup");
 const span = document.getElementById("closePopup");
 
 
-
-// When the user clicks the button, open the modal 
-function showPopup (title, message, errorMessage) {
-    
-    // Example of setting dynamic content with an error message
-    
+// Show the modal with a title, message, and icon
+function showPopup(title, message, icon, callback) {
     const modalContent = modal.querySelector('.modal-content');
     modalContent.querySelector('h2').innerText = title; // Set the title
     modalContent.querySelector('p').innerText = message; // Set the message
-    document.getElementById('error-message').innerText = errorMessage
-    
-    
-    modal.style.display = "block"; // Show the modal with the error message
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = icon; // Replace with your image URL
+    iconDiv.appendChild(imgElement);
+
+    modal.style.display = "block"; // Show the modal
+
     setTimeout(() => {
-        const modalContent = modal.querySelector('.modal-content');
         modalContent.style.opacity = "1"; // Fade in effect
         modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
     }, 10); // Short timeout to ensure the transition applies
-}
 
-
-// When the user clicks on <span> (x), close the modal
-span.onclick = function() {
-    const modalContent = modal.querySelector('.modal-content');
-    modalContent.style.opacity = "0"; // Fade out effect
-    modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
-    setTimeout(() => {
-        modal.style.display = "none"; // Hide the modal after transition
-    }, 500); // Wait for the transition to finish before hiding
-}
-
-// When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        const modalContent = modal.querySelector('.modal-content');
+    // Define the close function
+    const closeModal = () => {
         modalContent.style.opacity = "0"; // Fade out effect
         modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
         setTimeout(() => {
             modal.style.display = "none"; // Hide the modal after transition
+            callback(); // Execute the callback after closing the modal
         }, 500); // Wait for the transition to finish before hiding
-    }
+    };
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal;
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
 }
