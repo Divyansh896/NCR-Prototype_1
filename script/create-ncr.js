@@ -127,8 +127,8 @@ if (user.role === 'QA Inspector') {
             sections[currentStep].classList.add("active")
             updateStatusBar()
         }
-        else{
-            alert("Please fill in the required fields.")
+        else {
+            showPopup('Required fields missing', 'Please fill in required fields')
         }
     })
 
@@ -140,8 +140,8 @@ if (user.role === 'QA Inspector') {
             updateStatusBar()
             populateConfirmationData()
         }
-        else{
-            alert("Please fill in the required fields.")
+        else {
+            showPopup('Required fields missing', 'Please fill in required fields')
         }
     })
 
@@ -163,19 +163,12 @@ if (user.role === 'QA Inspector') {
 
     // Submit the form and show the confirmation message
     document.getElementById("submit-btn").addEventListener("click", (e) => {
-        const check = document.getElementById('confirm-checkbox')
 
-        if (check.checked) {
-            submitForm(user.role)
-            sendMail()
-            alert("Form submitted")
-            window.location.href = "home.html"
-        } else {
-            check.scrollIntoView({ behavior: "smooth", block: "center" }) // Optional: scroll the checkbox into view
-            check.focus()
-            alert("Please confirm by checking the box before submitting.")
-            e.preventDefault()
-        }
+        submitForm(user.role)
+        sendMail()
+        showPopup('Form submitted', 'Your Qa form has been sent to the engineering department')
+        window.location.href = "home.html"
+
     })
 
     // Clear fields in Section 1
@@ -197,36 +190,16 @@ if (user.role === 'QA Inspector') {
         // Clear radio buttons
         const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
         radioButtons.forEach(radioButton => radioButton.checked = false);
+        document.getElementById('photo-list').innerHTML = ''; // Clear the photo list
+        document.getElementById('video-list').innerHTML = ''; // Clear the video list
+
+        // Optionally reset the file input elements
+        document.getElementById('photo-input').value = '';
+        document.getElementById('video-input').value = '';
     })
 
-    // Open file dialog for images when the button is clicked
-    document.getElementById('add-photo-btn').addEventListener('click', function () {
-        document.getElementById('photo-input').click()
-    })
 
-    // Open file dialog for videos when the button is clicked
-    document.getElementById('add-video-btn').addEventListener('click', function () {
-        document.getElementById('video-input').click()
-    })
 
-    // Handle file selection for images
-    document.getElementById('photo-input').addEventListener('change', function (event) {
-        const files = event.target.files
-        if (files.length > 0) {
-            console.log('Selected photos:', Array.from(files).map(file => file.name))
-            alert(`${files.length} photos selected.`)
-        }
-    })
-
-    // Handle file selection for videos
-    document.getElementById('video-input').addEventListener('change', function (event) {
-        const files = event.target.files
-        if (files.length > 0) {
-            console.log('Selected videos:', Array.from(files).map(file => file.name))
-            alert(`${files.length} videos selected.`)
-
-        }
-    })
     // Validate Section 1
     function validateSection1() {
         let isValid = true
@@ -238,8 +211,8 @@ if (user.role === 'QA Inspector') {
 
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
-            const labelElement = document.querySelector(`label[for="${field}"]`);
-            const starElement = labelElement.querySelector('.required');
+            // const labelElement = document.querySelector(`label[for="${field}"]`);
+            const starElement = inputElement.nextElementSibling;
 
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
@@ -264,14 +237,16 @@ if (user.role === 'QA Inspector') {
 
         // Validate checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]')
-        const legendElement = document.querySelector('.qa-process legend .required'); // Select the required span in the legend
+        const checkboxLegend = document.querySelector('.qa-process legend'); // Select the checkbox legend
+
+        const checkboxLegendError = checkboxLegend.nextElementSibling; // Select the span right after the legend
 
         // Check if at least one checkbox is checked
         if (![...checkboxes].some(checkbox => checkbox.checked)) {
-            legendElement.style.display = 'inline'; // Show error in the span if no checkbox is checked
+            checkboxLegendError.style.display = 'inline'; // Show error in the span if no checkbox is checked
             isValid = false;
         } else {
-            legendElement.style.display = 'none'; // Hide error if valid
+            checkboxLegendError.style.display = 'none'; // Hide error if valid
         }
 
 
@@ -288,8 +263,8 @@ if (user.role === 'QA Inspector') {
 
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
-            const labelElement = document.querySelector(`label[for="${field}"]`);
-            const starElement = labelElement.querySelector('.required');
+            // const labelElement = document.querySelector(`label[for="${field}"]`);
+            const starElement = inputElement.nextElementSibling;
 
             // Check if the input is empty
             if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
@@ -301,8 +276,9 @@ if (user.role === 'QA Inspector') {
         });
 
         const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
-        const radioErrorSpan = document.querySelector('legend[for="item-marked-nonconforming"] .required'); // Select the required span in the legend
+        const radioError = document.querySelector('legend[for="item-marked-nonconforming"] '); // Select the required span in the legend
 
+        const radioErrorSpan = radioError.nextElementSibling
         // Check if at least one radio button is checked
         // Check if at least one radio button is checked
         if (![...radioButtons].some(radio => radio.checked)) {
@@ -475,5 +451,90 @@ function submitForm(role) {
         console.log(ncrData)
 
     }
+
+
+
 }
 
+document.getElementById('add-photo-btn').addEventListener('click', function () {
+    document.getElementById('photo-input').click(); // Trigger hidden photo input
+});
+
+document.getElementById('add-video-btn').addEventListener('click', function () {
+    document.getElementById('video-input').click(); // Trigger hidden video input
+});
+
+// Handle photo selection
+document.getElementById('photo-input').addEventListener('change', function () {
+    const photoList = document.getElementById('photo-list');
+    photoList.innerHTML = ''; // Clear previous list
+    for (let i = 0; i < this.files.length; i++) {
+        const listItem = document.createElement('li');
+        listItem.textContent = this.files[i].name; // Display selected photo names
+        photoList.appendChild(listItem);
+    }
+});
+
+// Handle video selection
+document.getElementById('video-input').addEventListener('change', function () {
+    const videoList = document.getElementById('video-list');
+    videoList.innerHTML = ''; // Clear previous list
+    for (let i = 0; i < this.files.length; i++) {
+        const listItem = document.createElement('li');
+        listItem.textContent = this.files[i].name; // Display selected video names
+        videoList.appendChild(listItem);
+    }
+});
+
+// Get the modal
+const modal = document.getElementById("popup");
+
+// Get the button that opens the modal
+// const btn = document.getElementById("openPopup");
+
+// Get the <span> element that closes the modal
+const span = document.getElementById("closePopup");
+
+
+
+// When the user clicks the button, open the modal 
+function showPopup (title, message, errorMessage) {
+    
+    // Example of setting dynamic content with an error message
+    
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.querySelector('h2').innerText = title; // Set the title
+    modalContent.querySelector('p').innerText = message; // Set the message
+    document.getElementById('error-message').innerText = errorMessage
+    
+    
+    modal.style.display = "block"; // Show the modal with the error message
+    setTimeout(() => {
+        const modalContent = modal.querySelector('.modal-content');
+        modalContent.style.opacity = "1"; // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
+    }, 10); // Short timeout to ensure the transition applies
+}
+
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.style.opacity = "0"; // Fade out effect
+    modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+    setTimeout(() => {
+        modal.style.display = "none"; // Hide the modal after transition
+    }, 500); // Wait for the transition to finish before hiding
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        const modalContent = modal.querySelector('.modal-content');
+        modalContent.style.opacity = "0"; // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after transition
+        }, 500); // Wait for the transition to finish before hiding
+    }
+}

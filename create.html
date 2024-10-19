@@ -16,8 +16,8 @@
 </head>
 
 <body>
-     <!-- Header with Logo and Navigation -->
-     <header>
+    <!-- Header with Logo and Navigation -->
+    <header>
         <div class="logo-container">
             <img src="images/logo.webp" alt="Crossfire Company Logo">
         </div>
@@ -50,8 +50,20 @@
         </nav>
     </div>
     <main>
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon">!</div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
         <!-- indication of current page -->
-        
         <div class="createNcr-verticalLayout">
             <!-- Status Bar for Tracking Progress -->
             <div class="status-bar">
@@ -145,28 +157,30 @@
                 <!-- Product Info Section -->
                 <fieldset class="form-section active" aria-labelledby="product-info">
                     <legend id="product-info">Product Information</legend>
-                    <p class="indicator">* indicate required fields.</p>
                     <div class="qa-info-section">
                         <div class="qa-info">
-                            <label for="ncr-no-generated">NCR No: <small>readonly</small></label>
+                            <label for="ncr-no-generated">NCR No:</label>
                             <input type="text" id="ncr-no-generated" name="ncr_no" placeholder="Auto-generated NCR No"
                                 readonly tabindex="7">
 
-                            <label for="sales-order-no">Sales Order No:<span class="required">*</span></label>
+                            <label for="sales-order-no">Sales Order No:</label>
                             <input type="text" id="sales-order-no" name="sales_order_no"
                                 placeholder="Enter Sales Order No" tabindex="8">
+                            <span class="required">Sales order no. required</span>
 
-                            <label for="quantity-received">Quantity Received:<span class="required">*</span></label>
+                            <label for="quantity-received">Quantity Received:</label>
                             <input class="input-number" type="number" id="quantity-received" min="0" value="0"
                                 name="quantity_received" placeholder="Enter Quantity Received" tabindex="9">
+                            <span class="required">Quantity received required</span>
 
-                            <label for="quantity-defective">Quantity Defective:<span class="required">*</span></label>
+                            <label for="quantity-defective">Quantity Defective:</label>
                             <input class="input-number" type="number" id="quantity-defective" min="0" value="0"
                                 name="quantity_defective" placeholder="Enter Quantity Defective" tabindex="10">
+                            <span class="required">Quantity defective required</span>
                         </div>
 
                         <div>
-                            <label for="supplier-name">Supplier Name:<span class="required">*</span></label>
+                            <label for="supplier-name">Supplier Name:</label>
                             <select name="supplier_name" id="supplier-name" required tabindex="11">
                                 <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
                                 <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
@@ -174,13 +188,16 @@
                                 <option value="Delta Logistics">Delta Logistics</option>
                                 <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
                             </select>
+                            <span class="required">Supplier name required</span>
 
                             <label for="product-no">Product No:<span class="required">*</span></label>
                             <input type="text" id="product-no" name="product_no" placeholder="Enter Product No"
                                 tabindex="12">
+                            <span class="required">Product no. required</span>
 
                             <fieldset class="qa-process">
-                                <legend>Identify Process Applicable:<span class="required">*</span></legend>
+                                <legend>Identify Process Applicable:</legend>
+                                <span class="required">Item marked non-conforming required</span>
                                 <label>
                                     <input type="checkbox" name="process" value="supplier" tabindex="13">
                                     Supplier or Rec-Insp
@@ -189,6 +206,7 @@
                                     <input type="checkbox" name="process" value="wip" tabindex="14">
                                     WIP
                                 </label>
+                                <span class="required">Identify process applicable required</span>
                             </fieldset>
                         </div>
                     </div>
@@ -203,33 +221,32 @@
                 <!-- Product Defect Description Section -->
                 <fieldset class="form-section" aria-labelledby="product-desc" aria-label="Product description">
                     <legend id="product-desc">Product Description</legend>
-                    <p class="indicator">* indicate required fields.</p>
                     <div class="descr-create-center">
                         <div class="two-rows">
                             <div>
-                                <label for="description-item">Description of Item (including SAP Number):<span
-                                        class="required">*</span></label>
+                                <label for="description-item">Description of Item (including SAP Number):</label>
                                 <textarea id="description-item" name="description_item"
                                     placeholder="Enter item description, including SAP Number"
                                     aria-label="Enter item description, including SAP Number" tabindex="17"></textarea>
+                                <span class="required">Description of item required</span>
 
                             </div>
                             <div>
-                                <label for="description-defect">Description of Defect:<span
-                                        class="required">*</span></label>
+                                <label for="description-defect">Description of Defect:</label>
                                 <textarea id="description-defect" name="description_defect"
                                     placeholder="Describe the defect" aria-label="Describe the defect of the product"
                                     tabindex="18"></textarea>
+                                <span class="required">Description of defect required</span>
                             </div>
                         </div>
                         <div class="fieldset-margin">
                             <fieldset class="item-conforming">
-                                <legend for="item-marked-nonconforming">Item Marked Non-Conforming?<span
-                                        class="required">*</span></legend>
+                                <legend for="item-marked-nonconforming">Item Marked Non-Conforming?</legend>
+                                <span class="required">Item marked non-conforming required</span>
                                 <div class="item-conforming">
 
-                                    <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
-                                        tabindex="19">
+                                    <input type="radio" id="item-marked-yes" name="item_marked_nonconforming"
+                                        value="yes" tabindex="19">
                                     <label for="item-marked-yes">Yes</label>
 
 
@@ -240,16 +257,27 @@
                                 </div>
 
                             </fieldset>
-                    </div>
+                        </div>
                         <div>
                             <fieldset class="media" id="add-media">
                                 <legend id="media-btns">Add Media</legend>
+                                
+                                <!-- Buttons for adding photos and videos -->
                                 <button type="button" id="add-photo-btn" tabindex="23">Add Photos</button>
                                 <button type="button" id="add-video-btn" tabindex="24">Add Videos</button>
+                                
+                                <!-- Hidden file inputs -->
                                 <input type="file" id="photo-input" accept="image/*" multiple style="display:none;">
                                 <input type="file" id="video-input" accept="video/*" multiple style="display:none;">
+                        
+                                <!-- Lists to display selected photos and videos -->
+                                <label for="photo-list">Selected photos</label>
+                                <ul id="photo-list"></ul>
+                                <label for="video-list">Selected videos</label>
+                                <ul id="video-list"></ul>
                             </fieldset>
                         </div>
+                        
                     </div>
 
 
@@ -286,12 +314,7 @@
                         <p>Description Defect: <span id="confirm-description-defect"></span></p>
                     </div>
                 </div>
-                <div class="affirmation">
-                    <input type="checkbox" id="confirm-checkbox" name="confirm-checkbox"
-                        aria-label="check box to confirm" required>
-                    <label for="confirm-checkbox">I affirm that all the details submitted are correct and fully
-                        validated. I take full responsibility for the accuracy of this report</label>
-                </div>
+                
                 <div class="btn-qa-create">
                     <button type="button" id="back-btn2" aria-label="Move to previous step" tabindex="21">Back</button>
                     <button type="submit" id="submit-btn" aria-label="Submit the form" tabindex="25">Submit</button>
@@ -304,7 +327,8 @@
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
             <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="27">Privacy
-                Policy</a></p>
+                Policy</a>
+        </p>
     </footer>
 
     <script src="script/create-ncr.js"></script>
