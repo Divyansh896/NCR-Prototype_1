@@ -963,6 +963,30 @@ input[type="radio"] {
     height: 50px;
     margin-right: 10px;
 }
+td button {
+    background: none;
+    border: none;
+    color: #007bff; /* Link-like color */
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 0;
+    margin-right: 10px; /* Space between buttons */
+    display: inline-block;
+    transition: all 0.3s ease; /* Reduced transition time for responsiveness */
+}
+
+td button:hover {
+    background: none; /* Explicitly set background to none */
+    color: #0056b3; /* Slightly darker color on hover */
+    text-decoration: underline;
+}
+
+td button:focus {
+    outline: none; /* Remove focus outline */
+}
+
+
 
 /*media*/
 @media screen and (min-width: 320px) {

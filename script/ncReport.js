@@ -1,439 +1,88 @@
-const footer = document.getElementById('footer-scroll')
+// Smooth scroll to top on footer click
+const footer = document.getElementById('footer-scroll');
 footer.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-
+    });
+});
 const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'));
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
-const currentPage = window.location.pathname; // Get current page path
-const isCreateNCRPage = currentPage.includes('create'); // Check if it's the Create NCR page
-console.log(user.role)
-
-// Get all input fields and textareas
-const inputFields = document.querySelectorAll('input, textarea, select');
-
-// Function to disable all fields
-const disableFields = () => {
-    inputFields.forEach(field => {
-        field.disabled = true; // Disable each input field
-    });
-};
-
-// Function to enable fields based on user role
-const enableFieldsForRole = (role) => {
-    if (role === 'QA Inspector') {
-        document.querySelectorAll('.qa-editable').forEach(field => {
-            field.disabled = false; // Enable QA editable fields
-        });
-        // Enable radio buttons
-        document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-            radio.disabled = false; // Enable all radio buttons
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#qa-save').addEventListener('click', function () {
-            if (validateQaSection()) {
-                // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-                disableFields();
-
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
+function setSpanContentFromSession() {
+    // Retrieve values from session storage for each department
 
 
-        });
-
-    } else if (role === 'Lead Engineer') {
-        // console.log(user.role)
-        document.querySelectorAll('.eng-editable').forEach(field => {
-            field.disabled = false; // Enable Engineering editable fields
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#eng-save').addEventListener('click', function () {
-            if (validateEngSection()) {
-
-                // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-
-                // Optionally, disable fields again after saving
-                disableFields();
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
-        });
-    } else if (role === 'Purchasing') {
-        document.querySelectorAll('.purch-editable').forEach(field => {
-            field.disabled = false; // Enable Purchasing editable fields
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#purch-save').addEventListener('click', function () {
-            if (validatePurchSection()) {
-                alert('Changes saved!'); // Example feedback message
-
-                disableFields();
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
-        });
-    } else if (role === "Project Manager") {
-        document.querySelectorAll('.qa-editable').forEach(field => {
-            field.disabled = false; // Enable QA editable fields
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#qa-save').addEventListener('click', function () {
-            if (validateQaSection()) {
-                // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-                disableFields();
-
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
-
-
-        });
-        document.querySelectorAll('.eng-editable').forEach(field => {
-            field.disabled = false; // Enable Engineering editable fields
-        });// Enable radio buttons
-        document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-            radio.disabled = false; // Enable all radio buttons
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#eng-save').addEventListener('click', function () {
-            if (validateEngSection()) {
-
-                // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-
-                // Optionally, disable fields again after saving
-                disableFields();
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
-        });
-        document.querySelectorAll('.purch-editable').forEach(field => {
-            field.disabled = false; // Enable Purchasing editable fields
-        });
-        // Save changes when "Save" button is clicked
-        document.querySelector('#purch-save').addEventListener('click', function () {
-            if (validatePurchSection()) {
-                alert('Changes saved!'); // Example feedback message
-
-                disableFields();
-            }
-            else {
-                alert("Please fill in all the required fields before submitting.")
-            }
-        });
-    }
-
-
-
-};
-
-// On page load, disable fields based on user role
-disableFields();
-
-if (user.role == "QA Inspector") {
-    document.getElementById('qa-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-}
-else if (user.role == "Lead Engineer") {
-    document.getElementById('eng-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-}
-else if (user.role == "Purchasing") {
-    document.getElementById('purch-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-} else if (user.role == "Project Manager") {
-    document.getElementById('purch-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-    document.getElementById('eng-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-    document.getElementById('qa-edit').addEventListener('click', () => {
-        enableFieldsForRole(user.role)
-    })
-}
-
-
-// Select all details elements and toggle their open attribute based on the page
-document.querySelectorAll('details').forEach(details => {
-    details.setAttribute('open', !isCreateNCRPage); // Expand if not on Create NCR page
-});
-
-// Load data into input fields from the retrieved NCR data
-loadData();
-
-function loadData() {
-    // Map input field IDs to their respective property names in the data object
-    const fieldsMap = {
-        'qa-name': 'quality_representative_name',
-        'ncr-no': 'ncr_no',
-        'sales-order-no': 'sales_order_no',
-        'quantity-received': 'quantity_received',
-        'quantity-defective': 'quantity_defective',
-        'qa-date': 'date',
-        'supplier-name': 'supplier_name',
-        'product-no': 'product_no',
-        'description-item': 'item_description',
-        'description-defect': 'description_of_defect',
-        'item-marked-yes': 'item_marked_nonconforming',
-        'disposition-details': 'disposition_details',
-        'customer-notification': 'customer_notification_required',
-        'disposition-details': 'disposition_details',
-        'original-rev-number': 'original_rev_number',
-        'updated-rev-number': 'updated_rev_number',
-        'engineer-name': 'engineer_name',
-        'revision-date': 'revision_date',
-        'preliminary-decision': 'preliminary_decision',
-        'car-number': 'car_number',
-        'operations-manager-name': 'operations_manager_name',
-        'operations-manager-date': 'operations_manager_date',
-        'new-ncr-number': 'new_ncr_number',
-        'inspector-name': 'inspector_name'
-    };
-
-    // Populate input fields from the retrieved NCR data
-    for (const [fieldId, paramName] of Object.entries(fieldsMap)) {
-        const field = document.getElementById(fieldId);
-        if (field && retrievedNCRData) {
-            if (field.type === 'radio') {
-                // Set the radio button checked state based on the value from the retrieved data
-                const itemMarkedValue = retrievedNCRData[paramName]; // Accessing the value directly
-                if (itemMarkedValue === true) {
-                    document.getElementById('item-marked-yes').checked = true;
-                } else if (itemMarkedValue === false) {
-                    document.getElementById('item-marked-no').checked = true;
-                }
-            } else {
-                // Set the value of the field from retrievedNCRData
-                field.value = retrievedNCRData[paramName] || ''; // Fallback to an empty string if no value
-            }
-        }
-    }
-
-    // Assuming 'process' is a select element
-    const processSelect = document.getElementById('process');
-    const dispositionOptions = document.getElementById('disposition')
-    const options = document.getElementById('options')
-
-    if (retrievedNCRData['supplier_or_rec_insp']) {
-        processSelect.value = 'supplier'; // Set to 'supplier' if true
-    } else if (retrievedNCRData['wip_production_order']) {
-        processSelect.value = 'wip'; // Set to 'wip' if true
+    // Set QA data to spans and inputs
+    document.getElementById('supplier-name').textContent = retrievedNCRData['supplier_name'] || '';
+    document.getElementById('product-no').textContent = retrievedNCRData['product_no'] || '';
+    document.getElementById('sales-order-no').textContent = retrievedNCRData['sales_order_no'] || '';
+    document.getElementById('description-item').textContent = retrievedNCRData['item_description'] || '';
+    document.getElementById('quantity-received').textContent = retrievedNCRData['quantity_received'] || '';
+    document.getElementById('quantity-defective').textContent = retrievedNCRData['quantity_defective'] || '';
+    document.getElementById('description-defect').textContent = retrievedNCRData['description_of_defect'] || '';
+    
+    // Handle Non-Conforming Item marked spans
+    if (retrievedNCRData['item_marked_nonconforming'] === true) {
+        document.getElementById('item-marked-yes').textContent = 'Yes';
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
+    } else if (retrievedNCRData['item_marked_nonconforming'] === false) {
+        document.getElementById('item-marked-no').textContent = 'No';
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
     } else {
-        processSelect.value = 'Not applicable'; // Default to empty if both are false (or set to a specific option if needed)
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
     }
 
-    if (retrievedNCRData.disposition_options.use_as_is) {
-        dispositionOptions.value = 'use_as_is'
-    } else if (retrievedNCRData.disposition_options.repair) {
-        dispositionOptions.value = 'repair'
+    document.getElementById('qa-name').textContent = retrievedNCRData['quality_representative_name'] || '';
+    document.getElementById('qa-date').textContent = retrievedNCRData['date'] || '';
+    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || '';
 
-    } else if (retrievedNCRData.disposition_options.rework) {
-        dispositionOptions.value = 'rework'
+    if(retrievedNCRData['supplier_or_rec_insp'] == true){
 
-    } else if (retrievedNCRData.disposition_options.scrap) {
-        dispositionOptions.value = 'scrap'
-    }
+        document.getElementById('qa-process').textContent = 'Supplier or rec insp'; // Ensure correct value
+    }else{
 
-    if (retrievedNCRData.options.rework_in_house) {
-        options.value = 'rework_in_house'
-    } else if (retrievedNCRData.options.scrap_in_house) {
-        options.value = 'scrap_in_house'
-    } else if (retrievedNCRData.options.defer_to_engineering) {
-        options.value = 'defer_to_engineering'
+        document.getElementById('qa-process').textContent = 'Wip production order'; // Check if this is intended
     }
 
+    // Set Engineering data to spans and inputs
+    document.getElementById('engineer-name').textContent = retrievedNCRData['engineer_name'] || '';
+    document.getElementById('disposition').textContent = retrievedNCRData['disposition'] || ''; // Set select value
+    document.getElementById('disposition-details').textContent = retrievedNCRData['disposition_details'] || '';
+    document.getElementById('original-rev-number').textContent = retrievedNCRData['original_rev_number'] || '';
+    document.getElementById('updated-rev-number').textContent = retrievedNCRData['updated_rev_number'] || '';
+    document.getElementById('revision-date').textContent = retrievedNCRData['revision_date'] || ''; // Set date input value
+    document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering_review_date'] || ''; // Set date input value
+    document.getElementById('eng-resolved').textContent = retrievedNCRData['eng_resolved'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('customer-notification').textContent = retrievedNCRData['customer_notification_required'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('drawing-update-required').textContent = retrievedNCRData['drawing_update_required'] === 'true' ? 'Yes' : 'No';
 
-
-    // checking the checkboxes
-    const engResolvedChk = document.getElementById('resolved')
-    const CustNotif = document.getElementById('customer-notification')
-    const drawingUpdate = document.getElementById('drawing-update-required')
-    const carRaised = document.getElementById('car-raised')
-    const followUp = document.getElementById('follow-up-required')
-    const reInspect = document.getElementById('re-inspected-acceptable')
-    const ncrClosed = document.getElementById('ncr-closed')
-    const puResolved = document.getElementById('resolved')
-
-    if (retrievedNCRData['eng_resolved']) {
-        engResolvedChk.checked = true
+    // Set Purchasing data to spans and inputs
+    document.getElementById('preliminary-decision').textContent = retrievedNCRData['preliminary_decision'] || '';
+    const dispositionOptions = retrievedNCRData['options'] || {};
+    for (const [key, value] of Object.entries(dispositionOptions)) {
+        if (value === true) {
+            document.getElementById('options').textContent = key.replace(/_/g, ' '); // Replace underscores with spaces for readability
+            break; // Stop after the first true value
+        }
     }
-    if (retrievedNCRData['customer_notification_required']) {
-        CustNotif.checked = true
-    }
-    if (retrievedNCRData['drawing_update_required']) {
-        drawingUpdate.checked = true
-    }
-    if (retrievedNCRData['pu_resolved']) {
-        puResolved.checked = true
-    }
-    if (retrievedNCRData['car_raised']) {
-        carRaised.checked = true
-    }
-    if (retrievedNCRData['follow_up_required']) {
-        followUp.checked = true
-    }
-    if (retrievedNCRData['re_inspected_acceptable']) {
-        reInspect.checked = true
-    }
-    if (retrievedNCRData['ncr_closed']) {
-        ncrClosed.checked = true
-    }
-
+    
+    // document.getElementById('options').textContent = retrievedNCRData['options'] || ''; // Set select value
+    document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('car-number').textContent = retrievedNCRData['car_number'] || '';
+    document.getElementById('follow-up-required').textContent = retrievedNCRData['follow_up_required'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('operations-manager-name').textContent = retrievedNCRData['operations_manager_name'] || '';
+    document.getElementById('operations-manager-date').textContent = retrievedNCRData['operations_manager_date'] || ''; // Set date input value
+    document.getElementById('inspector-name').textContent = retrievedNCRData['inspector_name'] || '';
+    document.getElementById('ncr-closed').textContent = retrievedNCRData['ncr_closed'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('pu-resolved').textContent = retrievedNCRData['pu_resolved'] === 'true' ? 'Yes' : 'No';
+    document.getElementById('new-ncr-number').textContent = retrievedNCRData['new_ncr_number'] || '';
+    // console.log('review date:', retrievedNCRData['engineering_review_date'])
+    // console.log('Product No:', qaData.productNo);
 }
 
+// Call the function on page load
+document.addEventListener('DOMContentLoaded', setSpanContentFromSession);
+// Add similar logs for other data points
 
-const invalid = document.querySelectorAll('.required');
-invalid.forEach(star => {
-    star.style.display = 'none'; // Hide each star element initially
-});
-
-function preventNegativeInput(event) {
-    if (event.target.value < 0) {
-        alert("The quantity cannot be in negative!!\nEnter only positive values.")
-        event.target.value = 0;
-    }
-}
-const quantityReceivedInput = document.getElementById('quantity-received');
-const quantityDefectiveInput = document.getElementById('quantity-defective');
-// Attach the preventNegativeInput function to both inputs
-quantityReceivedInput.addEventListener('input', preventNegativeInput);
-quantityDefectiveInput.addEventListener('input', preventNegativeInput);
-const validateQaSection = () => {
-    let isValid = true;
-    const formElements = [
-        'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
-        'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
-        'process', 'description-item', 'description-defect'
-    ];
-
-
-
-    formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
-
-        // Check if the input is empty
-        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
-        } else {
-            invalid.style.display = 'none'; // Hide star if filled
-        }
-
-        // Custom validation for number input
-        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
-        }
-
-        // Custom validation for date input
-        if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
-        }
-    });
-    const quantityReceived = parseInt(quantityReceivedInput.value, 10);
-    const quantityDefective = parseInt(quantityDefectiveInput.value, 10);
-
-
-    // Check if quantities are valid numbers
-    if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {
-        alert('Quantity defective cannot be greater than quantity received!!')
-        isValid = false
-    }
-
-    return isValid;
-};
-
-const validatePurchSection = () => {
-    const formElements = [
-        'preliminary-decision',
-        'options', 'car-number', 'operations-manager-name', 'operations-manager-date',
-        'new-ncr-number', 'inspector-name'
-    ];
-    let isValid = true;
-
-    formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
-
-        // Check if the input is empty
-        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
-        } else {
-            invalid.style.display = 'none'; // Hide star if filled
-        }
-
-        // Custom validation for number input
-        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
-        }
-
-        // Custom validation for date input
-        if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
-        }
-    });
-
-    return isValid;
-};
-
-const validateEngSection = () => {
-    const formElements = [
-        'engineer-name',
-        'disposition-details', 'original-rev-number', 'updated-rev-number',
-        'revision-date', 'engineering-review-date'
-    ];
-
-    let isValid = true;
-
-    formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
-
-        // Check if the input is empty
-        if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
-        } else {
-            invalid.style.display = 'none'; // Hide star if filled
-        }
-
-        // Custom validation for number input
-        if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
-        }
-
-        // Custom validation for date input
-        if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
-        }
-    });
-
-    return isValid;
-};

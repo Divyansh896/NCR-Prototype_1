@@ -47,61 +47,93 @@ function populateTable(data) {
         const row = document.createElement('tr');
         const reportStage = getReportStage(ncr);
 
+        // Determine the status display
+        const statusDisplay = ncr.status === 'completed'
+            ? `<span style="color: green;">Closed &#10004;</span>` // Checkmark for complete
+            : `<span style="color: green;">Active</span>`; // Text for incomplete
+
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
-            <td>${ncr.qa.item_description || 'N/A'}</td>
+            <td>${ncr.qa.item_description.substring(0, 15) + '...' || 'N/A'}</td>
             <td>${ncr.qa.date || 'N/A'}</td>
-            <td>${ncr.status}</td>
+            <td>${statusDisplay}</td>
             <td>${reportStage}</td>
+            <td>
+                <button class="view-btn" data-ncr="${ncr.ncr_no}">View</button>
+                <button class="edit-btn" data-ncr="${ncr.ncr_no}">Edit</button>
+            </td>
         `;
 
+        // Add event listeners for View and Edit buttons
+        row.querySelector('.view-btn').addEventListener('click', () => {
+            viewNCR(ncr);
+        });
+        row.querySelector('.edit-btn').addEventListener('click', () => {
+            editNCR(ncr);
+        });
         row.addEventListener('click', () => {
-            const data = {
-                supplier_name: ncr.qa.supplier_name,
-                product_no: ncr.qa.po_no,
-                sales_order_no: ncr.qa.sales_order_no,
-                item_description: ncr.qa.item_description,
-                quantity_received: ncr.qa.quantity_received,
-                quantity_defective: ncr.qa.quantity_defective,
-                description_of_defect: ncr.qa.description_of_defect,
-                item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
-                quality_representative_name: ncr.qa.quality_representative_name,
-                date: ncr.qa.date,
-                qa_resolved: ncr.qa.resolved,
-                ncr_no: ncr.ncr_no,
-                supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
-                wip_production_order: ncr.qa.process.wip_production_order,
-                disposition: ncr.engineering.disposition,
-                disposition_options: ncr.engineering.disposition_options,
-                customer_notification_required: ncr.engineering.customer_notification_required,
-                disposition_details: ncr.engineering.disposition_details,
-                drawing_update_required: ncr.engineering.drawing_update_required,
-                original_rev_number: ncr.engineering.original_rev_number,
-                updated_rev_number: ncr.engineering.updated_rev_number,
-                engineer_name: ncr.engineering.engineer_name,
-                revision_date: ncr.engineering.revision_date,
-                engineering_review_date: ncr.engineering.engineering_review_date,
-                eng_resolved: ncr.engineering.resolved,
-                preliminary_decision: ncr.purchasing_decision.preliminary_decision,
-                options: ncr.purchasing_decision.options,
-                car_raised: ncr.purchasing_decision.car_raised,
-                car_number: ncr.purchasing_decision.car_number,
-                follow_up_required: ncr.purchasing_decision.follow_up_required,
-                operations_manager_name: ncr.purchasing_decision.operations_manager_name,
-                operations_manager_date: ncr.purchasing_decision.operations_manager_date,
-                re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable,
-                new_ncr_number: ncr.purchasing_decision.new_ncr_number,
-                inspector_name: ncr.purchasing_decision.inspector_name,
-                ncr_closed: ncr.purchasing_decision.ncr_closed,
-                pu_resolved: ncr.purchasing_decision.resolved,
-            };
+            const data = 
             sessionStorage.setItem('data', JSON.stringify(data));
             window.location.href = `ncReport.html`; // Adjust the URL as needed
         });
 
         tBody.appendChild(row);
     });
+}
+
+function viewNCR(ncr) {
+    const data = extractData(ncr);
+    sessionStorage.setItem('data', JSON.stringify(data));
+    window.location.href = 'ncReport.html'; // Adjust the URL as needed
+}
+
+// Function to handle the 'Edit' button click
+function editNCR(ncr) {
+    const data = extractData(ncr);
+    sessionStorage.setItem('data', JSON.stringify(data));
+    window.location.href = 'editReport.html'; // Adjust the URL as needed
+}
+function extractData(ncr) {
+    return {
+        supplier_name: ncr.qa.supplier_name,
+        product_no: ncr.qa.po_no,
+        sales_order_no: ncr.qa.sales_order_no,
+        item_description: ncr.qa.item_description,
+        quantity_received: ncr.qa.quantity_received,
+        quantity_defective: ncr.qa.quantity_defective,
+        description_of_defect: ncr.qa.description_of_defect,
+        item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
+        quality_representative_name: ncr.qa.quality_representative_name,
+        date: ncr.qa.date,
+        qa_resolved: ncr.qa.resolved,
+        ncr_no: ncr.ncr_no,
+        supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
+        wip_production_order: ncr.qa.process.wip_production_order,
+        disposition: ncr.engineering.disposition,
+        disposition_options: ncr.engineering.disposition_options,
+        customer_notification_required: ncr.engineering.customer_notification_required,
+        disposition_details: ncr.engineering.disposition_details,
+        drawing_update_required: ncr.engineering.drawing_update_required,
+        original_rev_number: ncr.engineering.original_rev_number,
+        updated_rev_number: ncr.engineering.updated_rev_number,
+        engineer_name: ncr.engineering.engineer_name,
+        revision_date: ncr.engineering.revision_date,
+        engineering_review_date: ncr.engineering.engineering_review_date,
+        eng_resolved: ncr.engineering.resolved,
+        preliminary_decision: ncr.purchasing_decision.preliminary_decision,
+        options: ncr.purchasing_decision.options,
+        car_raised: ncr.purchasing_decision.car_raised,
+        car_number: ncr.purchasing_decision.car_number,
+        follow_up_required: ncr.purchasing_decision.follow_up_required,
+        operations_manager_name: ncr.purchasing_decision.operations_manager_name,
+        operations_manager_date: ncr.purchasing_decision.operations_manager_date,
+        re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable,
+        new_ncr_number: ncr.purchasing_decision.new_ncr_number,
+        inspector_name: ncr.purchasing_decision.inspector_name,
+        ncr_closed: ncr.purchasing_decision.ncr_closed,
+        pu_resolved: ncr.purchasing_decision.resolved,
+    };
 }
 
 function filterNcr(ncrData) {
