@@ -6,6 +6,11 @@ footer.addEventListener('click', () => {
         behavior: 'smooth' // Adds a smooth scroll effect
     });
 });
+
+document.querySelectorAll('details').forEach(details => {
+    details.setAttribute('open', ''); // Expand if not on Create NCR page
+});
+
 const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'));
 
 function setSpanContentFromSession() {
@@ -86,3 +91,15 @@ function setSpanContentFromSession() {
 document.addEventListener('DOMContentLoaded', setSpanContentFromSession);
 // Add similar logs for other data points
 
+document.getElementById('downloadPdf').addEventListener('click', function () {
+    var element = document.getElementById('contentToDownload');
+    html2pdf()
+        .from(element)
+        .set({
+            margin: [0.25, 0.5, 0.5, 0.5],
+            filename: 'my-document.pdf',
+            html2canvas: { scale: 1 },
+            jsPDF: { orientation: 'portrait', unit: 'in', format: 'a4' }
+        })
+        .save();
+});
