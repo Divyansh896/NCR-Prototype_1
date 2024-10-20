@@ -82,13 +82,14 @@
                         <label for="status-all">
                             <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
                         </label>
-                        <label for="status-yes">
-                            <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
-                                tabindex="10"> Completed
-                        </label>
+                        
                         <label for="status-no">
                             <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
-                                tabindex="11"> Incomplete
+                                tabindex="11"> Open
+                        </label>
+                        <label for="status-yes">
+                            <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
+                                tabindex="10"> Closed
                         </label>
                     </div>
                 </div>
@@ -111,7 +112,7 @@
                         <th>Item</th>
                         <th>Date</th>
                         <th>NCR Status</th>
-                        <th>NCR Stage</th>
+                        <!-- <th>NCR Stage</th> -->
                         <th>Controls</th>
                     </tr>
                 </thead>

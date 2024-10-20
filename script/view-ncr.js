@@ -36,7 +36,7 @@ function getReportStage(ncr) {
     if (!ncr.qa.resolved) return 'QA';
     if (!ncr.engineering.resolved) return 'Engineering';
     if (!ncr.purchasing_decision.resolved) return 'Purchasing';
-    return 'Closed';
+    return '';
 }
 
 function populateTable(data) {
@@ -49,16 +49,15 @@ function populateTable(data) {
 
         // Determine the status display
         const statusDisplay = ncr.status === 'completed'
-            ? `<span style="color: green;">Closed &#10004;</span>` // Checkmark for complete
-            : `<span style="color: green;">Active</span>`; // Text for incomplete
+            ? `<span style="color: black;">Closed &#10004;</span>` // Checkmark for complete
+            : `<span style="color: green;">Active -</span>`; // Text for incomplete
 
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
             <td>${ncr.qa.item_description.substring(0, 15) + '...' || 'N/A'}</td>
             <td>${ncr.qa.date || 'N/A'}</td>
-            <td>${statusDisplay}</td>
-            <td>${reportStage}</td>
+            <td>${statusDisplay} ${reportStage}</td>
             <td>
                 <button class="view-btn" data-ncr="${ncr.ncr_no}">View</button>
                 <button class="edit-btn" data-ncr="${ncr.ncr_no}">Edit</button>
