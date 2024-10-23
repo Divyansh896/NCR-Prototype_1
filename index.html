@@ -14,6 +14,20 @@
 <body id="login">
 
     <main>
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div>
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2> <!-- This is where the title should go -->
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div>
+            </div>
+        </div>
+        
         <div id="wrapper">
             <div class="login-container" role="form" aria-labelledby="login-header">
                 <div class="logo-container">
@@ -23,22 +37,16 @@
 
                 <div aria-live="polite">
                     <label for="username">Username:</label>
-                    <div class="tooltip">
-                        <input type="text" id="username" name="username" placeholder="Enter your username" required
-                            aria-required="true" 
-                            aria-label="Enter you Crossfire username" tabindex="1">
-                        <!-- <span class="tooltip-text" id="username-tooltip" role="tooltip" aria-hidden="false">Enter your
-                            username.</span> -->
-                    </div>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required
+                        aria-required="true" aria-label="Enter you Crossfire username" tabindex="1">
+                        <span id="username-error" style="display:none;" class="error-message"></span>
+
 
                     <label for="password">Password:</label>
-                    <div class="tooltip">
-                        <input type="password" id="password" name="password" placeholder="Enter your password" required
-                            aria-required="true" 
-                            aria-label="Enter you Crossfire password" tabindex="2">
-                        <!-- <span class="tooltip-text" id="password-tooltip" role="tooltip" aria-hidden="false">Enter your
-                            password.</span> -->
-                    </div>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required
+                        aria-required="true" aria-label="Enter you Crossfire password" tabindex="2">
+                        <span id="password-error" style="display:none;" class="error-message"></span>
+
 
                     <button id="btn-login" aria-label="Log in to your account" tabindex="3">Log In</button>
                 </div>
