@@ -24,31 +24,6 @@ let ncrData = []
 starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
-// Function to update required fields dynamically
-function showRequiredFields() {
-    let isvalid = true;
-    const requiredFields = [
-        'fname', 'lname', 'Uname', 'UserId',
-        'emailId', 'phone', 'bday', 'gender'
-    ];
-
-
-    requiredFields.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const starElement = labelElement.querySelector('.required');
-
-        // Check if the input is empty
-        if (inputElement.value.trim() === '') {
-            starElement.style.display = 'inline'; // Show star if empty
-            isvalid = false;
-        } else {
-            starElement.style.display = 'none'; // Hide star if filled
-        }
-    });
-
-    return isvalid; // Return the final validation result
-}
 
 document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -64,7 +39,7 @@ document.addEventListener('keydown', function (event) {
 
 function preventNegativeInput(event) {
     if (event.target.value < 0) {
-        alert("The quantity cannot be in negative!!\nEnter only positive values.")
+        showPopup('Invalid quantity', 'The quantity cannot be in negative!!\nEnter only positive values.', 'images/1382678.webp')
         event.target.value = 0;
     }
 }
@@ -128,7 +103,7 @@ if (user.role === 'QA Inspector') {
             updateStatusBar()
         }
         else {
-            showPopup('Required fields missing', 'Please fill in required fields', 'images/1382678.webp')
+            showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
         }
     })
 
@@ -141,7 +116,7 @@ if (user.role === 'QA Inspector') {
             populateConfirmationData()
         }
         else {
-            showPopup('Required fields missing', 'Please fill in required fields', 'images/1382678.webp')
+            showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
         }
     })
 
@@ -205,94 +180,129 @@ if (user.role === 'QA Inspector') {
 
     // Validate Section 1
     function validateSection1() {
-        let isValid = true
-
-        // Define fields and their corresponding error IDs
+        let isValid = true;
+    
+        // Reset all error messages
+        const errorMessages = {
+            'supplier-name': '',
+            'sales-order-no': '',
+            'quantity-received': '',
+            'quantity-defective': '',
+            'product-no': ''
+        };
+    
         const requiredFields = [
             'supplier-name', 'sales-order-no', 'quantity-received', 'quantity-defective', 'product-no'
-        ]
-
+        ];
+    
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
-            // const labelElement = document.querySelector(`label[for="${field}"]`);
-            const starElement = inputElement.nextElementSibling;
-
+            const errorSpan = document.getElementById(`${field}-error`);
+    
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
-                starElement.style.display = 'inline'; // Show star if empty
+                errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
+                errorSpan.style.display = 'inline'; // Show error message
+                errorSpan.textContent = errorMessages[field]; // Set the error message
                 isValid = false;
-                console.log(isValid)
             } else {
-                starElement.style.display = 'none'; // Hide star if filled
+                errorSpan.style.display = 'none'; // Hide error if filled
             }
         });
-
-
-        const quantityReceived = parseInt(quantityReceivedInput.value, 10);
-        const quantityDefective = parseInt(quantityDefectiveInput.value, 10);
-
-
+    
+        const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10);
+        const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10);
+    
         // Check if quantities are valid numbers
-        if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {
-            alert('Quantity defective cannot be greater than quantity received!!')
-            isValid = false
+        if (!isNaN(quantityReceived) && !isNaN(quantityDefective)) {
+            if (quantityDefective > quantityReceived) {
+                errorMessages['quantity-defective'] = 'The number of defective items cannot exceed the number of received items.';
+                const errorSpan = document.getElementById('quantity-defective-error');
+                errorSpan.style.display = 'inline';
+                errorSpan.textContent = errorMessages['quantity-defective'];
+                isValid = false; // Ensure isValid is set to false
+            }
         }
-
+        // showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
+    
         // Validate checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]')
-        const checkboxLegend = document.querySelector('.qa-process legend'); // Select the checkbox legend
-
-        const checkboxLegendError = checkboxLegend.nextElementSibling; // Select the span right after the legend
-
+        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]');
+        const checkboxLegend = document.querySelector('.qa-process legend');
+        const checkboxLegendError = checkboxLegend.nextElementSibling;
+    
         // Check if at least one checkbox is checked
         if (![...checkboxes].some(checkbox => checkbox.checked)) {
-            checkboxLegendError.style.display = 'inline'; // Show error in the span if no checkbox is checked
+            checkboxLegendError.style.display = 'inline';
+            checkboxLegendError.textContent = 'At least one process must be selected.';
             isValid = false;
         } else {
-            checkboxLegendError.style.display = 'none'; // Hide error if valid
+            checkboxLegendError.style.display = 'none';
         }
-
-
-        return isValid
+    
+        // Clear specific error messages for non-empty fields
+        for (const field of requiredFields) {
+            const errorSpan = document.getElementById(`${field}-error`);
+            if (errorMessages[field] === '') {
+                errorSpan.style.display = 'none'; // Hide error if no error
+            }
+        }
+    
+        return isValid;
     }
+    
 
     // Validate Section 2
     function validateSection2() {
-        let isValid = true
-
+        let isValid = true;
+    
         const requiredFields = [
             'description-item', 'description-defect'
-        ]
-
+        ];
+    
+        const errorMessages = {
+            'description-item': '',
+            'description-defect': '',
+        };
+    
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
-            // const labelElement = document.querySelector(`label[for="${field}"]`);
-            const starElement = inputElement.nextElementSibling;
-
+            const errorSpan = document.getElementById(`${field}-error`); // Select the corresponding error span
+    
             // Check if the input is empty
-            if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-                starElement.style.display = 'inline'; // Show star if empty
+            if (inputElement.value.trim() === '') {
+                errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
+                errorSpan.style.display = 'inline'; // Show error message
+                errorSpan.textContent = errorMessages[field]; // Set the error message
                 isValid = false;
             } else {
-                starElement.style.display = 'none'; // Hide star if filled
+                errorSpan.style.display = 'none'; // Hide error if filled
             }
         });
-
+    
         const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
-        const radioError = document.querySelector('legend[for="item-marked-nonconforming"] '); // Select the required span in the legend
-
-        const radioErrorSpan = radioError.nextElementSibling
-        // Check if at least one radio button is checked
+        const radioError = document.querySelector('legend[for="item-marked-nonconforming"]');
+        const radioErrorSpan = radioError.nextElementSibling;
+    
         // Check if at least one radio button is checked
         if (![...radioButtons].some(radio => radio.checked)) {
             radioErrorSpan.style.display = 'inline'; // Show error in the span if no radio button is checked
+            radioErrorSpan.textContent = 'Please select an option for item marked non-conforming.'; // Set error message
             isValid = false;
         } else {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
         }
-
-        return isValid
+    
+        // Clear specific error messages for non-empty fields
+        for (const field of requiredFields) {
+            const errorSpan = document.getElementById(`${field}-error`);
+            if (errorMessages[field] === '') {
+                errorSpan.style.display = 'none'; // Hide error if no error
+            }
+        }
+    
+        return isValid;
     }
+    
 
     function populateConfirmationData() {
         // Get values from Section 1

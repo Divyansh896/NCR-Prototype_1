@@ -6,138 +6,138 @@ footer.addEventListener('click', () => {
     })
 })
 
-const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'));
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
 
-const currentPage = window.location.pathname; // Get current page path
-const isCreateNCRPage = currentPage.includes('create'); // Check if it's the Create NCR page
+const currentPage = window.location.pathname // Get current page path
+const isCreateNCRPage = currentPage.includes('create') // Check if it's the Create NCR page
 
 // Get all input fields and textareas
-const inputFields = document.querySelectorAll('input, textarea, select');
+const inputFields = document.querySelectorAll('input, textarea, select')
 
 // Function to disable all fields
 const disableFields = () => {
     inputFields.forEach(field => {
-        field.disabled = true; // Disable each input field
-    });
-};
+        field.disabled = true // Disable each input field
+    })
+}
 
 // Function to enable fields based on user role
 const enableFieldsForRole = (role) => {
     if (role === 'QA Inspector') {
         document.querySelectorAll('.qa-editable').forEach(field => {
-            field.disabled = false; // Enable QA editable fields
-        });
+            field.disabled = false // Enable QA editable fields
+        })
         // Enable radio buttons
         document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-            radio.disabled = false; // Enable all radio buttons
-        });
+            radio.disabled = false // Enable all radio buttons
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
                 // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-                // disableFields();
+                showPopup('Changes saved!') // Example feedback message
+                // disableFields()
 
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
 
 
-        });
+        })
 
     } else if (role === 'Lead Engineer') {
         // console.log(user.role)
         document.querySelectorAll('.eng-editable').forEach(field => {
-            field.disabled = false; // Enable Engineering editable fields
-        });
+            field.disabled = false // Enable Engineering editable fields
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#eng-save').addEventListener('click', function () {
             if (validateEngSection()) {
 
                 // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
+                showPopup('Changes saved!') // Example feedback message
 
                 // Optionally, disable fields again after saving
-                // disableFields();
+                // disableFields()
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
-        });
+        })
     } else if (role === 'Purchasing') {
         document.querySelectorAll('.purch-editable').forEach(field => {
-            field.disabled = false; // Enable Purchasing editable fields
-        });
+            field.disabled = false // Enable Purchasing editable fields
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
-                alert('Changes saved!'); // Example feedback message
+                showPopup('Changes saved!') // Example feedback message
 
-                // disableFields();
+                // disableFields()
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
-        });
+        })
     } else if (role === "Project Manager") {
         document.querySelectorAll('.qa-editable').forEach(field => {
-            field.disabled = false; // Enable QA editable fields
-        });
+            field.disabled = false // Enable QA editable fields
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
                 // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
-                // disableFields();
+                showPopup('Changes saved!') // Example feedback message
+                // disableFields()
 
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
 
 
-        });
+        })
         document.querySelectorAll('.eng-editable').forEach(field => {
-            field.disabled = false; // Enable Engineering editable fields
-        });// Enable radio buttons
+            field.disabled = false // Enable Engineering editable fields
+        })// Enable radio buttons
         document.querySelectorAll('input[name="item_marked_nonconforming"]').forEach(radio => {
-            radio.disabled = false; // Enable all radio buttons
-        });
+            radio.disabled = false // Enable all radio buttons
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#eng-save').addEventListener('click', function () {
             if (validateEngSection()) {
 
                 // Implement your save logic here, like sending the data to the server
-                alert('Changes saved!'); // Example feedback message
+                showPopup('Changes saved!') // Example feedback message
 
                 // Optionally, disable fields again after saving
-                // disableFields();
+                // disableFields()
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
-        });
+        })
         document.querySelectorAll('.purch-editable').forEach(field => {
-            field.disabled = false; // Enable Purchasing editable fields
-        });
+            field.disabled = false // Enable Purchasing editable fields
+        })
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
-                alert('Changes saved!'); // Example feedback message
+                showPopup('Changes saved!') // Example feedback message
 
-                // disableFields();
+                // disableFields()
             }
             else {
-                alert("Please fill in all the required fields before submitting.")
+                showPopup("Please fill in all the required fields before submitting.")
             }
-        });
+        })
     }
 
 
 
-};
+}
 
 // On page load, disable fields based on user role
 disableFields()
@@ -146,11 +146,11 @@ enableFieldsForRole(user.role)
 
 // Select all details elements and toggle their open attribute based on the page
 document.querySelectorAll('details').forEach(details => {
-    details.setAttribute('open', !isCreateNCRPage); // Expand if not on Create NCR page
-});
+    details.setAttribute('open', !isCreateNCRPage) // Expand if not on Create NCR page
+})
 
 // Load data into input fields from the retrieved NCR data
-loadData();
+loadData()
 
 function loadData() {
     // Map input field IDs to their respective property names in the data object
@@ -179,38 +179,38 @@ function loadData() {
         'operations-manager-date': 'operations_manager_date',
         'new-ncr-number': 'new_ncr_number',
         'inspector-name': 'inspector_name'
-    };
+    }
 
     // Populate input fields from the retrieved NCR data
     for (const [fieldId, paramName] of Object.entries(fieldsMap)) {
-        const field = document.getElementById(fieldId);
+        const field = document.getElementById(fieldId)
         if (field && retrievedNCRData) {
             if (field.type === 'radio') {
                 // Set the radio button checked state based on the value from the retrieved data
-                const itemMarkedValue = retrievedNCRData[paramName]; // Accessing the value directly
+                const itemMarkedValue = retrievedNCRData[paramName] // Accessing the value directly
                 if (itemMarkedValue === true) {
-                    document.getElementById('item-marked-yes').checked = true;
+                    document.getElementById('item-marked-yes').checked = true
                 } else if (itemMarkedValue === false) {
-                    document.getElementById('item-marked-no').checked = true;
+                    document.getElementById('item-marked-no').checked = true
                 }
             } else {
                 // Set the value of the field from retrievedNCRData
-                field.value = retrievedNCRData[paramName] || ''; // Fallback to an empty string if no value
+                field.value = retrievedNCRData[paramName] || '' // Fallback to an empty string if no value
             }
         }
     }
 
     // Assuming 'process' is a select element
-    const processSelect = document.getElementById('process');
+    const processSelect = document.getElementById('process')
     const dispositionOptions = document.getElementById('disposition')
     const options = document.getElementById('options')
 
     if (retrievedNCRData['supplier_or_rec_insp']) {
-        processSelect.value = 'supplier'; // Set to 'supplier' if true
+        processSelect.value = 'supplier' // Set to 'supplier' if true
     } else if (retrievedNCRData['wip_production_order']) {
-        processSelect.value = 'wip'; // Set to 'wip' if true
+        processSelect.value = 'wip' // Set to 'wip' if true
     } else {
-        processSelect.value = 'Not applicable'; // Default to empty if both are false (or set to a specific option if needed)
+        processSelect.value = 'Not applicable' // Default to empty if both are false (or set to a specific option if needed)
     }
 
     if (retrievedNCRData.disposition_options.use_as_is) {
@@ -273,141 +273,192 @@ function loadData() {
 }
 
 
-const invalid = document.querySelectorAll('.required');
+const invalid = document.querySelectorAll('.required')
 invalid.forEach(star => {
-    star.style.display = 'none'; // Hide each star element initially
-});
+    star.style.display = 'none' // Hide each star element initially
+})
 
 function preventNegativeInput(event) {
     if (event.target.value < 0) {
-        alert("The quantity cannot be in negative!!\nEnter only positive values.")
-        event.target.value = 0;
+        showPopup("The quantity cannot be in negative!!\nEnter only positive values.")
+        event.target.value = 0
     }
 }
-const quantityReceivedInput = document.getElementById('quantity-received');
-const quantityDefectiveInput = document.getElementById('quantity-defective');
+const quantityReceivedInput = document.getElementById('quantity-received')
+const quantityDefectiveInput = document.getElementById('quantity-defective')
 // Attach the preventNegativeInput function to both inputs
-quantityReceivedInput.addEventListener('input', preventNegativeInput);
-quantityDefectiveInput.addEventListener('input', preventNegativeInput);
+quantityReceivedInput.addEventListener('input', preventNegativeInput)
+quantityDefectiveInput.addEventListener('input', preventNegativeInput)
+
 const validateQaSection = () => {
-    let isValid = true;
+    let isValid = true
     const formElements = [
         'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
         'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
         'process', 'description-item', 'description-defect'
-    ];
+    ]
 
 
 
     formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
+        const inputElement = document.getElementById(field)
+        const labelElement = document.querySelector(`label[for="${field}"]`)
+        const invalid = labelElement.querySelector('.required')
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty
+            isValid = false
         } else {
-            invalid.style.display = 'none'; // Hide star if filled
+            invalid.style.display = 'none' // Hide star if filled
         }
 
         // Custom validation for number input
         if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if invalid number
+            isValid = false
         }
 
         // Custom validation for date input
         if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty date
+            isValid = false
         }
-    });
-    const quantityReceived = parseInt(quantityReceivedInput.value, 10);
-    const quantityDefective = parseInt(quantityDefectiveInput.value, 10);
+    })
+    const quantityReceived = parseInt(quantityReceivedInput.value, 10)
+    const quantityDefective = parseInt(quantityDefectiveInput.value, 10)
 
 
     // Check if quantities are valid numbers
     if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {
-        alert('Quantity defective cannot be greater than quantity received!!')
+        showPopup('Quantity defective cannot be greater than quantity received!!')
         isValid = false
     }
 
-    return isValid;
-};
+    return isValid
+}
 
 const validatePurchSection = () => {
     const formElements = [
         'preliminary-decision',
         'options', 'car-number', 'operations-manager-name', 'operations-manager-date',
         'new-ncr-number', 'inspector-name'
-    ];
-    let isValid = true;
+    ]
+    let isValid = true
 
     formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
+        const inputElement = document.getElementById(field)
+        const labelElement = document.querySelector(`label[for="${field}"]`)
+        const invalid = labelElement.querySelector('.required')
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty
+            isValid = false
         } else {
-            invalid.style.display = 'none'; // Hide star if filled
+            invalid.style.display = 'none' // Hide star if filled
         }
 
         // Custom validation for number input
         if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if invalid number
+            isValid = false
         }
 
         // Custom validation for date input
         if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty date
+            isValid = false
         }
-    });
+    })
 
-    return isValid;
-};
+    return isValid
+}
 
 const validateEngSection = () => {
     const formElements = [
         'engineer-name',
         'disposition-details', 'original-rev-number', 'updated-rev-number',
         'revision-date', 'engineering-review-date'
-    ];
+    ]
 
-    let isValid = true;
+    let isValid = true
 
     formElements.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const invalid = labelElement.querySelector('.required');
+        const inputElement = document.getElementById(field)
+        const labelElement = document.querySelector(`label[for="${field}"]`)
+        const invalid = labelElement.querySelector('.required')
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline'; // Show star if empty
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty
+            isValid = false
         } else {
-            invalid.style.display = 'none'; // Hide star if filled
+            invalid.style.display = 'none' // Hide star if filled
         }
 
         // Custom validation for number input
         if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline'; // Show star if invalid number
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if invalid number
+            isValid = false
         }
 
         // Custom validation for date input
         if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline'; // Show star if empty date
-            isValid = false;
+            invalid.style.display = 'inline' // Show star if empty date
+            isValid = false
         }
-    });
+    })
 
-    return isValid;
-};
+    return isValid
+}
+// Get the modal
+const modal = document.getElementById("popup")
+
+// Get the button that opens the modal
+// const btn = document.getElementById("openPopup")
+
+// Get the <span> element that closes the modal
+const span = document.getElementById("closePopup")
+
+
+// Show the modal with a title, message, and icon
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content')
+    modalContent.querySelector('h2').innerText = title // Set the title
+    modalContent.querySelector('p').innerText = message // Set the message
+
+    const iconDiv = document.querySelector('.icon')
+    // Clear previous icons
+    iconDiv.innerHTML = ''
+    const imgElement = document.createElement('img')
+    imgElement.src = icon // Replace with your image URL
+    iconDiv.appendChild(imgElement)
+
+    modal.style.display = "block" // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1" // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Ensure it's centered
+    }, 10) // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0" // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none" // Hide the modal after transition
+            callback() // Execute the callback after closing the modal
+        }, 500) // Wait for the transition to finish before hiding
+    }
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal()
+        }
+    }
+}
