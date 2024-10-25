@@ -50,7 +50,7 @@ function initializeButtons() {
         p.innerHTML = 'Open Recent Non-Conformance Reports'
         btnCreate.addEventListener('click', ()=>{
             const queryString = createQueryString(ncr[0]);
-            window.location.href = `create.html?${queryString}`
+            window.location.href = `loggedNCR.html?${queryString}`
         })
     }
 

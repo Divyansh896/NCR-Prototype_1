@@ -21,7 +21,9 @@ body {
     background-color: white;
     color: #333;
 }
-
+main{
+    height: 100lvh;
+}
 /*general*/
 a {
     text-decoration: none;
@@ -392,7 +394,7 @@ nav ul a {
 
 .form-container {
     flex-grow: 1;
-    padding: 20px;
+    padding: 0 10px 10px 10px;
     background-color: white;
     display: flex;
     flex-direction: column; /* Stack items vertically */
@@ -437,7 +439,7 @@ fieldset legend {
 .form-section.active {
     display: flex;
     padding: 20px;
-    margin: 25px 5px;
+    margin: 0 0 10px 0;
     border-radius: 5px;
     border: 2px solid #163650;
     /* Added border style */
@@ -1331,6 +1333,9 @@ td button:focus {
         width: 100%;
         align-items: center;
     }
+    .descr-container{
+        width: 85%;
+    }
 }
 
 
@@ -1547,7 +1552,7 @@ td button:focus {
 
     /* create ncr */
     .form-section.active {
-        align-self: center;
+        align-self: flex-start;
         width: 100%;
     }
 
@@ -1574,7 +1579,7 @@ td button:focus {
         flex-direction: row;
     }
     .status-bar{
-        width: 35%;
+        width: 420px;
     }
     .status-steps{
         flex-direction: column;

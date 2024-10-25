@@ -13,93 +13,7 @@
     <link rel="stylesheet" href="ncReport.css">
     <link rel="stylesheet" href="details.css">
     <link rel="stylesheet" href="breadcrumb.css">
-    <style>
-        .main-container-create {
-            display: flex;
-            height: auto;
-        }
 
-        .form-container {
-            flex-grow: 1;
-            padding: 20px;
-            background-color: white;
-            /* overflow-y: auto; */
-            display: flex;
-            /* Enable flexbox */
-            flex-direction: column;
-            /* Stack items vertically */
-        }
-
-        
-
-        .status-steps {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        .status-step {
-            display: flex;
-            align-items: center;
-            font-size: 16px;
-            line-height: 1.5;
-            position: relative;
-            padding-left: 25px;
-            margin-bottom: 20px;
-        }
-
-        .status-step:not(:last-child)::after {
-            content: "";
-            position: absolute;
-            left: 10px;
-            top: 20px;
-            bottom: -20px;
-            background-color: white;
-        }
-
-        .step-icon {
-            display: inline-block;
-            width: 24px;
-            height: 24px;
-            border: 2px solid #007bff;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 20px;
-            font-size: 14px;
-            color: white;
-            font-weight: bold;
-            margin-right: 10px;
-            padding: 5px;
-        }
-
-        .status-step.active {
-            background-color: #4CAF50;
-            color: white;
-            border: 2px solid #4CAF50;
-        }
-
-        .status-step.active .step-icon {
-            background-color: #4CAF50;
-        }
-
-        .status-step.completed {
-            background-color: #e0e0e0;
-            color: #757575;
-        }
-
-        .status-step.completed .step-icon {
-            background-color: #e0e0e0;
-        }
-
-        #ncr-form {
-            width: 100%;
-            padding: 5px;
-        }
-    </style>
 </head>
 
 <body>
@@ -251,9 +165,7 @@
                     <div>Purchasing fields can be added here in the future</div>
                 </details>
 
-                <div id="underdev">
 
-                </div>
 
                 <!-- Multi-Step Form -->
                 <form id="ncr-form" method="post" action="https://webdevbasics.net/scripts/demo.php"
@@ -330,7 +242,7 @@
                         <legend id="product-desc">Product Description</legend>
                         <div class="descr-create-center">
                             <div class="two-rows">
-                                <div>
+                                <div class="descr-container">
                                     <label for="description-item">Description of Item (including SAP Number):</label>
                                     <textarea id="description-item" name="description_item"
                                         placeholder="Enter item description, including SAP Number"
@@ -338,7 +250,7 @@
                                         tabindex="17"></textarea>
                                     <span class="error-message" id="description-item-error"></span>
                                 </div>
-                                <div>
+                                <div class="descr-container">
                                     <label for="description-defect">Description of Defect:</label>
                                     <textarea id="description-defect" name="description_defect"
                                         placeholder="Describe the defect"
@@ -388,35 +300,37 @@
                             <button type="button" id="next-btn2" tabindex="22">Next</button>
                         </div>
                     </fieldset>
+
+
+                    <!-- Confirmation section -->
+                    <fieldset class="form-section confirmation">
+                        <legend id="confirmation">Confirmation</legend>
+                        <div class="col-confirm">
+                            <div class="confirm-create-qa">
+                                <p>QA Name: <span id="confirm-qa-name"></span></p>
+                                <p>Date: <span id="confirm-date"></span></p>
+                                <p>Sales Order No: <span id="confirm-sales-order-no"></span></p>
+                                <p>Quantity Received: <span id="confirm-quantity-received"></span></p>
+                                <p>Quantity Defective: <span id="confirm-quantity-defective"></span></p>
+                                <p>Supplier Name: <span id="confirm-supplier-name"></span></p>
+                                <p>Product No: <span id="confirm-product-no"></span></p>
+                                <p>Non-Conforming Status: <span id="confirm-nonconforming-status"></span></p>
+                            </div>
+
+                            <div class="confirm-create-qa">
+                                <p>Description Item: <span id="confirm-description-item"></span></p>
+                                <p>Description Defect: <span id="confirm-description-defect"></span></p>
+                            </div>
+                        </div>
+
+                        <div class="btn-qa-create">
+                            <button type="button" id="back-btn2" aria-label="Move to previous step"
+                                tabindex="21">Back</button>
+                            <button type="submit" id="submit-btn" aria-label="Submit the form"
+                                tabindex="25">Submit</button>
+                        </div>
+                    </fieldset>
                 </form>
-
-                <!-- Confirmation section -->
-                <fieldset class="form-section confirmation">
-                    <legend id="confirmation">Confirmation</legend>
-                    <div class="col-confirm">
-                        <div class="confirm-create-qa">
-                            <p>QA Name: <span id="confirm-qa-name"></span></p>
-                            <p>Date: <span id="confirm-date"></span></p>
-                            <p>Sales Order No: <span id="confirm-sales-order-no"></span></p>
-                            <p>Quantity Received: <span id="confirm-quantity-received"></span></p>
-                            <p>Quantity Defective: <span id="confirm-quantity-defective"></span></p>
-                            <p>Supplier Name: <span id="confirm-supplier-name"></span></p>
-                            <p>Product No: <span id="confirm-product-no"></span></p>
-                            <p>Non-Conforming Status: <span id="confirm-nonconforming-status"></span></p>
-                        </div>
-
-                        <div class="confirm-create-qa">
-                            <p>Description Item: <span id="confirm-description-item"></span></p>
-                            <p>Description Defect: <span id="confirm-description-defect"></span></p>
-                        </div>
-                    </div>
-
-                    <div class="btn-qa-create">
-                        <button type="button" id="back-btn2" aria-label="Move to previous step"
-                            tabindex="21">Back</button>
-                        <button type="submit" id="submit-btn" aria-label="Submit the form" tabindex="25">Submit</button>
-                    </div>
-                </fieldset>
             </div>
         </div>
 
