@@ -345,12 +345,7 @@ nav ul a {
 
 /* Create page */
 /* Status Bar */
-.status-bar {
-    display: flex;
-    margin: 40px 0 20px;
-    position: relative;
-    justify-content: space-between;
-}
+
 
 .status-bar div {
     width: 30%;
@@ -361,21 +356,6 @@ nav ul a {
 
 }
 
-.status-bar div.active {
-    color: #1a3153;
-    font-weight: 600;
-}
-
-.status-bar::before {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    height: 2px;
-    background-color: #1a3153;
-    transition: left 0.4s ease, width 0.4s ease;
-    width: var(--underline-width, 30%);
-    left: var(--underline-left, 0%);
-}
 
 /* create page  */
 /* Fieldset Styles */

@@ -14,80 +14,44 @@
     <link rel="stylesheet" href="details.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <style>
-        .form-container {
-            display: flex;
-            max-width: 100%;
-        }
-
-        /* Ensure the main container takes up the full height */
         .main-container1 {
             display: flex;
-            /* Use flexbox for layout */
             height: 100vh;
-            /* Full viewport height */
         }
 
-        /* Style for the status bar */
-        .status-bar {
-            width: 250px;
-            /* Set a fixed width for the status bar */
-            background-color: white;
-            /* Light background for visibility */
-            padding: 20px;
-            /* Add some padding */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            /* Optional shadow for effect */
-        }
-
-        /* Style for status steps */
-        .status-steps {
-            list-style-type: none;
-            /* Remove default list styling */
-            padding: 0;
-            /* Remove padding */
-            margin: 0;
-            /* Remove margin */
-        }
-
-        /* Style for each step */
-        .status-step {
-            margin-bottom: 15px;
-            /* Space between steps */
-            padding: 10px;
-            /* Padding for each step */
-            border-radius: 5px;
-            /* Rounded corners */
-        }
-
-        .status-step.active {
-            background-color: #007bff;
-            /* Active step color */
-            color: white;
-            /* Text color for active step */
-        }
-
-        /* Style for form container */
         .form-container {
             flex-grow: 1;
-            /* Allow the form container to take up remaining space */
             padding: 20px;
-            /* Add padding */
             background-color: white;
-            /* White background for the form */
             overflow-y: auto;
-            /* Scroll if content exceeds height */
+            display: flex;
+            /* Enable flexbox */
+            flex-direction: column;
+            /* Stack items vertically */
         }
 
         .status-bar {
-            width: 20%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            /* Align items to the start (top) */
+            text-align: left;
+            /* Align text to the left */
             padding: 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 20%;
         }
 
         .status-steps {
             list-style: none;
             padding: 0;
             margin: 0;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 100%;
         }
 
         .status-step {
@@ -106,7 +70,6 @@
             left: 10px;
             top: 20px;
             bottom: -20px;
-            width: 2px;
             background-color: white;
         }
 
@@ -115,59 +78,38 @@
             width: 24px;
             height: 24px;
             border: 2px solid #007bff;
-            /* Border color */
             border-radius: 50%;
-            /* Makes it a circle */
             text-align: center;
-            /* Centers text horizontally */
             line-height: 20px;
-            /* Centers text vertically */
             font-size: 14px;
             color: white;
-            /* Text color */
             font-weight: bold;
             margin-right: 10px;
             padding: 5px;
         }
 
-
+        .status-step.active {
+            background-color: #4CAF50;
+            color: white;
+            border: 2px solid #4CAF50;
+        }
 
         .status-step.active .step-icon {
-            color: white;
-            font-weight: bold;
+            background-color: #4CAF50;
+        }
+
+        .status-step.completed {
+            background-color: #e0e0e0;
+            color: #757575;
+        }
+
+        .status-step.completed .step-icon {
+            background-color: #e0e0e0;
         }
 
         #ncr-form {
             width: 100%;
             padding: 5px;
-        }
-
-
-
-        .status-step.active {
-            background-color: #4CAF50;
-            /* Green background for active step */
-            color: white;
-            /* Change text color to white */
-            border: 2px solid #4CAF50;
-            /* Match border with background */
-        }
-
-        .status-step.completed {
-            background-color: #e0e0e0;
-            /* Light grey for completed steps */
-            color: #757575;
-            /* Dark grey for text */
-        }
-
-        .status-step.active .step-icon {
-            background-color: #4CAF50;
-            /* Fill icon for active step */
-        }
-
-        .status-step.completed .step-icon {
-            background-color: #e0e0e0;
-            /* Fill icon for completed steps */
         }
     </style>
 </head>
@@ -227,6 +169,7 @@
         <div class="main-container1">
             <!-- Status Bar -->
             <div class="status-bar">
+                <h1>Create NCR</h1>
                 <ul class="status-steps">
                     <li class="status-step active">
                         <span class="step-icon"></span>
