@@ -341,20 +341,63 @@ nav ul a {
     width: 50%;
     height: 35px;
 }
-
 /* Create page */
 /* Status Bar */
-
-
-.status-bar div {
-    width: 30%;
-    padding: 10px;
-    text-align: center;
-    color: black;
-    transition: color 0.3s ease;
-
+.main-container-create {
+    display: flex;
+    flex-direction: column; /* Stack the status bar and form vertically */
+    height: auto;
 }
 
+.status-bar {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Align items to the start (top) */
+    text-align: left; /* Align text to the left */
+    padding: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%; /* Make the status bar full width */
+}
+
+.status-steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    width: 100%;
+}
+.step-icon{
+    display: none;
+}
+.status-step {
+    font-size: 16px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+/* Remove the icon and position styles */
+.status-step.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.status-step.completed {
+    background-color: #e0e0e0;
+    color: #757575;
+}
+
+.form-container {
+    flex-grow: 1;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    width: 100%; /* Make the form full width */
+}
 
 
 /* create page  */
@@ -1283,6 +1326,11 @@ td button:focus {
         margin-left: 123px;
         align-self: flex-start;
     }
+
+    .status-bar{
+        width: 100%;
+        align-items: center;
+    }
 }
 
 
@@ -1494,22 +1542,20 @@ td button:focus {
         display: flex;
         justify-content: center;
         margin: 0 auto;
-        width: 80%;
+        width: 100%;
     }
 
     /* create ncr */
     .form-section.active {
         align-self: center;
-        width: 85%;
+        width: 100%;
     }
 
     fieldset.account {
         padding: 0px 100px;
     }
 
-    .form-section.active {
-        width: 75%;
-    }
+    
 
     #qa-section {
         align-items: flex-start;
@@ -1523,6 +1569,80 @@ td button:focus {
 
     .form-section.active label {
         margin-right: 10px;
+    }
+    .main-container-create{
+        flex-direction: row;
+    }
+    .status-bar{
+        width: 35%;
+    }
+    .status-steps{
+        flex-direction: column;
+    }
+    .step-icon{
+        display: block;
+    }
+    .status-steps {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+    }
+
+    .status-step {
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        line-height: 1.5;
+        position: relative;
+        padding-left: 25px;
+        margin-bottom: 20px;
+    }
+
+    .status-step:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 10px;
+        top: 20px;
+        bottom: -20px;
+        background-color: white;
+    }
+
+    .step-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        border: 2px solid #007bff;
+        border-radius: 50%;
+        text-align: center;
+        line-height: 20px;
+        font-size: 14px;
+        color: white;
+        font-weight: bold;
+        margin-right: 10px;
+        padding: 5px;
+    }
+
+    .status-step.active {
+        background-color: #4CAF50;
+        color: white;
+        border: 2px solid #4CAF50;
+    }
+
+    .status-step.active .step-icon {
+        background-color: #4CAF50;
+    }
+
+    .status-step.completed {
+        background-color: #e0e0e0;
+        color: #757575;
+    }
+
+    .status-step.completed .step-icon {
+        background-color: #e0e0e0;
     }
 }
 
@@ -1672,6 +1792,8 @@ td button:focus {
     .indicator {
         margin-left: 125px;
     }
+
+    
 }
 
 @media screen and (min-width: 1760px) {
