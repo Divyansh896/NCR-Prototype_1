@@ -14,8 +14,8 @@
 
 <body>
 
-     <!-- Header with Logo and Navigation -->
-     <header>
+    <!-- Header with Logo and Navigation -->
+    <header>
         <div class="logo-container">
             <img src="images/logo.webp" alt="Crossfire Company Logo">
         </div>
@@ -65,14 +65,19 @@
                         <option value="Delta Logistics">Delta Logistics</option>
                         <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
                     </select>
-                    <!-- <input type="text" class="serach-bar" id="search" name="search" placeholder="Search by supplier." tabindex="7" aria-label="Search by supplier"> -->
                 </div>
 
+                <div class="autocomplete">
+                    <label>Search NCR Number</label>
+                    <input type="number" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
+                    <div id="autocomplete-list" class="autocomplete-items"></div>
+                </div>
+                
                 <!-- Date Picker -->
                 <div>
                     <label for="date-filter">Date Filter:</label>
-                    <input type="date" class="date-filter" id="date-filter" name="date"
-                        tabindex="8" aria-label="Date filter">
+                    <input type="date" class="date-filter" id="date-filter" name="date" tabindex="8"
+                        aria-label="Date filter">
                 </div>
 
                 <!-- Status Filter Section -->
@@ -82,7 +87,7 @@
                         <label for="status-all">
                             <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
                         </label>
-                        
+
                         <label for="status-no">
                             <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
                                 tabindex="11"> Open
@@ -94,9 +99,9 @@
                     </div>
                 </div>
 
-                
+
             </div>
-            
+
             <div>
                 <button id="btn-reset" tabindex="12">Reset</button>
             </div>
@@ -128,7 +133,8 @@
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
             <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="13">Privacy
-                Policy</a></p>
+                Policy</a>
+        </p>
     </footer>
 
     <script src="script/view-ncr.js"></script>

@@ -1,56 +1,59 @@
-let ncrData = []; // Define a variable to hold the data
-const footer = document.getElementById('footer-scroll');
+let ncrData = [] // Define a variable to hold the data
+const footer = document.getElementById('footer-scroll')
+const ncrInput = document.getElementById('ncrInput')
+const autocompleteList = document.getElementById('autocomplete-list')
+const records = document.getElementById('record-count')
 
 // Smooth scroll to the top on footer click
 footer.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
-    });
-});
+    })
+})
 
 // Load data after DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
     fetch('Data/ncr_reports.json')
         .then(response => response.json())
         .then(data => {
-            ncrData = data;
-            populateTable(ncrData); // Populate table initially
-            document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`;
-            document.getElementById('status-all').checked = true;
+            ncrData = data
+            populateTable(ncrData) // Populate table initially
+            document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`
+            document.getElementById('status-all').checked = true
         })
-        .catch(error => console.error("An error occurred while retrieving data: ", error));
-});
+        .catch(error => console.error("An error occurred while retrieving data: ", error))
+})
 
 // Allow radio buttons to be selected with the 'Enter' key
-document.addEventListener('keydown', function(event) {
+document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
-        const activeElement = document.activeElement;
+        const activeElement = document.activeElement
         if (activeElement.type === 'radio') {
-            activeElement.click(); // Programmatically click the radio button
+            activeElement.click() // Programmatically click the radio button
         }
     }
-});
+})
 
 function getReportStage(ncr) {
-    if (!ncr.qa.resolved) return 'QA';
-    if (!ncr.engineering.resolved) return 'Engineering';
-    if (!ncr.purchasing_decision.resolved) return 'Purchasing';
-    return '';
+    if (!ncr.qa.resolved) return 'QA'
+    if (!ncr.engineering.resolved) return 'Engineering'
+    if (!ncr.purchasing_decision.resolved) return 'Purchasing'
+    return ''
 }
 
 function populateTable(data) {
-    const tBody = document.getElementById('ncr-tbody');
-    tBody.innerHTML = ''; // Clear the table
+    const tBody = document.getElementById('ncr-tbody')
+    tBody.innerHTML = '' // Clear the table
 
     data.forEach(ncr => {
-        const row = document.createElement('tr');
-        const reportStage = getReportStage(ncr);
+        const row = document.createElement('tr')
+        const reportStage = getReportStage(ncr)
 
         // Determine the status display
         const statusDisplay = ncr.status === 'completed'
-            ? `<span style="color: black;">Closed &#10004;</span>` // Checkmark for complete
-            : `<span style="color: green;">Open -</span>`; // Text for incomplete
+            ? `<span style="color: black">Closed &#10004</span>` // Checkmark for complete
+            : `<span style="color: green">Open -</span>` // Text for incomplete
 
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
@@ -62,37 +65,33 @@ function populateTable(data) {
                 <button class="view-btn" data-ncr="${ncr.ncr_no}">View</button>
                 <button class="edit-btn" data-ncr="${ncr.ncr_no}">Edit</button>
             </td>
-        `;
+        `
 
         // Add event listeners for View and Edit buttons
         row.querySelector('.view-btn').addEventListener('click', () => {
-            viewNCR(ncr);
-        });
+            viewNCR(ncr)
+        })
         row.querySelector('.edit-btn').addEventListener('click', () => {
-            editNCR(ncr);
-        });
-        row.addEventListener('click', () => {
-            const data = 
-            sessionStorage.setItem('data', JSON.stringify(data));
-            window.location.href = `ncReport.html`; // Adjust the URL as needed
-        });
+            editNCR(ncr)
+        })
 
-        tBody.appendChild(row);
-    });
+        tBody.appendChild(row)
+    })
 }
 
 function viewNCR(ncr) {
-    const data = extractData(ncr);
-    sessionStorage.setItem('data', JSON.stringify(data));
-    window.location.href = 'ncReport.html'; // Adjust the URL as needed
+    const data = extractData(ncr)
+    sessionStorage.setItem('data', JSON.stringify(data))
+    window.location.href = 'ncReport.html' // Adjust the URL as needed
 }
 
 // Function to handle the 'Edit' button click
 function editNCR(ncr) {
-    const data = extractData(ncr);
-    sessionStorage.setItem('data', JSON.stringify(data));
-    window.location.href = 'editReport.html'; // Adjust the URL as needed
+    const data = extractData(ncr)
+    sessionStorage.setItem('data', JSON.stringify(data))
+    window.location.href = 'editReport.html' // Adjust the URL as needed
 }
+
 function extractData(ncr) {
     return {
         supplier_name: ncr.qa.supplier_name,
@@ -132,41 +131,134 @@ function extractData(ncr) {
         inspector_name: ncr.purchasing_decision.inspector_name,
         ncr_closed: ncr.purchasing_decision.ncr_closed,
         pu_resolved: ncr.purchasing_decision.resolved,
-    };
+    }
 }
 
 function filterNcr(ncrData) {
-    const search = document.getElementById('search');
-    const date = document.getElementById('date-filter');
-    const status = document.querySelector('input[name="status"]:checked')?.value;
-    const records = document.getElementById('record-count');
+    const search = document.getElementById('search')
+    const date = document.getElementById('date-filter')
+    const status = document.querySelector('input[name="status"]:checked')?.value
 
     const filteredData = ncrData.filter(ncr => {
-        const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value);
-        const matchedDate = !date.value || (date.value === ncr.qa.date);
+        const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value)
+        const matchedDate = !date.value || (date.value === ncr.qa.date)
         const matchedStatus = !status ||
             (status === 'all') ||
             (status === 'completed' && ncr.status === 'completed') ||
-            (status === 'incomplete' && ncr.status === 'incomplete');
+            (status === 'incomplete' && ncr.status === 'incomplete')
 
-        return matchedSearch && matchedDate && matchedStatus;
-    });
+        return matchedSearch && matchedDate && matchedStatus
+    })
 
-    records.textContent = `Records found: ${filteredData.length}`;
-    populateTable(filteredData);
+    records.textContent = `Records found: ${filteredData.length}`
+    populateTable(filteredData)
 }
 
 // Attach filter events
-document.getElementById('search').addEventListener('change', () => filterNcr(ncrData));
-document.getElementById('date-filter').addEventListener('change', () => filterNcr(ncrData));
+document.getElementById('search').addEventListener('change', () => filterNcr(ncrData))
+document.getElementById('date-filter').addEventListener('change', () => filterNcr(ncrData))
 document.querySelectorAll('input[name="status"]').forEach(input => {
-    input.addEventListener('change', () => filterNcr(ncrData));
-});
+    input.addEventListener('change', () => filterNcr(ncrData))
+})
 
 // Reset filter inputs and update table
 document.getElementById('btn-reset').addEventListener('click', () => {
-    document.getElementById('search').value = "All";
-    document.getElementById('date-filter').value = null;
-    document.getElementById('status-all').checked = true;
-    filterNcr(ncrData); // Update the table after resetting filters
-});
+    document.getElementById('search').value = "All"
+    document.getElementById('date-filter').value = null
+    document.getElementById('status-all').checked = true
+    document.getElementById('ncrInput').value = ''  // Clear NCR input
+
+    // Clear autocomplete suggestions
+    autocompleteList.innerHTML = ''
+
+    filterNcr(ncrData) // Update the table after resetting filters
+})
+
+// Autocomplete functionality
+
+let currentFocus = -1
+
+ncrInput.addEventListener('input', function () {
+    const input = this.value.toLowerCase()
+    autocompleteList.innerHTML = '' // Clear previous suggestions
+    currentFocus = -1 // Reset focus index
+
+    if (!input) return
+
+    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input))
+    filteredRecords.forEach((record, index) => {
+        const item = document.createElement('div')
+        const regex = new RegExp(input, 'gi')
+        const highlightedText = record.ncr_no.replace(regex, match => `<span class="highlight">${match}</span>`)
+
+        item.innerHTML = highlightedText
+        item.classList.add('autocomplete-item')
+        item.addEventListener('click', () => {
+            ncrInput.value = record.ncr_no // Set the input value to the selected NCR
+            autocompleteList.innerHTML = '' // Clear the suggestions
+        })
+
+        autocompleteList.appendChild(item)
+
+    })
+    populateTable(filteredRecords)
+})
+// Keyboard navigation for autocomplete
+ncrInput.addEventListener('keydown', function (e) {
+    const items = document.querySelectorAll('.autocomplete-item')
+
+    if (e.key === 'ArrowDown') {
+        e.preventDefault() // Prevent default behavior
+        currentFocus++
+        addActive(items)
+    } else if (e.key === 'ArrowUp') {
+        e.preventDefault() // Prevent default behavior
+        currentFocus--
+        addActive(items)
+    } else if (e.key === 'Enter') {
+        e.preventDefault() // Prevent default behavior
+        if (currentFocus > -1 && items.length > 0) {
+            const selectedItem = items[currentFocus].innerText // Get selected item's text
+            ncrInput.value = selectedItem // Populate input with selected item
+            autocompleteList.innerHTML = '' // Clear suggestions
+            const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(selectedItem))
+
+            // Trigger filtering of NCR data based on the selected item
+            records.textContent = `Records found: ${filteredRecords.length}`
+
+            populateTable(filteredRecords)
+        }
+    }
+})
+function addActive(items) {
+    if (!items.length) return;
+
+    removeActive(items); // Remove any existing active class
+
+    // Wrap the focus index around
+    if (currentFocus >= items.length) currentFocus = 0;
+    if (currentFocus < 0) currentFocus = items.length - 1;
+
+    // Add the active class to the current item
+    items[currentFocus].classList.add('active');
+
+    // Scroll the active item into view
+    items[currentFocus].scrollIntoView({
+        block: 'nearest', // Scroll the item to the nearest edge
+        behavior: 'smooth' // Optional: smooth scrolling
+    });
+}
+
+
+
+
+function removeActive(items) {
+    Array.from(items).forEach(item => item.classList.remove('active'))
+}
+
+// Click outside of autocomplete to close it
+document.addEventListener('click', function (e) {
+    if (e.target !== ncrInput) {
+        autocompleteList.innerHTML = ''
+    }
+})

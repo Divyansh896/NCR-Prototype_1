@@ -49,8 +49,7 @@ input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
-select:focus
-textarea:focus {
+select:focus textarea:focus {
     border: 3px solid black;
 }
 
@@ -357,6 +356,7 @@ nav ul a {
 }
 
 
+
 /* create page  */
 /* Fieldset Styles */
 fieldset {
@@ -568,6 +568,38 @@ fieldset legend {
     /* Prevent overflow on smaller screens */
 }
 
+
+.autocomplete {
+    position: relative;
+    display: inline-block;
+}
+
+.autocomplete-items {
+    position: absolute;
+    border: none;
+    z-index: 999;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.autocomplete-item {
+    padding: 10px;
+    cursor: pointer;
+}
+
+.autocomplete-item:hover,
+.autocomplete-item.active {
+    background-color: #e9e9e9;
+}
+
+.highlight {
+    font-weight: bold;
+    color: blue;
+}
 
 
 /* Search Bar */
@@ -828,13 +860,15 @@ input[type="radio"] {
     margin-top: 20px;
     margin-bottom: 8px;
 }
-#Privacy-policy ol{
+
+#Privacy-policy ol {
     margin-left: 40px;
 }
-#Privacy-policy li{
+
+#Privacy-policy li {
     margin-bottom: 10px;
 }
-  
+
 .contact-info {
     font-size: 1.7rem;
 }
@@ -851,37 +885,58 @@ input[type="radio"] {
 
 
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
     left: 0;
-    top: 0; /* Start at the top */
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    overflow: hidden; /* Prevent scroll if needed */
-    background-color: rgb(0, 0, 0); /* Fallback color */
-    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
-    transition: opacity 0.5s ease; /* Transition for the opacity */
+    top: 0;
+    /* Start at the top */
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: hidden;
+    /* Prevent scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    transition: opacity 0.5s ease;
+    /* Transition for the opacity */
 }
 
 .modal-content {
     background-color: #fefefe;
-    border-radius: 8px; /* Rounded corners */
+    border-radius: 8px;
+    /* Rounded corners */
     padding: 20px;
     border: 1px solid #888;
-    width: 450px; /* Set a fixed width */
+    width: 450px;
+    /* Set a fixed width */
     height: 200px;
-    position: absolute; /* Position relative to modal */
-    left: 50%; /* Center horizontally */
-    top: 50%; /* Center vertically */
-    transform: translate(-50%, -50%); /* Adjust to center */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow effect */
-    opacity: 0; /* Start hidden */
-    transition: opacity 0.5s ease, transform 0.5s ease; /* Transition for opacity and transform */
+    position: absolute;
+    /* Position relative to modal */
+    left: 50%;
+    /* Center horizontally */
+    top: 50%;
+    /* Center vertically */
+    transform: translate(-50%, -50%);
+    /* Adjust to center */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Shadow effect */
+    opacity: 0;
+    /* Start hidden */
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    /* Transition for opacity and transform */
 }
-.modal-content p{
+
+.modal-content p {
     margin-left: 45px;
 }
+
 .close {
     color: #aaa;
     float: right;
@@ -895,55 +950,74 @@ input[type="radio"] {
     text-decoration: none;
     cursor: pointer;
 }
+
 .error-message {
-    color: red; /* Red color for error messages */
-    margin-top: 10px; /* Space above the error message */
-    font-size: 14px; /* Font size for the error message */
-    display: none; /* Hide by default */
+    color: red;
+    /* Red color for error messages */
+    margin-top: 10px;
+    /* Space above the error message */
+    font-size: 14px;
+    /* Font size for the error message */
+    display: none;
+    /* Hide by default */
 }
 
 .header-container {
-    display: flex; /* Use flexbox to align items */
-    align-items: center; /* Center items vertically */
-    margin-bottom: 20px; /* Space below the header */
+    display: flex;
+    /* Use flexbox to align items */
+    align-items: center;
+    /* Center items vertically */
+    margin-bottom: 20px;
+    /* Space below the header */
 }
 
 .icon-container {
-    margin-right: 15px; /* Space between icon and title */
+    margin-right: 15px;
+    /* Space between icon and title */
 }
 
 .icon {
-    width: 40px; /* Width of the circle */
-    height: 40px; /* Height of the circle */
+    width: 40px;
+    /* Width of the circle */
+    height: 40px;
+    /* Height of the circle */
     /* border-radius: 50%; Make it circular */
-    
+
 }
-.icon img{
+
+.icon img {
     width: 50px;
     height: 50px;
     margin-right: 10px;
 }
+
 td button {
     background: none;
     border: none;
-    color: #007bff; /* Link-like color */
+    color: #007bff;
+    /* Link-like color */
     text-decoration: none;
     cursor: pointer;
     font-size: 1rem;
     padding: 0;
-    margin-right: 10px; /* Space between buttons */
+    margin-right: 10px;
+    /* Space between buttons */
     display: inline-block;
-    transition: all 0.3s ease; /* Reduced transition time for responsiveness */
+    transition: all 0.3s ease;
+    /* Reduced transition time for responsiveness */
 }
 
 td button:hover {
-    background: none; /* Explicitly set background to none */
-    color: #0056b3; /* Slightly darker color on hover */
+    background: none;
+    /* Explicitly set background to none */
+    color: #0056b3;
+    /* Slightly darker color on hover */
     text-decoration: underline;
 }
 
 td button:focus {
-    outline: none; /* Remove focus outline */
+    outline: none;
+    /* Remove focus outline */
 }
 
 
@@ -1195,17 +1269,20 @@ td button:focus {
         float: left;
         margin: 0;
     }
-.form-section textarea::placeholder{
-    padding: 5px;
-}
-.form-section.active label{
-    margin-right: 40px;
-    margin-left: 0;
-}
-.account .indicator{
-    margin-left: 123px;
-    align-self: flex-start;
-}
+
+    .form-section textarea::placeholder {
+        padding: 5px;
+    }
+
+    .form-section.active label {
+        margin-right: 40px;
+        margin-left: 0;
+    }
+
+    .account .indicator {
+        margin-left: 123px;
+        align-self: flex-start;
+    }
 }
 
 
@@ -1276,10 +1353,11 @@ td button:focus {
         margin-left: 100px;
     }
 
-    .account .indicator{
-        align-self:flex-start;
+    .account .indicator {
+        align-self: flex-start;
         margin-left: 0;
     }
+
     .form-row label,
     .form-row input,
     .form-row select,
@@ -1436,10 +1514,14 @@ td button:focus {
     #qa-section {
         align-items: flex-start;
     }
-    .featuresCreateNCR button, .featuresViewNCR button, .featuresManageAcc button{
+
+    .featuresCreateNCR button,
+    .featuresViewNCR button,
+    .featuresManageAcc button {
         width: 62%;
     }
-    .form-section.active label{
+
+    .form-section.active label {
         margin-right: 10px;
     }
 }
@@ -1525,9 +1607,10 @@ td button:focus {
         font-size: 1.5rem;
     }
 
-    .form-row{
+    .form-row {
         margin-left: 26px;
     }
+
     .form-row label,
     .form-row input,
     .form-row select,
@@ -1582,11 +1665,11 @@ td button:focus {
         width: 95%;
     }
 
-    .form-section.active label{
+    .form-section.active label {
         margin-right: 35px;
     }
 
-    .indicator{
+    .indicator {
         margin-left: 125px;
     }
 }
