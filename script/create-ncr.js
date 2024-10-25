@@ -3,6 +3,11 @@ const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const queryParams = new URLSearchParams(window.location.search)
 const starElements = document.querySelectorAll('.required');
 
+// Get the modal
+const modal = document.getElementById("popup");
+
+// Get the <span> element that closes the modal
+const span = document.getElementById("closePopup");
 // Get the input elements
 const quantityReceivedInput = document.getElementById('quantity-received');
 const quantityDefectiveInput = document.getElementById('quantity-defective');
@@ -64,18 +69,18 @@ if (user.role === 'QA Inspector') {
     const sections = document.querySelectorAll(".form-section")
 
     // Update status bar based on current step
+    // Update status bar based on current step
     function updateStatusBar() {
-        const steps = document.querySelectorAll(".status-bar div")
+        const steps = document.querySelectorAll(".status-steps .status-step"); // Get all status steps
         steps.forEach((step, index) => {
-            step.classList.toggle("active", index === currentStep)
-        })
+            // Highlight the current step
+            step.classList.toggle("active", index === currentStep);
 
-        const leftPosition = currentStep * 33.33
-        const width = 100 / steps.length
-
-        document.querySelector('.status-bar').style.setProperty('--underline-left', `${leftPosition}%`)
-        document.querySelector('.status-bar').style.setProperty('--underline-width', `${width}%`)
+            // Optionally, you can add a class for completed steps
+            step.classList.toggle("completed", index < currentStep);
+        });
     }
+
 
     // Clear fields in a section but keep NCR number and dropdowns intact
     function clearSection(section) {
@@ -181,7 +186,7 @@ if (user.role === 'QA Inspector') {
     // Validate Section 1
     function validateSection1() {
         let isValid = true;
-    
+
         // Reset all error messages
         const errorMessages = {
             'supplier-name': '',
@@ -190,15 +195,15 @@ if (user.role === 'QA Inspector') {
             'quantity-defective': '',
             'product-no': ''
         };
-    
+
         const requiredFields = [
             'supplier-name', 'sales-order-no', 'quantity-received', 'quantity-defective', 'product-no'
         ];
-    
+
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
             const errorSpan = document.getElementById(`${field}-error`);
-    
+
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
                 errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
@@ -209,10 +214,10 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'none'; // Hide error if filled
             }
         });
-    
+
         const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10);
         const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10);
-    
+
         // Check if quantities are valid numbers
         if (!isNaN(quantityReceived) && !isNaN(quantityDefective)) {
             if (quantityDefective > quantityReceived) {
@@ -224,12 +229,12 @@ if (user.role === 'QA Inspector') {
             }
         }
         // showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
-    
+
         // Validate checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]');
         const checkboxLegend = document.querySelector('.qa-process legend');
         const checkboxLegendError = checkboxLegend.nextElementSibling;
-    
+
         // Check if at least one checkbox is checked
         if (![...checkboxes].some(checkbox => checkbox.checked)) {
             checkboxLegendError.style.display = 'inline';
@@ -238,7 +243,7 @@ if (user.role === 'QA Inspector') {
         } else {
             checkboxLegendError.style.display = 'none';
         }
-    
+
         // Clear specific error messages for non-empty fields
         for (const field of requiredFields) {
             const errorSpan = document.getElementById(`${field}-error`);
@@ -246,28 +251,28 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'none'; // Hide error if no error
             }
         }
-    
+
         return isValid;
     }
-    
+
 
     // Validate Section 2
     function validateSection2() {
         let isValid = true;
-    
+
         const requiredFields = [
             'description-item', 'description-defect'
         ];
-    
+
         const errorMessages = {
             'description-item': '',
             'description-defect': '',
         };
-    
+
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
             const errorSpan = document.getElementById(`${field}-error`); // Select the corresponding error span
-    
+
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
                 errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
@@ -278,11 +283,11 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'none'; // Hide error if filled
             }
         });
-    
+
         const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
         const radioError = document.querySelector('legend[for="item-marked-nonconforming"]');
         const radioErrorSpan = radioError.nextElementSibling;
-    
+
         // Check if at least one radio button is checked
         if (![...radioButtons].some(radio => radio.checked)) {
             radioErrorSpan.style.display = 'inline'; // Show error in the span if no radio button is checked
@@ -291,7 +296,7 @@ if (user.role === 'QA Inspector') {
         } else {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
         }
-    
+
         // Clear specific error messages for non-empty fields
         for (const field of requiredFields) {
             const errorSpan = document.getElementById(`${field}-error`);
@@ -299,10 +304,10 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'none'; // Hide error if no error
             }
         }
-    
+
         return isValid;
     }
-    
+
 
     function populateConfirmationData() {
         // Get values from Section 1
@@ -469,13 +474,6 @@ function submitForm(role) {
 
 }
 
-document.getElementById('add-photo-btn').addEventListener('click', function () {
-    document.getElementById('photo-input').click(); // Trigger hidden photo input
-});
-
-document.getElementById('add-video-btn').addEventListener('click', function () {
-    document.getElementById('video-input').click(); // Trigger hidden video input
-});
 
 // Handle photo selection
 document.getElementById('photo-input').addEventListener('change', function () {
@@ -499,14 +497,7 @@ document.getElementById('video-input').addEventListener('change', function () {
     }
 });
 
-// Get the modal
-const modal = document.getElementById("popup");
 
-// Get the button that opens the modal
-// const btn = document.getElementById("openPopup");
-
-// Get the <span> element that closes the modal
-const span = document.getElementById("closePopup");
 
 
 // Show the modal with a title, message, and icon
