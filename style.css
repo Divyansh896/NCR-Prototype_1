@@ -21,7 +21,7 @@ html{
 body {
     font-family: Arial, sans-serif;
     background-color: white;
-    color: #333;
+    color: #004581;
     display: flex;
     flex-direction: column;
     min-height: 100%;
@@ -76,7 +76,7 @@ textarea {
 
 button {
     background-color: #f4f4f4;
-    color: #163650;
+    color: #004581;
     border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -89,7 +89,7 @@ button:hover {
 h1 {
     padding: 20px 0px;
     text-align: center;
-    color: #1a3153;
+    color: #004581;
     font-size: 1.5rem;
 }
 
@@ -262,7 +262,7 @@ label {
 }
 
 .linksNav {
-    color: #1a3153;
+    color: #004581;
 }
 
 .linksNav:hover {

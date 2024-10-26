@@ -11,6 +11,8 @@
     <title>Home - Crossfire</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
@@ -24,16 +26,30 @@
         <nav aria-label="Primary Navigation">
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
-                <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
-
-                <li><a href="create_NCR.html" class="linksNav" tabindex="4"
-                        aria-label="Create a new Non-Conformance Report">Create NCR</a></li>
-                <li><a href="view.html" class="linksNav" tabindex="5"
-                        aria-label="View existing Non-Conformance Reports">View NCR</a></li>
-
-
-                <li><a href="account.html" class="linksNav" tabindex="6"
-                        aria-label="Manage your account settings">Account</a></li>
+                <li>
+                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Home
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="create_NCR.html" class="linksNav" tabindex="4" aria-label="Create a new Non-Conformance Report">
+                        <i class="fa fa-fw fa-pencil"></i> Create NCR
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="view.html" class="linksNav" tabindex="5" aria-label="View existing Non-Conformance Reports">
+                        <i class="fa fa-fw fa-search"></i> View NCR
+                    </a>
+                </li>
+                
+                <li>
+                    <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
+                        <i class="fa fa-fw fa-user-circle"></i> Account
+                    </a>
+                </li>
+                
             </ul>
         </nav>
 
@@ -49,7 +65,7 @@
             </ul>
         </nav>
     </div>
-    
+
     <h1>Home</h1>
     <!-- Main Section -->
     <main class="main-container" aria-label="Main Content">
@@ -58,7 +74,7 @@
             <div>
                 <h2 id="create-ncr-header">Create NCR</h2>
                 <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
-                <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7">Create NCR</button>
+                <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i class="fa fa-fw fa-pencil"></i>Create NCR</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -68,7 +84,7 @@
             <div>
                 <h2 id="view-ncr-header">View NCR</h2>
                 <p>Access and review existing NCRs in your system.</p>
-                <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8">View NCR</button>
+                <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"> <i class="fa fa-fw fa-search"></i>View NCR</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -78,7 +94,7 @@
             <div>
                 <h2 id="manage-account-header">Manage Account</h2>
                 <p>Update account settings and user preferences.</p>
-                <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9">Manage Account</button>
+                <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"> <i class="fa fa-fw fa-user-circle"></i>Manage Account</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -89,7 +105,8 @@
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
             <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="10">Privacy
-                Policy</a></p>
+                Policy</a>
+        </p>
     </footer>
 
     <script src="script/home-ncr.js"></script>
