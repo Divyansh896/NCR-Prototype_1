@@ -1,23 +1,21 @@
-// script.js
-document.addEventListener('DOMContentLoaded', () => {
-    const ncrToggle = document.getElementById('ncr-toggle');
-    const dropdown = ncrToggle.nextElementSibling; // Get the dropdown
-    dropdown.style.display = 'none';
-    // Show/hide dropdown on header click
-    ncrToggle.addEventListener('click', (e) => {
-        e.preventDefault(); // Prevent default anchor behavior
-        const isExpanded = ncrToggle.getAttribute('aria-expanded') === 'true';
-        
-        // Toggle dropdown display
-        dropdown.style.display = isExpanded ? 'none' : 'block';
-        ncrToggle.setAttribute('aria-expanded', !isExpanded);
-    });
+document.addEventListener("DOMContentLoaded", function() {
+    user =JSON.parse(sessionStorage.getItem("currentUser"));
+        // or "lead engineer", "standard engineer"
+    
 
-    // Hide dropdown when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!ncrToggle.contains(e.target) && !dropdown.contains(e.target)) {
-            dropdown.style.display = 'none';
-            ncrToggle.setAttribute('aria-expanded', 'false');
+    // Update the Create NCR link based on user role
+    function updateNCRLink() {
+        
+        var ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+
+        if (user.role === "Lead Engineer" || user.role === "Purchasing") {
+            // Change to "Logged NCR" for lead engineers and purchasing roles
+            ncrLink.href = "logged_ncr.html";
+            ncrLink.innerText = "Logged NCR";
+            ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports");
         }
-    });
+    }
+
+    // Run the update on page load
+    updateNCRLink();
 });

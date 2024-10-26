@@ -41,7 +41,7 @@ function initializeButtons() {
     if(user.role == 'QA Inspector'){
 
         btnCreate.addEventListener('click', () => {
-            window.location.href = `create.html?ncr_no=${generateNextNcrNumber(ncr)}`;
+            window.location.href = `create_NCR.html?ncr_no=${generateNextNcrNumber(ncr)}`;
         });
     }
     else{
@@ -50,7 +50,7 @@ function initializeButtons() {
         p.innerHTML = 'Open Recent Non-Conformance Reports'
         btnCreate.addEventListener('click', ()=>{
             const queryString = createQueryString(ncr[0]);
-            window.location.href = `loggedNCR.html?${queryString}`
+            window.location.href = `logged_NCR.html?${queryString}`
         })
     }
 

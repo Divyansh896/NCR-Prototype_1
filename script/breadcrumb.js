@@ -4,34 +4,34 @@ var breadcrumb = document.getElementById("brdcrb");
 function getCurrentPageName() {
     var path = window.location.pathname;
     var pageName = path.substring(path.lastIndexOf('/') + 1).split('.')[0];
+    return pageName;
+}
 
-    
-            // General case: replace underscores with spaces and capitalize words
-            return pageName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
-    
+// Function to convert the page name for display
+function formatPageName(pageName) {
+    return pageName.replace(/_/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
 // Function to update and save the breadcrumb trail
 function updateBreadcrumb() {
     var currentPage = getCurrentPageName();
+    var displayPage = formatPageName(currentPage); // Display-friendly version
     var breadcrumbTrail = JSON.parse(sessionStorage.getItem("breadcrumbTrail")) || [];
 
-    // Check if the current page is already in the breadcrumb trail
-    var pageIndex = breadcrumbTrail.indexOf(currentPage);
+    // Check if the display version is already in the breadcrumb trail
+    var pageIndex = breadcrumbTrail.findIndex(item => item.page === currentPage);
     if (pageIndex !== -1) {
-        // If the page is found, keep all elements up to this page and discard the rest
+        // If found, keep up to this page and discard the rest
         breadcrumbTrail = breadcrumbTrail.slice(0, pageIndex + 1);
     } else {
-        // If the page is not in the breadcrumb, add it to the trail
-        breadcrumbTrail.push(currentPage);
+        // Add both actual and display names to the breadcrumb trail
+        breadcrumbTrail.push({ page: currentPage, display: displayPage });
     }
 
     // Update session storage with the modified breadcrumb trail
     sessionStorage.setItem("breadcrumbTrail", JSON.stringify(breadcrumbTrail));
     renderBreadcrumb();
 }
-
-
 
 // Function to render the breadcrumb based on sessionStorage data
 function renderBreadcrumb() {
@@ -41,7 +41,7 @@ function renderBreadcrumb() {
     breadcrumb.innerHTML = '';
 
     // Loop through breadcrumbTrail and create li elements
-    breadcrumbTrail.forEach((page, index) => {
+    breadcrumbTrail.forEach((item, index) => {
         var li = document.createElement("li");
         li.setAttribute("class", "breadcrumb-item");
 
@@ -49,10 +49,10 @@ function renderBreadcrumb() {
         if (index === breadcrumbTrail.length - 1) {
             li.classList.add("active");
             li.setAttribute("aria-current", "page");
-            li.innerText = page;
+            li.innerText = item.display;
         } else {
             // Add link for previous breadcrumb items
-            li.innerHTML = `<a href="${page}.html">${page}</a>`;
+            li.innerHTML = `<a href="${item.page}.html">${item.display}</a>`;
             li.addEventListener("click", function() {
                 breadcrumbTrail = breadcrumbTrail.slice(0, index + 1);
                 sessionStorage.setItem("breadcrumbTrail", JSON.stringify(breadcrumbTrail));

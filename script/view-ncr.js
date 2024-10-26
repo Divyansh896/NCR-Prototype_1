@@ -82,14 +82,14 @@ function populateTable(data) {
 function viewNCR(ncr) {
     const data = extractData(ncr)
     sessionStorage.setItem('data', JSON.stringify(data))
-    window.location.href = 'ncReport.html' // Adjust the URL as needed
+    window.location.href = 'NC_Report.html' // Adjust the URL as needed
 }
 
 // Function to handle the 'Edit' button click
 function editNCR(ncr) {
     const data = extractData(ncr)
     sessionStorage.setItem('data', JSON.stringify(data))
-    window.location.href = 'editReport.html' // Adjust the URL as needed
+    window.location.href = 'edit_Report.html' // Adjust the URL as needed
 }
 
 function extractData(ncr) {
