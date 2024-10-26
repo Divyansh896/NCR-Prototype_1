@@ -15,15 +15,23 @@
     margin: 10px;
 }
 
-
+html{
+    height: 100%;
+}
 body {
     font-family: Arial, sans-serif;
     background-color: white;
     color: #333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
 }
-main{
-    height: 100lvh;
+
+
+footer{
+    margin-top: auto;
 }
+
 /*general*/
 a {
     text-decoration: none;
@@ -383,12 +391,11 @@ nav ul a {
 
 /* Remove the icon and position styles */
 .status-step.active {
-    background-color: #4CAF50;
-    color: white;
+    /* background-color: #4CAF50; */
+    color: #08f00f;
 }
 
 .status-step.completed {
-    background-color: #e0e0e0;
     color: #757575;
 }
 
@@ -778,7 +785,7 @@ input[type="radio"] {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: #f4f4f4;
+    background: white;
     border: none;
     margin-bottom: 0px;
 }
@@ -852,7 +859,7 @@ input[type="radio"] {
     align-self: flex-end;
     height: 45px;
     background-color: #1a3153;
-    color: #f4f4f4;
+    color: white;
     width: 200px;
     border: none;
     border-radius: 4px;
@@ -1631,18 +1638,15 @@ td button:focus {
         padding: 5px;
     }
 
-    .status-step.active {
-        background-color: #4CAF50;
-        color: white;
-        border: 2px solid #4CAF50;
-    }
+    /* .status-step.active {
+        background-color: #4CAF50; 
+        color: white; 
+        border: 2px solid #4CAF50; 
+    } */ 
 
-    .status-step.active .step-icon {
-        background-color: #4CAF50;
-    }
+    
 
     .status-step.completed {
-        background-color: #e0e0e0;
         color: #757575;
     }
 

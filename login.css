@@ -137,14 +137,12 @@ button:focus{
 }
 #btn-login:hover {
     background-color: rgba(1, 108, 221, 0.9);
-    /* Darker shade on hover */
 }
 
 #login-footer {
     text-align: center;
     padding: 1rem;
     background: rgba(0, 0, 0, 0.6);
-    /* Dark background for footer */
     width: 100%;
 }
 
