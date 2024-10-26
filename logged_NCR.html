@@ -158,11 +158,7 @@
                     <div>Engineering fields can be added here in the future</div>
                 </details>
 
-                <details id="purch-section">
-                    <summary class="custom-summary" aria-label="Purchasing department details">Purchasing</summary>
-                    <!-- Purchasing fields can be added here in the future -->
-                    <div>Purchasing fields can be added here in the future</div>
-                </details>
+               
 
                 <form id="ncr-form" aria-labelledby="form-title">
                     <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
@@ -170,9 +166,8 @@
 
                         <label for="disposition_details">Disposition Details:</label>
                         <textarea id="disposition_details" rows="3"
-                            aria-describedby="disposition-details-desc">Minor scratches do not affect functionality.</textarea>
-                        <div id="disposition-details-desc" class="visually-hidden">This field describes the nature of
-                            the disposition.</div>
+                            aria-describedby="disposition-details-desc" placeholder="Disposition details"></textarea>
+                        
 
                         <label>
                             <input type="checkbox" id="drawing_update_required" aria-label="Drawing Update Required">
@@ -180,15 +175,15 @@
                         </label>
 
                         <label for="original_rev_number">Original Revision Number:</label>
-                        <input type="text" id="original_rev_number" aria-label="Original Revision Number">
+                        <input type="text" id="original_rev_number" aria-label="Original Revision Number" placeholder="Original Revision Number">
 
                         <label for="updated_rev_number">Updated Revision Number:</label>
-                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number">
+                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number" placeholder="Updated Revision Number">
 
-                        <legend id="step3-legend">Engineering Review</legend>
+                        <legend id="step2-legend">Engineering Review</legend>
 
                         <label for="engineer_name">Engineer Name:</label>
-                        <input type="text" id="engineer_name" value="Davis Henry" aria-label="Engineer Name">
+                        <input type="text" id="engineer_name" value="Davis Henry" aria-label="Engineer Name" placeholder="Engineer Name">
 
                         <label for="revision_date">Revision Date:</label>
                         <input type="date" id="revision_date" aria-label="Revision Date">
@@ -211,10 +206,10 @@
                     </fieldset>
 
                     <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
-                        <legend id="step2-legend">Disposition and Options</legend>
+                        <legend id="step3-legend">Disposition and Options</legend>
 
                         <label for="disposition">Disposition:</label>
-                        <input type="text" id="disposition" aria-label="Disposition" value="Use as is">
+                        <input type="text" id="disposition" aria-label="Disposition" placeholder="Disposition">
 
                         <fieldset role="group" aria-labelledby="disposition-options">
                             <legend id="disposition-options">Disposition Options</legend>
