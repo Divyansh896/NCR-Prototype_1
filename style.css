@@ -1341,7 +1341,7 @@ td button:focus {
         align-items: center;
     }
     .descr-container{
-        width: 85%;
+        width: 100%;
     }
 }
 

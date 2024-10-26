@@ -211,20 +211,22 @@
                                 <span class="error-message" id="product-no-error"></span>
 
                                 <!-- Checkbox-like buttons -->
-                                <fieldset class="qa-process">
-                                    <legend>Identify Process Applicable:</legend>
-                                    <span class="required">Item marked non-conforming required</span>
+                                    <label>Identify Process Applicable:</label>
+                                    <span class="required checkbox-error">Item marked non-conforming required</span>
 
-                                    <!-- Hidden checkbox input -->
-                                    <input type="checkbox" id="supplier" name="process" value="supplier"
+                                    <div>
+                                        <input type="checkbox" id="supplier" name="process" value="supplier"
                                         class="hidden-checkbox">
-                                    <label for="supplier" class="checkbox-button">Supplier or Rec-Insp</label>
+                                        <label for="supplier" class="checkbox-button">Supplier or Rec-Insp</label>
 
-                                    <!-- Hidden checkbox input -->
-                                    <input type="checkbox" id="wip" name="process" value="wip" class="hidden-checkbox">
-                                    <label for="wip" class="checkbox-button">WIP</label>
+                                    </div>
+                                    <div>
 
-                                </fieldset>
+                                        <input type="checkbox" id="wip" name="process" value="wip" class="hidden-checkbox">
+                                        <label for="wip" class="checkbox-button">WIP</label>
+                                    </div>
+                                        
+
                             </div>
                         </div>
 
@@ -277,10 +279,10 @@
 
                             <div class="media">
                                 <!-- Accept only image files (JPEG, PNG, GIF, etc.) -->
-                                <input type="file" name="Images" id="photo-input" accept="image/*">
+                                <input type="file" name="Images" id="photo-input" accept="image/*" multiple>
 
                                 <!-- Accept only video files (MP4, AVI, etc.) -->
-                                <input type="file" name="Videos" id="video-input" accept="video/*">
+                                <input type="file" name="Videos" id="video-input" accept="video/*" multiple>
                             </div>
 
                             <!-- Separate div for displaying selected images and videos -->

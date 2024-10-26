@@ -232,16 +232,15 @@ if (user.role === 'QA Inspector') {
 
         // Validate checkboxes
         const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]');
-        const checkboxLegend = document.querySelector('.qa-process legend');
-        const checkboxLegendError = checkboxLegend.nextElementSibling;
+        const checkboxError = document.querySelector('.checkbox-error'); // Select the error message element directly
 
         // Check if at least one checkbox is checked
         if (![...checkboxes].some(checkbox => checkbox.checked)) {
-            checkboxLegendError.style.display = 'inline';
-            checkboxLegendError.textContent = 'At least one process must be selected.';
-            isValid = false;
+            checkboxError.style.display = 'inline'; // Show error message
+            checkboxError.textContent = 'At least one process must be selected.';
+            isValid = false; // Set validation flag to false
         } else {
-            checkboxLegendError.style.display = 'none';
+            checkboxError.style.display = 'none'; // Hide error message if at least one checkbox is checked
         }
 
         // Clear specific error messages for non-empty fields
@@ -251,6 +250,7 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'none'; // Hide error if no error
             }
         }
+
 
         return isValid;
     }
