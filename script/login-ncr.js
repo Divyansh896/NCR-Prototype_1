@@ -138,3 +138,10 @@ function showPopup(title, message, icon) {
         }
     };
 }
+
+
+document.addEventListener("DOMContentLoaded", function() {
+    if(localStorage.getItem("isLoggedIn")){
+        window.location.href = "home.html"
+    }
+});
