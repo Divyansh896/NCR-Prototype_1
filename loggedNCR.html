@@ -71,13 +71,14 @@
             <div class="status-bar">
                 <h1>Logged NCR</h1>
                 <ul class="status-steps">
+                    
                     <li class="status-step active">
                         <span class="step-icon"></span>
-                        Step 1: Disposition and Options
+                        Step 1: Details and Revision Information
                     </li>
                     <li class="status-step">
                         <span class="step-icon"></span>
-                        Step 2: Details and Revision Information
+                        Step 2: Disposition and Options
                     </li>
 
                     <li class="status-step">
@@ -166,47 +167,7 @@
 
                 <form id="ncr-form" aria-labelledby="form-title">
                     <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                        <legend id="step1-legend">Disposition and Options</legend>
-
-                        <label for="disposition">Disposition:</label>
-                        <input type="text" id="disposition" aria-label="Disposition" value="Use as is">
-
-                        <fieldset role="group" aria-labelledby="disposition-options">
-                            <legend id="disposition-options">Disposition Options</legend>
-
-                            <label>
-                                <input type="checkbox" id="use_as_is" checked aria-label="Use as is option">
-                                Use as is
-                            </label>
-                            <label>
-                                <input type="checkbox" id="repair" aria-label="Repair option">
-                                Repair
-                            </label>
-                            <label>
-                                <input type="checkbox" id="rework" aria-label="Rework option">
-                                Rework
-                            </label>
-                            <label>
-                                <input type="checkbox" id="scrap" aria-label="Scrap option">
-                                Scrap
-                            </label>
-                        </fieldset>
-
-                        <label for="customer_notification_required">
-                            <input type="checkbox" id="customer_notification_required"
-                                aria-label="Customer Notification Required">
-                            Customer Notification Required
-                        </label>
-                        <div class="btn-eng-create">
-                            <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
-                                tabindex="15">Clear</button>
-                            <button type="button" id="next-btn1" aria-label="Move to next step"
-                                tabindex="16">Next</button>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
-                        <legend id="step2-legend">Details and Revision Information</legend>
+                        <legend id="step1-legend">Details and Revision Information</legend>
 
                         <label for="disposition_details">Disposition Details:</label>
                         <textarea id="disposition_details" rows="3"
@@ -246,6 +207,47 @@
                             <button type="button" id="clear-btn2" tabindex="22">Clear</button>
                             <button type="button" id="next-btn2" tabindex="22">Next</button>
                         </div>
+                        <div class="btn-eng-create">
+                            <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
+                                tabindex="15">Clear</button>
+                            <button type="button" id="next-btn1" aria-label="Move to next step"
+                                tabindex="16">Next</button>
+                        </div>
+                    </fieldset>
+
+                    <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
+                        <legend id="step2-legend">Disposition and Options</legend>
+
+                        <label for="disposition">Disposition:</label>
+                        <input type="text" id="disposition" aria-label="Disposition" value="Use as is">
+
+                        <fieldset role="group" aria-labelledby="disposition-options">
+                            <legend id="disposition-options">Disposition Options</legend>
+
+                            <label>
+                                <input type="checkbox" id="use_as_is" checked aria-label="Use as is option">
+                                Use as is
+                            </label>
+                            <label>
+                                <input type="checkbox" id="repair" aria-label="Repair option">
+                                Repair
+                            </label>
+                            <label>
+                                <input type="checkbox" id="rework" aria-label="Rework option">
+                                Rework
+                            </label>
+                            <label>
+                                <input type="checkbox" id="scrap" aria-label="Scrap option">
+                                Scrap
+                            </label>
+                        </fieldset>
+
+                        <label for="customer_notification_required">
+                            <input type="checkbox" id="customer_notification_required"
+                                aria-label="Customer Notification Required">
+                            Customer Notification Required
+                        </label>
+                        
                     </fieldset>
 
                     <!-- Disposition and Options Confirmation Section -->
