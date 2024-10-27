@@ -2,7 +2,9 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const queryParams = new URLSearchParams(window.location.search)
 const starElements = document.querySelectorAll('.required');
-
+const dropArea = document.getElementById('drop-area');
+const mediaInput = document.getElementById('media-input');
+const mediaList = document.getElementById('media-list');
 // Get the modal
 const modal = document.getElementById("popup");
 
@@ -173,12 +175,10 @@ if (user.role === 'QA Inspector') {
         // Clear radio buttons
         const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
         radioButtons.forEach(radioButton => radioButton.checked = false);
-        document.getElementById('photo-list').innerHTML = ''; // Clear the photo list
-        document.getElementById('video-list').innerHTML = ''; // Clear the video list
+        mediaList.innerHTML = ''; // Clear the photo list
 
         // Optionally reset the file input elements
-        document.getElementById('photo-input').value = '';
-        document.getElementById('video-input').value = '';
+        mediaList.value = '';
     })
 
 
@@ -475,28 +475,37 @@ function submitForm(role) {
 }
 
 
-// Handle photo selection
-document.getElementById('photo-input').addEventListener('change', function () {
-    const photoList = document.getElementById('photo-list');
-    photoList.innerHTML = ''; // Clear previous list
-    for (let i = 0; i < this.files.length; i++) {
-        const listItem = document.createElement('li');
-        listItem.textContent = this.files[i].name; // Display selected photo names
-        photoList.appendChild(listItem);
-    }
+let existingFiles = []; // Track previously added files
+
+function handleFiles(files) {
+    Array.from(files).forEach(file => {
+        if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
+            existingFiles.push(file); // Add new files to the existing list
+            const listItem = document.createElement('li');
+            listItem.textContent = file.name; // Display selected file names
+            mediaList.appendChild(listItem);
+        }
+    });
+}
+
+// Handle file selection
+mediaInput.addEventListener('change', function () {
+    handleFiles(this.files);
 });
 
-// Handle video selection
-document.getElementById('video-input').addEventListener('change', function () {
-    const videoList = document.getElementById('video-list');
-    videoList.innerHTML = ''; // Clear previous list
-    for (let i = 0; i < this.files.length; i++) {
-        const listItem = document.createElement('li');
-        listItem.textContent = this.files[i].name; // Display selected video names
-        videoList.appendChild(listItem);
-    }
+// Handle drag and drop
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+    dropArea.addEventListener(eventName, e => e.preventDefault());
+    dropArea.addEventListener(eventName, e => e.stopPropagation());
 });
 
+dropArea.addEventListener('dragover', () => dropArea.classList.add('dragover'));
+dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+dropArea.addEventListener('drop', e => {
+    dropArea.classList.remove('dragover');
+    const files = e.dataTransfer.files;
+    handleFiles(files);
+});
 
 
 

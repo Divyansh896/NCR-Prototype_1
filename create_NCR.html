@@ -277,22 +277,21 @@
 
                             </fieldset>
 
-                            <div class="media">
-                                <!-- Accept only image files (JPEG, PNG, GIF, etc.) -->
-                                <input type="file" name="Images" id="photo-input" accept="image/*" multiple>
-
-                                <!-- Accept only video files (MP4, AVI, etc.) -->
-                                <input type="file" name="Videos" id="video-input" accept="video/*" multiple>
+                            <div id="drop-area">
+                                <p>Drag & drop images and videos here, or <label for="media-input" style="cursor: pointer; color: blue; text-decoration: underline;">select files</label>.</p>
+                                <input type="file" name="media" id="media-input" accept="image/*,video/*" multiple style="display: none;">
+                                <ul id="media-list"></ul>
                             </div>
+                            
 
-                            <!-- Separate div for displaying selected images and videos -->
+                            <!-- Separate div for displaying selected images and videos
                             <div class="selected-files">
                                 <h3>Selected Images</h3>
                                 <ul id="photo-list"></ul>
 
                                 <h3>Selected Videos</h3>
                                 <ul id="video-listji"></ul>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="btn-qa-create">
