@@ -256,6 +256,25 @@ button:focus{
     margin-right: 10px;
 }
 
+.password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.password-container #password {
+    width: 100%;
+}
+
+.password-container #togglePassword {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    font-size: 1.5em;
+    color: rgb(245, 240, 240);
+}
+
+
 @media screen and (min-width: 768px) {
 
     label {

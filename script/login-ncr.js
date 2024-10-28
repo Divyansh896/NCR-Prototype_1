@@ -139,6 +139,17 @@ function showPopup(title, message, icon) {
     };
 }
 
+document.getElementById("togglePassword").addEventListener("click", function () {
+    const passwordField = document.getElementById("password");
+    const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+    passwordField.setAttribute("type", type);
+
+    // Toggle the eye icon
+    this.classList.toggle("fa-eye");
+    this.classList.toggle("fa-eye-slash");
+});
+
+
 
 // document.addEventListener("DOMContentLoaded", function() {
 //     if(localStorage.getItem("isLoggedIn")){
