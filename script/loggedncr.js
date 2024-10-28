@@ -149,9 +149,9 @@ function removeSectionsForUser() {
 
     if (user.role === 'Lead Engineer') {
         engdropdown.remove()
-        purchdropdown.remove()
+        // purchdropdown.remove()
     } else if (user.role === 'Purchasing') {
-        purchdropdown.remove()
+        // purchdropdown.remove()
     }
 }
 footer.addEventListener('click', () => {

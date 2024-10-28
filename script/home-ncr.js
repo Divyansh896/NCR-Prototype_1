@@ -45,7 +45,7 @@ function initializeButtons() {
         });
     }
     else{
-        btnCreate.innerHTML = 'Open Logged NCR'
+        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open Logged NCR'
         header.innerHTML = 'Open NCR'
         p.innerHTML = 'Open Recent Non-Conformance Reports'
         btnCreate.addEventListener('click', ()=>{

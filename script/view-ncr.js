@@ -51,9 +51,9 @@ function populateTable(data) {
         const reportStage = getReportStage(ncr)
 
         // Determine the status display
-        const statusDisplay = ncr.status === 'completed'
-            ? `<span style="color: black">Closed &#10004</span>` // Checkmark for complete
-            : `<span style="color: green">Open -</span>` // Text for incomplete
+        const statusDisplay = ncr.status === 'completed' 
+            ? `<span style="color: black"><i class="fa fa-lock"></i> Closed &#10004</span>` // Checkmark for complete
+            : `<span style="color: green"><i class="fa fa-archive"></i> Open -</span>` // Text for incomplete
 
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
@@ -62,8 +62,8 @@ function populateTable(data) {
             <td>${ncr.qa.date || 'N/A'}</td>
             <td>${statusDisplay} ${reportStage}</td>
             <td>
-                <button class="view-btn" data-ncr="${ncr.ncr_no}">View</button>
-                <button class="edit-btn" data-ncr="${ncr.ncr_no}">Edit</button>
+                <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> View</button>
+                <button class="edit-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Edit</button>
             </td>
         `
 

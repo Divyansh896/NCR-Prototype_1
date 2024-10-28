@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         if (user.role === "Lead Engineer" || user.role === "Purchasing") {
             // Change to "Logged NCR" for lead engineers and purchasing roles
             ncrLink.href = "logged_NCR.html";
-            ncrLink.innerText = "Logged NCR";
+            ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Logged NCR';
             ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports");
         }
     }
