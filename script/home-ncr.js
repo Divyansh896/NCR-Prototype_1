@@ -118,3 +118,22 @@ function createQueryString(ncrData) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box");
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block";
+    } else {
+        notificationBox.style.display = "none";
+    }
+}
+
+// Optional: Hide the notification box if clicked outside
+document.addEventListener("click", function(event) {
+    var notificationBox = document.getElementById("notification-box");
+    var iconBadge = document.querySelector(".icon-badge");
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none";
+    }
+});

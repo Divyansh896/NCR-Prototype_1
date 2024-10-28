@@ -1087,7 +1087,66 @@ td button:focus {
     /* Remove focus outline */
 }
 
+.icon-badge {
+    position: relative;
+    background-color: #333333f4; /* Background color of the button */
+    color: white; /* Icon color */
+    border: none;
+    border-radius: 50%; /* Makes the button round */
+    padding: 10px;
+    width: 40px; /* Width of the round button */
+    height: 40px; /* Height of the round button */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
 
+.icon-badge .fa {
+    font-size: 18px;
+}
+.icon-badge:hover{
+    background-color: #333333c5;
+}
+.icon-badge .badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red; /* Badge color */
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    font-weight: bold;
+}
+.notification-box {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 50px; /* Adjust this to place it below the icon */
+    right: 0;
+    width: 200px;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    padding: 10px;
+    z-index: 1000;
+}
+
+.notification-box ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.notification-box ul li {
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-box ul li:last-child {
+    border-bottom: none;
+}
+  
 
 /*media*/
 @media screen and (min-width: 320px) {
