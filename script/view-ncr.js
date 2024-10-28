@@ -135,28 +135,28 @@ function extractData(ncr) {
 }
 
 function filterNcr(ncrData) {
-    const search = document.getElementById('search')
-    const date = document.getElementById('date-filter')
-    const status = document.querySelector('input[name="status"]:checked')?.value
+    const search = document.getElementById('search');
+    const status = document.querySelector('input[name="status"]:checked')?.value;
+    const department = document.getElementById('Departments').value;
 
     const filteredData = ncrData.filter(ncr => {
-        const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value)
-        const matchedDate = !date.value || (date.value === ncr.qa.date)
+        const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value);
         const matchedStatus = !status ||
             (status === 'all') ||
             (status === 'completed' && ncr.status === 'completed') ||
-            (status === 'incomplete' && ncr.status === 'incomplete')
+            (status === 'incomplete' && ncr.status === 'incomplete');
+        const matchedDepartment = (department == "All") || (getReportStage(ncr) === department);
 
-        return matchedSearch && matchedDate && matchedStatus
-    })
+        return matchedSearch && matchedStatus && matchedDepartment;
+    });
 
-    records.textContent = `Records found: ${filteredData.length}`
-    populateTable(filteredData)
+    records.textContent = `Records found: ${filteredData.length}`;
+    populateTable(filteredData);
 }
 
 // Attach filter events
 document.getElementById('search').addEventListener('change', () => filterNcr(ncrData))
-document.getElementById('date-filter').addEventListener('change', () => filterNcr(ncrData))
+document.getElementById('Departments').addEventListener('change', () => filterNcr(ncrData))
 document.querySelectorAll('input[name="status"]').forEach(input => {
     input.addEventListener('change', () => filterNcr(ncrData))
 })
@@ -164,7 +164,7 @@ document.querySelectorAll('input[name="status"]').forEach(input => {
 // Reset filter inputs and update table
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('search').value = "All"
-    document.getElementById('date-filter').value = null
+    document.getElementById('Departments').value = "All"
     document.getElementById('status-all').checked = true
     document.getElementById('ncrInput').value = ''  // Clear NCR input
 
