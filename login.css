@@ -256,13 +256,13 @@ button:focus{
     margin-right: 10px;
 }
 
-.password-container {
+.password-container, .username-container {
     position: relative;
     display: flex;
     align-items: center;
 }
 
-.password-container #password {
+.password-container #password, .username-container #username {
     width: 100%;
 }
 
@@ -274,7 +274,12 @@ button:focus{
     color: rgb(245, 240, 240);
 }
 
-
+.username-container #username-icon{
+    position: absolute;
+    right: 10px;
+    font-size: 1.5em;
+    color: rgb(245, 240, 240);
+}
 @media screen and (min-width: 768px) {
 
     label {

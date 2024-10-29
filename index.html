@@ -28,7 +28,7 @@
                 <div id="error-message" class="error-message"></div>
             </div>
         </div>
-        
+
         <div id="wrapper">
             <div class="login-container" role="form" aria-labelledby="login-header">
                 <div class="logo-container">
@@ -37,13 +37,16 @@
                 </div>
 
                 <div aria-live="polite">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username" required
-                        aria-required="true" aria-label="Enter you Crossfire username" tabindex="1">
-                        <span id="username-error" style="display:none;" class="error-message"></span>
+                    <label for="username">Username</label>
+                    <div class="username-container">
+                        <input type="text" id="username" name="username" placeholder="Enter your username" required
+                            aria-required="true" aria-label="Enter you Crossfire username" tabindex="1">
+                        <span id="username-icon" aria-hidden="true"><i class="fa fa-user"></i></span>
+                    </div>
+                    <span id="username-error" style="display:none;" class="error-message"></span>
 
 
-                    <label for="password">Password:</label>
+                    <label for="password">Password</label>
                     <div class="password-container">
                         <input type="password" id="password" name="password" placeholder="Enter your password" required
                             aria-required="true" aria-label="Enter you Crossfire password" tabindex="2">
