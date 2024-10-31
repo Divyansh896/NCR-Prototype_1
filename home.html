@@ -12,7 +12,35 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        #recent-reports {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5em;
+        }
 
+        .report-card {
+            display: flex;
+            align-items: center;
+            gap: 1em;
+            padding: 0.5em;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .report-card .supplier-name {
+            font-weight: bold;
+        }
+
+        .report-card .report-date,
+        .report-card .report-number,
+        .report-card .report-description {
+            color: #666;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,19 +59,21 @@
                         <i class="fa fa-fw fa-home"></i> Home
                     </a>
                 </li>
-                
+
                 <li>
-                    <a href="create_NCR.html" class="linksNav" tabindex="4" aria-label="Create a new Non-Conformance Report">
+                    <a href="create_NCR.html" class="linksNav" tabindex="4"
+                        aria-label="Create a new Non-Conformance Report">
                         <i class="fa fa-fw fa-pencil"></i> Create NCR
                     </a>
                 </li>
-                
+
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="5" aria-label="View existing Non-Conformance Reports">
+                    <a href="view.html" class="linksNav" tabindex="5"
+                        aria-label="View existing Non-Conformance Reports">
                         <i class="fa fa-fw fa-search"></i> View NCR
                     </a>
                 </li>
-                
+
                 <li>
                     <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
                         <i class="fa fa-fw fa-user-circle"></i> Account
@@ -86,7 +116,8 @@
             <div>
                 <h2 id="create-ncr-header">Create NCR</h2>
                 <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
-                <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i class="fa fa-fw fa-pencil"></i> Create NCR</button>
+                <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
+                        class="fa fa-fw fa-pencil"></i> Create NCR</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -96,7 +127,8 @@
             <div>
                 <h2 id="view-ncr-header">View NCR</h2>
                 <p>Access and review existing NCRs in your system.</p>
-                <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i class="fa fa-fw fa-search"></i> View NCR</button>
+                <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i class="fa fa-fw fa-search"></i>
+                    View NCR</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -106,7 +138,8 @@
             <div>
                 <h2 id="manage-account-header">Manage Account</h2>
                 <p>Update account settings and user preferences.</p>
-                <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i class="fa fa-fw fa-user-circle"></i> Manage Account</button>
+                <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
+                        class="fa fa-fw fa-user-circle"></i> Manage Account</button>
                 <!-- Set tabindex to sequential order -->
             </div>
         </section>
@@ -115,6 +148,10 @@
             <canvas id="barChart" width="400" height="200"></canvas>
 
         </section> -->
+        <section>
+            <h2>Recent reports</h2>
+            <div id="recent-reports"></div>
+        </section>
     </main>
 
     <!-- Footer -->
@@ -125,7 +162,7 @@
                 Policy</a>
         </p>
     </footer>
-    
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@latest"></script>
     <script src="script/home-ncr.js"></script>

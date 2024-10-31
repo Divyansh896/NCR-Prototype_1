@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             ncr = data; // Store NCR data
             initializeButtons();
+            displayRecentReports(ncr)
             // initializeChart()
             // initializeBarChart()
         })
@@ -139,6 +140,41 @@ document.addEventListener("click", function(event) {
         notificationBox.style.display = "none";
     }
 });
+
+function getReportStage(ncr) {
+    if (!ncr.qa.resolved) return 'QA'
+    if (!ncr.engineering.resolved) return 'Engineering'
+    if (!ncr.purchasing_decision.resolved) return 'Purchasing'
+    return ''
+}
+
+function displayRecentReports(data) {
+    const container = document.getElementById('recent-reports'); // Container for recent reports
+    container.innerHTML = ''; // Clear previous content
+
+    // Get the last 5 reports
+    const lastFiveReports = data.slice(-5);
+
+    lastFiveReports.forEach(ncr => {
+        const reportCard = document.createElement('div');
+        reportCard.classList.add('report-card');
+
+        // Create HTML content for each piece of information
+        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
+        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
+        const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
+        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
+
+        // Combine all elements into the report card
+        reportCard.innerHTML = `
+            ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
+        `;
+
+        container.appendChild(reportCard);
+    });
+}
+
+
 
 // const dates = ncr.map(report => new Date(report.qa.date));
 
