@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             ncr = data; // Store NCR data
             initializeButtons();
+            // initializeChart()
+            // initializeBarChart()
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
@@ -137,3 +139,86 @@ document.addEventListener("click", function(event) {
         notificationBox.style.display = "none";
     }
 });
+
+// const dates = ncr.map(report => new Date(report.qa.date));
+
+// function initializeChart() {
+//     const dates = [];
+//     const qaDefects = [];
+
+//     ncr.forEach(report => {
+//         const date = new Date(report.qa.date); // Parse date
+//         dates.push(date);
+//         qaDefects.push(report.qa.quantity_defective || 0); // Only focusing on QA defects
+//     });
+
+//     // Ensure at least one data point to avoid empty lines
+//     if (dates.length === 0) return console.error("No data available to display in chart");
+
+//     const ctx = document.getElementById('ncrChart').getContext('2d');
+//     new Chart(ctx, {
+//         type: 'line',
+//         data: {
+//             labels: dates,
+//             datasets: [
+//                 { label: 'QA Defects', data: qaDefects, borderColor: 'rgba(255, 0, 0, 1)', fill: false } // Use a standout color like red
+//             ]
+//         },
+//         options: {
+//             responsive: true,
+//             title: { display: true, text: 'QA Defects Over Time' }, // Clear and straightforward title
+//             scales: {
+//                 x: {
+//                     type: 'time', // Ensure x-axis treats data as time
+//                     time: { unit: 'day' },
+//                     title: { display: true, text: 'Date' }
+//                 },
+//                 y: { title: { display: true, text: 'Number of Defects' } }
+//             }
+//         }
+//     });
+// }
+// function initializeBarChart() {
+//     // Initialize total defects counters for each department
+//     const totalDefects = {
+//         qa: 0,
+//         engineering: 0,
+//         purchasing: 0,
+//     };
+
+//     // Calculate total defects for each department from the NCR data
+//     ncr.forEach(report => {
+//         totalDefects.qa += report.qa.quantity_defective || 0;
+//         totalDefects.engineering += report.engineering.resolved ? 1 : 0;
+//         totalDefects.purchasing += report.purchasing_decision.ncr_closed ? 1 : 0;
+//     });
+
+//     // Get the context of the canvas element
+//     const ctx = document.getElementById('barChart').getContext('2d');
+
+//     // Create the bar chart
+//     new Chart(ctx, {
+//         type: 'bar',
+//         data: {
+//             labels: ['QA', 'Engineering', 'Purchasing'], // Department labels
+//             datasets: [{
+//                 label: 'Total Defects', // Dataset label
+//                 data: [totalDefects.qa, totalDefects.engineering, totalDefects.purchasing], // Defect counts
+//                 backgroundColor: [
+//                     'rgba(75, 192, 192, 0.6)', // Color for QA
+//                     'rgba(54, 162, 235, 0.6)', // Color for Engineering
+//                     'rgba(255, 206, 86, 0.6)'  // Color for Purchasing
+//                 ],
+//             }]
+//         },
+//         options: {
+//             responsive: true,
+//             title: { display: true, text: 'Total Defects by Department' }, // Chart title
+//             scales: {
+//                 y: { title: { display: true, text: 'Number of Defects' } } // Y-axis title
+//             }
+//         }
+//     });
+// }
+
+

@@ -474,19 +474,84 @@ function submitForm(role) {
 
 }
 
-
 let existingFiles = []; // Track previously added files
 
-function handleFiles(files) {
-    Array.from(files).forEach(file => {
-        if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
-            existingFiles.push(file); // Add new files to the existing list
-            const listItem = document.createElement('li');
-            listItem.textContent = file.name; // Display selected file names
-            mediaList.appendChild(listItem);
-        }
+// Function to convert files to base64
+function fileToBase64(file) {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onloadend = () => resolve(reader.result);
+        reader.onerror = reject;
+        reader.readAsDataURL(file);
     });
 }
+
+async function handleFiles(files) {
+    for (const file of files) {
+        if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
+            existingFiles.push(file); // Add new files to the existing list
+            
+            // Create list item for file name
+            const listItem = document.createElement('li');
+            listItem.style.display = 'flex'; // Use flex to align items
+            listItem.style.alignItems = 'center'; // Center align items
+
+            // Create a span for the file name
+            const fileName = document.createElement('span');
+            fileName.textContent = file.name; // Display selected file names
+            listItem.appendChild(fileName);
+
+            // Create a delete button
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = '✖'; // Cross symbol
+            deleteButton.style.marginLeft = '10px'; // Add some margin
+            deleteButton.style.cursor = 'pointer'; // Change cursor on hover
+            deleteButton.style.background = 'transparent'; // Make background transparent
+            deleteButton.style.border = 'none'; // Remove border
+            deleteButton.style.color = 'red'; // Color for the delete button
+
+            // Attach click event to delete the item
+            deleteButton.addEventListener('click', () => {
+                existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size)); // Remove file from existingFiles
+                mediaList.removeChild(listItem); // Remove the list item
+                localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
+            });
+
+            // Append the delete button to the list item
+            listItem.appendChild(deleteButton);
+
+            // Convert file to base64 and create an image or video element based on the file type
+            const base64Data = await fileToBase64(file);
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = base64Data; // Set base64 image source
+                img.alt = file.name; // Set alt text for accessibility
+                img.style.maxWidth = '100px'; // Set a max width for the image
+                img.style.marginLeft = '10px'; // Add some margin around images
+
+                // Append the image to the list item
+                listItem.appendChild(img);
+            } else if (file.type.startsWith('video/')) {
+                const video = document.createElement('video');
+                video.src = base64Data; // Set base64 video source
+                video.controls = true; // Add controls for the video
+                video.style.maxWidth = '100px'; // Set a max width for the video
+                video.style.marginLeft = '10px'; // Add some margin around videos
+
+                // Append the video to the list item
+                listItem.appendChild(video);
+            }
+
+            // Append the list item to the media list
+            mediaList.appendChild(listItem);
+        }
+    }
+
+    // Update local storage after handling files
+    // localStorage.setItem('mediaFiles', JSON.stringify(existingFiles));
+}
+
+
 
 // Handle file selection
 mediaInput.addEventListener('change', function () {
