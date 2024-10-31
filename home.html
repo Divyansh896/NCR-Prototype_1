@@ -13,12 +13,8 @@
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        #recent-reports {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5em;
-        }
-
+        
+        /* Report Card Styles */
         .report-card {
             display: flex;
             align-items: center;
@@ -29,6 +25,12 @@
             background-color: #f9f9f9;
             font-size: 0.9em;
             color: #333;
+            transition: box-shadow 0.2s ease;
+        }
+
+        .report-card:hover {
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow on hover */
         }
 
         .report-card .supplier-name {
@@ -40,6 +42,41 @@
         .report-card .report-description {
             color: #666;
         }
+
+        /* Tab Navigation */
+        .tab-navigation {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            cursor: pointer;
+            border: none;
+            background-color: #ddd;
+            font-size: 16px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .tab-button.active {
+            background-color: #333;
+            color: white;
+        }
+
+        /* Hide tab panels by default */
+        .tab-panel {
+            display: none;
+        }
+
+        /* Show the active tab panel */
+        .tab-panel.active {
+            display: flex;
+            /* Use flexbox for alignment, can change based on your needs */
+            flex-direction: column;
+            /* Stack content vertically */
+        }
+
+        
     </style>
 </head>
 
@@ -108,50 +145,72 @@
         </nav>
     </div>
 
-    <h1>Home</h1>
+    <h1>Dashboard</h1>
     <!-- Main Section -->
-    <main class="main-container" aria-label="Main Content">
-        <!-- Section 1: Create NCR -->
-        <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
-            <div>
-                <h2 id="create-ncr-header">Create NCR</h2>
-                <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
-                <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
-                        class="fa fa-fw fa-pencil"></i> Create NCR</button>
-                <!-- Set tabindex to sequential order -->
-            </div>
-        </section>
+    <main aria-label="Main Content">
+        <div class="main-container">
 
-        <!-- Section 2: View NCR -->
-        <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
-            <div>
-                <h2 id="view-ncr-header">View NCR</h2>
-                <p>Access and review existing NCRs in your system.</p>
-                <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i class="fa fa-fw fa-search"></i>
-                    View NCR</button>
-                <!-- Set tabindex to sequential order -->
-            </div>
-        </section>
+            <!-- Section 1: Create NCR -->
+            <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
+                <div>
+                    <h2 id="create-ncr-header">Create NCR</h2>
+                    <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
+                    <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
+                            class="fa fa-fw fa-pencil"></i> Create NCR</button>
+                    <!-- Set tabindex to sequential order -->
+                </div>
+            </section>
 
-        <!-- Section 3: Manage Account -->
-        <section class="featuresManageAcc" aria-labelledby="manage-account-header">
-            <div>
-                <h2 id="manage-account-header">Manage Account</h2>
-                <p>Update account settings and user preferences.</p>
-                <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
-                        class="fa fa-fw fa-user-circle"></i> Manage Account</button>
-                <!-- Set tabindex to sequential order -->
-            </div>
-        </section>
+            <!-- Section 2: View NCR -->
+            <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
+                <div>
+                    <h2 id="view-ncr-header">View NCR</h2>
+                    <p>Access and review existing NCRs in your system.</p>
+                    <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
+                            class="fa fa-fw fa-search"></i>
+                        View NCR</button>
+                    <!-- Set tabindex to sequential order -->
+                </div>
+            </section>
+
+            <!-- Section 3: Manage Account -->
+            <section class="featuresManageAcc" aria-labelledby="manage-account-header">
+                <div>
+                    <h2 id="manage-account-header">Manage Account</h2>
+                    <p>Update account settings and user preferences.</p>
+                    <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
+                            class="fa fa-fw fa-user-circle"></i> Manage Account</button>
+                    <!-- Set tabindex to sequential order -->
+                </div>
+            </section>
+        </div>
+
         <!-- <section>
             <canvas id="ncrChart" width="400" height="200"></canvas>
             <canvas id="barChart" width="400" height="200"></canvas>
 
         </section> -->
         <section>
-            <h2>Recent reports</h2>
-            <div id="recent-reports"></div>
+            <!-- Tab Navigation -->
+            <div class="tab-navigation">
+                <button id="btn-recent" class="tab-button active"><i class="fa fa-clock-o" aria-hidden="true"></i> Recent Reports</button>
+                <button id="btn-pinned" class="tab-button"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pinned Reports</button>
+            </div>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <div id="recent-reports" class="tab-panel active">
+                    <h2>Recent Reports</h2>
+                    <div id="recentReportsContainer"></div>
+                </div>
+                <div id="pinned-reports" class="tab-panel">
+                    <h2>Pinned Reports</h2>
+                    <div id="pinnedReportsContainer"></div>
+                </div>
+            </div>
         </section>
+
+
     </main>
 
     <!-- Footer -->

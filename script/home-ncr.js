@@ -1,8 +1,14 @@
 // home.js
+// Initialize by showing recent reports on page load
 
 // Variables to hold NCR data and user
 let ncr = [];
 let user = null;
+const panels = document.querySelectorAll('.tab-panel');
+const btnRecent = document.getElementById('btn-recent');
+const btnPinned = document.getElementById('btn-pinned');
+const recentContainer = document.getElementById('recentReportsContainer');
+const pinnedContainer = document.getElementById('pinnedReportsContainer');
 
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Home page script running');
@@ -20,19 +26,20 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             ncr = data; // Store NCR data
             initializeButtons();
-            displayRecentReports(ncr)
-            // initializeChart()
-            // initializeBarChart()
+            displayRecentReports(ncr); // Initially display recent reports
+            displayPinnedReports(ncr); // Display pinned reports
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
-const footer = document.getElementById('footer-scroll') 
-footer.addEventListener('click', ()=>{
+
+const footer = document.getElementById('footer-scroll');
+footer.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
+    });
+});
+
 // Initialize button click event listeners
 function initializeButtons() {
     const btnCreate = document.getElementById('createNcr');
@@ -41,20 +48,18 @@ function initializeButtons() {
     const p = document.getElementById('create-ncr-p');
     const header = document.getElementById('create-ncr-header');
 
-    if(user.role == 'QA Inspector'){
-
+    if (user.role === 'QA Inspector') {
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html?ncr_no=${generateNextNcrNumber(ncr)}`;
         });
-    }
-    else{
-        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open Logged NCR'
-        header.innerHTML = 'Open NCR'
-        p.innerHTML = 'Open Recent Non-Conformance Reports'
-        btnCreate.addEventListener('click', ()=>{
+    } else {
+        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open Logged NCR';
+        header.innerHTML = 'Open NCR';
+        p.innerHTML = 'Open Recent Non-Conformance Reports';
+        btnCreate.addEventListener('click', () => {
             const queryString = createQueryString(ncr[0]);
-            window.location.href = `logged_NCR.html?${queryString}`
-        })
+            window.location.href = `logged_NCR.html?${queryString}`;
+        });
     }
 
     btnView.addEventListener('click', () => {
@@ -83,7 +88,6 @@ function generateNextNcrNumber(ncrData) {
 
     return `${currentYear}${nextNumber}`; // Return new NCR number
 }
-
 
 // Create a query string from the NCR data
 function createQueryString(ncrData) {
@@ -142,14 +146,14 @@ document.addEventListener("click", function(event) {
 });
 
 function getReportStage(ncr) {
-    if (!ncr.qa.resolved) return 'QA'
-    if (!ncr.engineering.resolved) return 'Engineering'
-    if (!ncr.purchasing_decision.resolved) return 'Purchasing'
-    return ''
+    if (!ncr.qa.resolved) return 'QA';
+    if (!ncr.engineering.resolved) return 'Engineering';
+    if (!ncr.purchasing_decision.resolved) return 'Purchasing';
+    return '';
 }
 
 function displayRecentReports(data) {
-    const container = document.getElementById('recent-reports'); // Container for recent reports
+    const container = recentContainer; // Use the existing recentReportsContainer
     container.innerHTML = ''; // Clear previous content
 
     // Get the last 5 reports
@@ -174,87 +178,61 @@ function displayRecentReports(data) {
     });
 }
 
+function displayPinnedReports(data) {
+    const container = pinnedContainer; // Use the existing pinnedReportsContainer
+    container.innerHTML = ''; // Clear previous content
+
+    // Filter to get pinned reports
+    const pinnedReports = data.filter(ncr => ncr.qa?.pinned);
+
+    if (pinnedReports.length === 0) {
+        container.innerHTML = '<p>No pinned reports available.</p>';
+        return;
+    }
+
+    pinnedReports.forEach(ncr => {
+        const reportCard = document.createElement('div');
+        reportCard.classList.add('report-card');
+
+        // Create HTML content for each piece of information
+        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
+        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
+        const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
+        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
+
+        // Combine all elements into the report card
+        reportCard.innerHTML = `
+            ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
+        `;
+
+        container.appendChild(reportCard);
+    });
+}
 
 
-// const dates = ncr.map(report => new Date(report.qa.date));
+// Initialize tab buttons
+btnRecent.addEventListener('click', () => {
+    showTab('recent');
+});
 
-// function initializeChart() {
-//     const dates = [];
-//     const qaDefects = [];
+btnPinned.addEventListener('click', () => {
+    showTab('pinned');
+});
 
-//     ncr.forEach(report => {
-//         const date = new Date(report.qa.date); // Parse date
-//         dates.push(date);
-//         qaDefects.push(report.qa.quantity_defective || 0); // Only focusing on QA defects
-//     });
+function showTab(tab) {
+    // Hide all panels
+    panels.forEach(panel => panel.classList.remove('active'));
 
-//     // Ensure at least one data point to avoid empty lines
-//     if (dates.length === 0) return console.error("No data available to display in chart");
+    // Deactivate all buttons
+    btnRecent.classList.remove('active');
+    btnPinned.classList.remove('active');
 
-//     const ctx = document.getElementById('ncrChart').getContext('2d');
-//     new Chart(ctx, {
-//         type: 'line',
-//         data: {
-//             labels: dates,
-//             datasets: [
-//                 { label: 'QA Defects', data: qaDefects, borderColor: 'rgba(255, 0, 0, 1)', fill: false } // Use a standout color like red
-//             ]
-//         },
-//         options: {
-//             responsive: true,
-//             title: { display: true, text: 'QA Defects Over Time' }, // Clear and straightforward title
-//             scales: {
-//                 x: {
-//                     type: 'time', // Ensure x-axis treats data as time
-//                     time: { unit: 'day' },
-//                     title: { display: true, text: 'Date' }
-//                 },
-//                 y: { title: { display: true, text: 'Number of Defects' } }
-//             }
-//         }
-//     });
-// }
-// function initializeBarChart() {
-//     // Initialize total defects counters for each department
-//     const totalDefects = {
-//         qa: 0,
-//         engineering: 0,
-//         purchasing: 0,
-//     };
-
-//     // Calculate total defects for each department from the NCR data
-//     ncr.forEach(report => {
-//         totalDefects.qa += report.qa.quantity_defective || 0;
-//         totalDefects.engineering += report.engineering.resolved ? 1 : 0;
-//         totalDefects.purchasing += report.purchasing_decision.ncr_closed ? 1 : 0;
-//     });
-
-//     // Get the context of the canvas element
-//     const ctx = document.getElementById('barChart').getContext('2d');
-
-//     // Create the bar chart
-//     new Chart(ctx, {
-//         type: 'bar',
-//         data: {
-//             labels: ['QA', 'Engineering', 'Purchasing'], // Department labels
-//             datasets: [{
-//                 label: 'Total Defects', // Dataset label
-//                 data: [totalDefects.qa, totalDefects.engineering, totalDefects.purchasing], // Defect counts
-//                 backgroundColor: [
-//                     'rgba(75, 192, 192, 0.6)', // Color for QA
-//                     'rgba(54, 162, 235, 0.6)', // Color for Engineering
-//                     'rgba(255, 206, 86, 0.6)'  // Color for Purchasing
-//                 ],
-//             }]
-//         },
-//         options: {
-//             responsive: true,
-//             title: { display: true, text: 'Total Defects by Department' }, // Chart title
-//             scales: {
-//                 y: { title: { display: true, text: 'Number of Defects' } } // Y-axis title
-//             }
-//         }
-//     });
-// }
-
-
+    // Activate the selected tab
+    if (tab === 'recent') {
+        document.getElementById('recent-reports').classList.add('active');
+        btnRecent.classList.add('active'); // Activate recent button
+    } else if (tab === 'pinned') {
+        document.getElementById('pinned-reports').classList.add('active');
+        btnPinned.classList.add('active'); // Activate pinned button
+    }
+}
