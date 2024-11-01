@@ -10,7 +10,6 @@
     <meta name="author" content="Mark">
     <title>Logged NCR - Crossfire</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="ncReport.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -27,16 +26,65 @@
         <nav aria-label="Primary Navigation">
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
-                <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
+                <li>
+                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Home
+                    </a>
+                </li>
 
-                <li><a href="logged_NCR.html" class="linksNav" tabindex="4"
-                        aria-label="Create a new Non-Conformance Report">Logged NCR</a></li>
-                <li><a href="view.html" class="linksNav" tabindex="5"
-                        aria-label="View existing Non-Conformance Reports">View NCR</a></li>
+                <li>
+                    <a href="logged_NCR.html" class="linksNav" tabindex="4"
+                        aria-label="Create a new Non-Conformance Report">
+                        <i class="fa fa-fw fa-pencil"></i> Create NCR
+                    </a>
+                </li>
 
+                <li>
+                    <a href="view.html" class="linksNav" tabindex="5"
+                        aria-label="View existing Non-Conformance Reports">
+                        <i class="fa fa-fw fa-search"></i> View NCR
+                    </a>
+                </li>
 
-                <li><a href="account.html" class="linksNav" tabindex="6"
-                        aria-label="Manage your account settings">Account</a></li>
+                <li>
+                    <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
+                        <i class="fa fa-fw fa-user-circle"></i> Account
+                    </a>
+                </li>
+                <li>
+                    <button type="button" class="icon-badge" onclick="toggleNotifications()">
+                        <span><i class="fa fa-bell"></i></span>
+                        <span class="badge">3</span>
+                    </button>
+                    <div id="notification-box" class="notification-box">
+                        <ul>
+                            <li>Notification 1</li>
+                            <li>Notification 2</li>
+                            <li>Notification 3</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span><i class="fa fa-cog"></i></span>
+                    </button>
+                    <div id="settings-box" class="settings-box">
+                        <ul>
+                            <li>
+                                <i class="fa fa-user"></i>
+                                <span id="userName"></span>
+                            </li>
+                            <li>
+                                <a href="account.html">
+                                    <i class="fa fa-user"></i>
+                                    <span>Edit Profile</span>
+                                </a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </nav>
 
@@ -75,16 +123,16 @@
                     
                     <li class="status-step active">
                         <span class="step-icon"></span>
-                        Step 1: Details and Revision Information
+                        Details and Revision Information
                     </li>
                     <li class="status-step">
                         <span class="step-icon"></span>
-                        Step 2: Disposition and Options
+                        Disposition and Options
                     </li>
 
                     <li class="status-step">
                         <span class="step-icon"></span>
-                        Step 3: Confirmation
+                        Confirmation
                     </li>
                 </ul>
             </div>
@@ -97,44 +145,44 @@
                     <div class="two-cols">
                         <!-- First Column -->
                         <div class="form-row">
-                            <!-- <div class="form-group"> -->
-                                <label>QA Name: <span id="qa-name-d">[QA Name]</span></label>
+                            <div class="form-group">
+                                <label>QA Name:<span id="qa-name-d">[QA Name]</span></label>
                                 
-                            <!-- </div> -->
-                            <div class="form-group">
-                                <label>NCR No.</label>
-                                <span id="ncr-no-d">[NCR No]</span>
                             </div>
                             <div class="form-group">
-                                <label>Sales Order No.</label>
-                                <span id="sales-order-no-d">[Sales Order No]</span>
+                                <label>NCR No:<span id="ncr-no-d">[NCR No]</span></label>
+                                
                             </div>
                             <div class="form-group">
-                                <label>Quantity Received</label>
-                                <span id="quantity-received-d">[Quantity Received]</span>
+                                <label>Sales Order No:<span id="sales-order-no-d">[Sales Order No]</span></label>
+                                
                             </div>
                             <div class="form-group">
-                                <label>Quantity Defective</label>
-                                <span id="quantity-defective-d">[Quantity Defective]</span>
+                                <label>Quantity Received:<span id="quantity-received-d">[Quantity Received]</span></label>
+                                
+                            </div>
+                            <div class="form-group">
+                                <label>Quantity Defective:<span id="quantity-defective-d">[Quantity Defective]</span></label>
+                                
                             </div>
                         </div>
                         <!-- Second Column -->
                         <div class="form-row">
                             <div class="form-group">
-                                <label>QA Date</label>
-                                <span id="qa-date-d">[QA Date]</span>
+                                <label>QA Date:<span id="qa-date-d">[QA Date]</span></label>
+                                
                             </div>
                             <div class="form-group">
-                                <label>Supplier Name</label>
-                                <span id="supplier-name-d">[Supplier Name]</span>
+                                <label>Supplier Name:<span id="supplier-name-d">[Supplier Name]</span></label>
+                                
                             </div>
                             <div class="form-group">
-                                <label>Product No.</label>
-                                <span id="product-no-d">[Product No]</span>
+                                <label>Product No:<span id="product-no-d">[Product No]</span></label>
+                                
                             </div>
                             <div class="form-group">
-                                <label>Identify Process Applicable</label>
-                                <span id="process-d">[Process]</span>
+                                <label>Identify Process Applicable:<span id="process-d">[Process]</span></label>
+                                
                             </div>
                         </div>
                         <!-- Textarea Section -->
@@ -148,8 +196,8 @@
                         </div>
                         <!-- Radio Buttons for Non-Conforming -->
                         <div class="form-group">
-                            <label>Item Marked Non-Conforming?</label>
-                            <span id="item-marked-nonconforming-d">[Yes/No]</span>
+                            <label>Item Marked Non-Conforming?:<span id="item-marked-nonconforming-d">[Yes/No]</span></label>
+                            
                         </div>
                     </div>
                 </details>

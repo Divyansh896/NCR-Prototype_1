@@ -11,6 +11,8 @@
     <title>Privacy Policy - Crossfire</title>
     <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="breadcrumb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <style>
         html {
             scroll-behavior: smooth;
@@ -33,16 +35,65 @@
         <nav aria-label="Primary Navigation">
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
-                <li><a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">Home</a></li>
+                <li>
+                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Home
+                    </a>
+                </li>
 
-                <li><a href="create_NCR.html" class="linksNav" tabindex="4"
-                        aria-label="Create a new Non-Conformance Report">Create NCR</a></li>
-                <li><a href="view.html" class="linksNav" tabindex="5"
-                        aria-label="View existing Non-Conformance Reports">View NCR</a></li>
+                <li>
+                    <a href="create_NCR.html" class="linksNav" tabindex="4"
+                        aria-label="Create a new Non-Conformance Report">
+                        <i class="fa fa-fw fa-pencil"></i> Create NCR
+                    </a>
+                </li>
 
+                <li>
+                    <a href="view.html" class="linksNav" tabindex="5"
+                        aria-label="View existing Non-Conformance Reports">
+                        <i class="fa fa-fw fa-search"></i> View NCR
+                    </a>
+                </li>
 
-                <li><a href="account.html" class="linksNav" tabindex="6"
-                        aria-label="Manage your account settings">Account</a></li>
+                <li>
+                    <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
+                        <i class="fa fa-fw fa-user-circle"></i> Account
+                    </a>
+                </li>
+                <li>
+                    <button type="button" class="icon-badge" onclick="toggleNotifications()">
+                        <span><i class="fa fa-bell"></i></span>
+                        <span class="badge">3</span>
+                    </button>
+                    <div id="notification-box" class="notification-box">
+                        <ul>
+                            <li>Notification 1</li>
+                            <li>Notification 2</li>
+                            <li>Notification 3</li>
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <button type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span><i class="fa fa-cog"></i></span>
+                    </button>
+                    <div id="settings-box" class="settings-box">
+                        <ul>
+                            <li>
+                                <i class="fa fa-user"></i>
+                                <span id="userName"></span>
+                            </li>
+                            <li>
+                                <a href="account.html">
+                                    <i class="fa fa-user"></i>
+                                    <span>Edit Profile</span>
+                                </a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
             </ul>
         </nav>
 

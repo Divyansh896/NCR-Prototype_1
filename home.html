@@ -13,7 +13,6 @@
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        
         /* Report Card Styles */
         .report-card {
             display: flex;
@@ -75,8 +74,6 @@
             flex-direction: column;
             /* Stack content vertically */
         }
-
-        
     </style>
 </head>
 
@@ -129,6 +126,28 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span><i class="fa fa-cog"></i></span>
+                    </button>
+                    <div id="settings-box" class="settings-box">
+                        <ul>
+                            <li>
+                                <i class="fa fa-user"></i>
+                                <span id="userName"></span>
+                            </li>
+                            <li>
+                                <a href="account.html">
+                                    <i class="fa fa-user"></i>
+                                    <span>Edit Profile</span>
+                                </a>
+                            </li>
+                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
+                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+                        </ul>
+                    </div>
+                </li>
+
             </ul>
         </nav>
 
@@ -187,30 +206,31 @@
 
         <!-- <section>
             <canvas id="ncrChart" width="400" height="200"></canvas>
-            <canvas id="barChart" width="400" height="200"></canvas>
-
+            <canvas id="barChart" width="400" height="200"></canvas
         </section> -->
-        <section>
-            <!-- Tab Navigation -->
-            <div class="tab-navigation">
-                <button id="btn-recent" class="tab-button active"><i class="fa fa-clock-o" aria-hidden="true"></i> Recent Reports</button>
-                <button id="btn-pinned" class="tab-button"><i class="fa fa-thumb-tack" aria-hidden="true"></i> Pinned Reports</button>
-            </div>
-
-            <!-- Tab Content -->
-            <div class="tab-content">
-                <div id="recent-reports" class="tab-panel active">
-                    <h2>Recent Reports</h2>
-                    <div id="recentReportsContainer"></div>
+        <div class="main-container">
+            <section>
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button id="btn-recent" class="tab-button active"><i class="fa fa-clock-o" aria-hidden="true"></i>
+                        Recent Reports</button>
+                    <button id="btn-pinned" class="tab-button"><i class="fa fa-thumb-tack" aria-hidden="true"></i>
+                        Pinned Reports</button>
                 </div>
-                <div id="pinned-reports" class="tab-panel">
-                    <h2>Pinned Reports</h2>
-                    <div id="pinnedReportsContainer"></div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <div id="recent-reports" class="tab-panel active">
+                        <h2>Recent Reports</h2>
+                        <div id="recentReportsContainer"></div>
+                    </div>
+                    <div id="pinned-reports" class="tab-panel">
+                        <h2>Pinned Reports</h2>
+                        <div id="pinnedReportsContainer"></div>
+                    </div>
                 </div>
-            </div>
-        </section>
-
-
+            </section>
+        </div>
     </main>
 
     <!-- Footer -->
@@ -224,9 +244,9 @@
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@latest"></script>
+    <script src="script/navbar.js"></script>
     <script src="script/home-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
-    <script src="script/navbar.js"></script>
 
 </body>
 
