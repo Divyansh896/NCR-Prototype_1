@@ -24,11 +24,14 @@
             background-color: #f9f9f9;
             font-size: 0.9em;
             color: #333;
-            transition: box-shadow 0.2s ease;
+            transition: all 0.2s ease;
+            margin-bottom: 3px;
         }
 
         .report-card:hover {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: #e2dfdf;
+
             /* Subtle shadow on hover */
         }
 
@@ -41,6 +44,20 @@
         .report-card .report-description {
             color: #666;
         }
+  
+
+        .report-card .pinIcon {
+            visibility: hidden;
+            /* Hide the pin icon initially */
+        }
+
+        .report-card:hover .pinIcon {
+            visibility: visible;
+            /* Show the pin icon on hover */
+        }
+
+
+
 
         /* Tab Navigation */
         .tab-navigation {

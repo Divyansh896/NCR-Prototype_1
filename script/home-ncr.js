@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
             ncr = data; // Store NCR data
             initializeButtons();
             displayRecentReports(ncr); // Initially display recent reports
-            displayPinnedReports(ncr); // Display pinned reports
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
@@ -144,7 +143,47 @@ function createQueryString(ncrData) {
     }).toString();
 }
 
-
+function extractData(ncr) {
+    return {
+        supplier_name: ncr.qa.supplier_name,
+        product_no: ncr.qa.po_no,
+        sales_order_no: ncr.qa.sales_order_no,
+        item_description: ncr.qa.item_description,
+        quantity_received: ncr.qa.quantity_received,
+        quantity_defective: ncr.qa.quantity_defective,
+        description_of_defect: ncr.qa.description_of_defect,
+        item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
+        quality_representative_name: ncr.qa.quality_representative_name,
+        date: ncr.qa.date,
+        qa_resolved: ncr.qa.resolved,
+        ncr_no: ncr.ncr_no,
+        supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
+        wip_production_order: ncr.qa.process.wip_production_order,
+        disposition: ncr.engineering.disposition,
+        disposition_options: ncr.engineering.disposition_options,
+        customer_notification_required: ncr.engineering.customer_notification_required,
+        disposition_details: ncr.engineering.disposition_details,
+        drawing_update_required: ncr.engineering.drawing_update_required,
+        original_rev_number: ncr.engineering.original_rev_number,
+        updated_rev_number: ncr.engineering.updated_rev_number,
+        engineer_name: ncr.engineering.engineer_name,
+        revision_date: ncr.engineering.revision_date,
+        engineering_review_date: ncr.engineering.engineering_review_date,
+        eng_resolved: ncr.engineering.resolved,
+        preliminary_decision: ncr.purchasing_decision.preliminary_decision,
+        options: ncr.purchasing_decision.options,
+        car_raised: ncr.purchasing_decision.car_raised,
+        car_number: ncr.purchasing_decision.car_number,
+        follow_up_required: ncr.purchasing_decision.follow_up_required,
+        operations_manager_name: ncr.purchasing_decision.operations_manager_name,
+        operations_manager_date: ncr.purchasing_decision.operations_manager_date,
+        re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable,
+        new_ncr_number: ncr.purchasing_decision.new_ncr_number,
+        inspector_name: ncr.purchasing_decision.inspector_name,
+        ncr_closed: ncr.purchasing_decision.ncr_closed,
+        pu_resolved: ncr.purchasing_decision.resolved,
+    }
+}
 
 function getReportStage(ncr) {
     if (!ncr.qa.resolved) return 'QA';
@@ -152,9 +191,8 @@ function getReportStage(ncr) {
     if (!ncr.purchasing_decision.resolved) return 'Purchasing';
     return '';
 }
-
 function displayRecentReports(data) {
-    const container = recentContainer; // Use the existing recentReportsContainer
+    const container = recentContainer;
     container.innerHTML = ''; // Clear previous content
 
     // Get the last 5 reports
@@ -170,21 +208,53 @@ function displayRecentReports(data) {
         const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
         const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
 
+        // Create the pin icon
+        const pinIcon = document.createElement('span');
+        pinIcon.classList.add('pinIcon');
+        pinIcon.innerHTML = `<i class="fa fa-thumb-tack" aria-hidden="true"></i>`;
+
+        // Add an event listener to the pin icon
+        pinIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the report card's click event
+
+            // Retrieve existing pinned data from sessionStorage
+            const pinnedReports = JSON.parse(sessionStorage.getItem('pinnedReports')) || [];
+
+            // Check if the report is already pinned
+            const isAlreadyPinned = pinnedReports.some(report => report.ncr_no === ncr.ncr_no);
+
+            if (!isAlreadyPinned) {
+                // Add the report to the pinned reports array
+                pinnedReports.push((ncr)); // Adjust this function as needed
+                sessionStorage.setItem('pinnedReports', JSON.stringify(pinnedReports));
+                alert('Report pinned!'); // Optional: alert to confirm the pin action
+            } else {
+                alert('This report is already pinned.'); // Optional: alert if already pinned
+            }
+        });
+
         // Combine all elements into the report card
         reportCard.innerHTML = `
             ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
         `;
+        reportCard.appendChild(pinIcon); // Append the pin icon to the report card
+
+        // Add a click event for the entire report card (if needed)
+        reportCard.addEventListener("click", () => {
+            const data = extractData(ncr);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        });
 
         container.appendChild(reportCard);
     });
 }
-
-function displayPinnedReports(data) {
+function displayPinnedReports() {
     const container = pinnedContainer; // Use the existing pinnedReportsContainer
     container.innerHTML = ''; // Clear previous content
 
-    // Filter to get pinned reports
-    const pinnedReports = data.filter(ncr => ncr.qa?.pinned);
+    // Retrieve pinned reports from session storage
+    const pinnedReports = JSON.parse(sessionStorage.getItem('pinnedReports')) || []; // Ensure pinnedReports is defined
 
     if (pinnedReports.length === 0) {
         container.innerHTML = '<p>No pinned reports available.</p>';
@@ -192,32 +262,62 @@ function displayPinnedReports(data) {
     }
 
     pinnedReports.forEach(ncr => {
+        // Assuming ncr is an individual object representing a report
+        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
+        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
+        const ncrNumber = ncr.ncr_no || 'N/A'; // Store the NCR number for unpinning
+        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
+
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
         // Create HTML content for each piece of information
-        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
-        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
-        const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
-        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
-
-        // Combine all elements into the report card
         reportCard.innerHTML = `
-            ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
+            ${supplierName}  ${reportDate}  <span class="report-number">NCR No: ${ncrNumber}</span>  ${itemDescription}
         `;
 
+        // Create the unpin icon
+        const unpinIcon = document.createElement('span');
+        unpinIcon.classList.add('unpinIcon');
+        unpinIcon.innerHTML = `<i class="fa fa-trash" aria-hidden="true" title="Unpin Report"></i>`;
+
+        // Add an event listener to the unpin icon
+        unpinIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the report card's click event
+
+            // Remove the report from the pinned reports array
+            const updatedPinnedReports = pinnedReports.filter(report => report.ncr_no !== ncrNumber);
+            sessionStorage.setItem('pinnedReports', JSON.stringify(updatedPinnedReports));
+
+            // Re-display pinned reports
+            displayPinnedReports();
+        });
+         // Add a click event for the entire report card (if needed)
+         reportCard.addEventListener("click", () => {
+            const data = extractData(ncr);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        });
+        
+        // Append the unpin icon to the report card
+        reportCard.appendChild(unpinIcon);
         container.appendChild(reportCard);
     });
 }
 
 
+
+
 // Initialize tab buttons
 btnRecent.addEventListener('click', () => {
     showTab('recent');
+    displayRecentReports(ncr); // Ensure recent reports are displayed when tab is clicked
 });
 
 btnPinned.addEventListener('click', () => {
     showTab('pinned');
+
+    displayPinnedReports(); // Ensure pinned reports are displayed when tab is clicked
 });
 
 function showTab(tab) {
