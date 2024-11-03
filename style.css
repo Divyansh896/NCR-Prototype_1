@@ -15,9 +15,10 @@
     margin: 10px;
 }
 
-html{
+html {
     height: 100%;
 }
+
 body {
     font-family: Arial, sans-serif;
     background-color: white;
@@ -28,7 +29,7 @@ body {
 }
 
 
-footer{
+footer {
     margin-top: auto;
 }
 
@@ -350,24 +351,29 @@ nav ul a {
     width: 50%;
     height: 35px;
 }
+
 /* Create page */
 /* Status Bar */
 .main-container-create {
     display: flex;
-    flex-direction: column; /* Stack the status bar and form vertically */
+    flex-direction: column;
+    /* Stack the status bar and form vertically */
     height: auto;
 }
 
 .status-bar {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Align items to the start (top) */
-    text-align: left; /* Align text to the left */
+    align-items: center;
+    /* Align items to the start (top) */
+    text-align: left;
+    /* Align text to the left */
     padding: 20px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 100%; /* Make the status bar full width */
+    width: 100%;
+    /* Make the status bar full width */
 }
 
 .status-steps {
@@ -379,9 +385,11 @@ nav ul a {
     align-items: flex-start;
     width: 100%;
 }
-.step-icon{
+
+.step-icon {
     display: none;
 }
+
 .status-step {
     font-size: 16px;
     line-height: 1.5;
@@ -403,8 +411,10 @@ nav ul a {
     padding: 0 10px 10px 10px;
     background-color: white;
     display: flex;
-    flex-direction: column; /* Stack items vertically */
-    width: 100%; /* Make the form full width */
+    flex-direction: column;
+    /* Stack items vertically */
+    width: 100%;
+    /* Make the form full width */
 }
 
 
@@ -537,7 +547,7 @@ fieldset legend {
 
 }
 
-.createncrmainfield{
+.createncrmainfield {
     border: none;
 
 }
@@ -562,12 +572,14 @@ fieldset legend {
     border: none;
     margin-top: 20px;
 }
+
 #drop-area {
     border: 2px dashed #ccc;
     padding: 20px;
     text-align: center;
     margin: 10px 0;
 }
+
 #drop-area.dragover {
     border-color: #000;
 }
@@ -1088,13 +1100,13 @@ td button:focus {
 
 .icon-badge {
     position: relative;
-    background-color: #333333f4; /* Background color of the button */
-    color: white; /* Icon color */
+    background-color: #333333f4;
+    color: white;
     border: none;
-    border-radius: 50%; /* Makes the button round */
+    border-radius: 50%;
     padding: 10px;
-    width: 40px; /* Width of the round button */
-    height: 40px; /* Height of the round button */
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1104,48 +1116,71 @@ td button:focus {
 .icon-badge .fa {
     font-size: 18px;
 }
-.icon-badge:hover{
+
+.icon-badge:hover {
     background-color: #333333c5;
 }
+
 .icon-badge .badge {
     position: absolute;
     top: -5px;
     right: -5px;
-    background-color: red; /* Badge color */
+    background-color: red;
     color: white;
     border-radius: 50%;
     padding: 2px 6px;
     font-size: 12px;
     font-weight: bold;
 }
-.notification-box {
-    display: none; /* Hidden by default */
+.notification-box, .settings-box{
+    display: none;
     position: absolute;
-    top: 50px; /* Adjust this to place it below the icon */
+    top: 60px;
     right: 0;
     width: 200px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    padding: 10px;
+    /* padding: 10px 0; */
     z-index: 1000;
 }
 
-.notification-box ul {
+.notification-box ul,
+.settings-box ul {
     list-style-type: none;
     padding: 0;
     margin: 0;
 }
 
-.notification-box ul li {
+.notification-box ul li,
+.settings-box ul li {
+    display: flex;
+    align-items: center;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
 
-.notification-box ul li:last-child {
+.notification-box ul li:last-child,
+.settings-box ul li:last-child {
     border-bottom: none;
 }
-  
+
+.notification-box ul li i,
+.settings-box ul li i {
+    margin-right: 10px;
+}
+
+
+.badge {
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 12px;
+    margin-left: 5px;
+}
+
+
 
 /*media*/
 @media screen and (min-width: 320px) {
@@ -1409,11 +1444,12 @@ td button:focus {
         align-self: flex-start;
     }
 
-    .status-bar{
+    .status-bar {
         width: 100%;
         align-items: center;
     }
-    .descr-container{
+
+    .descr-container {
         width: 100%;
     }
 }
@@ -1640,7 +1676,7 @@ td button:focus {
         padding: 0px 100px;
     }
 
-    
+
 
     #qa-section {
         align-items: flex-start;
@@ -1655,18 +1691,23 @@ td button:focus {
     .form-section.active label {
         margin-right: 10px;
     }
-    .main-container-create{
+
+    .main-container-create {
         flex-direction: row;
     }
-    .status-bar{
+
+    .status-bar {
         width: 420px;
     }
-    .status-steps{
+
+    .status-steps {
         flex-direction: column;
     }
-    .step-icon{
+
+    .step-icon {
         display: block;
     }
+
     .status-steps {
         list-style: none;
         padding: 0;
@@ -1680,7 +1721,7 @@ td button:focus {
     .status-step {
         display: flex;
         align-items: center;
-        font-size: 16px;
+        font-size: 18px;
         line-height: 1.5;
         position: relative;
         padding-left: 25px;
@@ -1710,21 +1751,18 @@ td button:focus {
         margin-right: 10px;
         padding: 2px;
     }
-/* 
-    .status-step .active .step-icon{
-        border: 8px solid blue;
+
+
+
+    .status-step.active .step-icon {
+        width: 28px;
+        height: 28px;
+        line-height: 25px;
+        font-size: 16px;
+        border-width: 5px
     }
 
-    .status-step.completed.step-icon{
-        border: 5px solid blue;
-    } */
-    /* .status-step.active {
-        background-color: #4CAF50; 
-        color: white; 
-        border: 2px solid blue; 
-    } 
-     */
-
+   
     .status-step.completed {
         color: #757575;
     }
@@ -1881,7 +1919,7 @@ td button:focus {
         margin-left: 125px;
     }
 
-    
+
 }
 
 @media screen and (min-width: 1760px) {

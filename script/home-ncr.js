@@ -1,21 +1,18 @@
-// home.js
-// Initialize by showing recent reports on page load
-
 // Variables to hold NCR data and user
 let ncr = [];
-let user = null;
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const panels = document.querySelectorAll('.tab-panel');
 const btnRecent = document.getElementById('btn-recent');
 const btnPinned = document.getElementById('btn-pinned');
 const recentContainer = document.getElementById('recentReportsContainer');
 const pinnedContainer = document.getElementById('pinnedReportsContainer');
+const userName = document.getElementById('userName');
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('Home page script running');
-
     // Retrieve the current user from session storage
-    user = JSON.parse(sessionStorage.getItem("currentUser"));
-    console.log(user?.role); // Optional chaining to prevent errors if user is null
+    // user = JSON.parse(sessionStorage.getItem("currentUser"));
+    // console.log(user?.role); // Optional chaining to prevent errors if user is null
 
     // Fetch NCR data
     fetch('Data/ncr_reports.json')
@@ -27,11 +24,31 @@ document.addEventListener('DOMContentLoaded', () => {
             ncr = data; // Store NCR data
             initializeButtons();
             displayRecentReports(ncr); // Initially display recent reports
-            displayPinnedReports(ncr); // Display pinned reports
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
+// Check if user data is available and has a role
+if (user && user.role) {
+    // Update the Create NCR link based on user role
+    function updateNCRLink() {
+        var ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]')
 
+        if (ncrLink) { // Ensure ncrLink exists
+            if (user.role === "Lead Engineer" || user.role === "Purchasing") {
+                // Change to "Logged NCR" for lead engineers and purchasing roles
+                ncrLink.href = `logged_NCR.html`
+                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Logged NCR'
+                ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
+            }
+        } else {
+            console.warn('Link with aria-label "Create a new Non-Conformance Report" not found.')
+        }
+    }
+
+    updateNCRLink()
+} else {
+    console.warn("User data not found in sessionStorage or missing role.")
+}
 const footer = document.getElementById('footer-scroll');
 footer.addEventListener('click', () => {
     window.scrollTo({
@@ -126,24 +143,47 @@ function createQueryString(ncrData) {
     }).toString();
 }
 
-function toggleNotifications() {
-    var notificationBox = document.getElementById("notification-box");
-    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
-        notificationBox.style.display = "block";
-    } else {
-        notificationBox.style.display = "none";
+function extractData(ncr) {
+    return {
+        supplier_name: ncr.qa.supplier_name,
+        product_no: ncr.qa.po_no,
+        sales_order_no: ncr.qa.sales_order_no,
+        item_description: ncr.qa.item_description,
+        quantity_received: ncr.qa.quantity_received,
+        quantity_defective: ncr.qa.quantity_defective,
+        description_of_defect: ncr.qa.description_of_defect,
+        item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
+        quality_representative_name: ncr.qa.quality_representative_name,
+        date: ncr.qa.date,
+        qa_resolved: ncr.qa.resolved,
+        ncr_no: ncr.ncr_no,
+        supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
+        wip_production_order: ncr.qa.process.wip_production_order,
+        disposition: ncr.engineering.disposition,
+        disposition_options: ncr.engineering.disposition_options,
+        customer_notification_required: ncr.engineering.customer_notification_required,
+        disposition_details: ncr.engineering.disposition_details,
+        drawing_update_required: ncr.engineering.drawing_update_required,
+        original_rev_number: ncr.engineering.original_rev_number,
+        updated_rev_number: ncr.engineering.updated_rev_number,
+        engineer_name: ncr.engineering.engineer_name,
+        revision_date: ncr.engineering.revision_date,
+        engineering_review_date: ncr.engineering.engineering_review_date,
+        eng_resolved: ncr.engineering.resolved,
+        preliminary_decision: ncr.purchasing_decision.preliminary_decision,
+        options: ncr.purchasing_decision.options,
+        car_raised: ncr.purchasing_decision.car_raised,
+        car_number: ncr.purchasing_decision.car_number,
+        follow_up_required: ncr.purchasing_decision.follow_up_required,
+        operations_manager_name: ncr.purchasing_decision.operations_manager_name,
+        operations_manager_date: ncr.purchasing_decision.operations_manager_date,
+        re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable,
+        new_ncr_number: ncr.purchasing_decision.new_ncr_number,
+        inspector_name: ncr.purchasing_decision.inspector_name,
+        ncr_closed: ncr.purchasing_decision.ncr_closed,
+        pu_resolved: ncr.purchasing_decision.resolved,
     }
 }
-
-// Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
-    var notificationBox = document.getElementById("notification-box");
-    var iconBadge = document.querySelector(".icon-badge");
-
-    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
-        notificationBox.style.display = "none";
-    }
-});
 
 function getReportStage(ncr) {
     if (!ncr.qa.resolved) return 'QA';
@@ -151,9 +191,8 @@ function getReportStage(ncr) {
     if (!ncr.purchasing_decision.resolved) return 'Purchasing';
     return '';
 }
-
 function displayRecentReports(data) {
-    const container = recentContainer; // Use the existing recentReportsContainer
+    const container = recentContainer;
     container.innerHTML = ''; // Clear previous content
 
     // Get the last 5 reports
@@ -169,21 +208,53 @@ function displayRecentReports(data) {
         const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
         const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
 
+        // Create the pin icon
+        const pinIcon = document.createElement('span');
+        pinIcon.classList.add('pinIcon');
+        pinIcon.innerHTML = `<i class="fa fa-thumb-tack" aria-hidden="true"></i>`;
+
+        // Add an event listener to the pin icon
+        pinIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the report card's click event
+
+            // Retrieve existing pinned data from sessionStorage
+            const pinnedReports = JSON.parse(sessionStorage.getItem('pinnedReports')) || [];
+
+            // Check if the report is already pinned
+            const isAlreadyPinned = pinnedReports.some(report => report.ncr_no === ncr.ncr_no);
+
+            if (!isAlreadyPinned) {
+                // Add the report to the pinned reports array
+                pinnedReports.push((ncr)); // Adjust this function as needed
+                sessionStorage.setItem('pinnedReports', JSON.stringify(pinnedReports));
+                alert('Report pinned!'); // Optional: alert to confirm the pin action
+            } else {
+                alert('This report is already pinned.'); // Optional: alert if already pinned
+            }
+        });
+
         // Combine all elements into the report card
         reportCard.innerHTML = `
             ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
         `;
+        reportCard.appendChild(pinIcon); // Append the pin icon to the report card
+
+        // Add a click event for the entire report card (if needed)
+        reportCard.addEventListener("click", () => {
+            const data = extractData(ncr);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        });
 
         container.appendChild(reportCard);
     });
 }
-
-function displayPinnedReports(data) {
+function displayPinnedReports() {
     const container = pinnedContainer; // Use the existing pinnedReportsContainer
     container.innerHTML = ''; // Clear previous content
 
-    // Filter to get pinned reports
-    const pinnedReports = data.filter(ncr => ncr.qa?.pinned);
+    // Retrieve pinned reports from session storage
+    const pinnedReports = JSON.parse(sessionStorage.getItem('pinnedReports')) || []; // Ensure pinnedReports is defined
 
     if (pinnedReports.length === 0) {
         container.innerHTML = '<p>No pinned reports available.</p>';
@@ -191,32 +262,62 @@ function displayPinnedReports(data) {
     }
 
     pinnedReports.forEach(ncr => {
+        // Assuming ncr is an individual object representing a report
+        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
+        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
+        const ncrNumber = ncr.ncr_no || 'N/A'; // Store the NCR number for unpinning
+        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
+
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
         // Create HTML content for each piece of information
-        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
-        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
-        const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
-        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
-
-        // Combine all elements into the report card
         reportCard.innerHTML = `
-            ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
+            ${supplierName}  ${reportDate}  <span class="report-number">NCR No: ${ncrNumber}</span>  ${itemDescription}
         `;
 
+        // Create the unpin icon
+        const unpinIcon = document.createElement('span');
+        unpinIcon.classList.add('unpinIcon');
+        unpinIcon.innerHTML = `<i class="fa fa-trash" aria-hidden="true" title="Unpin Report"></i>`;
+
+        // Add an event listener to the unpin icon
+        unpinIcon.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent triggering the report card's click event
+
+            // Remove the report from the pinned reports array
+            const updatedPinnedReports = pinnedReports.filter(report => report.ncr_no !== ncrNumber);
+            sessionStorage.setItem('pinnedReports', JSON.stringify(updatedPinnedReports));
+
+            // Re-display pinned reports
+            displayPinnedReports();
+        });
+         // Add a click event for the entire report card (if needed)
+         reportCard.addEventListener("click", () => {
+            const data = extractData(ncr);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        });
+        
+        // Append the unpin icon to the report card
+        reportCard.appendChild(unpinIcon);
         container.appendChild(reportCard);
     });
 }
 
 
+
+
 // Initialize tab buttons
 btnRecent.addEventListener('click', () => {
     showTab('recent');
+    displayRecentReports(ncr); // Ensure recent reports are displayed when tab is clicked
 });
 
 btnPinned.addEventListener('click', () => {
     showTab('pinned');
+
+    displayPinnedReports(); // Ensure pinned reports are displayed when tab is clicked
 });
 
 function showTab(tab) {
@@ -235,4 +336,50 @@ function showTab(tab) {
         document.getElementById('pinned-reports').classList.add('active');
         btnPinned.classList.add('active'); // Activate pinned button
     }
+}
+
+
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+
+
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}
+
+// Optional: Hide the notification box if clicked outside
+document.addEventListener("click", function(event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+    
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})
+
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
 }

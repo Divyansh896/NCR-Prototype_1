@@ -1,13 +1,35 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const starElements = document.querySelectorAll('.required');
-    const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const starElements = document.querySelectorAll('.required');
+const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const userName = document.getElementById('userName');
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
+// Check if user data is available and has a role
+if (user && user.role) {
+    // Update the Create NCR link based on user role
+    function updateNCRLink() {
+        var ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]')
 
-    starElements.forEach(star => {
-        star.style.display = 'none'; // Hide each star element
-    });
+        if (ncrLink) { // Ensure ncrLink exists
+            if (user.role === "Lead Engineer" || user.role === "Purchasing") {
+                // Change to "Logged NCR" for lead engineers and purchasing roles
+                ncrLink.href = "logged_NCR.html"
+                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Logged NCR'
+                ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
+            }
+        } else {
+            console.warn('Link with aria-label "Create a new Non-Conformance Report" not found.')
+        }
+    }
 
-    populateUserData(user);
+    updateNCRLink()
+} else {
+    console.warn("User data not found in sessionStorage or missing role.")
+}
+starElements.forEach(star => {
+    star.style.display = 'none'; // Hide each star element
 });
+
+populateUserData(user);
+
 
 const footer = document.getElementById('footer-scroll');
 footer.addEventListener('click', () => {
@@ -62,7 +84,7 @@ document.getElementById('submit-btn').addEventListener('click', (e) => {
     if (!showRequiredFields()) {
         e.preventDefault(); // Prevent form submission if invalid
         alert("Please fill in the required fields before submitting.")
-    }else{
+    } else {
 
         alert("Credentials updated  successfully.")
     }
@@ -91,7 +113,50 @@ function logout() {
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
 
-    
+
     // Redirect to the login page
     location.replace('index.html'); // This will replace the current history entry
+}
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+
+
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}
+
+// Optional: Hide the notification box if clicked outside
+document.addEventListener("click", function(event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+    
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})
+function logout() {
+    localStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
 }
