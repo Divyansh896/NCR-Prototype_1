@@ -384,6 +384,7 @@ nav ul a {
     flex-direction: row;
     align-items: flex-start;
     width: 100%;
+    padding-top: 20px;
 }
 
 .step-icon {
@@ -398,7 +399,7 @@ nav ul a {
 
 /* Remove the icon and position styles */
 .status-step.active {
-    
+    font-weight: bold;
 }
 
 .status-step.completed {
@@ -414,6 +415,7 @@ nav ul a {
     /* Stack items vertically */
     width: 100%;
     /* Make the form full width */
+    border-radius: 5px;
 }
 
 
@@ -433,7 +435,7 @@ fieldset legend {
     /* Space above the legend */
     font-weight: bold;
     /* Optional: make the legend text bold */
-    font-size: 1.2rem;
+    font-size: 1rem;
     /* Optional: adjust the font size */
 }
 
@@ -463,8 +465,6 @@ fieldset legend {
 }
 
 .form-section.active label {
-    margin-top: 10px;
-    margin-right: 10px;
     font-size: 1rem;
 }
 
@@ -476,6 +476,19 @@ fieldset legend {
     width: 95%;
 }
 
+.form-section.active button:hover{
+    background-color: #10223d;
+}
+
+#clear-btn1, #clear-btn2, #back-btn1, #back-btn2{
+    background-color: #fff;
+    border: #1a3153 solid;
+    color: #1a3153;
+}
+
+#clear-btn1:hover, #clear-btn2:hover, #back-btn1:hover, #back-btn2:hover{
+    background-color: #e0e0e0;
+}
 .form-section p {
     font-weight: bold;
     margin: 0;
@@ -494,6 +507,7 @@ fieldset legend {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    justify-content: space-evenly;
 }
 
 .form-section label,
@@ -550,6 +564,7 @@ fieldset legend {
     border: none;
     border-radius: 5px;
     margin: 4%;
+    box-shadow: 0 20px 30px rgba(0, 0, 0, 0.2);
 }
 
 .item-conforming legend {
@@ -626,6 +641,42 @@ fieldset legend {
 #qa-section span {
     margin-left: 25px;
 }
+
+/* Chekboxes and radio btns*/
+.checkbox-button, .radio-button {
+    display: inline-block;
+    border-radius: 5px;
+    padding: 10px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #4c6488;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  .checkbox-button input[type="checkbox"], .radio-button input[type = "radio"] {
+    display: none;
+  }
+
+  .checkbox-button.checked, .radio-button.checked{
+    background-color: #4c6488;
+    color: white;
+  }
+
+  label.checkbox-button, label.radio-button{
+    margin: 0px;
+    font-size: 1rem;
+  }
+  .chkboxes-create-ncr, .rad-create-ncr{
+    display: flex;
+    justify-content: space-around;
+    background-color: #eeeeee;
+    border-radius: 5px;
+    padding: 10px 0px;
+  }
+
+  .rad-create-ncr{
+    width: 200px;
+  }
 
 /* View NCR */
 .verticalLayout {
@@ -1278,12 +1329,6 @@ td button:focus {
         grid-template-columns: 1fr 1fr;
     }
 
-
-    .item-conforming,
-    .item-conforming legend {
-        text-align: center;
-    }
-
     .media {
         padding: 0px 300px;
     }
@@ -1435,7 +1480,6 @@ td button:focus {
     }
 
     .form-section.active label {
-        margin-right: 40px;
         margin-left: 0;
     }
 
@@ -1689,7 +1733,6 @@ td button:focus {
     }
 
     .form-section.active label {
-        margin-right: 10px;
     }
 
     .main-container-create {
@@ -1782,7 +1825,7 @@ td button:focus {
 
     label,
     p {
-        font-size: 1.4rem;
+        font-size: 1.2rem;
     }
 
     #footer-scroll p {
@@ -1790,7 +1833,7 @@ td button:focus {
     }
 
     fieldset legend {
-        font-size: 2rem;
+        font-size: 1.2rem;
     }
 
     fieldset.account {
@@ -1806,7 +1849,7 @@ td button:focus {
     input[type="tel"],
     select,
     .form-section textarea {
-        font-size: 1.3rem;
+        font-size: 1.2rem;
     }
 
     /*account*/
@@ -1843,16 +1886,16 @@ td button:focus {
 
     .form-section.active button {
         height: 50px;
-        width: 75%;
+        width: 30%;
     }
 
     .media legend,
     .item-conforming legend {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .form-section.active label {
-        font-size: 1.5rem;
+        font-size: 1.2rem;
     }
 
     .form-row {
@@ -1892,13 +1935,13 @@ td button:focus {
 
 
     .custom-summary {
-        font-size: 1.45em;
+        font-size: 1.2em;
         padding-left: 128px;
         font-weight: 600;
     }
 
     .confirmation p {
-        font-size: 1.5em;
+        font-size: 1.2em;
     }
 
 
@@ -1913,9 +1956,7 @@ td button:focus {
         width: 95%;
     }
 
-    .form-section.active label {
-        margin-right: 35px;
-    }
+
 
     .indicator {
         margin-left: 125px;
@@ -2117,7 +2158,7 @@ td button:focus {
 
     .form-section.active button {
         height: 65px;
-        width: 35%;
+        width: 25%;
     }
 
     .col-confirm {
