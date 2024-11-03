@@ -2,13 +2,14 @@
     {
         "ncr_no": "2024001",
         "qa": {
-            "supplier_name": "Alpha Tech Solutions",
+            "supplier_name": "SteelWorks Ltd",
             "po_no": "AS-001",
             "sales_order_no": "SO-1001",
-            "item_description": "Advanced Sensor X1, High-accuracy temperature sensor with wireless capabilities.",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
             "quantity_received": 100,
             "quantity_defective": 5,
-            "description_of_defect": " Inconsistent temperature readings; calibration issues reported in multiple units.",
+            "description_of_defect": "Threads improperly cut, causing cross-threading.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-01",
@@ -59,13 +60,14 @@
     {
         "ncr_no": "2024002",
         "qa": {
-            "supplier_name": "Alpha Tech Solutions",
+            "supplier_name": "SteelWorks Ltd",
             "po_no": "SH-002",
             "sales_order_no": "SO-1002",
-            "item_description": "Smart Home Hub, Centralized control unit for smart home devices.",
+            "item_name": "Lock Nut",
+            "item_description": "Nylon Insert Lock Nut (M8)",
             "quantity_received": 50,
             "quantity_defective": 2,
-            "description_of_defect": "Connectivity drops frequently; fails to sync with multiple devices.",
+            "description_of_defect": "Nylon insert deformed, resulting in a loose fit.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-02",
@@ -116,13 +118,14 @@
     {
         "ncr_no": "2024003",
         "qa": {
-            "supplier_name": "Beta Manufacturing Inc.",
+            "supplier_name": "Woodcraft Builders",
             "po_no": "CB-003",
             "sales_order_no": "SO-2001",
-            "item_description": "Industrial Conveyor Belt, Heavy-duty conveyor belt for manufacturing processes.",
+            "item_name": "Screws",
+            "item_description": "Wood Screws (4mm x 50mm)",
             "quantity_received": 200,
             "quantity_defective": 10,
-            "description_of_defect": "Material wear observed after short usage; early signs of fraying.",
+            "description_of_defect": "Screw heads strip easily under light torque.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-03",
@@ -173,13 +176,14 @@
     {
         "ncr_no": "2024004",
         "qa": {
-            "supplier_name": "Beta Manufacturing Inc.",
+            "supplier_name": "SteelWorks Ltd",
             "po_no": "HP-004",
             "sales_order_no": "SO-2002",
-            "item_description": "Hydraulic Pump Model B, High-efficiency hydraulic pump designed for industrial applications.",
+            "item_name": "Carriage Bolts",
+            "item_description": "Carriage Bolt (1/4 x 2 inches)",
             "quantity_received": 75,
             "quantity_defective": 3,
-            "description_of_defect": "Leaking hydraulic fluid from seal; reduced performance under load.",
+            "description_of_defect": "Rust appears within 24 hours, compromising durability.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-04",
@@ -230,13 +234,14 @@
     {
         "ncr_no": "2024005",
         "qa": {
-            "supplier_name": "Gamma Electronics",
+            "supplier_name": "ConcreteFast",
             "po_no": "WE-005",
             "sales_order_no": "SO-3001",
-            "item_description": "Wireless Earbuds Pro, Noise-cancelling wireless earbuds with touch controls.",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
             "quantity_received": 150,
             "quantity_defective": 7,
-            "description_of_defect": "Audio dropouts during playback; battery drains faster than expected.",
+            "description_of_defect": "Tips break during installation, increasing setup time.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-05",
@@ -287,13 +292,14 @@
     {
         "ncr_no": "2024006",
         "qa": {
-            "supplier_name": "Gamma Electronics",
+            "supplier_name": "ConcreteFast",
             "po_no": "ST-006",
             "sales_order_no": "SO-3002",
-            "item_description": "Smart TV Model G. 55-inch 4K Smart TV with integrated streaming apps.",
+            "item_name": "Machine Screws",
+            "item_description": "Machine Screws (M6 x 25mm)",
             "quantity_received": 80,
             "quantity_defective": 4,
-            "description_of_defect": "Screen flickering during high-definition playback; software freezes.",
+            "description_of_defect": "Poorly aligned threads cause cross-threading.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-06",
@@ -344,13 +350,14 @@
     {
         "ncr_no": "2024007",
         "qa": {
-            "supplier_name": "Delta Logistics",
+            "supplier_name": "ConcreteFast",
             "po_no": "GN-007",
             "sales_order_no": "SO-4001",
-            "item_description": "GPS Navigation System, Real-time GPS tracker with traffic updates.",
+            "item_name": "Deck Screws",
+            "item_description": "Deck Screws (3.5mm x 65mm)",
             "quantity_received": 90,
             "quantity_defective": 6,
-            "description_of_defect": "Inaccurate location tracking; fails to update routes in real time.",
+            "description_of_defect": "Coating flakes off, causing premature corrosion.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-07",
@@ -401,13 +408,14 @@
     {
         "ncr_no": "2024008",
         "qa": {
-            "supplier_name": "Delta Logistics",
+            "supplier_name": "ConcreteFast",
             "po_no": "CR-008",
             "sales_order_no": "SO-4002",
-            "item_description": "Cargo Handling Robot, Autonomous robot for warehouse cargo management.",
+            "item_name": "Eye Bolt",
+            "item_description": "Eye Bolt (M12)",
             "quantity_received": 60,
             "quantity_defective": 1,
-            "description_of_defect": " Inconsistent navigation; frequently gets stuck in narrow aisles.",
+            "description_of_defect": "Eye deforms under rated load, posing safety hazards.",
             "item_marked_nonconforming": false,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-08",
@@ -458,13 +466,14 @@
     {
         "ncr_no": "2024009",
         "qa": {
-            "supplier_name": "Epsilon Energy Solutions",
+            "supplier_name": "ConcreteFast",
             "po_no": "SP-009",
             "sales_order_no": "SO-5001",
-            "item_description": "Solar Panel Array, High-efficiency solar panel system for residential use.",
+            "item_name": "Eye Bolt",
+            "item_description": " U-Bolt (3/8 inch)",
             "quantity_received": 120,
             "quantity_defective": 8,
-            "description_of_defect": "Reduced energy output under optimal sunlight conditions; potential manufacturing defect.",
+            "description_of_defect": "Surface corrosion appears prematurely.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-09",
@@ -515,17 +524,18 @@
     {
         "ncr_no": "2024010",
         "qa": {
-            "supplier_name": "Epsilon Energy Solutions",
+            "supplier_name": "BuildersHub",
             "po_no": "WT-010",
             "sales_order_no": "SO-5002",
-            "item_description": "Wind Turbine Model E, Compact wind turbine designed for urban settings.",
+            "item_name": "Lock Nut",
+            "item_description": "Flange Nut (M10)",
             "quantity_received": 150,
             "quantity_defective": 15,
-            "description_of_defect": "Mechanical noise during operation; vibrations affecting stability.",
+            "description_of_defect": "Threads too shallow for secure attachment.",
             "item_marked_nonconforming": true,
             "quality_representative_name": "Grace Smith",
             "date": "2024-09-10",
-            "resolved": false,
+            "resolved": true,
             "process": {
                 "supplier_or_rec_insp": false,
                 "wip_production_order": false
@@ -547,7 +557,7 @@
             "engineer_name": "Davis Henry",
             "revision_date": "2024-09-14",
             "engineering_review_date": "2024-09-14",
-            "resolved": false
+            "resolved": true
         },
         "purchasing_decision": {
             "preliminary_decision": "Rework in House",
@@ -567,6 +577,2356 @@
             "ncr_closed": false,
             "resolved": false
         },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024011",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-2024-BX",
+            "sales_order_no": "SO-1125",
+            "item_name": "Lock Nut",
+            "item_description": " T-Nut (5/16 inch)",
+            "quantity_received": 120,
+            "quantity_defective": 11,
+            "description_of_defect": "Prongs bend easily, leading to poor stability.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-01",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-14",
+            "engineering_review_date": "2024-10-14",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-16",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401101",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024012",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-2024-BX",
+            "sales_order_no": "SO-100245",
+            "item_name": "Bolts",
+            "item_description": "Anchor Bolt (10mm x 150mm)",
+            "quantity_received": 100,
+            "quantity_defective": 20,
+            "description_of_defect": "Insufficient grip in concrete, causing loosening.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-25",
+            "engineering_review_date": "2024-09-14",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-26",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401201",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024013",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "CT-3000-TM",
+            "sales_order_no": "SO-200567",
+            "item_name": "Screws",
+            "item_description": "Self-Tapping Screws (M4 x 20mm)",
+            "quantity_received": 73,
+            "quantity_defective": 5,
+            "description_of_defect": "Screw tip is dull, requiring pre-drilling.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-24",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202400401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024014",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "CT-3000",
+            "sales_order_no": "SO-200547",
+            "item_name": "Nuts",
+            "item_description": "Wing Nuts (M8)",
+            "quantity_received": 85,
+            "quantity_defective": 15,
+            "description_of_defect": " Wings break under normal pressure, making it difficult to secure manually.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-27",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202400401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024015",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-2024",
+            "item_name": "Nuts",
+            "sales_order_no": "SO-1129",
+            "item_description": "Cap Nut (M10)",
+            "quantity_received": 120,
+            "quantity_defective": 11,
+            "description_of_defect": "Cap material is too thin and cracks under torque.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-06",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-14",
+            "engineering_review_date": "2024-10-14",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-16",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401501",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024016",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-2024",
+            "sales_order_no": "SO-100245",
+            "item_name": "Nuts",
+            "item_description": "Hex Nuts (M5)",
+            "quantity_received": 100,
+            "quantity_defective": 25,
+            "description_of_defect": "Rough threads make it difficult to tighten securely.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-28",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401601",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024017",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-11898",
+            "sales_order_no": "SO-1002",
+            "item_name": "Screws",
+            "item_description": "Set Screws (M5 x 15mm)",
+            "quantity_received": 150,
+            "quantity_defective": 25,
+            "description_of_defect": "Undersized threads result in slippage during use.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-28",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401701",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024018",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "CT-6300",
+            "sales_order_no": "SO-2047",
+            "item_name": "Screws",
+            "item_description": "Lag Screw (5/16 x 4 inches)",
+            "quantity_received": 75,
+            "quantity_defective": 15,
+            "description_of_defect": "Head cracks under light torque, compromising strength.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-27",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202400401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024019",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-11859",
+            "sales_order_no": "SO-1102",
+            "item_name": "Screws",
+            "item_description": "Deck Screw (2.5mm x 70mm)",
+            "quantity_received": 250,
+            "quantity_defective": 55,
+            "description_of_defect": "Screws bend easily in hardwood applications.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-17",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202401901",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024020",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-11589",
+            "sales_order_no": "SO-1120",
+            "item_name": "Bolts",
+            "item_description": "Shoulder Bolt (M8 x 50mm)",
+            "quantity_received": 175,
+            "quantity_defective": 25,
+            "description_of_defect": "Surface finish is rough, causing friction in pivoting applications.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-21",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": false
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402001",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024021",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-15589",
+            "sales_order_no": "SO-1130",
+            "item_name": "Bolts",
+            "item_description": " Countersunk Bolt (M10 x 75mm)",
+            "quantity_received": 165,
+            "quantity_defective": 25,
+            "description_of_defect": "Bolt head is off-center, making it difficult to flush-mount.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-22",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402101",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024022",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-15590",
+            "sales_order_no": "SO-1630",
+            "item_name": "Nuts",
+            "item_description": "Dome Nut (M6)",
+            "quantity_received": 180,
+            "quantity_defective": 25,
+            "description_of_defect": "Dome does not fully cover the bolt end, leaving threads exposed.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-28",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402201",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024023",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "CT-7800",
+            "sales_order_no": "SO-2048",
+            "item_name": "Screws",
+            "item_description": "Brass Wood Screw (3mm x 25mm)",
+            "quantity_received": 80,
+            "quantity_defective": 15,
+            "description_of_defect": "Screw head cracks under minimal torque, leading to poor installation.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-18",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202402301",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024024",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "CT-7850",
+            "sales_order_no": "SO-2758",
+            "item_name": "Screws",
+            "item_description": "Lock Washer (M8)",
+            "quantity_received": 170,
+            "quantity_defective": 55,
+            "description_of_defect": "Washer loses shape under load, reducing its locking capability.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202402401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024025",
+        "qa": {
+            "supplier_name": "ConcreteFast",
+            "po_no": "FE-1590",
+            "sales_order_no": "SO-1890",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Anchor (10mm x 80mm)",
+            "quantity_received": 180,
+            "quantity_defective": 25,
+            "description_of_defect": "Anchor fails to expand fully in concrete, leading to insufficient hold.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-28",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402501",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024026",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-2590",
+            "sales_order_no": "SO-2890",
+            "item_name": "Screws",
+            "item_description": "Allen Head Screw (M5 x 20mm)",
+            "quantity_received": 100,
+            "quantity_defective": 25,
+            "description_of_defect": "Hex socket strips easily, making the screw hard to remove.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-01",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402601",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024027",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "FE-3590",
+            "sales_order_no": "SO-8290",
+            "item_name": "Screws",
+            "item_description": "Stainless Steel Deck Screw (4mm x 60mm)",
+            "quantity_received": 100,
+            "quantity_defective": 25,
+            "description_of_defect": "Screw tips are dull, reducing effectiveness in hardwood.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-05",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402701",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024028",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "FE-3580",
+            "sales_order_no": "SO-8280",
+            "item_name": "Nuts",
+            "item_description": "Lifting Eye Nut (M10)",
+            "quantity_received": 110,
+            "quantity_defective": 25,
+            "description_of_defect": "Nut threads are misaligned, reducing lifting reliability.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-09",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202402801",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024029",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "CT-8900",
+            "sales_order_no": "SO-2098",
+            "item_name": "Bolts",
+            "item_description": "Saddle Clamp (3/8 inch)",
+            "quantity_received": 90,
+            "quantity_defective": 15,
+            "description_of_defect": "Clamp surface has rough edges, leading to potential damage on pipes.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-20",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202402301",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024030",
+        "qa": {
+            "supplier_name": "BuildersHub",
+            "po_no": "CT-7250",
+            "sales_order_no": "SO-3758",
+            "item_name": "Nuts",
+            "item_description": "Jam Nut (M10)",
+            "quantity_received": 178,
+            "quantity_defective": 55,
+            "description_of_defect": "Threads are too loose, leading to loosening under vibration.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-30",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-28",
+            "engineering_review_date": "2024-09-28",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-29",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202402401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024031",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-2090",
+            "sales_order_no": "SO-1290",
+            "item_name": "Nuts",
+            "item_description": "Tee Nut (M6 x 10mm)",
+            "quantity_received": 200,
+            "quantity_defective": 75,
+            "description_of_defect": "Prongs are brittle and break off during insertion in wood.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-19",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403101",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024032",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "FE-20901",
+            "sales_order_no": "SO-12901",
+            "item_name": "Carriage Bolts",
+            "item_description": "Threaded Rod (M8 x 1 meter)",
+            "quantity_received": 200,
+            "quantity_defective": 75,
+            "description_of_defect": " Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-19",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403201",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024033",
+        "qa": {
+            "supplier_name": "ConcreteFast",
+            "po_no": "FE-20902",
+            "sales_order_no": "SO-12902",
+            "item_name": "Screws",
+            "item_description": "Self-Drilling Screw (M4 x 25mm)",
+            "quantity_received": 150,
+            "quantity_defective": 75,
+            "description_of_defect": " Drill tip wears down quickly, losing its self-drilling function.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-19",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403301",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024034",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-20903",
+            "sales_order_no": "SO-12903",
+            "item_name": "Hex Bolts",
+            "item_description": "Butterfly Toggle Bolt (1/4 inch x 3 inch)",
+            "quantity_received": 150,
+            "quantity_defective": 75,
+            "description_of_defect": "Toggle wings do not open fully, reducing anchoring strength.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-19",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024035",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "FE-20904",
+            "sales_order_no": "SO-12904",
+            "item_name": "Nuts",
+            "item_description": "Slotted Nut (M12)",
+            "quantity_received": 150,
+            "quantity_defective": 75,
+            "description_of_defect": "Slot depth is uneven, affecting the lock pin fit.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403501",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024036",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-21204",
+            "sales_order_no": "SO-12504",
+            "item_name": "Nuts",
+            "item_description": "Coupling Nut (M10)",
+            "quantity_received": 150,
+            "quantity_defective": 75,
+            "description_of_defect": " Nut is misaligned, resulting in an unsteady joint.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403601",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024037",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "FE-21208",
+            "sales_order_no": "SO-12508",
+            "item_name": "Screws",
+            "item_description": "Grub Screw (M4 x 10mm)",
+            "quantity_received": 160,
+            "quantity_defective": 75,
+            "description_of_defect": " Threads are rough, causing difficulty in securing the screw.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403701",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024038",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "FE-21218",
+            "sales_order_no": "SO-12518",
+            "item_name": "Bolts",
+            "item_description": "Square Head Bolt (5/16 inch x 3 inch)",
+            "quantity_received": 160,
+            "quantity_defective": 75,
+            "description_of_defect": " Bolt head is off-square, affecting its stability in securement.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403801",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024039",
+        "qa": {
+            "supplier_name": "ConcreteFast",
+            "po_no": "FE-212183",
+            "sales_order_no": "SO-125180",
+            "item_name": "Screws",
+            "item_description": "Galvanized Deck Screw (3mm x 45mm)",
+            "quantity_received": 160,
+            "quantity_defective": 75,
+            "description_of_defect": "Coating is inconsistent, leading to reduced corrosion resistance.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202403901",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024040",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "FE-21283",
+            "sales_order_no": "SO-12580",
+            "item_name": "Screws",
+            "item_description": "Hex Set Screw (M8 x 50mm)",
+            "quantity_received": 160,
+            "quantity_defective": 75,
+            "description_of_defect": "Hex head is undersized, making it difficult to engage with a wrench.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair manufacturing defects.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-10-29",
+            "engineering_review_date": "2024-10-29",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-10-30",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202404001",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024041",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "AS-001",
+            "sales_order_no": "SO-1001",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 100,
+            "quantity_defective": 5,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-01",
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": true,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Repair by adjusting dimensions.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-05",
+            "engineering_review_date": "2024-09-05",
+            "resolved": false
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Return to Supplier for rework",
+            "options": {
+                "rework_in_house": false,
+                "scrap_in_house": false,
+                "defer_to_engineering": true
+            },
+            "car_raised": true,
+            "car_number": "CAR-12345",
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-10",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202400101",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024042",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "SH-002",
+            "sales_order_no": "SO-1002",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 50,
+            "quantity_defective": 2,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-02",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Repair",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": true,
+                "rework": false,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Repaint defective items.",
+            "drawing_update_required": false,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-001",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-06",
+            "engineering_review_date": "2024-09-06",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Scrap in House",
+            "options": {
+                "rework_in_house": false,
+                "scrap_in_house": true,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-12",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202400201",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024043",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "CB-003",
+            "sales_order_no": "SO-2001",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 200,
+            "quantity_defective": 10,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-03",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Scrap",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": false,
+                "scrap": true
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Units to be scrapped due to safety issues.",
+            "drawing_update_required": false,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-001",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-07",
+            "engineering_review_date": "2024-09-07",
+            "resolved": false
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Return to Supplier",
+            "options": {
+                "rework_in_house": false,
+                "scrap_in_house": false,
+                "defer_to_engineering": true
+            },
+            "car_raised": true,
+            "car_number": "CAR-12346",
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-11",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "2024013",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024044",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "HP-004",
+            "sales_order_no": "SO-2002",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 75,
+            "quantity_defective": 3,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-04",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Send replacement parts.",
+            "drawing_update_required": true,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-08",
+            "engineering_review_date": "2024-09-08",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Replace Parts",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": false,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-12",
+            "re_inspected_acceptable": true,
+            "new_ncr_number": "202400401",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": true,
+            "resolved": true
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024045",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "WE-005",
+            "sales_order_no": "SO-3001",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 150,
+            "quantity_defective": 7,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-05",
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Rework to match specifications.",
+            "drawing_update_required": false,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-003",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-09",
+            "engineering_review_date": "2024-09-09",
+            "resolved": false
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Rework in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": true,
+            "car_number": "CAR-12347",
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-13",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202400501",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024046",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "ST-006",
+            "sales_order_no": "SO-3002",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 80,
+            "quantity_defective": 4,
+            "description_of_defect": "Inconsistent threading along the length, causing fitting issues.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-06",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Scrap",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": false,
+                "scrap": true
+            },
+            "customer_notification_required": false,
+            "disposition_details": "Units to be scrapped due to defects.",
+            "drawing_update_required": false,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-001",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-10",
+            "engineering_review_date": "2024-09-10",
+            "resolved": true
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Return to Supplier",
+            "options": {
+                "rework_in_house": false,
+                "scrap_in_house": true,
+                "defer_to_engineering": true
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-15",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202400601",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024047",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "GN-007",
+            "sales_order_no": "SO-4001",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
+            "quantity_received": 90,
+            "quantity_defective": 6,
+            "description_of_defect": "Tips break during installation, increasing setup time.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-07",
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            "disposition": "Rework",
+            "disposition_options": {
+                "use_as_is": false,
+                "repair": false,
+                "rework": true,
+                "scrap": false
+            },
+            "customer_notification_required": true,
+            "disposition_details": "Fix assembly issues.",
+            "drawing_update_required": false,
+            "original_rev_number": "Rev-001",
+            "updated_rev_number": "Rev-002",
+            "engineer_name": "Davis Henry",
+            "revision_date": "2024-09-11",
+            "engineering_review_date": "2024-09-11",
+            "resolved": false
+        },
+        "purchasing_decision": {
+            "preliminary_decision": "Repair in House",
+            "options": {
+                "rework_in_house": true,
+                "scrap_in_house": false,
+                "defer_to_engineering": false
+            },
+            "car_raised": false,
+            "car_number": null,
+            "follow_up_required": true,
+            "operations_manager_name": "Grace White",
+            "operations_manager_date": "2024-09-16",
+            "re_inspected_acceptable": false,
+            "new_ncr_number": "202400701",
+            "inspector_name": "Brown Miller",
+            "ncr_closed": false,
+            "resolved": false
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024048",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "CR-008",
+            "sales_order_no": "SO-4002",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
+            "quantity_received": 60,
+            "quantity_defective": 1,
+            "description_of_defect": "Tips break during installation, increasing setup time.",
+            "item_marked_nonconforming": false,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-08",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            
+        },
+        "purchasing_decision": {
+            
+        },
+        "status": "completed"
+    },
+    {
+        "ncr_no": "2024049",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "SP-009",
+            "sales_order_no": "SO-5001",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
+            "quantity_received": 120,
+            "quantity_defective": 8,
+            "description_of_defect": "Tips break during installation, increasing setup time.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-09",
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            
+        },
+        "purchasing_decision": {
+            
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024050",
+        "qa": {
+            "supplier_name": "HeavyDuty Works",
+            "po_no": "WT-010",
+            "sales_order_no": "SO-5002",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
+            "quantity_received": 150,
+            "quantity_defective": 15,
+            "description_of_defect": "Tips break during installation, increasing setup time.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-09-10",
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {
+            
+        },
+        "purchasing_decision": {
+            
+        },
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024051",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "AS-001223",
+            "sales_order_no": "SO-100123",
+            "item_name": "Hex Bolts",
+            "item_description": "Hex Bolt (M12 x 100mm)",
+            "quantity_received": 150,
+            "quantity_defective": 50,
+            "description_of_defect": "Threads improperly cut, causing cross-threading.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-11-01",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": true,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {},
+        "purchasing_decision": {},
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024052",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "SH-00222",
+            "sales_order_no": "SO-1222",
+            "item_name": "Lock Nut",
+            "item_description": "Nylon Insert Lock Nut (M8)",
+            "quantity_received": 250,
+            "quantity_defective": 80,
+            "description_of_defect": "Nylon insert deformed, resulting in a loose fit.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-31",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {},
+        "purchasing_decision": {},
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024053",
+        "qa": {
+            "supplier_name": "Woodcraft Builders",
+            "po_no": "CB-513",
+            "sales_order_no": "SO-2701",
+            "item_name": "Screws",
+            "item_description": "Wood Screws (4mm x 50mm)",
+            "quantity_received": 220,
+            "quantity_defective": 70,
+            "description_of_defect": "Screw heads strip easily under light torque.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-23",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {},
+        "purchasing_decision": {},
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024054",
+        "qa": {
+            "supplier_name": "SteelWorks Ltd",
+            "po_no": "HP-0074",
+            "sales_order_no": "SO-20152",
+            "item_name": "Carriage Bolts",
+            "item_description": "Carriage Bolt (1/4 x 2 inches)",
+            "quantity_received": 500,
+            "quantity_defective": 250,
+            "description_of_defect": "Rust appears within 24 hours, compromising durability.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-24",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {},
+        "purchasing_decision": {},
+        "status": "incomplete"
+    },
+    {
+        "ncr_no": "2024055",
+        "qa": {
+            "supplier_name": "ConcreteFast",
+            "po_no": "WE-00585",
+            "sales_order_no": "SO-300195",
+            "item_name": "Concrete Screws",
+            "item_description": "Concrete Screws (6mm x 75mm)",
+            "quantity_received": 350,
+            "quantity_defective": 100,
+            "description_of_defect": "Tips break during installation, increasing setup time.",
+            "item_marked_nonconforming": true,
+            "quality_representative_name": "Grace Smith",
+            "date": "2024-10-25",
+            "resolved": true,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        },
+        "engineering": {},
+        "purchasing_decision": {},
         "status": "incomplete"
     }
 ]

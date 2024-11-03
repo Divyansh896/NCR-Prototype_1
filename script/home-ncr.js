@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', () => {
             ncr = data; // Store NCR data
             initializeButtons();
             displayRecentReports(ncr); // Initially display recent reports
+            initializeItemBarChart();
+            initializeDateLineChart(ncr); // Pass in your dataset as `ncrData`
+
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
@@ -75,7 +78,7 @@ function initializeButtons() {
         p.innerHTML = 'Open Recent Non-Conformance Reports';
         btnCreate.addEventListener('click', () => {
             const queryString = createQueryString(ncr[0]);
-            window.location.href = `logged_NCR.html?${queryString}`;
+            window.location.href = `current_NCR.html?${queryString}`;
         });
     }
 
@@ -292,13 +295,13 @@ function displayPinnedReports() {
             // Re-display pinned reports
             displayPinnedReports();
         });
-         // Add a click event for the entire report card (if needed)
-         reportCard.addEventListener("click", () => {
+        // Add a click event for the entire report card (if needed)
+        reportCard.addEventListener("click", () => {
             const data = extractData(ncr);
             sessionStorage.setItem('data', JSON.stringify(data));
             window.location.href = 'NC_Report.html'; // Adjust the URL as needed
         });
-        
+
         // Append the unpin icon to the report card
         reportCard.appendChild(unpinIcon);
         container.appendChild(reportCard);
@@ -361,7 +364,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -370,7 +373,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -383,3 +386,119 @@ function logout() {
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+
+function initializeItemBarChart() {
+    // Initialize an object to store the count of each item
+    const itemCounts = {};
+
+    // Count occurrences of each item name in the NCR data
+    ncr.forEach(report => {
+        const itemName = report.qa.item_name; // Access the item name from QA section
+        // Increment the count for the item name
+        if (itemCounts[itemName]) {
+            itemCounts[itemName] += 1;
+        } else {
+            itemCounts[itemName] = 1;
+        }
+    });
+
+    // Prepare data for the chart
+    const labels = Object.keys(itemCounts); // Unique item names as labels
+    const data = Object.values(itemCounts); // Counts as data points
+
+    // Get the context of the canvas element
+    const ctx = document.getElementById('itemBarChart').getContext('2d');
+
+    // Create the bar chart
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels, // Set labels from item names
+            datasets: [{
+                label: 'Occurrences of Items in Reports', // Dataset label
+                data: data, // Set data from item counts
+                backgroundColor: 'rgba(75, 192, 192, 0.6)', // Bar color
+            }]
+        },
+        options: {
+            responsive: true,
+            title: { display: true, text: 'Count of Each Item in Reports' }, // Chart title
+            scales: {
+                y: { title: { display: true, text: 'Count' } } // Y-axis title
+            }
+        }
+    });
+}
+
+
+
+
+function initializeDateLineChart(ncrData) {
+    // Initialize an object to hold the count of reports per date
+    const reportCountsByDate = {};
+
+    // Process each report in the data
+    ncrData.forEach(report => {
+        const reportDate = report.qa.date; // Assuming the date is in `qa.date`
+        
+        // Increment count for each report date
+        if (reportCountsByDate[reportDate]) {
+            reportCountsByDate[reportDate]++;
+        } else {
+            reportCountsByDate[reportDate] = 1;
+        }
+    });
+
+    // Prepare data for the chart
+    const dates = Object.keys(reportCountsByDate).sort(); // Sorted dates
+    const reportCounts = dates.map(date => reportCountsByDate[date]); // Report counts matching dates
+
+    // Get the context of the canvas element
+    const ctx = document.getElementById('dateLineChart').getContext('2d');
+
+    // Create the line chart
+    new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: dates, // Dates as labels on the x-axis
+            datasets: [{
+                label: 'Reports Over Time',
+                data: reportCounts, // Counts of reports on each date
+                borderColor: 'rgba(75, 192, 192, 0.6)',
+                backgroundColor: 'rgba(75, 192, 192, 0.1)',
+                borderWidth: 2,
+                tension: 0.3 // Smooth lines
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Report Trend Over Time'
+            },
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Date'
+                    },
+                    type: 'time', // Time scale for the x-axis
+                    time: {
+                        unit: 'day', // Display daily data
+                        displayFormats: {
+                            day: 'MMM d' // Corrected to use lowercase 'd'
+                        }
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Number of Reports'
+                    },
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+}
+

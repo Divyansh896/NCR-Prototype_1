@@ -44,7 +44,7 @@
         .report-card .report-description {
             color: #666;
         }
-  
+
 
         .report-card .pinIcon {
             visibility: hidden;
@@ -90,6 +90,21 @@
             /* Use flexbox for alignment, can change based on your needs */
             flex-direction: column;
             /* Stack content vertically */
+        }
+
+        #itemBarChart {
+            width: 100%;
+            /* Full width of the container */
+            height: 150px;
+            /* Small height */
+            background-color: #f5f5f5;
+            /* Light gray background for better visibility */
+            border: 2px solid #4a90e2;
+            /* Blue border for a defined outline */
+            border-radius: 8px;
+            /* Rounded corners */
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            /* Light shadow effect */
         }
     </style>
 </head>
@@ -221,10 +236,7 @@
             </section>
         </div>
 
-        <!-- <section>
-            <canvas id="ncrChart" width="400" height="200"></canvas>
-            <canvas id="barChart" width="400" height="200"></canvas
-        </section> -->
+
         <div class="main-container">
             <section>
                 <!-- Tab Navigation -->
@@ -246,6 +258,12 @@
                         <div id="pinnedReportsContainer"></div>
                     </div>
                 </div>
+            </section>
+        </div>
+        <div class="main-container">
+            <section>
+                <canvas id="dateLineChart"></canvas>
+                <canvas id="itemBarChart"></canvas>
             </section>
         </div>
     </main>
