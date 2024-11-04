@@ -14,9 +14,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
         /* Report Card Styles */
+        #recentReportsContainer, #pinnedReportsContainer{
+            display: flex;
+            justify-content: left;
+            flex-direction: column;
+            text-align: left;
+        }
+        #recent-reports h2, #pinned-reports h2{
+            margin: 10px 0 15px 0;
+        }
+        .tab-content{
+            text-align: left;
+        }
         .report-card {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 1em;
             padding: 0.5em;
             border: 1px solid #ddd;
@@ -26,8 +38,12 @@
             color: #333;
             transition: all 0.2s ease;
             margin-bottom: 3px;
+            justify-content: left;
         }
 
+        .reportInfo{
+            width: 60%;
+        }
         .report-card:hover {
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             background-color: #e2dfdf;
@@ -56,6 +72,10 @@
             /* Show the pin icon on hover */
         }
 
+        .supplier-name{
+            justify-content: left;
+            width: 150px;
+        }
 
 
 
@@ -72,6 +92,7 @@
             background-color: #ddd;
             font-size: 16px;
             transition: background-color 0.3s ease, color 0.3s ease;
+            margin-right: 12px;
         }
 
         .tab-button.active {
@@ -105,6 +126,12 @@
             /* Rounded corners */
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
             /* Light shadow effect */
+        }
+        #graphs{
+            text-align: left;
+        }
+        #graphs h2{
+            margin: 25px 0;
         }
     </style>
 </head>
@@ -199,13 +226,26 @@
     <h1>Dashboard</h1>
     <!-- Main Section -->
     <main aria-label="Main Content">
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
         <div class="main-container">
 
             <!-- Section 1: Create NCR -->
             <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
                 <div>
                     <h2 id="create-ncr-header">Create NCR</h2>
-                    <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
+                    <p id="create-ncr-p">Generate a new report to track issues and ensure system quality</p>
                     <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
                             class="fa fa-fw fa-pencil"></i> Create NCR</button>
                     <!-- Set tabindex to sequential order -->
@@ -216,7 +256,7 @@
             <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
                 <div>
                     <h2 id="view-ncr-header">View NCR</h2>
-                    <p>Access and review existing NCRs in your system.</p>
+                    <p>Browse and review reports to gain insights and drive quality.</p>
                     <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
                             class="fa fa-fw fa-search"></i>
                         View NCR</button>
@@ -228,7 +268,7 @@
             <section class="featuresManageAcc" aria-labelledby="manage-account-header">
                 <div>
                     <h2 id="manage-account-header">Manage Account</h2>
-                    <p>Update account settings and user preferences.</p>
+                    <p>Update your profile, settings, and account preferences easily.</p>
                     <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
                             class="fa fa-fw fa-user-circle"></i> Manage Account</button>
                     <!-- Set tabindex to sequential order -->
@@ -261,10 +301,13 @@
             </section>
         </div>
         <div class="main-container">
-            <section>
+            <section id="graphs">
+                <h2>NCR Reports Trend Over Time</h2>
                 <canvas id="dateLineChart"></canvas>
+                <h2>Item Occurrence in NCR Reports</h2>
                 <canvas id="itemBarChart"></canvas>
             </section>
+            
         </div>
     </main>
 
