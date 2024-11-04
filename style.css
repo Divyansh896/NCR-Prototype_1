@@ -88,7 +88,7 @@ button:hover {
 }
 
 h1 {
-    padding: 20px 0px;
+    padding: 0 0 8px;
     text-align: center;
     color: #1a3153;
     font-size: 1.5rem;
@@ -1621,7 +1621,7 @@ td button:focus {
         max-width: 1200px;
         margin: 0 auto;
         justify-content: space-between;
-        padding: 40px;
+        padding: 0 40px 40px;
     }
 
     .featuresCreateNCR,
@@ -1678,7 +1678,7 @@ td button:focus {
     .featuresCreateNCR p,
     .featuresViewNCR p,
     .featuresManageAcc p {
-        font-size: 1.5rem;
+        font-size: 1.25em;
         margin: 25px 0 20px;
     }
 
