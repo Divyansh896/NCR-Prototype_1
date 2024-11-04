@@ -145,7 +145,7 @@
                         aria-label="Quality assurance department form">
                         <!-- Product Info Section -->
                         <fieldset class="form-section active" aria-labelledby="product-info">
-                            
+
                             <div class="qa-info-section">
                                 <div class="qa-info">
                                     <label for="ncr-no-generated">NCR No:</label>
@@ -179,7 +179,8 @@
                                     </select>
                                     <span class="error-message" id="supplier-name-error"></span>
 
-                                    <label for="product-no">Product No (Required):<span class="required">*</span></label>
+                                    <label for="product-no">Product No (Required):<span
+                                            class="required">*</span></label>
                                     <input type="text" id="product-no" name="product_no" placeholder="Enter Product No"
                                         tabindex="12">
                                     <span class="error-message" id="product-no-error"></span>
@@ -191,17 +192,17 @@
                                         <div>
                                             <label class="checkbox-button">
                                                 <input type="checkbox" id="supplier" name="process" value="supplier"
-                                                class="hidden-checkbox" onclick="toggleCheck(this)">
+                                                    class="hidden-checkbox" onclick="toggleCheck(this)">
                                                 Supplier or Rec-Insp
                                             </label>
-                                            
+
 
                                         </div>
                                         <div>
                                             <label class="checkbox-button">
                                                 <input type="checkbox" id="wip" name="process" value="wip"
                                                     class="hidden-checkbox" onclick="toggleCheck(this)">
-                                                    WIP
+                                                WIP
                                             </label>
                                         </div>
                                     </div>
@@ -220,7 +221,7 @@
 
                         <!-- Product Defect Description Section -->
                         <fieldset class="form-section" aria-labelledby="product-desc" aria-label="Product description">
-                            
+
                             <div class="descr-create-center">
                                 <div class="two-rows">
                                     <div class="descr-container">
@@ -243,21 +244,22 @@
                                 </div>
                                 <!-- Radio-like buttons -->
                                 <fieldset class="item-conforming">
-                                    <legend for="item-marked-nonconforming">Item Marked Non-Conforming? (Required)</legend>
+                                    <legend for="item-marked-nonconforming">Item Marked Non-Conforming? (Required)
+                                    </legend>
                                     <span class="error-message" id="non-error"></span>
 
                                     <div class="rad-create-ncr">
                                         <!-- Hidden radio input -->
                                         <label class="radio-button">
-                                        <input type="radio" id="item-marked-yes" name="item_marked_nonconforming"
-                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)">
-                                        Yes
+                                            <input type="radio" id="item-marked-yes" name="item_marked_nonconforming"
+                                                value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                            Yes
                                         </label>
 
                                         <!-- Hidden radio input -->
                                         <label class="radio-button">
-                                        <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
-                                            class="hidden-radio" onclick="toggleRadio(this)">
+                                            <input type="radio" id="item-marked-no" name="item_marked_nonconforming"
+                                                value="no" class="hidden-radio" onclick="toggleRadio(this)">
                                             No
                                         </label>
                                     </div>
@@ -290,12 +292,12 @@
                                 <button type="button" id="next-btn2" tabindex="22">Next</button>
                             </div>
                         </fieldset>
-                    
+
 
 
                         <!-- Confirmation section -->
                         <fieldset class="form-section confirmation">
-                            
+
                             <div class="col-confirm">
                                 <div class="confirm-create-qa">
                                     <p>QA Name: <span id="confirm-qa-name"></span></p>

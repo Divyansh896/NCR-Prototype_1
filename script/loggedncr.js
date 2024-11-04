@@ -99,6 +99,22 @@ if (user.role === 'Lead Engineer') {
         }
     })
 
+    //chekboxes and radio buttons formatted as buttons for design purposes
+    function toggleCheck(checkbox) {
+        checkbox.parentElement.classList.toggle('checked', checkbox.checked);
+    }
+
+    function toggleRadio(radio) {
+        // Remove 'checked' class from all radio button labels
+        const buttons = document.querySelectorAll('.radio-button');
+        buttons.forEach(button => button.classList.remove('checked'));
+  
+        // Add 'checked' class only to the selected radio button's label
+        if (radio.checked) {
+          radio.parentElement.classList.add('checked');
+        }
+      }
+      
     nextBtn2.addEventListener("click", () => {
         if (true) {
             sections[currentStep].classList.remove("active")

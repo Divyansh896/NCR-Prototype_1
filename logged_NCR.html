@@ -114,245 +114,258 @@
             </div>
         </div>
 
+        <fieldset class="createncrmainfield">
+            <div class="main-container-create">
+                <!-- Status Bar -->
 
-        <div class="main-container-create">
-            <!-- Status Bar -->
-            <div class="status-bar">
-                <h1>Logged NCR</h1>
-                <ul class="status-steps">
-                    
-                    <li class="status-step active">
-                        <span class="step-icon"></span>
-                        Details and Revision Information
-                    </li>
-                    <li class="status-step">
-                        <span class="step-icon"></span>
-                        Disposition and Options
-                    </li>
+                <div class="status-bar">
+                    <h1>Logged NCR</h1>
+                    <ul class="status-steps">
 
-                    <li class="status-step">
-                        <span class="step-icon"></span>
-                        Confirmation
-                    </li>
-                </ul>
-            </div>
+                        <li class="status-step active">
+                            <span class="step-icon"></span>
+                            Details and Revision Information
+                        </li>
+                        <li class="status-step">
+                            <span class="step-icon"></span>
+                            Disposition and Options
+                        </li>
 
-            <div class="form-container">
+                        <li class="status-step">
+                            <span class="step-icon"></span>
+                            Confirmation
+                        </li>
+                    </ul>
+                </div>
 
-                <!-- QA Rep Dropdown -->
-                <details id="qa-section">
-                    <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep</summary>
-                    <div class="two-cols">
-                        <!-- First Column -->
-                        <div class="form-row">
+                <div class="form-container">
+
+                    <!-- QA Rep Dropdown -->
+                    <details id="qa-section">
+                        <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep
+                        </summary>
+                        <div class="two-cols">
+                            <!-- First Column -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>QA Name:<span id="qa-name-d">[QA Name]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>NCR No:<span id="ncr-no-d">[NCR No]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Sales Order No:<span id="sales-order-no-d">[Sales Order No]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity Received:<span id="quantity-received-d">[Quantity
+                                            Received]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity Defective:<span id="quantity-defective-d">[Quantity
+                                            Defective]</span></label>
+
+                                </div>
+                            </div>
+                            <!-- Second Column -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>QA Date:<span id="qa-date-d">[QA Date]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Supplier Name:<span id="supplier-name-d">[Supplier Name]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Product No:<span id="product-no-d">[Product No]</span></label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Identify Process Applicable:<span id="process-d">[Process]</span></label>
+
+                                </div>
+                            </div>
+                            <!-- Textarea Section -->
                             <div class="form-group">
-                                <label>QA Name:<span id="qa-name-d">[QA Name]</span></label>
-                                
+                                <label>Description of Item (Including SAP No.)</label>
+                                <span id="description-item-d">[Description of Item]</span>
                             </div>
                             <div class="form-group">
-                                <label>NCR No:<span id="ncr-no-d">[NCR No]</span></label>
-                                
+                                <label>Description of Defect</label>
+                                <span id="description-defect-d">[Description of Defect]</span>
                             </div>
+                            <!-- Radio Buttons for Non-Conforming -->
                             <div class="form-group">
-                                <label>Sales Order No:<span id="sales-order-no-d">[Sales Order No]</span></label>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label>Quantity Received:<span id="quantity-received-d">[Quantity Received]</span></label>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label>Quantity Defective:<span id="quantity-defective-d">[Quantity Defective]</span></label>
-                                
+                                <label>Item Marked Non-Conforming?:<span
+                                        id="item-marked-nonconforming-d">[Yes/No]</span></label>
+
                             </div>
                         </div>
-                        <!-- Second Column -->
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>QA Date:<span id="qa-date-d">[QA Date]</span></label>
-                                
+                    </details>
+
+                    <details id="eng-section">
+                        <summary class="custom-summary" aria-label="Engineering department details">Engineering
+                        </summary>
+                        <!-- Engineering fields can be added here in the future -->
+                        <div>Engineering fields can be added here in the future</div>
+                    </details>
+
+
+
+                    <form id="ncr-form" aria-labelledby="form-title">
+                        <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
+                            <label for="disposition_details">Disposition Details:</label>
+                            <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
+                                placeholder="Disposition details"></textarea>
+
+
+                            <label class="checkbox-button">
+                                <input type="checkbox" id="drawing_update_required"
+                                    aria-label="Drawing Update Required" onclick="toggleCheck(this)">
+                                Drawing Update Required
+                            </label>
+                            <div class="qa-info-section">
+                                <div>
+                                    <label for="original_rev_number">Original Revision Number:</label>
+                                    <input type="text" id="original_rev_number" aria-label="Original Revision Number"
+                                        placeholder="Original Revision Number">
+
+                                    <label for="updated_rev_number">Updated Revision Number:</label>
+                                    <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
+                                        placeholder="Updated Revision Number">
+                                </div>
+                                <!--<legend id="step2-legend">Engineering Review</legend>!-->
+                                <div>
+                                    <label for="revision_date">Revision Date:</label>
+                                    <input type="date" id="revision_date" aria-label="Revision Date">
+
+                                    <label for="engineering_review_date">Engineering Review Date:</label>
+                                    <input type="date" id="engineering_review_date"
+                                        aria-label="Engineering Review Date">
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <label>Supplier Name:<span id="supplier-name-d">[Supplier Name]</span></label>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label>Product No:<span id="product-no-d">[Product No]</span></label>
-                                
-                            </div>
-                            <div class="form-group">
-                                <label>Identify Process Applicable:<span id="process-d">[Process]</span></label>
-                                
-                            </div>
-                        </div>
-                        <!-- Textarea Section -->
-                        <div class="form-group">
-                            <label>Description of Item (Including SAP No.)</label>
-                            <span id="description-item-d">[Description of Item]</span>
-                        </div>
-                        <div class="form-group">
-                            <label>Description of Defect</label>
-                            <span id="description-defect-d">[Description of Defect]</span>
-                        </div>
-                        <!-- Radio Buttons for Non-Conforming -->
-                        <div class="form-group">
-                            <label>Item Marked Non-Conforming?:<span id="item-marked-nonconforming-d">[Yes/No]</span></label>
                             
-                        </div>
-                    </div>
-                </details>
-
-                <details id="eng-section">
-                    <summary class="custom-summary" aria-label="Engineering department details">Engineering</summary>
-                    <!-- Engineering fields can be added here in the future -->
-                    <div>Engineering fields can be added here in the future</div>
-                </details>
-
-               
-
-                <form id="ncr-form" aria-labelledby="form-title">
-                    <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                        <legend id="step1-legend">Details and Revision Information</legend>
-
-                        <label for="disposition_details">Disposition Details:</label>
-                        <textarea id="disposition_details" rows="3"
-                            aria-describedby="disposition-details-desc" placeholder="Disposition details"></textarea>
-                        
-
-                        <label>
-                            <input type="checkbox" id="drawing_update_required" aria-label="Drawing Update Required">
-                            Drawing Update Required
-                        </label>
-
-                        <label for="original_rev_number">Original Revision Number:</label>
-                        <input type="text" id="original_rev_number" aria-label="Original Revision Number" placeholder="Original Revision Number">
-
-                        <label for="updated_rev_number">Updated Revision Number:</label>
-                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number" placeholder="Updated Revision Number">
-
-                        <legend id="step2-legend">Engineering Review</legend>
-
-                        <label for="engineer_name">Engineer Name:</label>
-                        <input type="text" id="engineer_name" value="Davis Henry" aria-label="Engineer Name" placeholder="Engineer Name">
-
-                        <label for="revision_date">Revision Date:</label>
-                        <input type="date" id="revision_date" aria-label="Revision Date">
-
-                        <label for="engineering_review_date">Engineering Review Date:</label>
-                        <input type="date" id="engineering_review_date" aria-label="Engineering Review Date">
-
-                        <label>
-                            <input type="checkbox" id="resolved" aria-label="Resolved status">
-                            Resolved
-                        </label>
-
-                        
-                        <div class="btn-eng-create">
-                            <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
-                                tabindex="15">Clear</button>
-                            <button type="button" id="next-btn1" aria-label="Move to next step"
-                                tabindex="16">Next</button>
-                        </div>
-                    </fieldset>
-
-                    <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
-                        <legend id="step3-legend">Disposition and Options</legend>
-
-                        <label for="disposition">Disposition:</label>
-                        <input type="text" id="disposition" aria-label="Disposition" placeholder="Disposition">
-
-                        <fieldset role="group" aria-labelledby="disposition-options">
-                            <legend id="disposition-options">Disposition Options</legend>
-
-                            <label>
-                                <input type="checkbox" id="use_as_is" checked aria-label="Use as is option">
-                                Use as is
+                            <label class="checkbox-button">
+                                <input type="checkbox" id="resolved" aria-label="Resolved status " onclick="toggleCheck(this)">
+                                Resolved
                             </label>
-                            <label>
-                                <input type="checkbox" id="repair" aria-label="Repair option">
-                                Repair
-                            </label>
-                            <label>
-                                <input type="checkbox" id="rework" aria-label="Rework option">
-                                Rework
-                            </label>
-                            <label>
-                                <input type="checkbox" id="scrap" aria-label="Scrap option">
-                                Scrap
-                            </label>
+
+
+                            <div class="btn-eng-create">
+                                <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
+                                    tabindex="15">Clear</button>
+                                <button type="button" id="next-btn1" aria-label="Move to next step"
+                                    tabindex="16">Next</button>
+                            </div>
                         </fieldset>
 
-                        <label for="customer_notification_required">
-                            <input type="checkbox" id="customer_notification_required"
-                                aria-label="Customer Notification Required">
-                            Customer Notification Required
-                        </label>
-                        <div class="btn-eng-create">
-                            <button type="button" id="back-btn1" tabindex="21">Back</button>
-                            <button type="button" id="clear-btn2" tabindex="22">Clear</button>
-                            <button type="button" id="next-btn2" tabindex="22">Next</button>
-                        </div>
-                    </fieldset>
 
-                    <!-- Disposition and Options Confirmation Section -->
-                    <fieldset class="form-section confirmation" role="group" aria-labelledby="confirmation-legend"
-                        class="form-section confirmation">
-                        <legend id="confirmation-legend">Confirmation</legend>
+                        <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
 
-                        <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
+                            <label for="disposition">Disposition:</label>
+                            <input type="text" id="disposition" aria-label="Disposition" placeholder="Disposition">
 
-                            <div class="confirm-create-qa" aria-labelledby="step1-legend">
-                                <h3 id="step1-legend">Disposition and Options</h3>
-                                <p>Disposition: <span id="confirm-disposition" aria-live="polite">Use as is</span></p>
+                            <fieldset role="group" aria-labelledby="disposition-options">
+                                <legend id="disposition-options">Disposition Options</legend>
 
-                                <fieldset role="group" aria-labelledby="disposition-options">
-                                    <legend id="disposition-options">Disposition Options</legend>
-                                    <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
-                                    <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
-                                    <p>Rework: <span id="confirm-rework" aria-live="polite">No</span></p>
-                                    <p>Scrap: <span id="confirm-scrap" aria-live="polite">No</span></p>
-                                </fieldset>
+                                <label>
+                                    <input type="checkbox" id="use_as_is" checked aria-label="Use as is option">
+                                    Use as is
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="repair" aria-label="Repair option">
+                                    Repair
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="rework" aria-label="Rework option">
+                                    Rework
+                                </label>
+                                <label>
+                                    <input type="checkbox" id="scrap" aria-label="Scrap option">
+                                    Scrap
+                                </label>
+                            </fieldset>
 
-                                <p>Customer Notification Required: <span id="confirm-customer-notification"
-                                        aria-live="polite">No</span></p>
+                            <label for="customer_notification_required">
+                                <input type="checkbox" id="customer_notification_required"
+                                    aria-label="Customer Notification Required">
+                                Customer Notification Required
+                            </label>
+                            <div class="btn-eng-create">
+                                <button type="button" id="back-btn1" tabindex="21">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="22">Clear</button>
+                                <button type="button" id="next-btn2" tabindex="22">Next</button>
                             </div>
+                        </fieldset>
 
-                            <!-- Details and Revision Information Confirmation Section -->
-                            <div class="confirm-create-qa" aria-labelledby="step2-legend">
-                                <h3 id="step2-legend">Details and Revision Information</h3>
-                                <p>Disposition Details: <span id="confirm-disposition-details" aria-live="polite">Minor
-                                        scratches do not affect functionality.</span></p>
-                                <p>Drawing Update Required: <span id="confirm-drawing-update"
-                                        aria-live="polite">No</span></p>
-                                <p>Original Revision Number: <span id="confirm-original-rev-number"
-                                        aria-live="polite">Rev-001</span></p>
-                                <p>Updated Revision Number: <span id="confirm-updated-rev-number"
-                                        aria-live="polite">Rev-001</span></p>
+                        <!-- Disposition and Options Confirmation Section -->
+                        <fieldset class="form-section confirmation" role="group" aria-labelledby="confirmation-legend"
+                            class="form-section confirmation">
+                            <legend id="confirmation-legend">Confirmation</legend>
+
+                            <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
+
+                                <div class="confirm-create-qa" aria-labelledby="step1-legend">
+                                    <h3 id="step1-legend">Disposition and Options</h3>
+                                    <p>Disposition: <span id="confirm-disposition" aria-live="polite">Use as is</span>
+                                    </p>
+
+                                    <fieldset role="group" aria-labelledby="disposition-options">
+                                        <legend id="disposition-options">Disposition Options</legend>
+                                        <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
+                                        <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
+                                        <p>Rework: <span id="confirm-rework" aria-live="polite">No</span></p>
+                                        <p>Scrap: <span id="confirm-scrap" aria-live="polite">No</span></p>
+                                    </fieldset>
+
+                                    <p>Customer Notification Required: <span id="confirm-customer-notification"
+                                            aria-live="polite">No</span></p>
+                                </div>
+
+                                <!-- Details and Revision Information Confirmation Section -->
+                                <div class="confirm-create-qa" aria-labelledby="step2-legend">
+                                    <h3 id="step2-legend">Details and Revision Information</h3>
+                                    <p>Disposition Details: <span id="confirm-disposition-details"
+                                            aria-live="polite">Minor
+                                            scratches do not affect functionality.</span></p>
+                                    <p>Drawing Update Required: <span id="confirm-drawing-update"
+                                            aria-live="polite">No</span></p>
+                                    <p>Original Revision Number: <span id="confirm-original-rev-number"
+                                            aria-live="polite">Rev-001</span></p>
+                                    <p>Updated Revision Number: <span id="confirm-updated-rev-number"
+                                            aria-live="polite">Rev-001</span>
+                                    </p>
+                                </div>
+
+                                <!-- Engineering Review Confirmation Section -->
+                                <div class="confirm-create-qa" aria-labelledby="step3-legend">
+                                    <h3 id="step3-legend">Engineering Review</h3>
+                                    <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite">Davis
+                                            Henry</span>
+                                    </p>
+                                    <p>Revision Date: <span id="confirm-revision-date"
+                                            aria-live="polite">2024-09-12</span>
+                                    </p>
+                                    <p>Engineering Review Date: <span id="confirm-engineering-review-date"
+                                            aria-live="polite">2024-09-12</span></p>
+                                    <p>Resolved: <span id="confirm-resolved" aria-live="polite">Yes</span></p>
+                                </div>
                             </div>
-
-                            <!-- Engineering Review Confirmation Section -->
-                            <div class="confirm-create-qa" aria-labelledby="step3-legend">
-                                <h3 id="step3-legend">Engineering Review</h3>
-                                <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite">Davis Henry</span>
-                                </p>
-                                <p>Revision Date: <span id="confirm-revision-date" aria-live="polite">2024-09-12</span>
-                                </p>
-                                <p>Engineering Review Date: <span id="confirm-engineering-review-date"
-                                        aria-live="polite">2024-09-12</span></p>
-                                <p>Resolved: <span id="confirm-resolved" aria-live="polite">Yes</span></p>
+                            <div class="btn-rng-create">
+                                <button type="button" id="back-btn2" aria-label="Move to previous step"
+                                    tabindex="21">Back</button>
+                                <button type="submit" id="submit-btn" aria-label="Submit the form"
+                                    tabindex="25">Submit</button>
                             </div>
-                        </div>
-                        <div class="btn-rng-create">
-                            <button type="button" id="back-btn2" aria-label="Move to previous step"
-                                tabindex="21">Back</button>
-                            <button type="submit" id="submit-btn" aria-label="Submit the form"
-                                tabindex="25">Submit</button>
-                        </div>
-                    </fieldset>
+                        </fieldset>
 
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
 
     </main>
 
