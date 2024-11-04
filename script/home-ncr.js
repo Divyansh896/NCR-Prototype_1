@@ -6,6 +6,11 @@ const btnRecent = document.getElementById('btn-recent');
 const btnPinned = document.getElementById('btn-pinned');
 const recentContainer = document.getElementById('recentReportsContainer');
 const pinnedContainer = document.getElementById('pinnedReportsContainer');
+// Get the modal
+const modal = document.getElementById("popup");
+
+// Get the <span> element that closes the modal
+const span = document.getElementById("closePopup");
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
@@ -39,8 +44,8 @@ if (user && user.role) {
         if (ncrLink) { // Ensure ncrLink exists
             if (user.role === "Lead Engineer" || user.role === "Purchasing") {
                 // Change to "Logged NCR" for lead engineers and purchasing roles
-                ncrLink.href = `logged_NCR.html`
-                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Logged NCR'
+                ncrLink.href = `current_NCR.html`
+                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Current NCR'
                 ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
             }
         } else {
@@ -73,8 +78,8 @@ function initializeButtons() {
             window.location.href = `create_NCR.html?ncr_no=${generateNextNcrNumber(ncr)}`;
         });
     } else {
-        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open Logged NCR';
-        header.innerHTML = 'Open NCR';
+        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open current NCR';
+        header.innerHTML = 'Open current NCR';
         p.innerHTML = 'Open Recent Non-Conformance Reports';
         btnCreate.addEventListener('click', () => {
             const queryString = createQueryString(ncr[0]);
@@ -194,6 +199,7 @@ function getReportStage(ncr) {
     if (!ncr.purchasing_decision.resolved) return 'Purchasing';
     return '';
 }
+
 function displayRecentReports(data) {
     const container = recentContainer;
     container.innerHTML = ''; // Clear previous content
@@ -202,14 +208,20 @@ function displayRecentReports(data) {
     const lastFiveReports = data.slice(-5);
 
     lastFiveReports.forEach(ncr => {
+        // Create the main container for each report card
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
-        // Create HTML content for each piece of information
-        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
-        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
-        const ncrNumber = `<span class="report-number">NCR No: ${ncr.ncr_no || 'N/A'}</span>`;
-        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
+        // Create elements for each piece of information
+        const supplierName = document.createElement('span');
+        supplierName.classList.add('supplier-name');
+        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier';
+
+        const reportinfo = document.createElement('span');
+        reportinfo.classList.add('reportInfo')
+        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
+
+
 
         // Create the pin icon
         const pinIcon = document.createElement('span');
@@ -227,31 +239,39 @@ function displayRecentReports(data) {
             const isAlreadyPinned = pinnedReports.some(report => report.ncr_no === ncr.ncr_no);
 
             if (!isAlreadyPinned) {
-                // Add the report to the pinned reports array
-                pinnedReports.push((ncr)); // Adjust this function as needed
+                pinnedReports.push(ncr); // Add the report to the pinned reports array
                 sessionStorage.setItem('pinnedReports', JSON.stringify(pinnedReports));
-                alert('Report pinned!'); // Optional: alert to confirm the pin action
+                showPopup(
+                    'Report Pinned!',
+                    `NCR Report No. <strong>${ncr.ncr_no}</strong> has been successfully added to your pinned reports for quick access!`,
+                    'images/pin.png'
+                );
             } else {
-                alert('This report is already pinned.'); // Optional: alert if already pinned
+                showPopup(
+                    'Already Pinned!',
+                    `NCR Report No. <strong>${ncr.ncr_no}</strong> is already in your pinned reports.`,
+                    'images/pin.png'
+                );
             }
         });
 
-        // Combine all elements into the report card
-        reportCard.innerHTML = `
-            ${supplierName}  ${reportDate}  ${ncrNumber}  ${itemDescription}
-        `;
-        reportCard.appendChild(pinIcon); // Append the pin icon to the report card
-
-        // Add a click event for the entire report card (if needed)
+        // Add a click event for the entire report card to navigate
         reportCard.addEventListener("click", () => {
             const data = extractData(ncr);
             sessionStorage.setItem('data', JSON.stringify(data));
-            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+            window.location.href = 'NC_Report.html';
         });
+
+        // Append all elements to the report card
+        reportCard.appendChild(supplierName);
+        reportCard.appendChild(reportinfo);
+
+        reportCard.appendChild(pinIcon); // Add the pin icon at the end
 
         container.appendChild(reportCard);
     });
 }
+
 function displayPinnedReports() {
     const container = pinnedContainer; // Use the existing pinnedReportsContainer
     container.innerHTML = ''; // Clear previous content
@@ -265,19 +285,20 @@ function displayPinnedReports() {
     }
 
     pinnedReports.forEach(ncr => {
-        // Assuming ncr is an individual object representing a report
-        const supplierName = `<span class="supplier-name">${ncr.qa?.supplier_name || 'Unknown Supplier'}</span>`;
-        const reportDate = `<span class="report-date">${ncr.qa?.date || 'No Date Available'}</span>`;
-        const ncrNumber = ncr.ncr_no || 'N/A'; // Store the NCR number for unpinning
-        const itemDescription = `<span class="report-description">${ncr.qa?.item_description?.substring(0, 50) || 'No Description Available'}...</span>`;
-
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
+        // Assuming ncr is an individual object representing a report
+        const supplierName = document.createElement('span');
+        supplierName.classList.add('supplier-name');
+        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier';
+
+        const reportinfo = document.createElement('span');
+        reportinfo.classList.add('reportInfo')
+        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
+
+
         // Create HTML content for each piece of information
-        reportCard.innerHTML = `
-            ${supplierName}  ${reportDate}  <span class="report-number">NCR No: ${ncrNumber}</span>  ${itemDescription}
-        `;
 
         // Create the unpin icon
         const unpinIcon = document.createElement('span');
@@ -289,7 +310,7 @@ function displayPinnedReports() {
             e.stopPropagation(); // Prevent triggering the report card's click event
 
             // Remove the report from the pinned reports array
-            const updatedPinnedReports = pinnedReports.filter(report => report.ncr_no !== ncrNumber);
+            const updatedPinnedReports = pinnedReports.filter(report => report.ncr_no !== ncr.ncr_no);
             sessionStorage.setItem('pinnedReports', JSON.stringify(updatedPinnedReports));
 
             // Re-display pinned reports
@@ -303,6 +324,9 @@ function displayPinnedReports() {
         });
 
         // Append the unpin icon to the report card
+        reportCard.appendChild(supplierName);
+        reportCard.appendChild(reportinfo);
+
         reportCard.appendChild(unpinIcon);
         container.appendChild(reportCard);
     });
@@ -440,7 +464,7 @@ function initializeDateLineChart(ncrData) {
     // Process each report in the data
     ncrData.forEach(report => {
         const reportDate = report.qa.date; // Assuming the date is in `qa.date`
-        
+
         // Increment count for each report date
         if (reportCountsByDate[reportDate]) {
             reportCountsByDate[reportDate]++;
@@ -502,3 +526,45 @@ function initializeDateLineChart(ncrData) {
     });
 }
 
+
+
+// Show the modal with a title, message, and icon
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.querySelector('h2').innerText = title; // Set the title
+    modalContent.querySelector('p').innerHTML = message; // Set the message as HTML
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = icon; // Replace with your image URL
+    iconDiv.appendChild(imgElement);
+
+    modal.style.display = "block"; // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
+    }, 10); // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after transition
+            callback(); // Execute the callback after closing the modal
+        }, 500); // Wait for the transition to finish before hiding
+    };
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal;
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}

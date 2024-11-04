@@ -12,101 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        /* Report Card Styles */
-        .report-card {
-            display: flex;
-            align-items: center;
-            gap: 1em;
-            padding: 0.5em;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            font-size: 0.9em;
-            color: #333;
-            transition: all 0.2s ease;
-            margin-bottom: 3px;
-        }
-
-        .report-card:hover {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #e2dfdf;
-
-            /* Subtle shadow on hover */
-        }
-
-        .report-card .supplier-name {
-            font-weight: bold;
-        }
-
-        .report-card .report-date,
-        .report-card .report-number,
-        .report-card .report-description {
-            color: #666;
-        }
-
-
-        .report-card .pinIcon {
-            visibility: hidden;
-            /* Hide the pin icon initially */
-        }
-
-        .report-card:hover .pinIcon {
-            visibility: visible;
-            /* Show the pin icon on hover */
-        }
-
-
-
-
-        /* Tab Navigation */
-        .tab-navigation {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .tab-button {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            background-color: #ddd;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        .tab-button.active {
-            background-color: #333;
-            color: white;
-        }
-
-        /* Hide tab panels by default */
-        .tab-panel {
-            display: none;
-        }
-
-        /* Show the active tab panel */
-        .tab-panel.active {
-            display: flex;
-            /* Use flexbox for alignment, can change based on your needs */
-            flex-direction: column;
-            /* Stack content vertically */
-        }
-
-        #itemBarChart {
-            width: 100%;
-            /* Full width of the container */
-            height: 150px;
-            /* Small height */
-            background-color: #f5f5f5;
-            /* Light gray background for better visibility */
-            border: 2px solid #4a90e2;
-            /* Blue border for a defined outline */
-            border-radius: 8px;
-            /* Rounded corners */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            /* Light shadow effect */
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -127,26 +33,22 @@
                 </li>
 
                 <li>
-                    <a href="create_NCR.html" class="linksNav" tabindex="4"
+                    <a href="create_NCR.html" class="linksNav" tabindex="2"
                         aria-label="Create a new Non-Conformance Report">
                         <i class="fa fa-fw fa-pencil"></i> Create NCR
                     </a>
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="5"
+                    <a href="view.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
                         <i class="fa fa-fw fa-search"></i> View NCR
                     </a>
                 </li>
 
+                
                 <li>
-                    <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
-                        <i class="fa fa-fw fa-user-circle"></i> Account
-                    </a>
-                </li>
-                <li>
-                    <button type="button" class="icon-badge" onclick="toggleNotifications()">
+                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -159,7 +61,8 @@
                     </div>
                 </li>
                 <li>
-                    <button type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
                     <div id="settings-box" class="settings-box">
@@ -199,13 +102,26 @@
     <h1>Dashboard</h1>
     <!-- Main Section -->
     <main aria-label="Main Content">
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
         <div class="main-container">
 
             <!-- Section 1: Create NCR -->
             <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
                 <div>
                     <h2 id="create-ncr-header">Create NCR</h2>
-                    <p id="create-ncr-p">Create new Non-Conformance Reports for your system.</p>
+                    <p id="create-ncr-p">Generate a new report to track issues and ensure system quality</p>
                     <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
                             class="fa fa-fw fa-pencil"></i> Create NCR</button>
                     <!-- Set tabindex to sequential order -->
@@ -216,7 +132,7 @@
             <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
                 <div>
                     <h2 id="view-ncr-header">View NCR</h2>
-                    <p>Access and review existing NCRs in your system.</p>
+                    <p>Browse and review reports to gain insights and drive quality.</p>
                     <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
                             class="fa fa-fw fa-search"></i>
                         View NCR</button>
@@ -228,7 +144,7 @@
             <section class="featuresManageAcc" aria-labelledby="manage-account-header">
                 <div>
                     <h2 id="manage-account-header">Manage Account</h2>
-                    <p>Update account settings and user preferences.</p>
+                    <p>Update your profile, settings, and account preferences easily.</p>
                     <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
                             class="fa fa-fw fa-user-circle"></i> Manage Account</button>
                     <!-- Set tabindex to sequential order -->
@@ -261,10 +177,13 @@
             </section>
         </div>
         <div class="main-container">
-            <section>
+            <section id="graphs">
+                <h2>NCR Reports Trend Over Time</h2>
                 <canvas id="dateLineChart"></canvas>
+                <h2>Item Occurrence in NCR Reports</h2>
                 <canvas id="itemBarChart"></canvas>
             </section>
+
         </div>
     </main>
 

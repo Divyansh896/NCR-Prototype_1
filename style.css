@@ -88,7 +88,7 @@ button:hover {
 }
 
 h1 {
-    padding: 20px 0px;
+    padding: 0 0 8px;
     text-align: center;
     color: #1a3153;
     font-size: 1.5rem;
@@ -139,6 +139,7 @@ nav ul {
     text-align: center;
     height: auto;
     z-index: 999;
+    overflow: visible;
 }
 
 
@@ -352,6 +353,129 @@ nav ul a {
     height: 35px;
 }
 
+#recentReportsContainer,
+#pinnedReportsContainer {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+    text-align: left;
+}
+
+#recent-reports h2,
+#pinned-reports h2 {
+    margin: 10px 0 15px 0;
+}
+
+.tab-content {
+    text-align: left;
+}
+
+.report-card {
+    display: flex;
+    gap: 1em;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    font-size: 0.9em;
+    color: #333;
+    transition: all 0.2s ease;
+    margin-bottom: 3px;
+    justify-content: left;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.reportInfo {
+    width: 100%;
+}
+
+.report-card:hover {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #e2dfdf;
+}
+
+.report-card .supplier-name {
+    font-weight: bold;
+}
+
+.report-card .report-date,
+.report-card .report-number,
+.report-card .report-description {
+    color: #666;
+}
+
+.report-card .pinIcon {
+    visibility: visible;
+}
+
+.report-card:hover .pinIcon {
+    visibility: visible;
+}
+
+.supplier-name {
+    justify-content: left;
+    width: 150px;
+}
+
+/* Tab Navigation */
+.tab-navigation {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.tab-button {
+    cursor: pointer;
+    border: none;
+    background-color: #ddd;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-right: 12px;
+    font-size: 14px;
+    padding: 8px 16px;
+}
+
+.tab-button.active {
+    background-color: #333;
+    color: white;
+}
+
+/* Hide tab panels by default */
+.tab-panel {
+    display: none;
+}
+
+/* Show the active tab panel */
+.tab-panel.active {
+    display: flex;
+    /* Use flexbox for alignment */
+    flex-direction: column;
+    /* Stack content vertically */
+}
+
+#itemBarChart {
+    width: 100%;
+    /* Full width of the container */
+    height: 150px;
+    /* Small height */
+    background-color: #f5f5f5;
+    /* Light gray background for better visibility */
+    border: 2px solid #4a90e2;
+    /* Blue border for a defined outline */
+    border-radius: 8px;
+    /* Rounded corners */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    /* Light shadow effect */
+}
+
+#graphs {
+    text-align: left;
+}
+
+#graphs h2 {
+    margin: 25px 0;
+}
+
+
 /* Create page */
 /* Status Bar */
 .main-container-create {
@@ -476,19 +600,26 @@ fieldset legend {
     width: 95%;
 }
 
-.form-section.active button:hover{
+.form-section.active button:hover {
     background-color: #10223d;
 }
 
-#clear-btn1, #clear-btn2, #back-btn1, #back-btn2{
+#clear-btn1,
+#clear-btn2,
+#back-btn1,
+#back-btn2 {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
 }
 
-#clear-btn1:hover, #clear-btn2:hover, #back-btn1:hover, #back-btn2:hover{
+#clear-btn1:hover,
+#clear-btn2:hover,
+#back-btn1:hover,
+#back-btn2:hover {
     background-color: #e0e0e0;
 }
+
 .form-section p {
     font-weight: bold;
     margin: 0;
@@ -643,7 +774,8 @@ fieldset legend {
 }
 
 /* Chekboxes and radio btns*/
-.checkbox-button, .radio-button {
+.checkbox-button,
+.radio-button {
     display: inline-block;
     border-radius: 5px;
     padding: 10px 10px;
@@ -655,30 +787,35 @@ fieldset legend {
     border-radius: 20px;
   }
 
-  .checkbox-button input[type="checkbox"], .radio-button input[type = "radio"] {
+.checkbox-button input[type="checkbox"],
+.radio-button input[type="radio"] {
     display: none;
-  }
+}
 
-  .checkbox-button.checked, .radio-button.checked{
+.checkbox-button.checked,
+.radio-button.checked {
     background-color: #4c6488;
     color: white;
-  }
+}
 
-  label.checkbox-button, label.radio-button{
+label.checkbox-button,
+label.radio-button {
     margin: 0px;
     font-size: 1rem;
-  }
-  .chkboxes-create-ncr, .rad-create-ncr{
+}
+
+.chkboxes-create-ncr,
+.rad-create-ncr {
     display: flex;
     justify-content: space-around;
     background-color: #eeeeee;
     border-radius: 5px;
     padding: 10px 0px;
-  }
+}
 
-  .rad-create-ncr{
+.rad-create-ncr {
     width: 200px;
-  }
+}
 
 /*create ncr for engineers*/
 
@@ -817,6 +954,7 @@ input[type="radio"] {
     border-collapse: collapse;
     text-align: left;
     font-family: Arial, sans-serif;
+    font-size: 0.85em;
 }
 
 .ncr-table thead th {
@@ -854,12 +992,24 @@ input[type="radio"] {
 .ncr-table thead th:nth-child(1),
 .ncr-table thead th:nth-child(2),
 .ncr-table thead th:nth-child(5),
+.ncr-table thead th:nth-child(6),
 .ncr-table tbody td:nth-child(1),
 .ncr-table tbody td:nth-child(2),
-.ncr-table tbody td:nth-child(5) {
+.ncr-table tbody td:nth-child(5),
+.ncr-table tbody td:nth-child(6) {
     display: table-cell;
 }
 
+.ncr-table tbody td:nth-child(1) {
+    font-weight: bold;
+}
+
+/* .view-btn, .edit-btn{
+    background-color: #007bff;
+    border-radius: 15px;
+    height: 30px;
+    width: auto;
+} */
 /* Manage account */
 .account {
     border-radius: 10px 10px 0 0;
@@ -1126,51 +1276,59 @@ input[type="radio"] {
 }
 
 td button {
-    background: none;
-    border: none;
+    /* background: #007bff; */
+    border: 1px solid #007bff;
+    border-radius: 25px;
     color: #007bff;
-    /* Link-like color */
     text-decoration: none;
     cursor: pointer;
-    font-size: 1rem;
-    padding: 0;
-    margin-right: 10px;
-    /* Space between buttons */
-    display: inline-block;
+    font-size: 0.95em;
+    padding: 5px 15px;
+    margin-right: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
     transition: all 0.3s ease;
-    /* Reduced transition time for responsiveness */
+    width: 85%;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+td button i {
+    margin-right: 5px;
 }
 
 td button:hover {
-    background: none;
-    /* Explicitly set background to none */
-    color: #0056b3;
-    /* Slightly darker color on hover */
-    text-decoration: underline;
+    background: #0057b3bf;
+    color: white;
+    text-decoration: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 td button:focus {
-    outline: none;
-    /* Remove focus outline */
+    outline: 2px solid black;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
 }
+
 
 .icon-badge {
     position: relative;
-    background-color: #333333f4;
-    color: white;
+    background: none;
+    color: #333;
     border: none;
-    border-radius: 50%;
     padding: 10px;
-    width: 40px;
+    width: auto;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .icon-badge .fa {
     font-size: 18px;
+    display: none;
 }
 
 .icon-badge:hover {
@@ -1188,24 +1346,32 @@ td button:focus {
     font-size: 12px;
     font-weight: bold;
 }
-.notification-box, .settings-box{
+
+.notification-box,
+.settings-box {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 100%;
     right: 0;
-    width: 200px;
+    width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    /* padding: 10px 0; */
+    padding: 10px 0;
     z-index: 1000;
+}
+
+.settings-box a {
+    color: #333;
 }
 
 .notification-box ul,
 .settings-box ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-left: 15px;
+    box-shadow: 0 4px 8px black;
+
 }
 
 .notification-box ul li,
@@ -1289,6 +1455,19 @@ td button:focus {
     .featuresViewNCR p,
     .featuresManageAcc p {
         font-size: 1rem;
+    }
+
+    .report-card {
+        flex-direction: row;
+    }
+
+    .reportInfo {
+        width: 70%;
+    }
+
+    .tab-button {
+        font-size: 15px;
+        padding: 9px 18px;
     }
 
     /* create ncr*/
@@ -1428,6 +1607,7 @@ td button:focus {
 
     nav {
         margin-left: auto;
+        padding-right: 0;
         /* Push nav to the right */
     }
 
@@ -1439,7 +1619,9 @@ td button:focus {
         padding: 0;
         margin: 0;
         position: relative;
-    }
+        overflow-y: visible;
+        overflow-x: visible;
+        }
 
     nav li {
         display: inline-block;
@@ -1455,12 +1637,37 @@ td button:focus {
         color: #000;
     }
 
+    .icon-text {
+        display: none;
+    }
+
+    .icon-badge .fa {
+        display: block;
+    }
+
+    .icon-badge {
+        background-color: #333333f4;
+        border-radius: 50%;
+        color: white;
+        height: 40px;
+        width: 40px;
+    }
 
     nav a:hover {
         text-decoration: underline;
     }
 
+    .notification-box, .settings-box{
+        width: 180px;
+    }
+    .notification-box ul, .settings-box ul{
+        margin: 5px auto;
+        box-shadow: none;
 
+    }
+    .notification-box ul li, .settings-box ul li{
+        margin: 8px auto;
+    }
     /* contacat us */
     .fieldset-contact {
         padding: 0px 40px;
@@ -1626,7 +1833,7 @@ td button:focus {
         max-width: 1200px;
         margin: 0 auto;
         justify-content: space-between;
-        padding: 40px;
+        padding: 0 40px 40px;
     }
 
     .featuresCreateNCR,
@@ -1665,6 +1872,32 @@ td button:focus {
         font-size: 2rem;
     }
 
+    .reportInfo {
+        width: 55%;
+        /* Default width on larger screens */
+    }
+
+    .tab-button {
+        font-size: 16px;
+        /* Default font size on larger screens */
+        padding: 10px 20px;
+        /* Default padding */
+    }
+
+    .report-card .pinIcon {
+        visibility: hidden;
+    }
+
+    .report-card:hover .pinIcon {
+        visibility: visible;
+        /* Show pin icon on hover for laptops */
+    }
+
+    .report-card {
+        height: 40px;
+        align-items: center;
+    }
+
     /* view ncr */
 
     #search,
@@ -1683,7 +1916,7 @@ td button:focus {
     .featuresCreateNCR p,
     .featuresViewNCR p,
     .featuresManageAcc p {
-        font-size: 1.5rem;
+        font-size: 1.25em;
         margin: 25px 0 20px;
     }
 
@@ -1696,6 +1929,11 @@ td button:focus {
     .ncr-table th,
     .ncr-table td {
         font-size: 1.1rem;
+    }
+
+    td button {
+        display: inline-block;
+        width: auto;
     }
 
     /*create ncr*/
@@ -1737,8 +1975,7 @@ td button:focus {
         width: 62%;
     }
 
-    .form-section.active label {
-    }
+
 
     .main-container-create {
         flex-direction: row;
@@ -1783,7 +2020,7 @@ td button:focus {
         top: 20px;
         bottom: -20px;
         background-color: white;
-        
+
     }
 
     .step-icon {
@@ -1812,7 +2049,7 @@ td button:focus {
         background-color: #1a3153;
     }
 
-   
+
     .status-step.completed {
         color: #757575;
     }
