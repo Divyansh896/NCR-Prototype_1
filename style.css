@@ -651,6 +651,8 @@ fieldset legend {
     font-size: 16px;
     color: #4c6488;
     transition: background-color 0.3s, color 0.3s;
+    border: #4c6488, solid;
+    border-radius: 20px;
   }
 
   .checkbox-button input[type="checkbox"], .radio-button input[type = "radio"] {

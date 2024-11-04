@@ -152,24 +152,24 @@
                                     <input type="text" id="ncr-no-generated" name="ncr_no"
                                         placeholder="Auto-generated NCR No" readonly tabindex="7">
 
-                                    <label for="sales-order-no">Sales Order No:</label>
+                                    <label for="sales-order-no">Sales Order No (Required):</label>
                                     <input type="text" id="sales-order-no" name="sales_order_no"
                                         placeholder="Enter Sales Order No" tabindex="8">
                                     <span class="error-message" id="sales-order-no-error"></span>
 
-                                    <label for="quantity-received">Quantity Received:</label>
+                                    <label for="quantity-received">Quantity Received (Required):</label>
                                     <input class="input-number" type="number" id="quantity-received" min="0" value="0"
                                         name="quantity_received" placeholder="Enter Quantity Received" tabindex="9">
                                     <span class="error-message" id="quantity-received-error"></span>
 
-                                    <label for="quantity-defective">Quantity Defective:</label>
+                                    <label for="quantity-defective">Quantity Defective (Required):</label>
                                     <input class="input-number" type="number" id="quantity-defective" min="0" value="0"
                                         name="quantity_defective" placeholder="Enter Quantity Defective" tabindex="10">
                                     <span class="error-message" id="quantity-defective-error"></span>
                                 </div>
 
                                 <div>
-                                    <label for="supplier-name">Supplier Name:</label>
+                                    <label for="supplier-name">Supplier Name (Required):</label>
                                     <select name="supplier_name" id="supplier-name" required tabindex="11">
                                         <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
                                         <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
@@ -179,14 +179,14 @@
                                     </select>
                                     <span class="error-message" id="supplier-name-error"></span>
 
-                                    <label for="product-no">Product No:<span class="required">*</span></label>
+                                    <label for="product-no">Product No (Required):<span class="required">*</span></label>
                                     <input type="text" id="product-no" name="product_no" placeholder="Enter Product No"
                                         tabindex="12">
                                     <span class="error-message" id="product-no-error"></span>
 
                                     <!-- Checkbox-like buttons -->
-                                    <label>Identify Process Applicable:</label>
-                                    <span class="required checkbox-error">Item marked non-conforming required</span>
+                                    <label>Identify Process Applicable (Required):</label>
+                                    <span class="required checkbox-error">Item marked non-conforming required </span>
                                     <div class="chkboxes-create-ncr">
                                         <div>
                                             <label class="checkbox-button">
@@ -225,7 +225,7 @@
                                 <div class="two-rows">
                                     <div class="descr-container">
                                         <label for="description-item">Description of Item (including SAP
-                                            Number):</label>
+                                            Number) (Required):</label>
                                         <textarea id="description-item" name="description_item"
                                             placeholder="Enter item description, including SAP Number"
                                             aria-label="Enter item description, including SAP Number" spellcheck="true"
@@ -233,7 +233,7 @@
                                         <span class="error-message" id="description-item-error"></span>
                                     </div>
                                     <div class="descr-container">
-                                        <label for="description-defect">Description of Defect:</label>
+                                        <label for="description-defect">Description of Defect (Required):</label>
                                         <textarea id="description-defect" name="description_defect"
                                             placeholder="Describe the defect"
                                             aria-label="Describe the defect of the product" spellcheck="true"
@@ -243,7 +243,7 @@
                                 </div>
                                 <!-- Radio-like buttons -->
                                 <fieldset class="item-conforming">
-                                    <legend for="item-marked-nonconforming">Item Marked Non-Conforming?</legend>
+                                    <legend for="item-marked-nonconforming">Item Marked Non-Conforming? (Required)</legend>
                                     <span class="error-message" id="non-error"></span>
 
                                     <div class="rad-create-ncr">
