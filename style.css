@@ -139,6 +139,7 @@ nav ul {
     text-align: center;
     height: auto;
     z-index: 999;
+    overflow: visible;
 }
 
 
@@ -1307,21 +1308,22 @@ td button:focus {
 
 .icon-badge {
     position: relative;
-    background-color: #333333f4;
-    color: white;
+    background: none;
+    color: #333;
     border: none;
-    border-radius: 50%;
     padding: 10px;
-    width: 40px;
+    width: auto;
     height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    margin: 0 auto;
 }
 
 .icon-badge .fa {
     font-size: 18px;
+    display: none;
 }
 
 .icon-badge:hover {
@@ -1344,21 +1346,27 @@ td button:focus {
 .settings-box {
     display: none;
     position: absolute;
-    top: 60px;
+    top: 100%;
     right: 0;
-    width: 200px;
+    width: 100%;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
-    /* padding: 10px 0; */
+    padding: 10px 0;
     z-index: 1000;
+}
+
+.settings-box a {
+    color: #333;
 }
 
 .notification-box ul,
 .settings-box ul {
     list-style-type: none;
     padding: 0;
-    margin: 0;
+    margin-left: 15px;
+    box-shadow: 0 4px 8px black;
+
 }
 
 .notification-box ul li,
@@ -1594,6 +1602,7 @@ td button:focus {
 
     nav {
         margin-left: auto;
+        padding-right: 0;
         /* Push nav to the right */
     }
 
@@ -1605,7 +1614,9 @@ td button:focus {
         padding: 0;
         margin: 0;
         position: relative;
-    }
+        overflow-y: visible;
+        overflow-x: visible;
+        }
 
     nav li {
         display: inline-block;
@@ -1621,12 +1632,37 @@ td button:focus {
         color: #000;
     }
 
+    .icon-text {
+        display: none;
+    }
+
+    .icon-badge .fa {
+        display: block;
+    }
+
+    .icon-badge {
+        background-color: #333333f4;
+        border-radius: 50%;
+        color: white;
+        height: 40px;
+        width: 40px;
+    }
 
     nav a:hover {
         text-decoration: underline;
     }
 
+    .notification-box, .settings-box{
+        width: 180px;
+    }
+    .notification-box ul, .settings-box ul{
+        margin: 5px auto;
+        box-shadow: none;
 
+    }
+    .notification-box ul li, .settings-box ul li{
+        margin: 8px auto;
+    }
     /* contacat us */
     .fieldset-contact {
         padding: 0px 40px;
@@ -1934,7 +1970,7 @@ td button:focus {
         width: 62%;
     }
 
-   
+
 
     .main-container-create {
         flex-direction: row;

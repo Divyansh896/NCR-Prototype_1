@@ -32,26 +32,22 @@
                 </li>
 
                 <li>
-                    <a href="create_NCR.html" class="linksNav" tabindex="4"
+                    <a href="create_NCR.html" class="linksNav" tabindex="2"
                         aria-label="Create a new Non-Conformance Report">
                         <i class="fa fa-fw fa-pencil"></i> Create NCR
                     </a>
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="5"
+                    <a href="view.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
                         <i class="fa fa-fw fa-search"></i> View NCR
                     </a>
                 </li>
 
+                
                 <li>
-                    <a href="account.html" class="linksNav" tabindex="6" aria-label="Manage your account settings">
-                        <i class="fa fa-fw fa-user-circle"></i> Account
-                    </a>
-                </li>
-                <li>
-                    <button type="button" class="icon-badge" onclick="toggleNotifications()">
+                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -64,7 +60,8 @@
                     </div>
                 </li>
                 <li>
-                    <button type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
                     <div id="settings-box" class="settings-box">
@@ -84,6 +81,7 @@
                         </ul>
                     </div>
                 </li>
+
             </ul>
         </nav>
 

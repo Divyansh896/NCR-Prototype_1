@@ -44,8 +44,8 @@ if (user && user.role) {
         if (ncrLink) { // Ensure ncrLink exists
             if (user.role === "Lead Engineer" || user.role === "Purchasing") {
                 // Change to "Logged NCR" for lead engineers and purchasing roles
-                ncrLink.href = `logged_NCR.html`
-                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Logged NCR'
+                ncrLink.href = `current_NCR.html`
+                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Current NCR'
                 ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
             }
         } else {
@@ -78,8 +78,8 @@ function initializeButtons() {
             window.location.href = `create_NCR.html?ncr_no=${generateNextNcrNumber(ncr)}`;
         });
     } else {
-        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open Logged NCR';
-        header.innerHTML = 'Open NCR';
+        btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open current NCR';
+        header.innerHTML = 'Open current NCR';
         p.innerHTML = 'Open Recent Non-Conformance Reports';
         btnCreate.addEventListener('click', () => {
             const queryString = createQueryString(ncr[0]);
