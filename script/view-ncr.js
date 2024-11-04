@@ -45,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(data => {
             ncrData = data
             populateTable(ncrData) // Populate table initially
-            document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`
             document.getElementById('status-all').checked = true
         })
         .catch(error => console.error("An error occurred while retrieving data: ", error))
@@ -69,41 +68,46 @@ function getReportStage(ncr) {
 }
 
 function populateTable(data) {
-    const tBody = document.getElementById('ncr-tbody')
-    tBody.innerHTML = '' // Clear the table
+    const tBody = document.getElementById('ncr-tbody');
+    tBody.innerHTML = ''; // Clear the table
 
-    data.forEach(ncr => {
-        const row = document.createElement('tr')
-        const reportStage = getReportStage(ncr)
+    // Filter items to show only incomplete NCRs
+    const openedNcr = data.filter(ncr => ncr.status === 'incomplete');
+    const count = openedNcr.length;
+    records.textContent = `Open NCRs: ${count}`;
 
-        // Determine the status display
-        const statusDisplay = ncr.status === 'completed' 
-            ? `<span style="color: black"><i class="fa fa-lock"></i> Closed &#10004</span>` // Checkmark for complete
-            : `<span style="color: green"><i class="fa fa-archive"></i> Open -</span>` // Text for incomplete
+    openedNcr.forEach(ncr => {
+        const row = document.createElement('tr');
+        const reportStage = getReportStage(ncr);
 
+        // Determine the status display for incomplete NCRs
+        const statusDisplay = `<span style="color: green"><i class="fa fa-archive"></i> Open -</span>`; // Text for incomplete
+
+        // Set the inner HTML of the row
         row.innerHTML = `
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
-            <td>${ncr.qa.item_description.substring(0, 15) + '...' || 'N/A'}</td>
+            <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${ncr.qa.date || 'N/A'}</td>
             <td>${statusDisplay} ${reportStage}</td>
             <td>
                 <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> View</button>
                 <button class="edit-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Edit</button>
             </td>
-        `
+        `;
 
         // Add event listeners for View and Edit buttons
         row.querySelector('.view-btn').addEventListener('click', () => {
-            viewNCR(ncr)
-        })
+            viewNCR(ncr);
+        });
         row.querySelector('.edit-btn').addEventListener('click', () => {
-            editNCR(ncr)
-        })
+            editNCR(ncr);
+        });
 
-        tBody.appendChild(row)
-    })
+        tBody.appendChild(row); // Append the row to the table body
+    });
 }
+
 
 function viewNCR(ncr) {
     const data = extractData(ncr)
@@ -164,6 +168,8 @@ function filterNcr(ncrData) {
     const search = document.getElementById('search');
     const status = document.querySelector('input[name="status"]:checked')?.value;
     const department = document.getElementById('Departments').value;
+    const dateFrom = document.getElementById('dateFrom').value;
+    const dateTo = document.getElementById('dateTo').value;
 
     const filteredData = ncrData.filter(ncr => {
         const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value);
@@ -173,7 +179,11 @@ function filterNcr(ncrData) {
             (status === 'incomplete' && ncr.status === 'incomplete');
         const matchedDepartment = (department == "All") || (getReportStage(ncr) === department);
 
-        return matchedSearch && matchedStatus && matchedDepartment;
+        const ncrDate = new Date(ncr.qa.date);
+        const matchedDateRange = (!dateFrom || new Date(dateFrom) <= ncrDate) &&
+                                 (!dateTo || new Date(dateTo) >= ncrDate);
+
+        return matchedSearch && matchedStatus && matchedDepartment && matchedDateRange;
     });
 
     records.textContent = `Records found: ${filteredData.length}`;
@@ -186,6 +196,8 @@ document.getElementById('Departments').addEventListener('change', () => filterNc
 document.querySelectorAll('input[name="status"]').forEach(input => {
     input.addEventListener('change', () => filterNcr(ncrData))
 })
+document.getElementById('dateFrom').addEventListener('change', () => filterNcr(ncrData));
+document.getElementById('dateTo').addEventListener('change', () => filterNcr(ncrData));
 
 // Reset filter inputs and update table
 document.getElementById('btn-reset').addEventListener('click', () => {
@@ -193,6 +205,8 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('Departments').value = "All"
     document.getElementById('status-all').checked = true
     document.getElementById('ncrInput').value = ''  // Clear NCR input
+    document.getElementById('dateFrom').value = null
+    document.getElementById('dateTo').value = null
 
     // Clear autocomplete suggestions
     autocompleteList.innerHTML = ''
