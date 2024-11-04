@@ -81,7 +81,7 @@ function populateTable(data) {
         const reportStage = getReportStage(ncr);
 
         // Determine the status display for incomplete NCRs
-        const statusDisplay = `<span style="color: green"><i class="fa fa-archive"></i> Open -</span>`; // Text for incomplete
+        const statusDisplay = `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>`; // Text for incomplete
 
         // Set the inner HTML of the row
         row.innerHTML = `

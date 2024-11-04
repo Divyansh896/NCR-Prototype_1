@@ -12,128 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        /* Report Card Styles */
-        #recentReportsContainer, #pinnedReportsContainer{
-            display: flex;
-            justify-content: left;
-            flex-direction: column;
-            text-align: left;
-        }
-        #recent-reports h2, #pinned-reports h2{
-            margin: 10px 0 15px 0;
-        }
-        .tab-content{
-            text-align: left;
-        }
-        .report-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 1em;
-            padding: 0.5em;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            font-size: 0.9em;
-            color: #333;
-            transition: all 0.2s ease;
-            margin-bottom: 3px;
-            justify-content: left;
-        }
-
-        .reportInfo{
-            width: 60%;
-        }
-        .report-card:hover {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            background-color: #e2dfdf;
-
-            /* Subtle shadow on hover */
-        }
-
-        .report-card .supplier-name {
-            font-weight: bold;
-        }
-
-        .report-card .report-date,
-        .report-card .report-number,
-        .report-card .report-description {
-            color: #666;
-        }
-
-
-        .report-card .pinIcon {
-            visibility: hidden;
-            /* Hide the pin icon initially */
-        }
-
-        .report-card:hover .pinIcon {
-            visibility: visible;
-            /* Show the pin icon on hover */
-        }
-
-        .supplier-name{
-            justify-content: left;
-            width: 150px;
-        }
-
-
-
-        /* Tab Navigation */
-        .tab-navigation {
-            display: flex;
-            margin-bottom: 10px;
-        }
-
-        .tab-button {
-            padding: 10px 20px;
-            cursor: pointer;
-            border: none;
-            background-color: #ddd;
-            font-size: 16px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            margin-right: 12px;
-        }
-
-        .tab-button.active {
-            background-color: #333;
-            color: white;
-        }
-
-        /* Hide tab panels by default */
-        .tab-panel {
-            display: none;
-        }
-
-        /* Show the active tab panel */
-        .tab-panel.active {
-            display: flex;
-            /* Use flexbox for alignment, can change based on your needs */
-            flex-direction: column;
-            /* Stack content vertically */
-        }
-
-        #itemBarChart {
-            width: 100%;
-            /* Full width of the container */
-            height: 150px;
-            /* Small height */
-            background-color: #f5f5f5;
-            /* Light gray background for better visibility */
-            border: 2px solid #4a90e2;
-            /* Blue border for a defined outline */
-            border-radius: 8px;
-            /* Rounded corners */
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            /* Light shadow effect */
-        }
-        #graphs{
-            text-align: left;
-        }
-        #graphs h2{
-            margin: 25px 0;
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -307,7 +186,7 @@
                 <h2>Item Occurrence in NCR Reports</h2>
                 <canvas id="itemBarChart"></canvas>
             </section>
-            
+
         </div>
     </main>
 
