@@ -1732,8 +1732,7 @@ td button:focus {
         width: 62%;
     }
 
-    .form-section.active label {
-    }
+   
 
     .main-container-create {
         flex-direction: row;
