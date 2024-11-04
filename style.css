@@ -503,7 +503,7 @@ fieldset legend {
     margin-top: 30px;
 }
 
-.btn-qa-create {
+.btn-qa-create, .btn-eng-create {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -1308,7 +1308,7 @@ td button:focus {
         gap: 40px;
     }
 
-    .btn-qa-create {
+    .btn-qa-create, .btn-eng-create {
         align-self: flex-end;
         width: 50%;
     }

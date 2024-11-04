@@ -218,16 +218,27 @@
 
                     <form id="ncr-form" aria-labelledby="form-title">
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                            <label for="disposition_details">Disposition Details:</label>
+                            <label for="disposition_details">Disposition Details (Required):</label>
                             <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
                                 placeholder="Disposition details"></textarea>
 
 
-                            <label class="checkbox-button">
-                                <input type="checkbox" id="drawing_update_required"
-                                    aria-label="Drawing Update Required" onclick="toggleCheck(this)">
-                                Drawing Update Required
+                            <label for="drawing-required">
+                                Drawing Update Required:
                             </label>
+                            <div class="rad-create-ncr">
+
+                                <label class="radio-button">
+                                    <input type="radio" id="drawing-required-yes" name="drawing-required"
+                                        value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                    Yes
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="drawing-required-no" name="drawing-required"
+                                        value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                    No
+                                </label>
+                            </div>
                             <div class="qa-info-section">
                                 <div>
                                     <label for="original_rev_number">Original Revision Number:</label>
@@ -269,32 +280,44 @@
                             <label for="disposition">Disposition:</label>
                             <input type="text" id="disposition" aria-label="Disposition" placeholder="Disposition">
 
-                            <fieldset role="group" aria-labelledby="disposition-options">
-                                <legend id="disposition-options">Disposition Options</legend>
+                    
+                            <label id="disposition-options">Disposition Options (Required):</label>
 
-                                <label>
-                                    <input type="checkbox" id="use_as_is" checked aria-label="Use as is option">
+                            <div class="chkboxes-create-ncr">
+                                <label class="checkbox-button">
+                                    <input type="checkbox" id="use_as_is" checked aria-label="Use as is option" onclick="toggleCheck(this)">
                                     Use as is
                                 </label>
-                                <label>
-                                    <input type="checkbox" id="repair" aria-label="Repair option">
+                                <label class="checkbox-button">
+                                    <input type="checkbox" id="repair" aria-label="Repair option" onclick="toggleCheck(this)">
                                     Repair
                                 </label>
-                                <label>
-                                    <input type="checkbox" id="rework" aria-label="Rework option">
+                                <label class="checkbox-button">
+                                    <input type="checkbox" id="rework" aria-label="Rework option" onclick="toggleCheck(this)">
                                     Rework
                                 </label>
-                                <label>
-                                    <input type="checkbox" id="scrap" aria-label="Scrap option">
+                                <label class="checkbox-button">
+                                    <input type="checkbox" id="scrap" aria-label="Scrap option" onclick="toggleCheck(this)">
                                     Scrap
                                 </label>
-                            </fieldset>
+                            </div>
 
-                            <label for="customer_notification_required">
-                                <input type="checkbox" id="customer_notification_required"
-                                    aria-label="Customer Notification Required">
-                                Customer Notification Required
+                            <label for="customer-notif">
+                                Customer Notification Required:
                             </label>
+                            <div class="rad-create-ncr">
+
+                                <label class="radio-button">
+                                    <input type="radio" id="customer-notif-yes" name="customer-notif"
+                                        value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                    Yes
+                                </label>
+                                <label class="radio-button">
+                                    <input type="radio" id="customer-notif-no" name="customer-notif"
+                                        value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                    No
+                                </label>
+                            </div>
                             <div class="btn-eng-create">
                                 <button type="button" id="back-btn1" tabindex="21">Back</button>
                                 <button type="button" id="clear-btn2" tabindex="22">Clear</button>
@@ -305,7 +328,6 @@
                         <!-- Disposition and Options Confirmation Section -->
                         <fieldset class="form-section confirmation" role="group" aria-labelledby="confirmation-legend"
                             class="form-section confirmation">
-                            <legend id="confirmation-legend">Confirmation</legend>
 
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
@@ -315,7 +337,7 @@
                                     </p>
 
                                     <fieldset role="group" aria-labelledby="disposition-options">
-                                        <legend id="disposition-options">Disposition Options</legend>
+                                        <legend id="disposition-options">Disposition Options:</legend>
                                         <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
                                         <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
                                         <p>Rework: <span id="confirm-rework" aria-live="polite">No</span></p>
