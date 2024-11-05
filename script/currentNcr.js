@@ -77,7 +77,7 @@ function populateTable(data) {
     const count = resolvedItems.length;
 
     // Display the count (you can adjust the element ID to match your HTML)
-    document.getElementById('record-count').textContent = `Resolved NCRs: ${count}`;
+    document.getElementById('record-count').textContent = `Unresolved NCRs: ${count}`;
 
     // Populate the table with resolved items
     resolvedItems.forEach(ncr => {
