@@ -787,7 +787,7 @@ fieldset legend {
     border-radius: 20px;
     width: 182px;
   }
-
+ 
 .checkbox-button input[type="checkbox"],
 .radio-button input[type="radio"] {
     display: none;
@@ -809,17 +809,17 @@ label.radio-button {
 .rad-create-ncr {
     display: flex;
     justify-content: space-around;
-    background-color: #eeeeee;
+    background-color: #fff;
     border-radius: 5px;
     padding: 5px 10px;
     flex-direction: column;
     gap: 10px;
+    width: fit-content;
 }
 
 .rad-create-ncr {
     align-items: center;
     text-align: center;
-    width: 100%;
     flex-direction: row;
 }
 .rad-create-ncr .radio-button{
@@ -828,7 +828,9 @@ label.radio-button {
 }
 
 /*create ncr for engineers*/
-
+.disp-opt-confirm{
+    width: fit-content;
+}
 
 /* View NCR */
 .verticalLayout {
