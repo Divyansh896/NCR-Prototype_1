@@ -129,7 +129,7 @@ if (user.role === 'QA Inspector') {
         inputsToClear.forEach(input => {
             // Check if the input is not the NCR number field
             if (input.id !== 'ncr-no-generated') {
-                input.value = '' // Clear value
+                input.value = '' // Clear value 
             }
         })
 
@@ -201,8 +201,11 @@ if (user.role === 'QA Inspector') {
         clearSection(section1)
         // Clear checkboxes
         const checkboxes = document.querySelectorAll('input[name="process"]');
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        quantityReceivedInput.value = 0
+        mediaList.innerHTML = ''; // Clear the photo list
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.classList.remove("checked");  // assuming "checked" is a class that highlights checked boxes
+        });
         quantityDefectiveInput.value = 0
 
     })

@@ -252,11 +252,11 @@
                                 <!--<legend id="step2-legend">Engineering Review</legend>!-->
                                 <div>
                                     <label for="revision_date">Revision Date:</label>
-                                    <input type="date" id="revision_date" aria-label="Revision Date">
+                                    <input type="date" id="revision_date" aria-label="Revision Date" name="revision_date">
 
                                     <label for="engineering_review_date">Engineering Review Date:</label>
                                     <input type="date" id="engineering_review_date"
-                                        aria-label="Engineering Review Date">
+                                        aria-label="Engineering Review Date" name="engineering_review_date">
                                 </div>
                             </div>
 
@@ -282,22 +282,22 @@
 
                                     <div class="chkboxes-create-ncr">
                                         <label class="checkbox-button">
-                                            <input type="checkbox" id="use_as_is" checked aria-label="Use as is option"
+                                            <input type="checkbox" id="use_as_is" name="disposition" aria-label="Use as is option"
                                                 onclick="toggleCheck(this)">
                                             Use as is
                                         </label>
                                         <label class="checkbox-button">
-                                            <input type="checkbox" id="repair" aria-label="Repair option"
+                                            <input type="checkbox" id="repair" name="disposition" aria-label="Repair option"
                                                 onclick="toggleCheck(this)">
                                             Repair
                                         </label>
                                         <label class="checkbox-button">
-                                            <input type="checkbox" id="rework" aria-label="Rework option"
+                                            <input type="checkbox" id="rework" name="disposition"aria-label="Rework option"
                                                 onclick="toggleCheck(this)">
                                             Rework
                                         </label>
                                         <label class="checkbox-button">
-                                            <input type="checkbox" id="scrap" aria-label="Scrap option"
+                                            <input type="checkbox" id="scrap" name="disposition" aria-label="Scrap option"
                                                 onclick="toggleCheck(this)">
                                             Scrap
                                         </label>
