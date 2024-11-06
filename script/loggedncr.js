@@ -105,16 +105,19 @@ if (user.role === 'Lead Engineer') {
     }
 
     function toggleRadio(radio) {
+
+        radioName = radio.name;
+        const buttons = document.querySelectorAll(`input[name="${radioName}"]`);
+
         // Remove 'checked' class from all radio button labels
-        const buttons = document.querySelectorAll('.radio-button');
-        buttons.forEach(button => button.classList.remove('checked'));
-  
+        buttons.forEach(button => button.parentElement.classList.remove('checked'));
+
         // Add 'checked' class only to the selected radio button's label
         if (radio.checked) {
-          radio.parentElement.classList.add('checked');
+            radio.parentElement.classList.add('checked');
         }
-      }
-      
+    }
+
     nextBtn2.addEventListener("click", () => {
         if (true) {
             sections[currentStep].classList.remove("active")
@@ -173,9 +176,14 @@ if (user.role === 'Lead Engineer') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="step1-legend"]')
         clearSection(section1)
+
         //Clear radio buttons
         const radioButtons = document.querySelectorAll('input[name="drawing-required"]');
-        radioButtons.forEach(radioButton => radioButton.checked = false);
+        radioButtons.forEach(radioButtons => {
+            radioButtons.checked = false
+            radioButtons.parentElement.classList.remove('checked')
+        });
+        
         //Clear date pickers
         const datePicker1 = document.getElementById("revision_date")
         datePicker1.value = null;
@@ -187,14 +195,27 @@ if (user.role === 'Lead Engineer') {
     document.getElementById("clear-btn2").addEventListener("click", () => {
         const section2 = document.querySelector('fieldset[aria-labelledby="step2-legend"]')
         clearSection(section2)
+
         // Clear radio buttons
         const radioButtons1 = document.querySelectorAll('input[name="customer-notif"]');
-        radioButtons1.forEach(radioButtons1 => radioButtons1.checked = false);
+        radioButtons1.forEach(radioButtons1 => {
+            radioButtons1.checked = false
+            radioButtons1.parentElement.classList.remove('checked')
+        });
+
         const radioButtons2 = document.querySelectorAll('input[name="resolved"]');
-        radioButtons2.forEach(radioButtons2 => radioButtons2.checked = false);
+        radioButtons2.forEach(radioButtons2 => {
+            radioButtons2.checked = false
+            radioButtons2.parentElement.classList.remove('checked')
+        });
+
         //Clear checkboxes
         const checkboxes = document.querySelectorAll('input[name="disposition"]');
-        checkboxes.forEach(checkbox => checkbox.checked = false);
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.parentElement.classList.remove('checked')
+        })
+
     })
 }
 function removeSectionsForUser() {
@@ -272,7 +293,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -281,7 +302,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
