@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+
 </head>
 
 <body>
@@ -46,9 +46,10 @@
                     </a>
                 </li>
 
-                
+
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -99,7 +100,6 @@
         </nav>
     </div>
 
-    <h1>Dashboard</h1>
     <!-- Main Section -->
     <main aria-label="Main Content">
         <div id="popup" class="modal">
@@ -115,41 +115,45 @@
                 <div id="error-message" class="error-message"></div> <!-- Error message area -->
             </div>
         </div>
-        <div class="main-container">
+        <div>
+            <div class="left-align">
+                <h1>Dashboard</h1>
+            </div>
+            <div class="main-container">
+                <!-- Section 1: Create NCR -->
+                <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
+                    <div>
+                        <h2 id="create-ncr-header">Create NCR</h2>
+                        <p id="create-ncr-p">Generate a new report to track issues and ensure system quality</p>
+                        <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
+                                class="fa fa-fw fa-pencil"></i> Create NCR</button>
+                        <!-- Set tabindex to sequential order -->
+                    </div>
+                </section>
 
-            <!-- Section 1: Create NCR -->
-            <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
-                <div>
-                    <h2 id="create-ncr-header">Create NCR</h2>
-                    <p id="create-ncr-p">Generate a new report to track issues and ensure system quality</p>
-                    <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
-                            class="fa fa-fw fa-pencil"></i> Create NCR</button>
-                    <!-- Set tabindex to sequential order -->
-                </div>
-            </section>
+                <!-- Section 2: View NCR -->
+                <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
+                    <div>
+                        <h2 id="view-ncr-header">View NCR</h2>
+                        <p>Browse and review reports to gain insights and drive quality.</p>
+                        <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
+                                class="fa fa-fw fa-search"></i>
+                            View NCR</button>
+                        <!-- Set tabindex to sequential order -->
+                    </div>
+                </section>
 
-            <!-- Section 2: View NCR -->
-            <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
-                <div>
-                    <h2 id="view-ncr-header">View NCR</h2>
-                    <p>Browse and review reports to gain insights and drive quality.</p>
-                    <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
-                            class="fa fa-fw fa-search"></i>
-                        View NCR</button>
-                    <!-- Set tabindex to sequential order -->
-                </div>
-            </section>
-
-            <!-- Section 3: Manage Account -->
-            <section class="featuresManageAcc" aria-labelledby="manage-account-header">
-                <div>
-                    <h2 id="manage-account-header">Manage Account</h2>
-                    <p>Update your profile, settings, and account preferences easily.</p>
-                    <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
-                            class="fa fa-fw fa-user-circle"></i> Manage Account</button>
-                    <!-- Set tabindex to sequential order -->
-                </div>
-            </section>
+                <!-- Section 3: Manage Account -->
+                <section class="featuresManageAcc" aria-labelledby="manage-account-header">
+                    <div>
+                        <h2 id="manage-account-header">Manage Account</h2>
+                        <p>Update your profile, settings, and account preferences easily.</p>
+                        <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
+                                class="fa fa-fw fa-user-circle"></i> Manage Account</button>
+                        <!-- Set tabindex to sequential order -->
+                    </div>
+                </section>
+            </div>
         </div>
 
 
@@ -178,10 +182,14 @@
         </div>
         <div class="main-container">
             <section id="graphs">
-                <h2>NCR Reports Trend Over Time</h2>
-                <canvas id="dateLineChart"></canvas>
-                <h2>Item Occurrence in NCR Reports</h2>
-                <canvas id="itemBarChart"></canvas>
+                <div class="linegraph">
+                    <h2>NCR Reports Trend Over Time</h2>
+                    <canvas id="dateLineChart"></canvas>
+                </div>
+                <div class="bargraph">
+                    <h2>Item Occurrence in NCR Reports</h2>
+                    <canvas id="itemBarChart"></canvas>
+                </div>
             </section>
 
         </div>
