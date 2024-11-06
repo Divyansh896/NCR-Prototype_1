@@ -111,7 +111,7 @@ function generateNextNcrNumber(ncrData) {
         nextNumber = '001'; // Reset number if it's a new year
     }
 
-    return `${currentYear}${nextNumber}`; // Return new NCR number
+    return `${currentYear}-${nextNumber}`; // Return new NCR number
 }
 
 // Create a query string from the NCR data
