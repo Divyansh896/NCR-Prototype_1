@@ -46,9 +46,10 @@
                     </a>
                 </li>
 
-                
+
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -87,7 +88,7 @@
         </nav>
 
     </header>
-    
+
     <div class="brdcontainer" id="brdcrmb">
         <!-- nav element add an attribute "aria-label="breadcrumb""-->
         <nav aria-label="breadcrumb">
@@ -228,17 +229,17 @@
                             <div class="rad-create-ncr">
 
                                 <label class="radio-button">
-                                    <input type="radio" id="drawing-required-yes" name="drawing-required"
-                                        value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                    <input type="radio" id="drawing-required-yes" name="drawing-required" value="yes"
+                                        class="hidden-radio" onclick="toggleRadio(this)">
                                     Yes
                                 </label>
                                 <label class="radio-button">
-                                    <input type="radio" id="drawing-required-no" name="drawing-required"
-                                        value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                    <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
+                                        class="hidden-radio" onclick="toggleRadio(this)">
                                     No
                                 </label>
                             </div>
-                            <div class="qa-info-section">
+                            <div class="qa-info-section" id="drawing-rad">
                                 <div>
                                     <label for="original_rev_number">Original Revision Number:</label>
                                     <input type="text" id="original_rev_number" aria-label="Original Revision Number"
@@ -251,18 +252,13 @@
                                 <!--<legend id="step2-legend">Engineering Review</legend>!-->
                                 <div>
                                     <label for="revision_date">Revision Date:</label>
-                                    <input type="date" id="revision_date" aria-label="Revision Date">
+                                    <input type="date" id="revision_date" aria-label="Revision Date" name="revision_date">
 
                                     <label for="engineering_review_date">Engineering Review Date:</label>
                                     <input type="date" id="engineering_review_date"
-                                        aria-label="Engineering Review Date">
+                                        aria-label="Engineering Review Date" name="engineering_review_date">
                                 </div>
                             </div>
-                            
-                            <label class="checkbox-button">
-                                <input type="checkbox" id="resolved" aria-label="Resolved status " onclick="toggleCheck(this)">
-                                Resolved
-                            </label>
 
 
                             <div class="btn-eng-create">
@@ -275,47 +271,70 @@
 
 
                         <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
+                            <div class="qa-info-section">
+                                <div>
+                                    <label for="disposition">Disposition:</label>
+                                    <input type="text" id="disposition" aria-label="Disposition"
+                                        placeholder="Disposition">
 
-                            <label for="disposition">Disposition:</label>
-                            <input type="text" id="disposition" aria-label="Disposition" placeholder="Disposition">
 
-                    
-                            <label id="disposition-options">Disposition Options (Required):</label>
+                                    <label id="disposition-options">Disposition Options (Required):</label>
 
-                            <div class="chkboxes-create-ncr">
-                                <label class="checkbox-button">
-                                    <input type="checkbox" id="use_as_is" checked aria-label="Use as is option" onclick="toggleCheck(this)">
-                                    Use as is
-                                </label>
-                                <label class="checkbox-button">
-                                    <input type="checkbox" id="repair" aria-label="Repair option" onclick="toggleCheck(this)">
-                                    Repair
-                                </label>
-                                <label class="checkbox-button">
-                                    <input type="checkbox" id="rework" aria-label="Rework option" onclick="toggleCheck(this)">
-                                    Rework
-                                </label>
-                                <label class="checkbox-button">
-                                    <input type="checkbox" id="scrap" aria-label="Scrap option" onclick="toggleCheck(this)">
-                                    Scrap
-                                </label>
-                            </div>
+                                    <div class="chkboxes-create-ncr">
+                                        <label class="checkbox-button">
+                                            <input type="checkbox" id="use_as_is" name="disposition" aria-label="Use as is option"
+                                                onclick="toggleCheck(this)">
+                                            Use as is
+                                        </label>
+                                        <label class="checkbox-button">
+                                            <input type="checkbox" id="repair" name="disposition" aria-label="Repair option"
+                                                onclick="toggleCheck(this)">
+                                            Repair
+                                        </label>
+                                        <label class="checkbox-button">
+                                            <input type="checkbox" id="rework" name="disposition"aria-label="Rework option"
+                                                onclick="toggleCheck(this)">
+                                            Rework
+                                        </label>
+                                        <label class="checkbox-button">
+                                            <input type="checkbox" id="scrap" name="disposition" aria-label="Scrap option"
+                                                onclick="toggleCheck(this)">
+                                            Scrap
+                                        </label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label for="customer-notif">
+                                        Customer Notification Required:
+                                    </label>
+                                    <div class="rad-create-ncr">
 
-                            <label for="customer-notif">
-                                Customer Notification Required:
-                            </label>
-                            <div class="rad-create-ncr">
+                                        <label class="radio-button">
+                                            <input type="radio" id="customer-notif-yes" name="customer-notif"
+                                                value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                            Yes
+                                        </label>
+                                        <label class="radio-button">
+                                            <input type="radio" id="customer-notif-no" name="customer-notif" value="no"
+                                                class="hidden-radio" onclick="toggleRadio(this)">
+                                            No
+                                        </label>
+                                    </div>
+                                    <label for="resolved">Resolved(Required):</label>
+                                    <div class="rad-create-ncr">
 
-                                <label class="radio-button">
-                                    <input type="radio" id="customer-notif-yes" name="customer-notif"
-                                        value="yes" class="hidden-radio" onclick="toggleRadio(this)">
-                                    Yes
-                                </label>
-                                <label class="radio-button">
-                                    <input type="radio" id="customer-notif-no" name="customer-notif"
-                                        value="no" class="hidden-radio" onclick="toggleRadio(this)">
-                                    No
-                                </label>
+                                        <label class="radio-button">
+                                            <input type="radio" id="resolved-yes" name="resolved" value="yes"
+                                                class="hidden-radio" onclick="toggleRadio(this)">
+                                            Yes
+                                        </label>
+                                        <label class="radio-button">
+                                            <input type="radio" id="resolved-no" name="resolved" value="no"
+                                                class="hidden-radio" onclick="toggleRadio(this)">
+                                            No
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                             <div class="btn-eng-create">
                                 <button type="button" id="back-btn1" tabindex="21">Back</button>
@@ -331,11 +350,11 @@
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
                                 <div class="confirm-create-qa" aria-labelledby="step1-legend">
-                                    <h3 id="step1-legend">Disposition and Options</h3>
+                                    
                                     <p>Disposition: <span id="confirm-disposition" aria-live="polite">Use as is</span>
                                     </p>
 
-                                    <fieldset role="group" aria-labelledby="disposition-options">
+                                    <fieldset role="group" aria-labelledby="disposition-options" class="disp-opt-confirm">
                                         <legend id="disposition-options">Disposition Options:</legend>
                                         <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
                                         <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
@@ -349,7 +368,7 @@
 
                                 <!-- Details and Revision Information Confirmation Section -->
                                 <div class="confirm-create-qa" aria-labelledby="step2-legend">
-                                    <h3 id="step2-legend">Details and Revision Information</h3>
+                                    
                                     <p>Disposition Details: <span id="confirm-disposition-details"
                                             aria-live="polite">Minor
                                             scratches do not affect functionality.</span></p>

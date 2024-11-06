@@ -129,7 +129,7 @@ if (user.role === 'QA Inspector') {
         inputsToClear.forEach(input => {
             // Check if the input is not the NCR number field
             if (input.id !== 'ncr-no-generated') {
-                input.value = '' // Clear value
+                input.value = '' // Clear value 
             }
         })
 
@@ -201,8 +201,11 @@ if (user.role === 'QA Inspector') {
         clearSection(section1)
         // Clear checkboxes
         const checkboxes = document.querySelectorAll('input[name="process"]');
-        checkboxes.forEach(checkbox => checkbox.checked = false);
-        quantityReceivedInput.value = 0
+        mediaList.innerHTML = ''; // Clear the photo list
+        checkboxes.forEach(checkbox => {
+            checkbox.checked = false;
+            checkbox.classList.remove("checked");  // assuming "checked" is a class that highlights checked boxes
+        });
         quantityDefectiveInput.value = 0
 
     })
@@ -516,7 +519,8 @@ async function handleFiles(files) {
             // Create a span for the file name
             const fileName = document.createElement('span');
             fileName.textContent = file.name; // Display selected file names
-            listItem.appendChild(fileName);
+            fileName.style.maxWidth = '150px'
+            // listItem.appendChild(fileName);
 
             // Create a delete button
             const deleteButton = document.createElement('button');
@@ -535,7 +539,7 @@ async function handleFiles(files) {
             });
 
             // Append the delete button to the list item
-            listItem.appendChild(deleteButton);
+            // listItem.appendChild(deleteButton);
 
             // Convert file to base64 and create an image or video element based on the file type
             const base64Data = await fileToBase64(file);
@@ -545,6 +549,7 @@ async function handleFiles(files) {
                 img.alt = file.name; // Set alt text for accessibility
                 img.style.maxWidth = '100px'; // Set a max width for the image
                 img.style.marginLeft = '10px'; // Add some margin around images
+                img.style.marginRight = '10px'; // Add some margin around images
 
                 // Append the image to the list item
                 listItem.appendChild(img);
@@ -554,10 +559,14 @@ async function handleFiles(files) {
                 video.controls = true; // Add controls for the video
                 video.style.maxWidth = '100px'; // Set a max width for the video
                 video.style.marginLeft = '10px'; // Add some margin around videos
+                video.style.marginRight = '10px';
 
                 // Append the video to the list item
                 listItem.appendChild(video);
             }
+
+            listItem.appendChild(fileName)
+            listItem.appendChild(deleteButton)
 
             // Append the list item to the media list
             mediaList.appendChild(listItem);
