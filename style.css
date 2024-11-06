@@ -851,7 +851,14 @@ label.radio-button {
     /* Prevent overflow on smaller screens */
 }
 
-
+.filter-section #search,
+    .filter-section #ncrInput,
+    .filter-section #Departments,
+    .filter-section #dateFrom,
+    .filter-section #dateTo,
+    .filter-section #autocomplete-list {
+        width: 100%;
+    }
 .autocomplete {
     position: relative;
     display: inline-block;
@@ -965,12 +972,11 @@ input[type="radio"] {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-family: Arial, sans-serif;
     font-size: 0.85em;
 }
 
 .ncr-table thead th {
-    background-color: #4c6488;
+    background-color: #1a3153;
     color: #f4f4f4;
     padding: 18px;
     border-bottom: 2px solid #ccc;
@@ -983,7 +989,7 @@ input[type="radio"] {
 }
 
 .ncr-table tbody tr:nth-child(even) {
-    background-color: #d7e4f9;
+    background-color: #fcfcfc;
 }
 
 .ncr-table tbody tr:nth-child(odd) {
@@ -1536,9 +1542,10 @@ td button:focus {
 
     .filter-section {
         margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* justify-content: space-evenly; */
+        gap: 10px;
     }
 
 
@@ -1575,7 +1582,7 @@ td button:focus {
     .ncr-table {
         font-size: 14px;
     }
-
+    
     /*view ncr*/
 
     .filter-section label,
@@ -1583,13 +1590,17 @@ td button:focus {
         text-align: left;
     }
 
-    #search,
-    #date-filter {
-        width: 100%;
+    .filter-section #search,
+    .filter-section #ncrInput,
+    .filter-section #Departments,
+    .filter-section #dateFrom,
+    .filter-section #dateTo,
+    .filter-section #autocomplete-list {
+        width: 80%;
     }
 
     .ncr-table tbody td {
-        padding: 15px;
+        padding: 5px 15px;
     }
 
     .main-container section {
@@ -1939,9 +1950,13 @@ td button:focus {
     }
     /* view ncr */
 
-    #search,
-    #date-filter {
-        width: 90%;
+    .filter-section #search,
+    .filter-section #ncrInput,
+    .filter-section #Departments,
+    .filter-section #dateFrom,
+    .filter-section #dateTo,
+    .filter-section #autocomplete-list {
+        width: 50%;
     }
 
     .filter-section {
@@ -2247,6 +2262,13 @@ td button:focus {
     }
     .checkbox-button, .radio-button{
         width: 250px;
+    }
+
+    .ncr-table tbody td {
+        padding: 10px 15px;
+    }
+    td button{
+        margin: 10px 5px;
     }
 
 }

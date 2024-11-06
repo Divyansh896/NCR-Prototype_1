@@ -44,9 +44,10 @@
                     </a>
                 </li>
 
-                
+
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -100,72 +101,78 @@
         <div class="verticalLayout">
             <h1>View NCRs</h1>
 
+
             <!-- Search Filter Section -->
             <div class="filter-section">
                 <div>
-                    <label for="search">Search by supplier:</label>
-                    <select name="search" id="search" class="serach-bar" required tabindex="7"
-                        aria-label="Search by supplier">
-                        <option value="All">All Suppliers</option>
-                        <option value="SteelWorks Ltd">SteelWorks Ltd</option>
-                        <option value="ConcreteFast">ConcreteFast</option>
-                        <option value="BuildersHub">BuildersHub</option>
-                        <option value="HeavyDuty Works">HeavyDuty Works</option>
-                        <option value="Woodcraft Builders">Woodcraft Builders</option>
-                    </select>
-                </div>
+                    <div>
+                        <label for="search">Search by supplier:</label>
+                        <select name="search" id="search" class="serach-bar" required tabindex="7"
+                            aria-label="Search by supplier">
+                            <option value="All">All Suppliers</option>
+                            <option value="SteelWorks Ltd">SteelWorks Ltd</option>
+                            <option value="ConcreteFast">ConcreteFast</option>
+                            <option value="BuildersHub">BuildersHub</option>
+                            <option value="HeavyDuty Works">HeavyDuty Works</option>
+                            <option value="Woodcraft Builders">Woodcraft Builders</option>
+                        </select>
+                    </div>
 
-                <div class="autocomplete">
-                    <label>Search NCR Number</label>
-                    <input type="number" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
-                    <div id="autocomplete-list" class="autocomplete-items"></div>
-                </div>
-                
-                <!-- Date Picker -->
-                <div>
-                    <label for="Departments">Search by department</label>
-                    <select name="Departments" id="Departments">
-                        <option value="All">All Departments</option>
-                        <option value="QA">Quality Assurance</option>
-                        <option value="Engineering">Engineering</option>
-                        <option value="Purchasing">Purchasing</option>
-                    </select>
-                </div>
+                    <div class="autocomplete">
+                        <label>Search NCR Number</label>
+                        <input type="number" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
+                        <div id="autocomplete-list" class="autocomplete-items"></div>
+                    </div>
 
-                <!-- Status Filter Section -->
-                <div>
-                    <label id="status-filter">Status Filter:</label>
-                    <div class="horizontal">
-                        <label for="status-all">
-                            <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
-                        </label>
-
-                        <label for="status-no">
-                            <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
-                                tabindex="11"> Open
-                        </label>
-                        <label for="status-yes">
-                            <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
-                                tabindex="10"> Closed
-                        </label>
+                    <!-- Date Picker -->
+                    <div>
+                        <label for="Departments">Search by department</label>
+                        <select name="Departments" id="Departments">
+                            <option value="All">All Departments</option>
+                            <option value="QA">Quality Assurance</option>
+                            <option value="Engineering">Engineering</option>
+                            <option value="Purchasing">Purchasing</option>
+                        </select>
                     </div>
                 </div>
-                <!-- Date Picker -->
+
                 <div>
-                    <label for="dateFrom">Start Date of NCR</label>
-                    <input type="date" name="dateFrom" id="dateFrom">
+                    <!-- Status Filter Section -->
+                    <div>
+                        <label id="status-filter">Status Filter:</label>
+                        <div class="horizontal">
+                            <label for="status-all">
+                                <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
+                            </label>
+
+                            <label for="status-no">
+                                <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
+                                    tabindex="11"> Open
+                            </label>
+                            <label for="status-yes">
+                                <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
+                                    tabindex="10"> Closed
+                            </label>
+                        </div>
+                    </div>
+                    <!-- Date Picker -->
+                    <div>
+                        <label for="dateFrom">Start Date of NCR</label>
+                        <input type="date" name="dateFrom" id="dateFrom">
+                    </div>
+
+                    <div>
+                        <label for="dateTo">End Date of NCR</label>
+                        <input type="date" name="dateTo" id="dateTo">
+                    </div>
+                    <div>
+                        <button id="btn-reset" tabindex="12">Reset</button>
+                    </div>
                 </div>
                 
-                <div>
-                    <label for="dateTo">End Date of NCR</label>
-                    <input type="date" name="dateTo" id="dateTo">
-                </div>            
-
             </div>
 
-            <div>
-                <button id="btn-reset" tabindex="12">Reset</button>
-            </div>
+            
             <!-- Records Found -->
             <p id="record-count" aria-live="polite">Records found:</p> <!-- Added aria-live for dynamic updates -->
 
