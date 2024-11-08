@@ -185,21 +185,21 @@
 
                                     <!-- Checkbox-like buttons -->
                                     <label>Identify Process Applicable (Required):</label>
-                                    <span class="required checkbox-error">Item marked non-conforming required </span>
+                                    <span class="error-message" id="process-applicable-error"></span>
                                     <div class="chkboxes-create-ncr">
                                         <div>
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="supplier" name="process" value="supplier"
-                                                    class="hidden-checkbox" onclick="toggleCheck(this)">
+                                            <label class="radio-button">
+                                                <input type="radio" id="supplier" name="process" value="Supplier or Rec-Insp"
+                                                    class="hidden-radio" onclick="toggleRadio(this)">
                                                 Supplier or Rec-Insp
                                             </label>
 
 
                                         </div>
                                         <div>
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="wip" name="process" value="wip"
-                                                    class="hidden-checkbox" onclick="toggleCheck(this)">
+                                            <label class="radio-button">
+                                                <input type="radio" id="wip" name="process" value="Work In Progress"
+                                                    class="hidden-radio" onclick="toggleRadio(this)">
                                                     Work In Progress
                                             </label>
                                         </div>
@@ -304,6 +304,7 @@
                                     <p>Quantity Received: <span id="confirm-quantity-received"></span></p>
                                     <p>Quantity Defective: <span id="confirm-quantity-defective"></span></p>
                                     <p>Supplier Name: <span id="confirm-supplier-name"></span></p>
+                                    <p>Process Applicable: <span id="confirm-process-applicable"></span></p>
                                     <p>Product No: <span id="confirm-product-no"></span></p>
                                     <p>Non-Conforming Status: <span id="confirm-nonconforming-status"></span></p>
                                 </div>
