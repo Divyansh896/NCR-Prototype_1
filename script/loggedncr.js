@@ -236,6 +236,38 @@ footer.addEventListener('click', () => {
 })
 
 
+//Output Details on Confirmation page
+function populateConfirmationData() {
+    // Get values from Section 1
+    const dispositionDetails = document.getElementById('disposition_details').value
+    const drawNeed = document.querySelector('input[name=drawing-required]:checked').value
+    const orgNum = document.getElementById('original_rev_number').value
+    const updtNum = document.getElementById('updated_rev_number').value
+    const revisionDate = document.getElementById('revision_date').value
+    const reviewDate = document.getElementById('engineering_review_date').value
+
+    //Get values form Section 2
+    const disposition = document.getElementById('disposition').value
+    const dispositionOpt = document.getElementById('')
+    const custNoteNeed = document.querySelector('input[name=customer-notif]:checked').value
+    const resolved = document.querySelector('input[name=resolved]:checked').value
+
+    // Populate confirmation section
+    document.getElementById('confirm-engineer-name').textContent = `${user.firstname} ${user.lastname}`
+    document.getElementById('confirm-disposition-details').textContent = dispositionDetails
+    document.getElementById('confirm-drawing-update').textContent = drawNeed
+    document.getElementById('confirm-original-rev-number').textContent = orgNum
+    document.getElementById('confirm-updated-rev-number').textContent = updtNum
+    document.getElementById('confirm-revision-date').textContent = revisionDate
+    document.getElementById('confirm-engineering-review-date').textContent = reviewDate
+    document.getElementById('confirm-disposition').textContent = disposition
+    document.getElementById('confirm-disposition-details').textContent = dispositionOpt
+    document.getElementById('confirm-customer-notification').textContent = custNoteNeed
+    document.getElementById('confirm-resolved').textContent = resolved
+
+}
+
+
 function loadData(params) {
     const elements = [
         'qa-name-d', 'ncr-no-d', 'sales-order-no-d', 'quantity-received-d',
