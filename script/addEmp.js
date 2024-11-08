@@ -25,3 +25,7 @@ addEmp.addEventListener("click", (e) => {
 
 
 
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
+}

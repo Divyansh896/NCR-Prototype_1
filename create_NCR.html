@@ -48,9 +48,10 @@
                     </a>
                 </li>
 
-                
+
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -67,27 +68,55 @@
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
-                    <div id="settings-box" class="settings-box">
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
                         <ul>
+                            <!-- User Profile Section -->
                             <li>
-                                <i class="fa fa-user"></i>
-                                <span id="userName"></span>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
                             </li>
+
+                            <!-- Edit Profile Link -->
                             <li>
-                                <a href="account.html">
+                                <a href="account.html" aria-label="Edit your profile">
                                     <i class="fa fa-user"></i>
                                     <span>Edit Profile</span>
                                 </a>
                             </li>
-                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
-                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" href="#" aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
         </nav>
-
     </header>
     <div class="brdcontainer" id="brdcrmb">
         <!-- nav element add an attribute "aria-label="breadcrumb""-->
@@ -146,62 +175,91 @@
 
                             <div class="qa-info-section">
                                 <div class="qa-info">
-                                    <label for="ncr-no-generated">NCR No:</label>
-                                    <input type="text" id="ncr-no-generated" name="ncr_no"
-                                        placeholder="Auto-generated NCR No" readonly tabindex="7">
+                                    <div class="tooltip-container">
+                                        <label for="ncr-no-generated">NCR No:</label>
+                                        <input type="text" id="ncr-no-generated" name="ncr_no"
+                                            placeholder="Auto-generated NCR No" readonly tabindex="7">
+                                        <span class="tooltip">Auto generated NCR number (readonly)</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="sales-order-no">Sales Order No (Required):</label>
+                                        <input type="text" id="sales-order-no" name="sales_order_no"
+                                            placeholder="Enter Sales Order No" tabindex="8">
+                                        <span class="error-message" id="sales-order-no-error"></span>
+                                        <span class="tooltip">Enter the product sales order number</span>
+                                    </div>
 
-                                    <label for="sales-order-no">Sales Order No (Required):</label>
-                                    <input type="text" id="sales-order-no" name="sales_order_no"
-                                        placeholder="Enter Sales Order No" tabindex="8">
-                                    <span class="error-message" id="sales-order-no-error"></span>
+                                    <div class="tooltip-container">
+                                        <label for="quantity-received">Quantity Received (Required):</label>
+                                        <input class="input-number" type="number" id="quantity-received" min="0"
+                                            value="0" name="quantity_received" placeholder="Enter Quantity Received"
+                                            tabindex="9">
+                                        <span class="error-message" id="quantity-received-error"></span>
+                                        <span class="tooltip">Enter the product quantity received (positive value
+                                            only)</span>
 
-                                    <label for="quantity-received">Quantity Received (Required):</label>
-                                    <input class="input-number" type="number" id="quantity-received" min="0" value="0"
-                                        name="quantity_received" placeholder="Enter Quantity Received" tabindex="9">
-                                    <span class="error-message" id="quantity-received-error"></span>
-
-                                    <label for="quantity-defective">Quantity Defective (Required):</label>
-                                    <input class="input-number" type="number" id="quantity-defective" min="0" value="0"
-                                        name="quantity_defective" placeholder="Enter Quantity Defective" tabindex="10">
-                                    <span class="error-message" id="quantity-defective-error"></span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="quantity-defective">Quantity Defective (Required):</label>
+                                        <input class="input-number" type="number" id="quantity-defective" min="0"
+                                            value="0" name="quantity_defective" placeholder="Enter Quantity Defective"
+                                            tabindex="10">
+                                        <span class="error-message" id="quantity-defective-error"></span>
+                                        <span class="tooltip">Enter the product quantity defective (positive value
+                                            only)</span>
+                                    </div>
                                 </div>
 
                                 <div>
-                                    <label for="supplier-name">Supplier Name (Required):</label>
-                                    <select name="supplier_name" id="supplier-name" required tabindex="11">
-                                        <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
-                                        <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
-                                        <option value="Gamma Electronics">Gamma Electronics</option>
-                                        <option value="Delta Logistics">Delta Logistics</option>
-                                        <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
-                                    </select>
-                                    <span class="error-message" id="supplier-name-error"></span>
+                                    <div class="tooltip-container">
+                                        <label for="supplier-name">Supplier Name (Required):</label>
+                                        <select name="supplier_name" id="supplier-name" required tabindex="11">
+                                            <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
+                                            <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
+                                            <option value="Gamma Electronics">Gamma Electronics</option>
+                                            <option value="Delta Logistics">Delta Logistics</option>
+                                            <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
+                                        </select>
+                                        <span class="error-message" id="supplier-name-error"></span>
+                                        <span class="tooltip">Select the supplier from dropdown</span>
+                                    </div>
 
-                                    <label for="product-no">Product No (Required):<span
-                                            class="required">*</span></label>
-                                    <input type="text" id="product-no" name="product_no" placeholder="Enter Product No"
-                                        tabindex="12">
-                                    <span class="error-message" id="product-no-error"></span>
+                                    <div class="tooltip-container">
+                                        <label for="product-no">Product No (Required):<span
+                                                class="required">*</span></label>
+                                        <input type="text" id="product-no" name="product_no"
+                                            placeholder="Enter Product No" tabindex="12">
+                                        <span class="error-message" id="product-no-error"></span>
+                                        <span class="tooltip">Enter the product number.</span>
+                                    </div>
 
                                     <!-- Checkbox-like buttons -->
                                     <label>Identify Process Applicable (Required):</label>
                                     <span class="required checkbox-error">Item marked non-conforming required </span>
                                     <div class="chkboxes-create-ncr">
                                         <div>
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="supplier" name="process" value="supplier"
-                                                    class="hidden-checkbox" onclick="toggleCheck(this)">
-                                                Supplier or Rec-Insp
-                                            </label>
+                                            <div class="tooltip-container">
+                                                <label class="checkbox-button">
+                                                    <input type="checkbox" id="supplier" name="process" value="supplier"
+                                                        class="hidden-checkbox" onclick="toggleCheck(this)">
+                                                    Supplier or Rec-Insp
+                                                </label>
+                                                <span class="tooltip">Click to select Supplier or Rec-Insp
+                                                    option.</span>
+                                            </div>
 
 
                                         </div>
                                         <div>
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="wip" name="process" value="wip"
-                                                    class="hidden-checkbox" onclick="toggleCheck(this)">
-                                                    Work In Progress
-                                            </label>
+                                            <div class="tooltip-container">
+                                                <label class="checkbox-button">
+                                                    <input type="checkbox" id="wip" name="process" value="wip"
+                                                        class="hidden-checkbox" onclick="toggleCheck(this)">
+                                                    WIP (Production order)
+                                                </label>
+                                                <span class="tooltip">Click to select WIP (Production order)
+                                                    option.</span>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -223,21 +281,29 @@
                             <div class="descr-create-center">
                                 <div class="two-rows">
                                     <div class="descr-container">
-                                        <label for="description-item">Description of Item (including SAP
-                                            Number) (Required):</label>
-                                        <textarea id="description-item" name="description_item"
-                                            placeholder="Enter item description, including SAP Number"
-                                            aria-label="Enter item description, including SAP Number" spellcheck="true"
-                                            tabindex="17"></textarea>
-                                        <span class="error-message" id="description-item-error"></span>
+                                        <div class="tooltip-container">
+                                            <label for="description-item">Description of Item (including SAP
+                                                Number) (Required):</label>
+                                            <textarea id="description-item" name="description_item"
+                                                placeholder="Enter item description, including SAP Number"
+                                                aria-label="Enter item description, including SAP Number"
+                                                spellcheck="true" tabindex="17"></textarea>
+                                            <span class="error-message" id="description-item-error"></span>
+                                            <span class="tooltip ttip-descr">Write description of Item (including SAP
+                                                Number) in text area.</span>
+                                        </div>
                                     </div>
                                     <div class="descr-container">
-                                        <label for="description-defect">Description of Defect (Required):</label>
-                                        <textarea id="description-defect" name="description_defect"
-                                            placeholder="Describe the defect"
-                                            aria-label="Describe the defect of the product" spellcheck="true"
-                                            tabindex="18"></textarea>
-                                        <span class="error-message" id="description-defect-error"></span>
+                                        <div class="tooltip-container">
+                                            <label for="description-defect">Description of Defect (Required):</label>
+                                            <textarea id="description-defect" name="description_defect"
+                                                placeholder="Describe the defect"
+                                                aria-label="Describe the defect of the product" spellcheck="true"
+                                                tabindex="18"></textarea>
+                                            <span class="error-message" id="description-defect-error"></span>
+                                            <span class="tooltip ttip-descr">Write description of defect of product in
+                                                text area.</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <!-- Radio-like buttons -->
@@ -245,43 +311,42 @@
                                     <legend for="item-marked-nonconforming">Item Marked Non-Conforming? (Required)
                                     </legend>
                                     <span class="error-message" id="non-error"></span>
-
                                     <div class="rad-create-ncr">
                                         <!-- Hidden radio input -->
+                                        <!-- <div class="tooltip-container"> -->
                                         <label class="radio-button">
                                             <input type="radio" id="item-marked-yes" name="item_marked_nonconforming"
                                                 value="yes" class="hidden-radio" onclick="toggleRadio(this)">
                                             Yes
                                         </label>
+                                        <span class="tooltip">Click to select yes</span>
+                                        <!-- </div> -->
 
                                         <!-- Hidden radio input -->
+                                        <!-- <div class="tooltip-container"> -->
                                         <label class="radio-button">
                                             <input type="radio" id="item-marked-no" name="item_marked_nonconforming"
                                                 value="no" class="hidden-radio" onclick="toggleRadio(this)">
                                             No
                                         </label>
+                                        <span class="tooltip">Click to select no</span>
+                                        <!-- </div> -->
                                     </div>
-
                                 </fieldset>
 
                                 <div id="drop-area">
-                                    <p>Drag & drop images and videos here, or <label for="media-input"
-                                            style="cursor: pointer; color: blue; text-decoration: underline;">select
-                                            files</label>.</p>
-                                    <input type="file" name="media" id="media-input" accept="image/*,video/*" multiple
-                                        style="display: none;">
-                                    <ul id="media-list"></ul>
+                                    <div class="tooltip-container">
+                                        <p>Drag & drop images and videos here, or <label for="media-input"
+                                                style="cursor: pointer; color: blue; text-decoration: underline;">Upload
+                                                files</label></p>
+                                        <!-- <i class="fa fa-upload"></i> -->
+                                        <input type="file" name="media" id="media-input" accept="image/*,video/*"
+                                            multiple style="display: none;">
+                                        <ul id="media-list"></ul>
+                                        <span class="tooltip">Drag & drop images and videos here of the product, or
+                                            click upload files.</span>
+                                    </div>
                                 </div>
-
-
-                                <!-- Separate div for displaying selected images and videos
-                            <div class="selected-files">
-                                <h3>Selected Images</h3>
-                                <ul id="photo-list"></ul>
-
-                                <h3>Selected Videos</h3>
-                                <ul id="video-listji"></ul>
-                            </div> -->
 
                             </div>
                             <div class="btn-qa-create">
@@ -306,6 +371,7 @@
                                     <p>Supplier Name: <span id="confirm-supplier-name"></span></p>
                                     <p>Product No: <span id="confirm-product-no"></span></p>
                                     <p>Non-Conforming Status: <span id="confirm-nonconforming-status"></span></p>
+                                    <p>Identify process applicable: <span id="confirm-process-applicable"></span></p>
                                 </div>
 
                                 <div class="confirm-create-qa">

@@ -85,14 +85,20 @@ function populateTable(data) {
 
         // Set the inner HTML of the row
         row.innerHTML = `
-            <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
-            <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${ncr.qa.date || 'N/A'}</td>
+            <td>${ncr.qa.supplier_name || 'N/A'}</td>
+            <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${statusDisplay} ${reportStage}</td>
             <td>
-                <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> View</button>
-                <button class="edit-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Edit</button>
+                <div class="tooltip-container controls-container">
+                    <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> View</button>
+                    <span class="tooltip ttip-control">Click to view NCR</span>
+                </div>
+                <div class="tooltip-container controls-container">
+                    <button class="edit-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Edit</button>
+                    <span class="tooltip ttip-control">Click to edit NCR</span>
+                </div>
             </td>
         `;
 
@@ -181,7 +187,7 @@ function filterNcr(ncrData) {
 
         const ncrDate = new Date(ncr.qa.date);
         const matchedDateRange = (!dateFrom || new Date(dateFrom) <= ncrDate) &&
-                                 (!dateTo || new Date(dateTo) >= ncrDate);
+            (!dateTo || new Date(dateTo) >= ncrDate);
 
         return matchedSearch && matchedStatus && matchedDepartment && matchedDateRange;
     });
@@ -219,30 +225,40 @@ document.getElementById('btn-reset').addEventListener('click', () => {
 let currentFocus = -1
 
 ncrInput.addEventListener('input', function () {
-    const input = this.value.toLowerCase()
-    autocompleteList.innerHTML = '' // Clear previous suggestions
-    currentFocus = -1 // Reset focus index
+    const input = this.value.toUpperCase();
+    const hasLetters = /[a-zA-Z]/; // Pattern to check for any letters
 
-    if (!input) return
+    // Check if the input contains any letters
+    if (hasLetters.test(input)) {
+        this.setCustomValidity("NCR number cannot contain letters. Please enter in format YYYY-NNN.");
+        this.reportValidity(); // Show the error
+        this.value = ''; // Clear the invalid input
+    } else {
+        this.setCustomValidity(""); // Clear any error if valid
+    }
 
-    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input))
+    autocompleteList.innerHTML = ''; // Clear previous suggestions
+    currentFocus = -1; // Reset focus index
+
+    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input));
     filteredRecords.forEach((record, index) => {
-        const item = document.createElement('div')
-        const regex = new RegExp(input, 'gi')
-        const highlightedText = record.ncr_no.replace(regex, match => `<span class="highlight">${match}</span>`)
+        const item = document.createElement('div');
+        const regex = new RegExp(input, 'gi');
+        const highlightedText = record.ncr_no.replace(regex, match => `<span class="highlight">${match}</span>`);
 
-        item.innerHTML = highlightedText
-        item.classList.add('autocomplete-item')
+        item.innerHTML = highlightedText;
+        item.classList.add('autocomplete-item');
         item.addEventListener('click', () => {
-            ncrInput.value = record.ncr_no // Set the input value to the selected NCR
-            autocompleteList.innerHTML = '' // Clear the suggestions
-        })
+            ncrInput.value = record.ncr_no; // Set the input value to the selected NCR
+            autocompleteList.innerHTML = ''; // Clear the suggestions
+        });
 
-        autocompleteList.appendChild(item)
+        autocompleteList.appendChild(item);
+    });
 
-    })
-    populateTable(filteredRecords)
-})
+    populateTable(filteredRecords);
+});
+
 // Keyboard navigation for autocomplete
 ncrInput.addEventListener('keydown', function (e) {
     const items = document.querySelectorAll('.autocomplete-item')
@@ -324,7 +340,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -333,7 +349,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -344,4 +360,9 @@ function logout() {
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
+}
+
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
 }

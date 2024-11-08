@@ -365,6 +365,7 @@ if (user.role === 'QA Inspector') {
 
         // Get the non-conforming item marked status
         const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked').value
+        const processApplicableElement = document.querySelector('input[name=process]:checked').value
 
         // Populate confirmation section
         document.getElementById('confirm-qa-name').textContent = `${user.firstname} ${user.lastname}`
@@ -377,6 +378,7 @@ if (user.role === 'QA Inspector') {
         document.getElementById('confirm-description-item').textContent = descriptionItem
         document.getElementById('confirm-description-defect').textContent = descriptionDefect
         document.getElementById('confirm-nonconforming-status').textContent = nonconformingStatusElement
+        document.getElementById('confirm-process-applicable').textContent = processApplicableElement
     }
 } else {
     // Remove sections based on user role
@@ -683,4 +685,9 @@ function logout() {
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
+}
+
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
 }
