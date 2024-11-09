@@ -133,64 +133,67 @@
                     <legend>
                         <img src="images/female-image.png" alt="User Avatar" loading="lazy" width="250" height="250">
                     </legend>
+                    <div class="acc-two-cols">
+                        <div>
+                            <div>
+                                <label for="fname">First Name (Required): <span class="required">*</span></label>
+                                <input type="text" id="fname" name="fname" placeholder="Enter your first name" required
+                                    tabindex="7">
+                            </div>
 
-                    <p class="indicator">* indicate required fields.</p>
+                            <div>
+                                <label for="lname">Last Name (Required): <span class="required">*</span></label>
+                                <input type="text" id="lname" name="lname" placeholder="Enter your last name" required
+                                    tabindex="8">
+                            </div>
 
-                    <div>
-                        <label for="fname">First Name: <span class="required">*</span></label>
-                        <input type="text" id="fname" name="fname" placeholder="Enter your first name" required
-                            tabindex="7">
-                    </div>
+                            <div>
+                                <label for="Uname">User Name (Required): <span class="required">*</span></label>
+                                <input type="text" id="Uname" name="Uname" placeholder="Choose a user name" required
+                                    tabindex="9">
+                            </div>
 
-                    <div>
-                        <label for="lname">Last Name: <span class="required">*</span></label>
-                        <input type="text" id="lname" name="lname" placeholder="Enter your last name" required
-                            tabindex="8">
-                    </div>
+                            <div>
+                                <label for="employeeId">Employee ID (Required): <span class="required">*</span></label>
+                                <input type="text" id="employeeId" name="employeeID"
+                                    placeholder="Enter your employee ID" required tabindex="10">
+                            </div>
 
-                    <div>
-                        <label for="Uname">User Name: <span class="required">*</span></label>
-                        <input type="text" id="Uname" name="Uname" placeholder="Choose a user name" required
-                            tabindex="9">
-                    </div>
+                            <div>
+                                <label for="emailId">Email Id (Required): <span class="required">*</span></label>
+                                <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required
+                                    tabindex="11">
+                            </div>
+                        </div>
+                        <div>
+                            <div>
+                                <label for="phone">Phone Number (Required): <span class="required">*</span></label>
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required
+                                    pattern="\d{10}" title="Please enter a valid 10-digit phone number" tabindex="12">
+                            </div>
 
-                    <div>
-                        <label for="employeeId">Employee ID: <span class="required">*</span></label>
-                        <input type="text" id="employeeId" name="employeeID" placeholder="Enter your employee ID"
-                            required tabindex="10">
-                    </div>
+                            <div>
+                                <label for="bday">Date of birth (Required): <span class="required">*</span></label>
+                                <input type="date" id="bday" name="bday" required tabindex="13">
+                            </div>
 
-                    <div>
-                        <label for="emailId">Email Id: <span class="required">*</span></label>
-                        <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required
-                            tabindex="11">
-                    </div>
+                            <div>
+                                <label for="gender">Select Gender: <span class="required">*</span></label>
+                                <select id="gender" name="gender" required tabindex="14">
+                                    <option value="" disabled selected>Select your gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
 
-                    <div>
-                        <label for="phone">Phone Number: <span class="required">*</span></label>
-                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required
-                            pattern="\d{10}" title="Please enter a valid 10-digit phone number" tabindex="12">
-                    </div>
+                            <div>
+                                <label for="password">Password (Required): <span class="required">*</span></label>
+                                <input type="text" id="password" name="password" placeholder="Choose a Password"
+                                    required tabindex="15">
+                            </div>
 
-                    <div>
-                        <label for="bday">Date of birth: <span class="required">*</span></label>
-                        <input type="date" id="bday" name="bday" required tabindex="13">
-                    </div>
-
-                    <div>
-                        <label for="gender">Select Gender: <span class="required">*</span></label>
-                        <select id="gender" name="gender" required tabindex="14">
-                            <option value="" disabled selected>Select your gender</option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label for="password">Password: <span class="required">*</span></label>
-                        <input type="text" id="password" name="password" placeholder="Choose a Password" required
-                            tabindex="15">
+                        </div>
                     </div>
                     <div class="btns-acc">
                         <button id="logoutBtn" tabindex="17">Logout</button>
