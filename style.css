@@ -696,10 +696,10 @@ fieldset legend {
     border: none;
 }
 
-.item-conforming input,
-.item-conforming label {
-    display: inline;
-
+.media{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .createncrmainfield {
@@ -741,7 +741,13 @@ fieldset legend {
     border-color: #000;
 }
 
+.upload-icon {
+    font-size: 48px !important; /* Adjust size as needed */
+}
 
+#drop-area .tooltip{
+    bottom: 140px;
+}
 
 
 /* Dropdown for qa-section  */
@@ -822,8 +828,8 @@ label.radio-button {
     justify-content: space-around;
     background-color: #fff;
     border-radius: 5px;
-    padding: 5px 10px;
-    flex-direction: column;
+    padding: 15px 10px;
+    flex-direction: row;
     gap: 10px;
     width: fit-content;
 }
