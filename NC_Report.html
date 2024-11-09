@@ -38,15 +38,16 @@
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="3"
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
-                        <i class="fa fa-fw fa-search"></i> View NCR
+                        <i class="fa fa-fw fa-search"></i> NCR log
                     </a>
                 </li>
 
-                
+
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge"  onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span class="badge">3</span>
                     </button>
@@ -63,27 +64,55 @@
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
-                    <div id="settings-box" class="settings-box">
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
                         <ul>
+                            <!-- User Profile Section -->
                             <li>
-                                <i class="fa fa-user"></i>
-                                <span id="userName"></span>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
                             </li>
+
+                            <!-- Edit Profile Link -->
                             <li>
-                                <a href="account.html">
+                                <a href="account.html" aria-label="Edit your profile">
                                     <i class="fa fa-user"></i>
                                     <span>Edit Profile</span>
                                 </a>
                             </li>
-                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
-                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" href="#" aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
         </nav>
-
     </header>
 
     <div class="brdcontainer" id="brdcrmb">

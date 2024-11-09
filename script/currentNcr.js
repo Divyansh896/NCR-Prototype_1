@@ -86,14 +86,16 @@ function populateTable(data) {
 
         // Generate the row content
         row.innerHTML = `
-            <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.ncr_no || 'N/A'}</td>
-            <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${ncr.qa.date || 'N/A'}</td>
-            
+            <td>${ncr.qa.supplier_name || 'N/A'}</td>
+            <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${ncr.engineering.resolved || 'Not resolved yet!'}</td>
             <td>
-                <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> Select</button>
+                <div class="tooltip-container controls-container">
+                    <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> Edit</button>
+                    <span class="tooltip ttip-control">Click to edit NCR</span>
+                </div>
             </td>
         `;
 
@@ -218,30 +220,40 @@ document.getElementById('btn-reset').addEventListener('click', () => {
 let currentFocus = -1
 
 ncrInput.addEventListener('input', function () {
-    const input = this.value.toLowerCase()
-    autocompleteList.innerHTML = '' // Clear previous suggestions
-    currentFocus = -1 // Reset focus index
+    const input = this.value.toUpperCase();
+    const hasLetters = /[a-zA-Z]/; // Pattern to check for any letters
 
-    if (!input) return
+    // Check if the input contains any letters
+    if (hasLetters.test(input)) {
+        this.setCustomValidity("NCR number cannot contain letters. Please enter in format YYYY-NNN.");
+        this.reportValidity(); // Show the error
+        this.value = ''; // Clear the invalid input
+    } else {
+        this.setCustomValidity(""); // Clear any error if valid
+    }
 
-    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input))
+    autocompleteList.innerHTML = ''; // Clear previous suggestions
+    currentFocus = -1; // Reset focus index
+
+    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input));
     filteredRecords.forEach((record, index) => {
-        const item = document.createElement('div')
-        const regex = new RegExp(input, 'gi')
-        const highlightedText = record.ncr_no.replace(regex, match => `<span class="highlight">${match}</span>`)
+        const item = document.createElement('div');
+        const regex = new RegExp(input, 'gi');
+        const highlightedText = record.ncr_no.replace(regex, match => `<span class="highlight">${match}</span>`);
 
-        item.innerHTML = highlightedText
-        item.classList.add('autocomplete-item')
+        item.innerHTML = highlightedText;
+        item.classList.add('autocomplete-item');
         item.addEventListener('click', () => {
-            ncrInput.value = record.ncr_no // Set the input value to the selected NCR
-            autocompleteList.innerHTML = '' // Clear the suggestions
-        })
+            ncrInput.value = record.ncr_no; // Set the input value to the selected NCR
+            autocompleteList.innerHTML = ''; // Clear the suggestions
+        });
 
-        autocompleteList.appendChild(item)
+        autocompleteList.appendChild(item);
+    });
 
-    })
-    populateTable(filteredRecords)
-})
+    populateTable(filteredRecords);
+});
+
 // Keyboard navigation for autocomplete
 ncrInput.addEventListener('keydown', function (e) {
     const items = document.querySelectorAll('.autocomplete-item')
@@ -379,4 +391,8 @@ function createQueryString(ncrData) {
         resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
+}
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
 }

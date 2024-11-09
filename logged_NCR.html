@@ -33,16 +33,16 @@
                 </li>
 
                 <li>
-                    <a href="current_NCR.html" class="linksNav" tabindex="4"
+                    <a href="create_NCR.html" class="linksNav" tabindex="2"
                         aria-label="Create a new Non-Conformance Report">
-                        <i class="fa fa-fw fa-pencil"></i> Current NCRs
+                        <i class="fa fa-fw fa-pencil"></i> Create NCR
                     </a>
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="3"
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
-                        <i class="fa fa-fw fa-search"></i> View NCR
+                        <i class="fa fa-fw fa-search"></i> NCR log
                     </a>
                 </li>
 
@@ -66,27 +66,55 @@
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
-                    <div id="settings-box" class="settings-box">
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
                         <ul>
+                            <!-- User Profile Section -->
                             <li>
-                                <i class="fa fa-user"></i>
-                                <span id="userName"></span>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
                             </li>
+
+                            <!-- Edit Profile Link -->
                             <li>
-                                <a href="account.html">
+                                <a href="account.html" aria-label="Edit your profile">
                                     <i class="fa fa-user"></i>
                                     <span>Edit Profile</span>
                                 </a>
                             </li>
-                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
-                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" href="#" aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
         </nav>
-
     </header>
 
     <div class="brdcontainer" id="brdcrmb">
@@ -218,45 +246,64 @@
 
                     <form id="ncr-form" aria-labelledby="form-title">
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                            <label for="disposition_details">Disposition Details (Required):</label>
-                            <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
-                                placeholder="Disposition details"></textarea>
-
+                            <div class="tooltip-container">
+                                <label for="disposition_details">Disposition Details (Required):</label>
+                                <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
+                                    placeholder="Disposition details"></textarea>
+                                <span class="tooltip ttip-descr">Type in disposition details</span>
+                            </div>
 
                             <label for="drawing-required">
-                                Drawing Update Required:
+                                Drawing Update Needed:
                             </label>
                             <div class="rad-create-ncr">
-
-                                <label class="radio-button">
-                                    <input type="radio" id="drawing-required-yes" name="drawing-required" value="yes"
-                                        class="hidden-radio" onclick="toggleRadio(this)">
-                                    Yes
-                                </label>
-                                <label class="radio-button">
-                                    <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
-                                        class="hidden-radio" onclick="toggleRadio(this)">
-                                    No
-                                </label>
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="drawing-required-yes" name="drawing-required"
+                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                        Yes
+                                    </label>
+                                    <span class="tooltip">Click to check yes</span>
+                                </div>
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
+                                            class="hidden-radio" onclick="toggleRadio(this)">
+                                        No
+                                    </label>
+                                    <span class="tooltip">Click to check no</span>
+                                </div>
                             </div>
                             <div class="qa-info-section" id="drawing-rad">
                                 <div>
-                                    <label for="original_rev_number">Original Revision Number:</label>
-                                    <input type="text" id="original_rev_number" aria-label="Original Revision Number"
-                                        placeholder="Original Revision Number">
-
-                                    <label for="updated_rev_number">Updated Revision Number:</label>
-                                    <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
-                                        placeholder="Updated Revision Number">
+                                    <div class="tooltip-container">
+                                        <label for="original_rev_number">Original Revision Number:</label>
+                                        <input type="text" id="original_rev_number"
+                                            aria-label="Original Revision Number"
+                                            placeholder="Original Revision Number">
+                                        <span class="tooltip">Enter original revision number</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="updated_rev_number">Updated Revision Number:</label>
+                                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
+                                            placeholder="Updated Revision Number">
+                                        <span class="tooltip">Enter updated revision number</span>
+                                    </div>
                                 </div>
                                 <!--<legend id="step2-legend">Engineering Review</legend>!-->
                                 <div>
-                                    <label for="revision_date">Revision Date:</label>
-                                    <input type="date" id="revision_date" aria-label="Revision Date" name="revision_date">
-
-                                    <label for="engineering_review_date">Engineering Review Date:</label>
-                                    <input type="date" id="engineering_review_date"
-                                        aria-label="Engineering Review Date" name="engineering_review_date">
+                                    <div class="tooltip-container">
+                                        <label for="revision_date">Revision Date:</label>
+                                        <input type="date" id="revision_date" aria-label="Revision Date"
+                                            name="revision_date">
+                                        <span class="tooltip">Enter revision date of NCR</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="engineering_review_date">Engineering Review Date:</label>
+                                        <input type="date" id="engineering_review_date"
+                                            aria-label="Engineering Review Date" name="engineering_review_date">
+                                        <span class="tooltip">Select engineering review date</span>
+                                    </div>
                                 </div>
                             </div>
 
@@ -281,58 +328,82 @@
                                     <label id="disposition-options">Disposition Options (Required):</label>
 
                                     <div class="chkboxes-create-ncr">
-                                        <label class="checkbox-button">
-                                            <input type="checkbox" id="use_as_is" name="disposition" aria-label="Use as is option"
-                                                onclick="toggleCheck(this)">
-                                            Use as is
-                                        </label>
-                                        <label class="checkbox-button">
-                                            <input type="checkbox" id="repair" name="disposition" aria-label="Repair option"
-                                                onclick="toggleCheck(this)">
-                                            Repair
-                                        </label>
-                                        <label class="checkbox-button">
-                                            <input type="checkbox" id="rework" name="disposition"aria-label="Rework option"
-                                                onclick="toggleCheck(this)">
-                                            Rework
-                                        </label>
-                                        <label class="checkbox-button">
-                                            <input type="checkbox" id="scrap" name="disposition" aria-label="Scrap option"
-                                                onclick="toggleCheck(this)">
-                                            Scrap
-                                        </label>
+                                        <div class="tooltip-container">
+                                            <label class="checkbox-button">
+                                                <input type="checkbox" id="use_as_is" name="disposition"
+                                                    aria-label="Use as is option" onclick="toggleCheck(this)">
+                                                Use as is
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="checkbox-button">
+                                                <input type="checkbox" id="repair" name="disposition"
+                                                    aria-label="Repair option" onclick="toggleCheck(this)">
+                                                Repair
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="checkbox-button">
+                                                <input type="checkbox" id="rework" name="disposition"
+                                                    aria-label="Rework option" onclick="toggleCheck(this)">
+                                                Rework
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="checkbox-button">
+                                                <input type="checkbox" id="scrap" name="disposition"
+                                                    aria-label="Scrap option" onclick="toggleCheck(this)">
+                                                Scrap
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label for="customer-notif">
-                                        Customer Notification Required:
+                                        Customer Notification Needed:
                                     </label>
                                     <div class="rad-create-ncr">
 
-                                        <label class="radio-button">
-                                            <input type="radio" id="customer-notif-yes" name="customer-notif"
-                                                value="yes" class="hidden-radio" onclick="toggleRadio(this)">
-                                            Yes
-                                        </label>
-                                        <label class="radio-button">
-                                            <input type="radio" id="customer-notif-no" name="customer-notif" value="no"
-                                                class="hidden-radio" onclick="toggleRadio(this)">
-                                            No
-                                        </label>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="customer-notif-yes" name="customer-notif"
+                                                    value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                                Yes
+                                            </label>
+                                            <span class="tooltip">Click to check yes</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="customer-notif-no" name="customer-notif"
+                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                                No
+                                            </label>
+                                            <span class="tooltip">Click to check no</span>
+                                        </div>
                                     </div>
                                     <label for="resolved">Resolved(Required):</label>
                                     <div class="rad-create-ncr">
 
-                                        <label class="radio-button">
-                                            <input type="radio" id="resolved-yes" name="resolved" value="yes"
-                                                class="hidden-radio" onclick="toggleRadio(this)">
-                                            Yes
-                                        </label>
-                                        <label class="radio-button">
-                                            <input type="radio" id="resolved-no" name="resolved" value="no"
-                                                class="hidden-radio" onclick="toggleRadio(this)">
-                                            No
-                                        </label>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="resolved-yes" name="resolved" value="yes"
+                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                Yes
+                                            </label>
+                                            <span class="tooltip">Click to check yes</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="resolved-no" name="resolved" value="no"
+                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                No
+                                            </label>
+                                            <span class="tooltip">Click to check no</span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -350,11 +421,12 @@
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
                                 <div class="confirm-create-qa" aria-labelledby="step1-legend">
-                                    
+
                                     <p>Disposition: <span id="confirm-disposition" aria-live="polite">Use as is</span>
                                     </p>
 
-                                    <fieldset role="group" aria-labelledby="disposition-options" class="disp-opt-confirm">
+                                    <fieldset role="group" aria-labelledby="disposition-options"
+                                        class="disp-opt-confirm">
                                         <legend id="disposition-options">Disposition Options:</legend>
                                         <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
                                         <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
@@ -368,31 +440,29 @@
 
                                 <!-- Details and Revision Information Confirmation Section -->
                                 <div class="confirm-create-qa" aria-labelledby="step2-legend">
-                                    
+
                                     <p>Disposition Details: <span id="confirm-disposition-details"
-                                            aria-live="polite">Minor
-                                            scratches do not affect functionality.</span></p>
+                                            aria-live="polite"></span><p>
                                     <p>Drawing Update Required: <span id="confirm-drawing-update"
-                                            aria-live="polite">No</span></p>
+                                            aria-live="polite"></span></p>
                                     <p>Original Revision Number: <span id="confirm-original-rev-number"
-                                            aria-live="polite">Rev-001</span></p>
+                                            aria-live="polite"></span></p>
                                     <p>Updated Revision Number: <span id="confirm-updated-rev-number"
-                                            aria-live="polite">Rev-001</span>
+                                            aria-live="polite"></span>
                                     </p>
                                 </div>
 
                                 <!-- Engineering Review Confirmation Section -->
                                 <div class="confirm-create-qa" aria-labelledby="step3-legend">
                                     <h3 id="step3-legend">Engineering Review</h3>
-                                    <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite">Davis
-                                            Henry</span>
+                                    <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite"></span>
                                     </p>
                                     <p>Revision Date: <span id="confirm-revision-date"
-                                            aria-live="polite">2024-09-12</span>
+                                            aria-live="polite"></span>
                                     </p>
                                     <p>Engineering Review Date: <span id="confirm-engineering-review-date"
-                                            aria-live="polite">2024-09-12</span></p>
-                                    <p>Resolved: <span id="confirm-resolved" aria-live="polite">Yes</span></p>
+                                            aria-live="polite"></span></p>
+                                    <p>Resolved: <span id="confirm-resolved" aria-live="polite"></span></p>
                                 </div>
                             </div>
                             <div class="btn-rng-create">

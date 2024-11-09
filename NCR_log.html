@@ -7,7 +7,7 @@
     <meta name="description" content="View and filter NCRs (Non-Conformance Reports) in Crossfire.">
     <meta name="keywords" content="NCR, view NCR, filter NCR, Crossfire">
     <meta name="author" content="Mark">
-    <title>View NCRs - Crossfire</title>
+    <title>NCR log - Crossfire</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -38,9 +38,9 @@
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="3"
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
-                        <i class="fa fa-fw fa-search"></i> View NCR
+                        <i class="fa fa-fw fa-search"></i> NCR log
                     </a>
                 </li>
 
@@ -64,27 +64,55 @@
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
-                    <div id="settings-box" class="settings-box">
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
                         <ul>
+                            <!-- User Profile Section -->
                             <li>
-                                <i class="fa fa-user"></i>
-                                <span id="userName"></span>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
                             </li>
+
+                            <!-- Edit Profile Link -->
                             <li>
-                                <a href="account.html">
+                                <a href="account.html" aria-label="Edit your profile">
                                     <i class="fa fa-user"></i>
                                     <span>Edit Profile</span>
                                 </a>
                             </li>
-                            <li><a href="#"><i class="fa fa-wrench"></i> Tools</a></li>
-                            <li><a href="#" onclick="logout()"><i class="fa fa-sign-out"></i> Logout</a></li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" href="#" aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </li>
-
             </ul>
         </nav>
-
     </header>
     <div class="brdcontainer" id="brdcrmb">
         <!-- nav element add an attribute "aria-label="breadcrumb""-->
@@ -99,44 +127,66 @@
     <!-- Main Section -->
     <main>
         <div class="verticalLayout">
-            <h1>View NCRs</h1>
+            <h1>NCR log</h1>
 
 
             <!-- Search Filter Section -->
             <div class="filter-section">
                 <div>
-                    <div>
-                        <label for="search">Search by supplier:</label>
-                        <select name="search" id="search" class="serach-bar" required tabindex="7"
-                            aria-label="Search by supplier">
-                            <option value="All">All Suppliers</option>
-                            <option value="SteelWorks Ltd">SteelWorks Ltd</option>
-                            <option value="ConcreteFast">ConcreteFast</option>
-                            <option value="BuildersHub">BuildersHub</option>
-                            <option value="HeavyDuty Works">HeavyDuty Works</option>
-                            <option value="Woodcraft Builders">Woodcraft Builders</option>
-                        </select>
-                    </div>
-
                     <div class="autocomplete">
-                        <label>Search NCR Number</label>
-                        <input type="number" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
-                        <div id="autocomplete-list" class="autocomplete-items"></div>
+                        <div class="tooltip-container">
+                            <label>Search NCR Number</label>
+                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
+                            <div id="autocomplete-list" class="autocomplete-items"></div>
+                            <span class="tooltip">Type NCR number in here</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tooltip-container">
+                            <label for="Departments">Department status</label>
+                            <select name="Departments" id="Departments">
+                                <option value="All">All Departments</option>
+                                <option value="QA">Quality Assurance</option>
+                                <option value="Engineering">Engineering</option>
+                                <option value="Purchasing">Purchasing</option>
+                            </select>
+                            <span class="tooltip ttip-filter">Select department status from dropdown</span>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="tooltip-container">
+                            <label for="search">Search by supplier</label>
+                            <select name="search" id="search" class="serach-bar" required tabindex="7"
+                                aria-label="Search by supplier">
+                                <option value="All">All Suppliers</option>
+                                <option value="SteelWorks Ltd">SteelWorks Ltd</option>
+                                <option value="ConcreteFast">ConcreteFast</option>
+                                <option value="BuildersHub">BuildersHub</option>
+                                <option value="HeavyDuty Works">HeavyDuty Works</option>
+                                <option value="Woodcraft Builders">Woodcraft Builders</option>
+                            </select>
+                            <span class="tooltip ttip-filter">Select supplier from dropdown</span>
+                        </div>
                     </div>
 
-                    <!-- Date Picker -->
-                    <div>
-                        <label for="Departments">Search by department</label>
-                        <select name="Departments" id="Departments">
-                            <option value="All">All Departments</option>
-                            <option value="QA">Quality Assurance</option>
-                            <option value="Engineering">Engineering</option>
-                            <option value="Purchasing">Purchasing</option>
-                        </select>
-                    </div>
                 </div>
 
                 <div>
+                    <div>
+                        <div class="tooltip-container">
+                            <label for="dateFrom">Start Date of NCR</label>
+                            <input type="date" name="dateFrom" id="dateFrom">
+                            <span class="tooltip ttip-filter">Select start date of the NCR</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="tooltip-container">
+                            <label for="dateTo">End Date of NCR</label>
+                            <input type="date" name="dateTo" id="dateTo">
+                            <span class="tooltip ttip-filter">Select end date of the NCR</span>
+                        </div>
+                    </div>
                     <!-- Status Filter Section -->
                     <div>
                         <label id="status-filter">Status Filter:</label>
@@ -153,26 +203,25 @@
                                 <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
                                     tabindex="10"> Closed
                             </label>
+                            <label for="status-archived">
+                                <input type="radio" class="radio-btn" name="status" id="status-archived"
+                                    value="completed" tabindex="10"> Archived <!-- correct tab index-->
+                            </label>
                         </div>
                     </div>
                     <!-- Date Picker -->
-                    <div>
-                        <label for="dateFrom">Start Date of NCR</label>
-                        <input type="date" name="dateFrom" id="dateFrom">
-                    </div>
 
                     <div>
-                        <label for="dateTo">End Date of NCR</label>
-                        <input type="date" name="dateTo" id="dateTo">
-                    </div>
-                    <div>
-                        <button id="btn-reset" tabindex="12">Reset</button>
+                        <div class="tooltip-container">
+                            <button id="btn-reset" tabindex="12">Reset</button>
+                            <!-- <span class="tooltip">Click to reset all filters</span> -->
+                        </div>
                     </div>
                 </div>
-                
+
             </div>
 
-            
+
             <!-- Records Found -->
             <p id="record-count" aria-live="polite">Records found:</p> <!-- Added aria-live for dynamic updates -->
 
@@ -180,10 +229,10 @@
             <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
                 <thead>
                     <tr>
-                        <th>Supplier</th>
                         <th>NCR Number</th>
-                        <th>Item</th>
                         <th>Date</th>
+                        <th>Supplier</th>
+                        <th>Item</th>
                         <th>NCR Status</th>
                         <!-- <th>NCR Stage</th> -->
                         <th>Controls</th>
