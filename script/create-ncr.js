@@ -199,12 +199,12 @@ if (user.role === 'QA Inspector') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="product-info"]')
         clearSection(section1)
-        // Clear checkboxes
-        const checkboxes = document.querySelectorAll('input[name="process"]');
-        mediaList.innerHTML = ''; // Clear the photo list
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = false;
-            checkbox.classList.remove("checked");  // assuming "checked" is a class that highlights checked boxes
+        
+        // clear the radio buttons
+        const radioButtons = document.querySelectorAll('input[name="process"]');
+        radioButtons.forEach(radioButtons => {
+            radioButtons.checked = false
+            radioButtons.parentElement.classList.remove('checked')
         });
         quantityDefectiveInput.value = 0
 
@@ -272,17 +272,17 @@ if (user.role === 'QA Inspector') {
         }
         // showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
 
-        // Validate checkboxes
-        const checkboxes = document.querySelectorAll('input[type="checkbox"][name="process"]');
-        const checkboxError = document.querySelector('.checkbox-error'); // Select the error message element directly
 
-        // Check if at least one checkbox is checked
-        if (![...checkboxes].some(checkbox => checkbox.checked)) {
-            checkboxError.style.display = 'inline'; // Show error message
-            checkboxError.textContent = 'At least one process must be selected.';
-            isValid = false; // Set validation flag to false
+        //validate radio buttons
+        const radioButtons = document.querySelectorAll('input[name="process"]');
+        const radioErrorSpan = document.getElementById('process-applicable-error');
+        
+        if (![...radioButtons].some(radio => radio.checked)) {
+            radioErrorSpan.style.display = 'inline'; // Show error message
+            radioErrorSpan.textContent  = 'Please identify applicabale process.'; // Set error message
+            isValid = false;
         } else {
-            checkboxError.style.display = 'none'; // Hide error message if at least one checkbox is checked
+            radioErrorSpan.style.display = 'none'; // Hide error if valid
         }
 
         // Clear specific error messages for non-empty fields
@@ -358,6 +358,7 @@ if (user.role === 'QA Inspector') {
         const quantityReceived = document.getElementById('quantity-received').value
         const quantityDefective = document.getElementById('quantity-defective').value
         const productNo = document.getElementById('product-no').value
+        const proccesApplicabable = document.querySelector('input[name=process]:checked').value
 
         // Get values from Section 2
         const descriptionItem = document.getElementById('description-item').value
@@ -374,6 +375,7 @@ if (user.role === 'QA Inspector') {
         document.getElementById('confirm-sales-order-no').textContent = salesOrderNo
         document.getElementById('confirm-quantity-received').textContent = quantityReceived
         document.getElementById('confirm-quantity-defective').textContent = quantityDefective
+        document.getElementById('confirm-process-applicable').textContent = proccesApplicabable
         document.getElementById('confirm-product-no').textContent = productNo
         document.getElementById('confirm-description-item').textContent = descriptionItem
         document.getElementById('confirm-description-defect').textContent = descriptionDefect
