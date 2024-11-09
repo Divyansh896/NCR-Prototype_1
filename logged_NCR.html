@@ -246,12 +246,44 @@
 
                     <form id="ncr-form" aria-labelledby="form-title">
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                            <div class="tooltip-container">
-                                <label for="disposition_details">Disposition Details (Required):</label>
-                                <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
-                                    placeholder="Disposition details"></textarea>
-                                <span class="tooltip ttip-descr">Type in disposition details</span>
-                            </div>
+                            <label id="disposition-options">Disposition Options (Required):</label>
+
+                                    <div class="chkboxes-create-ncr">
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="use_as_is" name="disposition-options"
+                                                    aria-label="Use as is option" class="hidden-radio" onclick="toggleRadio(this)" value="Use as is">
+                                                Use as is
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="repair" name="disposition-options"
+                                                    aria-label="Repair option" class="hidden-radio" onclick="toggleRadio(this)" value="Repair">
+                                                Repair
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="rework" name="disposition-options"
+                                                    aria-label="Rework option" class="hidden-radio" onclick="toggleRadio(this)" value="Rework">
+                                                Rework
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" id="scrap" name="disposition-options"
+                                                    aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)" value="Scrap">
+                                                Scrap
+                                            </label>
+                                            <span class="tooltip">Click to check this option</span>
+                                        </div>
+                                    </div>
+
+                            
 
                             <label for="drawing-required">
                                 Drawing Update Needed:
@@ -320,47 +352,14 @@
                         <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
                             <div class="qa-info-section">
                                 <div>
-                                    <label for="disposition">Disposition:</label>
-                                    <input type="text" id="disposition" aria-label="Disposition"
-                                        placeholder="Disposition">
 
-
-                                    <label id="disposition-options">Disposition Options (Required):</label>
-
-                                    <div class="chkboxes-create-ncr">
                                         <div class="tooltip-container">
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="use_as_is" name="disposition"
-                                                    aria-label="Use as is option" onclick="toggleCheck(this)">
-                                                Use as is
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
+                                            <label for="disposition_details">Disposition (Required):</label>
+                                            <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
+                                                placeholder="Disposition details"></textarea>
+                                            <span class="tooltip ttip-descr">Type in disposition details</span>
                                         </div>
-                                        <div class="tooltip-container">
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="repair" name="disposition"
-                                                    aria-label="Repair option" onclick="toggleCheck(this)">
-                                                Repair
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="rework" name="disposition"
-                                                    aria-label="Rework option" onclick="toggleCheck(this)">
-                                                Rework
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="checkbox-button">
-                                                <input type="checkbox" id="scrap" name="disposition"
-                                                    aria-label="Scrap option" onclick="toggleCheck(this)">
-                                                Scrap
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                                 <div>
                                     <label for="customer-notif">
@@ -421,19 +420,8 @@
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
                                 <div class="confirm-create-qa" aria-labelledby="step1-legend">
-
-                                    <p>Disposition: <span id="confirm-disposition" aria-live="polite">Use as is</span>
-                                    </p>
-
-                                    <fieldset role="group" aria-labelledby="disposition-options"
-                                        class="disp-opt-confirm">
-                                        <legend id="disposition-options">Disposition Options:</legend>
-                                        <p>Use as is: <span id="confirm-use-as-is" aria-live="polite">Yes</span></p>
-                                        <p>Repair: <span id="confirm-repair" aria-live="polite">No</span></p>
-                                        <p>Rework: <span id="confirm-rework" aria-live="polite">No</span></p>
-                                        <p>Scrap: <span id="confirm-scrap" aria-live="polite">No</span></p>
-                                    </fieldset>
-
+                                    <p>Review by CF Engineer: <span id="confirm-disposition-options" aria-live="polite"></span></p>
+                                    
                                     <p>Customer Notification Required: <span id="confirm-customer-notification"
                                             aria-live="polite">No</span></p>
                                 </div>

@@ -85,20 +85,6 @@ if (user.role === 'Lead Engineer') {
     sections[currentStep].classList.add("active")
     updateStatusBar()
 
-    // Add event listeners for navigation buttons
-    nextBtn1.addEventListener("click", () => {
-        if (true) {
-            sections[currentStep].classList.remove("active")
-            currentStep++
-            sections[currentStep].classList.add("active")
-            updateStatusBar()
-            console.log("presses")
-        }
-        else {
-            showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
-        }
-    })
-
     //chekboxes and radio buttons formatted as buttons for design purposes
     function toggleCheck(checkbox) {
         checkbox.parentElement.classList.toggle('checked', checkbox.checked);
@@ -117,6 +103,32 @@ if (user.role === 'Lead Engineer') {
             radio.parentElement.classList.add('checked');
         }
     }
+
+    // Add event listeners for navigation buttons
+    nextBtn1.addEventListener("click", () => {
+        if (true) {
+            sections[currentStep].classList.remove("active")
+            currentStep++
+            sections[currentStep].classList.add("active")
+            
+            const dispositionOptions = document.querySelector('input[name="disposition-options"]:checked').value
+            const dispositionDetails = document.getElementById("disposition_details");
+
+            if(dispositionOptions == "Repair" || dispositionOptions == "Rework"){
+                dispositionDetails.disabled = false;
+                dispositionDetails.classList.remove("disabled-style"); // Remove the styling class
+            }
+            else{
+                dispositionDetails.disabled = true;
+                dispositionDetails.classList.add("disabled-style"); // Add the styling class
+            }
+            updateStatusBar(dispositionOptions)
+            console.log(dispositionOptions)
+        }
+        else {
+            showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
+        }
+    })
 
     nextBtn2.addEventListener("click", () => {
         if (true) {
@@ -183,6 +195,12 @@ if (user.role === 'Lead Engineer') {
             radioButtons.checked = false
             radioButtons.parentElement.classList.remove('checked')
         });
+
+        const radioButtons1 = document.querySelectorAll('input[name="disposition-options"]');
+        radioButtons1.forEach(radioButtons1 => {
+            radioButtons1.checked = false
+            radioButtons1.parentElement.classList.remove('checked')
+        });
         
         //Clear date pickers
         const datePicker1 = document.getElementById("revision_date")
@@ -209,13 +227,6 @@ if (user.role === 'Lead Engineer') {
             radioButtons2.parentElement.classList.remove('checked')
         });
 
-        //Clear checkboxes
-        const checkboxes = document.querySelectorAll('input[name="disposition"]');
-        checkboxes.forEach(checkbox => {
-            checkbox.checked = false;
-            checkbox.parentElement.classList.remove('checked')
-        })
-
     })
 }
 function removeSectionsForUser() {
@@ -239,32 +250,29 @@ footer.addEventListener('click', () => {
 //Output Details on Confirmation page
 function populateConfirmationData() {
     // Get values from Section 1
-    const dispositionDetails = document.getElementById('disposition_details').value
     const drawNeed = document.querySelector('input[name=drawing-required]:checked').value
+    const dispositionOpt = document.querySelector('input[name=disposition-options]:checked').value
     const orgNum = document.getElementById('original_rev_number').value
     const updtNum = document.getElementById('updated_rev_number').value
     const revisionDate = document.getElementById('revision_date').value
     const reviewDate = document.getElementById('engineering_review_date').value
 
     //Get values form Section 2
-    const disposition = document.getElementById('disposition').value
-    const dispositionOpt = document.getElementById('')
+    const disposition = document.getElementById('disposition_details').value
     const custNoteNeed = document.querySelector('input[name=customer-notif]:checked').value
     const resolved = document.querySelector('input[name=resolved]:checked').value
 
     // Populate confirmation section
     document.getElementById('confirm-engineer-name').textContent = `${user.firstname} ${user.lastname}`
-    document.getElementById('confirm-disposition-details').textContent = dispositionDetails
     document.getElementById('confirm-drawing-update').textContent = drawNeed
     document.getElementById('confirm-original-rev-number').textContent = orgNum
     document.getElementById('confirm-updated-rev-number').textContent = updtNum
     document.getElementById('confirm-revision-date').textContent = revisionDate
     document.getElementById('confirm-engineering-review-date').textContent = reviewDate
-    document.getElementById('confirm-disposition').textContent = disposition
-    document.getElementById('confirm-disposition-details').textContent = dispositionOpt
+    document.getElementById('confirm-disposition-options').textContent = dispositionOpt
+    document.getElementById('confirm-disposition-details').textContent = disposition
     document.getElementById('confirm-customer-notification').textContent = custNoteNeed
     document.getElementById('confirm-resolved').textContent = resolved
-
 }
 
 
