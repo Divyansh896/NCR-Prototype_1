@@ -79,6 +79,7 @@ function initializeButtons() {
         });
     } else {
         btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open current NCR';
+        btnCreate.nextElementSibling.textContent = "Click to open current NCRs"
         header.innerHTML = 'Open current NCR';
         p.innerHTML = 'Open Recent Non-Conformance Reports';
         btnCreate.addEventListener('click', () => {
@@ -111,7 +112,7 @@ function generateNextNcrNumber(ncrData) {
         nextNumber = '001'; // Reset number if it's a new year
     }
 
-    return `${currentYear}${nextNumber}`; // Return new NCR number
+    return `${currentYear}-${nextNumber}`; // Return new NCR number
 }
 
 // Create a query string from the NCR data
@@ -212,38 +213,52 @@ function displayRecentReports(data) {
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
-        // Create elements for each piece of information
+        // Supplier and report information
         const supplierName = document.createElement('span');
         supplierName.classList.add('supplier-name');
         supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier';
 
-        const reportinfo = document.createElement('span');
-        reportinfo.classList.add('reportInfo')
-        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
+        const reportInfo = document.createElement('span');
+        reportInfo.classList.add('reportInfo');
+        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
 
+        // Tooltip container and tooltip
+        const tooltipContainer = document.createElement('div');
+        tooltipContainer.classList.add('tooltip-container');
 
+        const tooltip = document.createElement('span');
+        tooltip.classList.add('tooltip');
+        tooltip.textContent = "Click to view/edit NCR";
 
-        // Create the pin icon
+        // Pin icon with tooltip events
         const pinIcon = document.createElement('span');
         pinIcon.classList.add('pinIcon');
         pinIcon.innerHTML = `<i class="fa fa-thumb-tack" aria-hidden="true"></i>`;
 
-        // Add an event listener to the pin icon
+        // Tooltip text change on hover
+        pinIcon.addEventListener('mouseenter', (e) => {
+            tooltip.textContent = "Click to pin this NCR";
+
+        });
+        pinIcon.addEventListener('mouseleave', () => {
+            tooltip.textContent = "Click to open/edit NCR";
+        });
+
+
+
+        // Add click event to pin icon for pinning
         pinIcon.addEventListener('click', (e) => {
-            e.stopPropagation(); // Prevent triggering the report card's click event
+            e.stopPropagation(); // Prevents triggering the report card click event
 
-            // Retrieve existing pinned data from sessionStorage
             const pinnedReports = JSON.parse(sessionStorage.getItem('pinnedReports')) || [];
-
-            // Check if the report is already pinned
             const isAlreadyPinned = pinnedReports.some(report => report.ncr_no === ncr.ncr_no);
 
             if (!isAlreadyPinned) {
-                pinnedReports.push(ncr); // Add the report to the pinned reports array
+                pinnedReports.push(ncr);
                 sessionStorage.setItem('pinnedReports', JSON.stringify(pinnedReports));
                 showPopup(
                     'Report Pinned!',
-                    `NCR Report No. <strong>${ncr.ncr_no}</strong> has been successfully added to your pinned reports for quick access!`,
+                    `NCR Report No. <strong>${ncr.ncr_no}</strong> has been added to your pinned reports!`,
                     'images/pin.png'
                 );
             } else {
@@ -255,22 +270,27 @@ function displayRecentReports(data) {
             }
         });
 
-        // Add a click event for the entire report card to navigate
+        // Report card click event
         reportCard.addEventListener("click", () => {
             const data = extractData(ncr);
             sessionStorage.setItem('data', JSON.stringify(data));
             window.location.href = 'NC_Report.html';
         });
 
-        // Append all elements to the report card
+        // Append elements to the report card
         reportCard.appendChild(supplierName);
-        reportCard.appendChild(reportinfo);
+        reportCard.appendChild(reportInfo);
+        reportCard.appendChild(pinIcon);
 
-        reportCard.appendChild(pinIcon); // Add the pin icon at the end
+        // Append report card and tooltip to the tooltip container
+        tooltipContainer.appendChild(reportCard);
+        tooltipContainer.appendChild(tooltip);
 
-        container.appendChild(reportCard);
+        // Append tooltip container to the main container
+        container.appendChild(tooltipContainer);
     });
 }
+
 
 function displayPinnedReports() {
     const container = pinnedContainer; // Use the existing pinnedReportsContainer
@@ -297,9 +317,13 @@ function displayPinnedReports() {
         reportinfo.classList.add('reportInfo')
         reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
 
+        const tooltipContainer = document.createElement('div');
+        tooltipContainer.classList.add('tooltip-container');
 
-        // Create HTML content for each piece of information
-
+        const tooltip = document.createElement('span');
+        tooltip.classList.add('tooltip');
+        tooltip.textContent = "Click to view/edit NCR";
+        
         // Create the unpin icon
         const unpinIcon = document.createElement('span');
         unpinIcon.classList.add('unpinIcon');
@@ -316,6 +340,15 @@ function displayPinnedReports() {
             // Re-display pinned reports
             displayPinnedReports();
         });
+
+        // Tooltip text change on hover
+        unpinIcon.addEventListener('mouseenter', (e) => {
+            tooltip.textContent = "Click to delete this pinned NCR";
+
+        });
+        unpinIcon.addEventListener('mouseleave', () => {
+            tooltip.textContent = "Click to open/edit NCR";
+        });
         // Add a click event for the entire report card (if needed)
         reportCard.addEventListener("click", () => {
             const data = extractData(ncr);
@@ -326,9 +359,13 @@ function displayPinnedReports() {
         // Append the unpin icon to the report card
         reportCard.appendChild(supplierName);
         reportCard.appendChild(reportinfo);
+        reportCard.appendChild(unpinIcon)
 
-        reportCard.appendChild(unpinIcon);
-        container.appendChild(reportCard);
+        tooltipContainer.appendChild(reportCard);
+        tooltipContainer.appendChild(tooltip);
+
+        // Append tooltip container to the main container
+        container.appendChild(tooltipContainer);
     });
 }
 
@@ -575,4 +612,9 @@ function showPopup(title, message, icon, callback) {
             closeModal();
         }
     };
+}
+
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
 }

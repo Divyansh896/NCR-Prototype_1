@@ -211,3 +211,8 @@ function logout() {
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
+}
