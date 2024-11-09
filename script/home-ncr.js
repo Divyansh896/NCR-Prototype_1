@@ -89,7 +89,7 @@ function initializeButtons() {
     }
 
     btnView.addEventListener('click', () => {
-        window.location.href = 'view.html';
+        window.location.href = 'NCR_log.html';
     });
 
     btnManage.addEventListener('click', () => {
