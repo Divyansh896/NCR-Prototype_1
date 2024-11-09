@@ -150,11 +150,20 @@ if (user.role === 'QA Inspector') {
 
     // Add event listeners for navigation buttons
     document.getElementById("next-btn1").addEventListener("click", () => {
+        const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10);
+        const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10);
         if (validateSection1()) {
             sections[currentStep].classList.remove("active")
             currentStep++
             sections[currentStep].classList.add("active")
             updateStatusBar()
+        }
+        else if(!isNaN(quantityReceived) && !isNaN(quantityDefective)){
+            if(quantityDefective > quantityReceived){
+
+                showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
+            }
+
         }
         else {
             showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
@@ -278,7 +287,6 @@ if (user.role === 'QA Inspector') {
                 isValid = false; // Ensure isValid is set to false
             }
         }
-        // showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
 
 
         //validate radio buttons

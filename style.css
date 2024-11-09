@@ -874,7 +874,7 @@ label.radio-button {
 
 .autocomplete {
     position: relative;
-    display: inline-block;
+    /* display: inline-block; */
 }
 
 .autocomplete-items {
@@ -1494,9 +1494,13 @@ td button:focus {
     bottom: 280px;
 }
 
-/* .ttip-filter {
+.ttip-btn-reset{
     left: 25%;
-} */
+    bottom: 65px;
+}
+.two-cols{
+    width: 100%;
+}
 
 .controls-container {
     display: inline;
@@ -1647,8 +1651,9 @@ td button:focus {
     }
 
     .two-cols {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display: flex;
+        /* grid-template-columns: repeat(2, 1fr); */
+        flex-direction: column;
     }
 
     .col-confirm {
@@ -1674,7 +1679,7 @@ td button:focus {
 
 
     .filter-section div {
-        width: 80%;
+        width: 90%;
         text-align: left;
     }
 
@@ -1918,8 +1923,13 @@ td button:focus {
 
 
     .filter-section {
-        flex-direction: row;
-        margin: 20px 15px;
+        margin: 0 auto;
+        width: 70%;
+        align-items: center;
+    }
+
+    .radio-button{
+        width: 100%;
     }
 
     .serach-bar,
@@ -1957,8 +1967,6 @@ td button:focus {
     }
 
     .two-cols {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
         gap: 2px;
     }
 
@@ -2085,18 +2093,7 @@ td button:focus {
 
     /* view ncr */
 
-    /* .filter-section #search,
-    .filter-section #ncrInput,
-    .filter-section #Departments,
-    .filter-section #dateFrom,
-    .filter-section #dateTo,
-    .filter-section #autocomplete-list {
-        width: 50%;
-    } */
-
-    .filter-section {
-        margin: 0px 40px;
-    }
+   
 
     p {
         margin-top: 5px;
@@ -2346,9 +2343,7 @@ td button:focus {
     }
 
     .two-cols {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 2px;
+        gap: 4px;
     }
 
     .rad-report,
