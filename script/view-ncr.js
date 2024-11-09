@@ -44,8 +44,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .then(response => response.json())
         .then(data => {
             ncrData = data
-            populateTable(ncrData) // Populate table initially
-            document.getElementById('status-all').checked = true
+            populateTable(ncrData, 'incomplete') // Populate table initially
+            document.getElementById('status-no').checked = true
         })
         .catch(error => console.error("An error occurred while retrieving data: ", error))
 })
@@ -67,21 +67,38 @@ function getReportStage(ncr) {
     return ''
 }
 
-function populateTable(data) {
+function populateTable(data, matchedStatus) {
     const tBody = document.getElementById('ncr-tbody');
     tBody.innerHTML = ''; // Clear the table
 
-    // Filter items to show only incomplete NCRs
-    const openedNcr = data.filter(ncr => ncr.status === 'incomplete');
-    const count = openedNcr.length;
-    records.textContent = `Open NCRs: ${count}`;
+    // Initialize NCRList based on the matched status
+    let NCRList = [];
 
-    openedNcr.forEach(ncr => {
+    if (matchedStatus === 'incomplete') {
+        NCRList = data.filter(ncr => ncr.status === 'incomplete');
+        const count = NCRList.length;
+        records.textContent = `Open NCRs: ${count}`;
+    }
+    else if (matchedStatus === 'completed') {
+        NCRList = data.filter(ncr => ncr.status === 'completed');
+        const count = NCRList.length;
+        records.textContent = `Closed NCRs: ${count}`;
+    }
+    else if (matchedStatus === 'archived') {
+        NCRList = data.filter(ncr => ncr.status === 'archived');
+        const count = NCRList.length;
+        records.textContent = `Archived NCRs: ${count}`;
+    }
+
+    // Create table rows for each NCR
+    NCRList.forEach(ncr => {
         const row = document.createElement('tr');
         const reportStage = getReportStage(ncr);
 
         // Determine the status display for incomplete NCRs
-        const statusDisplay = `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>`; // Text for incomplete
+        const statusDisplay = ncr.status === 'incomplete' 
+            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>` 
+            : `<span style="color: gray"><i class="fa fa-check"></i> Closed</span>`; // Status for completed/archived
 
         // Set the inner HTML of the row
         row.innerHTML = `
@@ -113,6 +130,7 @@ function populateTable(data) {
         tBody.appendChild(row); // Append the row to the table body
     });
 }
+
 
 
 function viewNCR(ncr) {
@@ -178,23 +196,28 @@ function filterNcr(ncrData) {
     const dateTo = document.getElementById('dateTo').value;
 
     const filteredData = ncrData.filter(ncr => {
+        // Filter by search term (supplier name)
         const matchedSearch = (search.value === "All") || (ncr.qa.supplier_name === search.value);
-        const matchedStatus = !status ||
-            (status === 'all') ||
-            (status === 'completed' && ncr.status === 'completed') ||
-            (status === 'incomplete' && ncr.status === 'incomplete');
-        const matchedDepartment = (department == "All") || (getReportStage(ncr) === department);
 
+        // Filter by department (based on report stage)
+        const matchedDepartment = (department === "All") || (getReportStage(ncr) === department);
+
+        // Filter by date range (from and to dates)
         const ncrDate = new Date(ncr.qa.date);
         const matchedDateRange = (!dateFrom || new Date(dateFrom) <= ncrDate) &&
             (!dateTo || new Date(dateTo) >= ncrDate);
 
-        return matchedSearch && matchedStatus && matchedDepartment && matchedDateRange;
+        // Filter by status (status is checked)
+        // const matchedStatus = status === "incomplete" && ncr.status === status;
+
+        return matchedSearch && matchedDepartment && matchedDateRange && status;
     });
 
+    // Update records count and populate table with filtered data
     records.textContent = `Records found: ${filteredData.length}`;
-    populateTable(filteredData);
+    populateTable(filteredData, status);
 }
+
 
 // Attach filter events
 document.getElementById('search').addEventListener('change', () => filterNcr(ncrData))
@@ -209,7 +232,7 @@ document.getElementById('dateTo').addEventListener('change', () => filterNcr(ncr
 document.getElementById('btn-reset').addEventListener('click', () => {
     document.getElementById('search').value = "All"
     document.getElementById('Departments').value = "All"
-    document.getElementById('status-all').checked = true
+    document.getElementById('status-no').checked = true
     document.getElementById('ncrInput').value = ''  // Clear NCR input
     document.getElementById('dateFrom').value = null
     document.getElementById('dateTo').value = null
@@ -262,6 +285,7 @@ ncrInput.addEventListener('input', function () {
 // Keyboard navigation for autocomplete
 ncrInput.addEventListener('keydown', function (e) {
     const items = document.querySelectorAll('.autocomplete-item')
+    const status = document.querySelector('input[name="status"]:checked')?.value; // Get selected status
 
     if (e.key === 'ArrowDown') {
         e.preventDefault() // Prevent default behavior
@@ -282,7 +306,7 @@ ncrInput.addEventListener('keydown', function (e) {
             // Trigger filtering of NCR data based on the selected item
             records.textContent = `Records found: ${filteredRecords.length}`
 
-            populateTable(filteredRecords)
+            populateTable(filteredRecords, status)
         }
     }
 })

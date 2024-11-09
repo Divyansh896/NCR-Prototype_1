@@ -132,7 +132,7 @@
 
             <!-- Search Filter Section -->
             <div class="filter-section">
-                <div>
+                <div class="two-cols">
                     <div class="autocomplete">
                         <div class="tooltip-container">
                             <label>Search NCR Number</label>
@@ -168,10 +168,9 @@
                             <span class="tooltip ttip-filter">Select supplier from dropdown</span>
                         </div>
                     </div>
-
                 </div>
 
-                <div>
+                <div class="two-cols">
                     <div>
                         <div class="tooltip-container">
                             <label for="dateFrom">Start Date of NCR</label>
@@ -189,11 +188,11 @@
                     </div>
                     <!-- Status Filter Section -->
                     <div>
-                        <label id="status-filter">Status Filter:</label>
+                        <label id="status-filter">NCR Status</label>
                         <div class="horizontal">
-                            <label for="status-all">
-                                <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All
-                            </label>
+                            <!-- <label for="status-all">
+                                <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All -->
+                            <!-- </label> -->
 
                             <label for="status-no">
                                 <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
@@ -205,20 +204,19 @@
                             </label>
                             <label for="status-archived">
                                 <input type="radio" class="radio-btn" name="status" id="status-archived"
-                                    value="completed" tabindex="10"> Archived <!-- correct tab index-->
+                                    value="archived" tabindex="10"> Archived <!-- correct tab index-->
                             </label>
                         </div>
                     </div>
-                    <!-- Date Picker -->
 
-                    <div>
-                        <div class="tooltip-container">
-                            <button id="btn-reset" tabindex="12">Reset</button>
-                            <!-- <span class="tooltip">Click to reset all filters</span> -->
-                        </div>
+
+                </div>
+                <div>
+                    <div class="tooltip-container">
+                        <button id="btn-reset" tabindex="12">Reset</button>
+                        <span class="tooltip ttip-btn-reset">Click to reset all filters</span>
                     </div>
                 </div>
-
             </div>
 
 
@@ -232,7 +230,7 @@
                         <th>NCR Number</th>
                         <th>Date</th>
                         <th>Supplier</th>
-                        <th>Item</th>
+                        <th>Item description</th>
                         <th>NCR Status</th>
                         <!-- <th>NCR Stage</th> -->
                         <th>Controls</th>
