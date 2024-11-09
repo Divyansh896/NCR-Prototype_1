@@ -107,9 +107,17 @@ if (user.role === 'QA Inspector') {
     }
 
     //chekboxes and radio buttons formatted as buttons for design purposes
-    function toggleCheck(checkbox) {
-        checkbox.parentElement.classList.toggle('checked', checkbox.checked);
+    function toggleCheck(radio) {
+        // Remove 'checked' class from all sibling radio buttons' parent elements
+        const radios = document.querySelectorAll(`input[name="${radio.name}"]`);
+        radios.forEach(r => r.parentElement.classList.remove('checked'));
+    
+        // Add 'checked' class to the selected radio button's parent element
+        if (radio.checked) {
+            radio.parentElement.classList.add('checked');
+        }
     }
+    
 
     function toggleRadio(radio) {
         // Remove 'checked' class from all radio button labels
@@ -278,6 +286,7 @@ if (user.role === 'QA Inspector') {
         const radioErrorSpan = document.getElementById('process-applicable-error');
         
         if (![...radioButtons].some(radio => radio.checked)) {
+            // console.log(radioErrorSpan)
             radioErrorSpan.style.display = 'inline'; // Show error message
             radioErrorSpan.textContent  = 'Please identify applicabale process.'; // Set error message
             isValid = false;

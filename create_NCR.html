@@ -235,25 +235,23 @@
 
                                     <!-- Checkbox-like buttons -->
                                     <label>Identify Process Applicable (Required):</label>
-                                    <span class="required checkbox-error">Item marked non-conforming required </span>
+                                    <span class="required" id="process-applicable-error">Item marked non-conforming required </span>
                                     <div class="chkboxes-create-ncr">
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="checkbox-button">
-                                                    <input type="checkbox" id="supplier" name="process" value="supplier"
+                                                <label class="radio-button">
+                                                    <input type="radio" id="supplier" name="process" value="Supplier or Rec-Insp"
                                                         class="hidden-checkbox" onclick="toggleCheck(this)">
                                                     Supplier or Rec-Insp
                                                 </label>
                                                 <span class="tooltip">Click to select Supplier or Rec-Insp
                                                     option.</span>
                                             </div>
-
-
                                         </div>
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="checkbox-button">
-                                                    <input type="checkbox" id="wip" name="process" value="wip"
+                                                <label class="radio-button">
+                                                    <input type="radio" id="wip" name="process" value="WIP (Production order)"
                                                         class="hidden-checkbox" onclick="toggleCheck(this)">
                                                     WIP (Production order)
                                                 </label>
