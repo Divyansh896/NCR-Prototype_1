@@ -110,20 +110,8 @@ if (user.role === 'Lead Engineer') {
             sections[currentStep].classList.remove("active")
             currentStep++
             sections[currentStep].classList.add("active")
-            
-            const dispositionOptions = document.querySelector('input[name="disposition-options"]:checked').value
-            const dispositionDetails = document.getElementById("disposition_details");
-
-            if(dispositionOptions == "Repair" || dispositionOptions == "Rework"){
-                dispositionDetails.disabled = false;
-                dispositionDetails.classList.remove("disabled-style"); // Remove the styling class
-            }
-            else{
-                dispositionDetails.disabled = true;
-                dispositionDetails.classList.add("disabled-style"); // Add the styling class
-            }
             updateStatusBar(dispositionOptions)
-            console.log(dispositionOptions)
+
         }
         else {
             showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')

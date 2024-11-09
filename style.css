@@ -94,15 +94,6 @@ h1 {
     font-size: 1.5rem;
 }
 
-/* class for showing that input is disabled*/
-.disabled-style {
-    background-color: #f0f0f0; /* Light grey background */
-    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2); /* Inner shadow for disabled effect */
-    border: 1px solid #ccc; /* Lighter border */
-    color: #999; /* Lighter text color */
-    cursor: not-allowed; /* Indicate it's disabled */
-}
-
 
 /*header*/
 header {
@@ -617,7 +608,8 @@ fieldset legend {
 #clear-btn1,
 #clear-btn2,
 #back-btn1,
-#back-btn2 {
+#back-btn2,
+#logoutBtn {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -626,7 +618,8 @@ fieldset legend {
 #clear-btn1:hover,
 #clear-btn2:hover,
 #back-btn1:hover,
-#back-btn2:hover {
+#back-btn2:hover,
+#logoutBtn:hover {
     background-color: #e0e0e0;
 }
 
@@ -1057,6 +1050,7 @@ input[type="radio"] {
     background: white;
     border: none;
     margin-bottom: 0px;
+    width: 100%;
 }
 
 .account legend {
@@ -1086,7 +1080,7 @@ input[type="radio"] {
 
 .account input,
 .account select {
-    width: 200px;
+    width: 100%;
 }
 
 .account legend img {
@@ -1743,9 +1737,14 @@ td button:focus {
     }
 
     /* account */
-    .account input,
-    .account select {
-        width: 500px;
+
+    .acc-two-cols{
+        display: grid;
+        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+        gap: 10%;
+        align-items: start;
+        padding: 0px 40px;
+        width: 100%;
     }
 
     .account legend img {
