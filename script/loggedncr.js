@@ -7,6 +7,7 @@ const backBtn2 = document.getElementById("back-btn2")
 const clearBtn1 = document.getElementById("clear-btn1")
 const clearBtn2 = document.getElementById("clear-btn2")
 const submitBtn = document.getElementById("submit-btn")
+const starElements = document.querySelectorAll('.required');
 
 const footer = document.getElementById('footer-scroll')
 
@@ -19,6 +20,10 @@ userName.innerHTML = `${user.firstname}  ${user.lastname}`
 const queryParams = new URLSearchParams(window.location.search)
 loadData(queryParams)
 
+//hide errors in the beggining
+starElements.forEach(star => {
+    star.style.display = 'none'; // Hide each star element
+});
 
 function showDescriptionMessage() {
     // Get the value of the selected option
@@ -119,12 +124,11 @@ if (user.role === 'Lead Engineer') {
 
     // Add event listeners for navigation buttons
     nextBtn1.addEventListener("click", () => {
-        if (true) {
+        if (validateSection1()) {
             sections[currentStep].classList.remove("active")
             currentStep++
             sections[currentStep].classList.add("active")
-            updateStatusBar(dispositionOptions)
-
+            updateStatusBar()
         }
         else {
             showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
@@ -132,12 +136,11 @@ if (user.role === 'Lead Engineer') {
     })
 
     nextBtn2.addEventListener("click", () => {
-        if (true) {
+        if (validateSection2()) {
             sections[currentStep].classList.remove("active")
             currentStep++
             sections[currentStep].classList.add("active")
             updateStatusBar()
-            populateConfirmationData()
         }
         else {
             showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
@@ -189,13 +192,16 @@ if (user.role === 'Lead Engineer') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="step1-legend"]')
         clearSection(section1)
-
+        
         //Clear radio buttons
         const radioButtons = document.querySelectorAll('input[name="drawing-required"]');
         radioButtons.forEach(radioButtons => {
             radioButtons.checked = false
             radioButtons.parentElement.classList.remove('checked')
         });
+        
+        //clear the instruction for disposition details
+        document.getElementById("descriptionMessage").style.display = "none";
 
         const radioButtons1 = document.querySelectorAll('input[name="disposition-options"]');
         radioButtons1.forEach(radioButtons1 => {
@@ -203,11 +209,7 @@ if (user.role === 'Lead Engineer') {
             radioButtons1.parentElement.classList.remove('checked')
         });
         
-        //Clear date pickers
-        const datePicker1 = document.getElementById("revision_date")
-        datePicker1.value = null;
-        const datePicker2 = document.getElementById("engineering_review_date")
-        datePicker2.value = null;
+       
     })
 
     // Clear fields in Section 2
@@ -228,8 +230,130 @@ if (user.role === 'Lead Engineer') {
             radioButtons2.parentElement.classList.remove('checked')
         });
 
+         //Clear date pickers
+         const datePicker1 = document.getElementById("revision_date")
+         datePicker1.value = null;
+         const datePicker2 = document.getElementById("engineering_review_date")
+         datePicker2.value = null;
+
     })
+
+
+    //validate section 1
+    function validateSection1() {
+        let isValid = true;
+
+        // Reset all error messages
+        const errorMessages = {
+            'disposition-details': ''
+        };
+
+        const requiredFields = [
+            'disposition-details'
+        ];
+
+        requiredFields.forEach(field => {
+            const inputElement = document.getElementById(field);
+            const errorSpan = document.getElementById(`${field}-error`);
+
+            // Check if the input is empty
+            if (inputElement.value.trim() === '') {
+                errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
+                errorSpan.style.display = 'inline'; // Show error message
+                errorSpan.textContent = errorMessages[field]; // Set the error message
+                isValid = false;
+            } else {
+                errorSpan.style.display = 'none'; // Hide error if filled
+            }
+        });
+
+
+        //validate radio buttons
+        const radioButtons = document.querySelectorAll('input[name="disposition-options"]');
+        const radioErrorSpan = document.getElementById('disposition-options-error');
+        
+        if (![...radioButtons].some(radio => radio.checked)) {
+            // console.log(radioErrorSpan)
+            radioErrorSpan.style.display = 'inline'; // Show error message
+            radioErrorSpan.textContent  = 'Please select one of the Review by CF Engineer options'; // Set error message
+            isValid = false;
+        } else {
+            radioErrorSpan.style.display = 'none'; // Hide error if valid
+        }
+
+        // Clear specific error messages for non-empty fields
+        for (const field of requiredFields) {
+            const errorSpan = document.getElementById(`${field}-error`);
+            if (errorMessages[field] === '') {
+                errorSpan.style.display = 'none'; // Hide error if no error
+            }
+        }
+
+
+        return isValid;
+    }
+
+    //validate section 2
+    function validateSection2() {
+        let isValid = true;
+
+        const radioButtons = document.querySelectorAll('input[name="resolved"]');
+        const radioErrorSpan = document.getElementById("resolved-error");
+
+        // Check if at least one radio button is checked
+        if (![...radioButtons].some(radio => radio.checked)) {
+            radioErrorSpan.style.display = 'inline'; // Show error in the span if no radio button is checked
+            radioErrorSpan.textContent = 'Please select if the case is resolved or not.'; // Set error message
+            isValid = false;
+        } else {
+            radioErrorSpan.style.display = 'none'; // Hide error if valid
+        }
+
+        return isValid;
+    }
+
 }
+
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.querySelector('h2').innerText = title; // Set the title
+    modalContent.querySelector('p').innerText = message; // Set the message
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = icon; // Replace with your image URL
+    iconDiv.appendChild(imgElement);
+
+    modal.style.display = "block"; // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
+    }, 10); // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after transition
+            callback(); // Execute the callback after closing the modal
+        }, 500); // Wait for the transition to finish before hiding
+    };
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal;
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}
+
 function removeSectionsForUser() {
 
     if (user.role === 'Lead Engineer') {
@@ -259,7 +383,7 @@ function populateConfirmationData() {
     const reviewDate = document.getElementById('engineering_review_date').value
 
     //Get values form Section 2
-    const disposition = document.getElementById('disposition_details').value
+    const disposition = document.getElementById('disposition-details').value
     const custNoteNeed = document.querySelector('input[name=customer-notif]:checked').value
     const resolved = document.querySelector('input[name=resolved]:checked').value
 

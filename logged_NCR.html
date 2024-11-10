@@ -246,8 +246,8 @@
 
                     <form id="ncr-form" aria-labelledby="form-title">
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                            <label id="disposition-options">Disposition Options (Required):</label>
-
+                            <label id="disposition-options">Review by CF Engineer (Required):</label>
+                            <span class="required" id="disposition-options-error"></span>
                             <div class="chkboxes-create-ncr" onchange="showDescriptionMessage()">
                                 <div class="tooltip-container">
                                     <label class="radio-button">
@@ -290,14 +290,15 @@
                             <div>
 
                                 <div class="tooltip-container">
-                                    <label for="disposition_details">Disposition (Required):</label>
+                                    <label for="disposition-details">Disposition (Required):</label>
                                     <p id="descriptionMessage" style="display: none">
                                         Write the sequense of work steps as well.
                                     </p>
-                                    <textarea id="disposition_details" rows="3"
+                                    <textarea id="disposition-details" rows="3"
                                         aria-describedby="disposition-details-desc"
                                         placeholder="Disposition details"></textarea>
                                     <span class="tooltip ttip-descr">Type in disposition details</span>
+                                    <span class="error-message" id="disposition-details-error"></span>
                                 </div>
 
                             </div>
@@ -394,7 +395,8 @@
                                             aria-label="Engineering Review Date" name="engineering_review_date">
                                         <span class="tooltip">Select engineering review date</span>
                                     </div>
-                                    <label for="resolved">Resolved(Required):</label>
+                                    <label for="resolved">Resolved (Required):</label>
+                                    <span class="required" id="resolved-error"></span>
                                     <div class="rad-create-ncr">
 
                                         <div class="tooltip-container">
@@ -434,7 +436,7 @@
                                             aria-live="polite"></span></p>
 
                                     <p>Customer Notification Required: <span id="confirm-customer-notification"
-                                            aria-live="polite">No</span></p>
+                                            aria-live="polite"></span></p>
                                 </div>
 
                                 <!-- Details and Revision Information Confirmation Section -->
