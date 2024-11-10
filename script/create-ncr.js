@@ -4,9 +4,15 @@ const starElements = document.querySelectorAll('.required');
 const dropArea = document.getElementById('drop-area');
 const mediaInput = document.getElementById('media-input');
 const mediaList = document.getElementById('media-list');
+const notificationlist = document.getElementById('notification-list');
+const notificationCount = document.getElementById('notification-count');
 
+let notifications = []
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
+
+setNotificationText()
+
 // Get the modal
 const modal = document.getElementById("popup");
 
@@ -111,24 +117,24 @@ if (user.role === 'QA Inspector') {
         // Remove 'checked' class from all sibling radio buttons' parent elements
         const radios = document.querySelectorAll(`input[name="${radio.name}"]`);
         radios.forEach(r => r.parentElement.classList.remove('checked'));
-    
+
         // Add 'checked' class to the selected radio button's parent element
         if (radio.checked) {
             radio.parentElement.classList.add('checked');
         }
     }
-    
+
 
     function toggleRadio(radio) {
         // Remove 'checked' class from all radio button labels
         const buttons = document.querySelectorAll('.radio-button');
         buttons.forEach(button => button.classList.remove('checked'));
-  
+
         // Add 'checked' class only to the selected radio button's label
         if (radio.checked) {
-          radio.parentElement.classList.add('checked');
+            radio.parentElement.classList.add('checked');
         }
-      }
+    }
 
 
     // Clear fields in a section but keep NCR number and dropdowns intact
@@ -158,8 +164,8 @@ if (user.role === 'QA Inspector') {
             sections[currentStep].classList.add("active")
             updateStatusBar()
         }
-        else if(!isNaN(quantityReceived) && !isNaN(quantityDefective)){
-            if(quantityDefective > quantityReceived){
+        else if (!isNaN(quantityReceived) && !isNaN(quantityDefective)) {
+            if (quantityDefective > quantityReceived) {
 
                 showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
             }
@@ -209,6 +215,8 @@ if (user.role === 'QA Inspector') {
             submitForm(user.role); // Call the form submission
             sendMail(); // Call the email sending function
             window.location.href = "home.html"; // Redirect to home.html
+
+            sendNotification(ncrNumber)
         });
     });
 
@@ -216,7 +224,7 @@ if (user.role === 'QA Inspector') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="product-info"]')
         clearSection(section1)
-        
+
         // clear the radio buttons
         const radioButtons = document.querySelectorAll('input[name="process"]');
         radioButtons.forEach(radioButtons => {
@@ -292,11 +300,11 @@ if (user.role === 'QA Inspector') {
         //validate radio buttons
         const radioButtons = document.querySelectorAll('input[name="process"]');
         const radioErrorSpan = document.getElementById('process-applicable-error');
-        
+
         if (![...radioButtons].some(radio => radio.checked)) {
             // console.log(radioErrorSpan)
             radioErrorSpan.style.display = 'inline'; // Show error message
-            radioErrorSpan.textContent  = 'Please identify applicabale process.'; // Set error message
+            radioErrorSpan.textContent = 'Please identify applicabale process.'; // Set error message
             isValid = false;
         } else {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
@@ -501,11 +509,7 @@ function submitForm(role) {
             }
         };
 
-        // newEntry.status = "QA Complete";
-        // ncr_data.push(newEntry)
-        // data = JSON.stringify(ncr_data)
-        // fs.writeFileSync("Data/ncr_reports.json",ncr_data,"utf-8");
-        // alert('QA data submitted!');
+        
         ncrData.push(newEntry);  // Append new entry to the array
         console.log(ncrData)
 
@@ -531,7 +535,7 @@ async function handleFiles(files) {
     for (const file of files) {
         if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
             existingFiles.push(file); // Add new files to the existing list
-            
+
             // Create list item for file name
             const listItem = document.createElement('li');
             listItem.style.display = 'flex'; // Use flex to align items
@@ -559,8 +563,7 @@ async function handleFiles(files) {
                 localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
             });
 
-            // Append the delete button to the list item
-            // listItem.appendChild(deleteButton);
+            
 
             // Convert file to base64 and create an image or video element based on the file type
             const base64Data = await fileToBase64(file);
@@ -683,7 +686,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -692,7 +695,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -710,3 +713,39 @@ function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
 
 }
+
+function sendNotification(ncrNum) {
+    // Retrieve existing notifications from localStorage or initialize as an empty array
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    // Add the new notification message
+    notifications.push(`NCR No. ${ncrNum} has been sent to engineer department via Gmail.`);
+
+    // Save updated notifications back to localStorage
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+
+    // Update the notification display
+    setNotificationText();
+}
+
+function setNotificationText() {
+    // Retrieve and parse notifications from localStorage
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    // Set the notification count
+    const count = document.getElementById('notification-count');
+    count.innerHTML = notifications.length;
+
+    // Clear any existing notifications in the list to avoid duplicates
+    const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
+    notificationList.innerHTML = ''; // Clear existing list items
+
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li');
+        li.innerHTML = notificationText;
+        notificationList.appendChild(li);
+    });
+}
+
+
