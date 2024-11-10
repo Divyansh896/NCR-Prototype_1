@@ -645,7 +645,7 @@ fieldset legend {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    justify-content: space-evenly;
+    justify-content: flex-end;
 }
 
 .form-section label,
@@ -798,7 +798,7 @@ fieldset legend {
     transition: background-color 0.3s, color 0.3s;
     border: #4c6488, solid;
     border-radius: 20px;
-    width: 182px;
+    width: 150px;
 }
 
 .checkbox-button input[type="checkbox"],
@@ -1732,6 +1732,11 @@ td button:focus {
         font-size: 14px;
     }
 
+    .chkboxes-create-ncr,
+    .rad-create-ncr{
+        flex-direction: row;
+    }
+
     /*view ncr*/
 
     .filter-section label,
@@ -2189,7 +2194,7 @@ td button:focus {
 
     .checkbox-button,
     .radio-button {
-        width: 205px;
+        width: 100px;
     }
 
     .main-container-create {

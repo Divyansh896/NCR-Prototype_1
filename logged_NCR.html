@@ -245,42 +245,61 @@
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
                             <label id="disposition-options">Disposition Options (Required):</label>
 
-                                    <div class="chkboxes-create-ncr">
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" id="use_as_is" name="disposition-options"
-                                                    aria-label="Use as is option" class="hidden-radio" onclick="toggleRadio(this)" value="Use as is">
-                                                Use as is
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" id="repair" name="disposition-options"
-                                                    aria-label="Repair option" class="hidden-radio" onclick="toggleRadio(this)" value="Repair">
-                                                Repair
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" id="rework" name="disposition-options"
-                                                    aria-label="Rework option" class="hidden-radio" onclick="toggleRadio(this)" value="Rework">
-                                                Rework
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" id="scrap" name="disposition-options"
-                                                    aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)" value="Scrap">
-                                                Scrap
-                                            </label>
-                                            <span class="tooltip">Click to check this option</span>
-                                        </div>
-                                    </div>
+                            <div class="chkboxes-create-ncr" onchange="showDescriptionMessage()">
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="use_as_is" name="disposition-options"
+                                            aria-label="Use as is option" class="hidden-radio"
+                                            onclick="toggleRadio(this)" value="Use as is">
+                                        Use as is
+                                    </label>
+                                    <span class="tooltip">Click to check this option</span>
+                                </div>
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="repair" name="disposition-options"
+                                            aria-label="Repair option" class="hidden-radio" onclick="toggleRadio(this)"
+                                            value="Repair">
+                                        Repair
+                                    </label>
+                                    <span class="tooltip">Click to check this option</span>
+                                </div>
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="rework" name="disposition-options"
+                                            aria-label="Rework option" class="hidden-radio" onclick="toggleRadio(this)"
+                                            value="Rework">
+                                        Rework
+                                    </label>
+                                    <span class="tooltip">Click to check this option</span>
+                                </div>
+                                <div class="tooltip-container">
+                                    <label class="radio-button">
+                                        <input type="radio" id="scrap" name="disposition-options"
+                                            aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)"
+                                            value="Scrap">
+                                        Scrap
+                                    </label>
+                                    <span class="tooltip">Click to check this option</span>
+                                </div>
 
-                            
+                            </div>
+                            <div>
+
+                                <div class="tooltip-container">
+                                    <label for="disposition_details">Disposition (Required):</label>
+                                    <p id="descriptionMessage" style="display: none">
+                                        Write the sequense of work steps as well.
+                                    </p>
+                                    <textarea id="disposition_details" rows="3"
+                                        aria-describedby="disposition-details-desc"
+                                        placeholder="Disposition details"></textarea>
+                                    <span class="tooltip ttip-descr">Type in disposition details</span>
+                                </div>
+
+                            </div>
+
+
 
                             <label for="drawing-required">
                                 Drawing Update Needed:
@@ -304,36 +323,9 @@
                                 </div>
                             </div>
                             <div class="qa-info-section" id="drawing-rad">
-                                <div>
-                                    <div class="tooltip-container">
-                                        <label for="original_rev_number">Original Revision Number:</label>
-                                        <input type="text" id="original_rev_number"
-                                            aria-label="Original Revision Number"
-                                            placeholder="Original Revision Number">
-                                        <span class="tooltip">Enter original revision number</span>
-                                    </div>
-                                    <div class="tooltip-container">
-                                        <label for="updated_rev_number">Updated Revision Number:</label>
-                                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
-                                            placeholder="Updated Revision Number">
-                                        <span class="tooltip">Enter updated revision number</span>
-                                    </div>
-                                </div>
+
                                 <!--<legend id="step2-legend">Engineering Review</legend>!-->
-                                <div>
-                                    <div class="tooltip-container">
-                                        <label for="revision_date">Revision Date:</label>
-                                        <input type="date" id="revision_date" aria-label="Revision Date"
-                                            name="revision_date">
-                                        <span class="tooltip">Enter revision date of NCR</span>
-                                    </div>
-                                    <div class="tooltip-container">
-                                        <label for="engineering_review_date">Engineering Review Date:</label>
-                                        <input type="date" id="engineering_review_date"
-                                            aria-label="Engineering Review Date" name="engineering_review_date">
-                                        <span class="tooltip">Select engineering review date</span>
-                                    </div>
-                                </div>
+                                
                             </div>
 
 
@@ -348,17 +340,21 @@
 
                         <fieldset class="form-section" role="group" aria-labelledby="step2-legend">
                             <div class="qa-info-section">
-                                <div>
 
-                                        <div class="tooltip-container">
-                                            <label for="disposition_details">Disposition (Required):</label>
-                                            <textarea id="disposition_details" rows="3" aria-describedby="disposition-details-desc"
-                                                placeholder="Disposition details"></textarea>
-                                            <span class="tooltip ttip-descr">Type in disposition details</span>
-                                        </div>
-                                    
-                                </div>
                                 <div>
+                                    <div class="tooltip-container">
+                                        <label for="original_rev_number">Original Revision Number:</label>
+                                        <input type="text" id="original_rev_number"
+                                            aria-label="Original Revision Number"
+                                            placeholder="Original Revision Number">
+                                        <span class="tooltip">Enter original revision number</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="updated_rev_number">Updated Revision Number:</label>
+                                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
+                                            placeholder="Updated Revision Number">
+                                        <span class="tooltip">Enter updated revision number</span>
+                                    </div>
                                     <label for="customer-notif">
                                         Customer Notification Needed:
                                     </label>
@@ -380,6 +376,20 @@
                                             </label>
                                             <span class="tooltip">Click to check no</span>
                                         </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="tooltip-container">
+                                        <label for="revision_date">Revision Date:</label>
+                                        <input type="date" id="revision_date" aria-label="Revision Date"
+                                            name="revision_date">
+                                        <span class="tooltip">Enter revision date of NCR</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="engineering_review_date">Engineering Review Date:</label>
+                                        <input type="date" id="engineering_review_date"
+                                            aria-label="Engineering Review Date" name="engineering_review_date">
+                                        <span class="tooltip">Select engineering review date</span>
                                     </div>
                                     <label for="resolved">Resolved(Required):</label>
                                     <div class="rad-create-ncr">
@@ -417,8 +427,9 @@
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
                                 <div class="confirm-create-qa" aria-labelledby="step1-legend">
-                                    <p>Review by CF Engineer: <span id="confirm-disposition-options" aria-live="polite"></span></p>
-                                    
+                                    <p>Review by CF Engineer: <span id="confirm-disposition-options"
+                                            aria-live="polite"></span></p>
+
                                     <p>Customer Notification Required: <span id="confirm-customer-notification"
                                             aria-live="polite">No</span></p>
                                 </div>
@@ -427,7 +438,8 @@
                                 <div class="confirm-create-qa" aria-labelledby="step2-legend">
 
                                     <p>Disposition Details: <span id="confirm-disposition-details"
-                                            aria-live="polite"></span><p>
+                                            aria-live="polite"></span>
+                                    <p>
                                     <p>Drawing Update Required: <span id="confirm-drawing-update"
                                             aria-live="polite"></span></p>
                                     <p>Original Revision Number: <span id="confirm-original-rev-number"
@@ -442,8 +454,7 @@
                                     <h3 id="step3-legend">Engineering Review</h3>
                                     <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite"></span>
                                     </p>
-                                    <p>Revision Date: <span id="confirm-revision-date"
-                                            aria-live="polite"></span>
+                                    <p>Revision Date: <span id="confirm-revision-date" aria-live="polite"></span>
                                     </p>
                                     <p>Engineering Review Date: <span id="confirm-engineering-review-date"
                                             aria-live="polite"></span></p>

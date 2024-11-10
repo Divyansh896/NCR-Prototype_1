@@ -23,6 +23,19 @@ const queryParams = new URLSearchParams(window.location.search)
 loadData(queryParams)
 
 
+function showDescriptionMessage() {
+    // Get the value of the selected option
+    const selectedOption = document.querySelector('input[name="disposition-options"]:checked').value;
+    const message = document.getElementById("descriptionMessage");
+
+    // Display the message if 'Repair' or 'Rework' is selected
+    if (selectedOption === "Repair" || selectedOption === "Rework") {
+        message.style.display = "block";
+    } else {
+        message.style.display = "none";
+    }
+}
+
 const modal = document.getElementById("popup");
 
 // Get the <span> element that closes the modal
@@ -354,6 +367,7 @@ function setNotificationText() {
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
 
     // Set the notification count
+ 
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
 
