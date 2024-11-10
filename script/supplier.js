@@ -10,6 +10,9 @@ let city=document.getElementById("city")
 let postalcode=document.getElementById("postalCode")
 let contact = document.getElementById("contact")
 let shippingmethod=document.getElementById("shippingMethod")
+const notificationlist = document.getElementById('notification-list');
+const notificationCount = document.getElementById('notification-count');
+setNotificationText()
 //All the validation of the add supplier page
 document.getElementById("submit-btn").addEventListener('click', function (e) {
     e.preventDefault()
@@ -118,4 +121,23 @@ function toggleNotifications() {
     } else {
         notificationBox.style.display = "none"
     }
+}
+function setNotificationText() {
+    // Retrieve and parse notifications from localStorage
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    // Set the notification count
+    const count = document.getElementById('notification-count');
+    count.innerHTML = notifications.length;
+
+    // Clear any existing notifications in the list to avoid duplicates
+    const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
+    notificationList.innerHTML = ''; // Clear existing list items
+
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li');
+        li.innerHTML = notificationText;
+        notificationList.appendChild(li);
+    });
 }
