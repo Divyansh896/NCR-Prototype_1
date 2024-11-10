@@ -825,7 +825,7 @@ label.radio-button {
     background-color: #fff;
     border-radius: 5px;
     padding: 15px 10px;
-    flex-direction: row;
+    flex-direction: column;
     gap: 10px;
     width: fit-content;
 }
