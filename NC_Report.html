@@ -11,6 +11,10 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    
 </head>
 
 <body>
@@ -38,9 +42,10 @@
                 </li>
 
                 <li>
-                    <a href="NCR_log.html" class="linksNav" tabindex="3"
+                    <a href="view.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
                         <i class="fa fa-fw fa-search"></i>NCR log
+
                     </a>
                 </li>
 
@@ -61,17 +66,14 @@
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
-                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
+                    <div id="settings-box" class="settings-box">
                         <ul>
-                            <!-- User Profile Section -->
                             <li>
-                                <i class="fa fa-user-circle-o"></i>
-                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
+                                <i class="fa fa-user"></i>
+                                <span id="userName"></span>
                             </li>
-
-                            <!-- Edit Profile Link -->
                             <li>
-                                <a href="account.html" aria-label="Edit your profile">
+                                <a href="account.html">
                                     <i class="fa fa-user"></i>
                                     <span>Edit Profile</span>
                                 </a>
@@ -105,11 +107,14 @@
                                     <i class="fa fa-sign-out"></i> Logout
                                 </a>
                             </li>
+
                         </ul>
                     </div>
                 </li>
+
             </ul>
         </nav>
+
     </header>
 
     <div class="brdcontainer" id="brdcrmb">
@@ -127,9 +132,19 @@
         <div id="contentToDownload">
             <!-- Main Content -->
             <h1>Non-Conformance Report</h1>
-            <button id="downloadPdf"><i class="fa fa-download"></i> Download PDF</button>
+                    <!---Download File Button-->
+                    <div class="button-container">
+                        <button id="qa-downloadPdf" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i>Download PDF</button>
+                    </div>
+                    <!--Print Buttobn-->
+                    <div class="button-container">
+                        <button  id="qa-print" class="ncr-buttons" ><i class="fa fa-print" aria-hidden="true"></i>Print</button>
+                    </div> 
+                
+                
             <details>
-                <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep</summary>
+                <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
+                    Report</summary>
                 <div class="two-cols">
                     <!-- First Column -->
                     <div class="form-row">
@@ -163,40 +178,40 @@
                                 placeholder="Enter quantity defective" tabindex="11"></span>
                         </div>
                     </div>
-                </div>
+                    <!--</div>-->
 
-                <!-- Second Column -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="qa-date">QA Date:</label>
-                        <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
+                    <!-- Second Column -->
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="qa-date">QA Date:</label>
+                            <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="supplier-name">Supplier Name:</label>
+                            <span class="qa-editable" id="supplier-name" name="supplier_name"
+                                placeholder="Enter supplier name" required tabindex="13"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="product-no">Product No.:</label>
+                            <span class="qa-editable" id="product-no" name="product_no"
+                                placeholder="Enter product number" required tabindex="14"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="process">Identify Process Applicable:</label>
+                            <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
+                            </span>
+                        </div>
                     </div>
 
-                    <div class="form-group">
-                        <label for="supplier-name">Supplier Name:</label>
-                        <span class="qa-editable" id="supplier-name" name="supplier_name"
-                            placeholder="Enter supplier name" required tabindex="13"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="product-no">Product No.:</label>
-                        <span class="qa-editable" id="product-no" name="product_no" placeholder="Enter product number"
-                            required tabindex="14"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="process">Identify Process Applicable:</label>
-                        <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
-                        </span>
-                    </div>
-                </div>
-
-                <div class="two-cols">
+                    <!--<div class="two-cols">-->
                     <div class="form-row">
                         <!-- Textarea Section -->
                         <div class="text-descr">
                             <div class="form-group">
-                                <label for="description-item">Description of Item (Including SAP No.):</label>
+                                <label for="description-item">Description of Item (Including SAP No):</label>
                                 <span class="qa-editable" id="description-item" name="description_item"
                                     placeholder="Enter description of item" required tabindex="17"></span>
                             </div>
@@ -227,6 +242,10 @@
                             </div>
                         </div>
                     </div>
+                </div>
+                <!---Buttons-->
+                <div class="btn-report">
+                    <button class="edit" id="qa-edit" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -285,31 +304,34 @@
                                 aria-label="Engineering Review Date" tabindex="29"></span>
                         </div>
                     </div>
-                </div>
+                    <!--</div>-->
 
-                <div class="two-cols">
+                    <!--<div class="two-cols">-->
                     <div class="form-row">
-                        <label for="resolved">Resolved:</label>
+
                         <div class="rad-report">
+                            <label for="resolved">Resolved:</label>
                             <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
                                 tabindex="30"></span>
                         </div>
 
                         <div class="rad-report">
-                            <label for="customer-notification">Customer Notification Required:</label>
+                            <label for="customer-notification">Customer Notification:</label>
                             <span class="eng-editable" id="customer-notification" name="customer_notification"
                                 aria-label="Customer Notification Required" tabindex="31"></span>
                         </div>
 
                         <div class="rad-report">
-                            <label for="drawing-update-required">Drawing Update Required:</label>
+                            <label for="drawing-update-required">Drawing Update:</label>
                             <span class="eng-editable" id="drawing-update-required" name="drawing_update_required"
                                 aria-label="Drawing Update Required" tabindex="32"></span>
                         </div>
                     </div>
                 </div>
-
-
+                <!---Buttons-->
+                <div class="btn-report">
+                    <button class="edit" id="qa-edit" tabindex="22">Edit</button>
+                </div>
 
             </details>
 
@@ -343,59 +365,64 @@
                                 aria-label="Operations Manager Name" tabindex="40"></span>
                         </div>
                     </div>
+                    <!---</div>--->
+
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="operations-manager-date">Operations Manager Date:</label>
+                            <span class="purch-editable" id="operations-manager-date" name="operations_manager_date"
+                                aria-label="Operations Manager Date" tabindex="41"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="new-ncr-number">New NCR Number:</label>
+                            <span class="purch-editable" id="new-ncr-number" name="new_ncr_number"
+                                aria-label="New NCR Number" tabindex="43"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inspector-name">Inspector Name:</label>
+                            <span class="purch-editable" id="inspector-name" name="inspector_name"
+                                aria-label="Inspector Name" tabindex="44"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="rad-report">
+                            <label for="car-raised">CAR Raised:</label>
+                            <span class="purch-editable" id="car-raised" name="car_raised" aria-label="CAR Raised"
+                                tabindex="37"></span>
+                        </div>
+
+                        <div class="rad-report">
+                            <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
+                            <span class="purch-editable" id="re-inspected-acceptable" name="re_inspected_acceptable"
+                                aria-label="Re-Inspected Acceptable" tabindex="42"></span>
+                        </div>
+
+                        <div class="rad-report">
+                            <label for="follow-up-required">Follow-Up Required:</label>
+                            <span class="purch-editable" id="follow-up-required" name="follow_up_required"
+                                aria-label="Follow-Up Required" tabindex="39"></span>
+                        </div>
+
+                        <div class="rad-report">
+                            <label for="ncr-closed">NCR Closed:</label>
+                            <span class="purch-editable" id="ncr-closed" name="ncr_closed" aria-label="NCR Closed"
+                                tabindex="45"></span>
+                        </div>
+
+                        <div class="rad-report">
+                            <label for="resolved">Resolved:</label>
+                            <span class="purch-editable" id="pu-resolved" name="resolved" aria-label="Resolved"
+                                tabindex="46"></span>
+                        </div>
+                    </div>
                 </div>
-
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="operations-manager-date">Operations Manager Date:</label>
-                        <span class="purch-editable" id="operations-manager-date" name="operations_manager_date"
-                            aria-label="Operations Manager Date" tabindex="41"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="new-ncr-number">New NCR Number:</label>
-                        <span class="purch-editable" id="new-ncr-number" name="new_ncr_number"
-                            aria-label="New NCR Number" tabindex="43"></span>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="inspector-name">Inspector Name:</label>
-                        <span class="purch-editable" id="inspector-name" name="inspector_name"
-                            aria-label="Inspector Name" tabindex="44"></span>
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="rad-report">
-                        <label for="car-raised">CAR Raised:</label>
-                        <span class="purch-editable" id="car-raised" name="car_raised" aria-label="CAR Raised"
-                            tabindex="37"></span>
-                    </div>
-
-                    <div class="rad-report">
-                        <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
-                        <span class="purch-editable" id="re-inspected-acceptable" name="re_inspected_acceptable"
-                            aria-label="Re-Inspected Acceptable" tabindex="42"></span>
-                    </div>
-
-                    <div class="rad-report">
-                        <label for="follow-up-required">Follow-Up Required:</label>
-                        <span class="purch-editable" id="follow-up-required" name="follow_up_required"
-                            aria-label="Follow-Up Required" tabindex="39"></span>
-                    </div>
-
-                    <div class="rad-report">
-                        <label for="ncr-closed">NCR Closed:</label>
-                        <span class="purch-editable" id="ncr-closed" name="ncr_closed" aria-label="NCR Closed"
-                            tabindex="45"></span>
-                    </div>
-
-                    <div class="rad-report">
-                        <label for="resolved">Resolved:</label>
-                        <span class="purch-editable" id="pu-resolved" name="resolved" aria-label="Resolved"
-                            tabindex="46"></span>
-                    </div>
+                <!---Buttons-->
+                <div class="btn-report">
+                    <button class="edit" id="qa-edit" tabindex="22">Edit</button>
                 </div>
 
             </details>
