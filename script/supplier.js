@@ -1,0 +1,121 @@
+
+//geting all the inputs from html
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
+const starElements = document.querySelectorAll('.required');
+let suppliername = document.getElementById("supplierName")
+let country=document.getElementById("country")
+let address=document.getElementById("address")
+let city=document.getElementById("city")
+let postalcode=document.getElementById("postalCode")
+let contact = document.getElementById("contact")
+let shippingmethod=document.getElementById("shippingMethod")
+//All the validation of the add supplier page
+document.getElementById("submit-btn").addEventListener('click', function (e) {
+    e.preventDefault()
+    if(suppliername.value==""){
+        showPopup('Required fields missing', 'Please enter the supplier name.', 'images/1382678.webp')
+        suppliername.nextElementSibling.style.display="block"
+        suppliername.nextElementSibling.textContent="Supplier name is required !"
+    }
+    if(address.value==""){
+        showPopup('Required fields missing', 'Please enter the address.', 'images/1382678.webp')
+        address.nextElementSibling.style.display="block"
+        address.nextElementSibling.textContent="Address name is required !"
+    }
+    if(city.value==""){
+        showPopup('Required fields missing', 'Please enter the city.', 'images/1382678.webp')
+        city.nextElementSibling.style.display="block"
+        city.nextElementSibling.textContent="City name is required !"
+    }
+    if(country.value==""){
+        showPopup('Required fields missing', 'Please enter the country.', 'images/1382678.webp')
+        country.nextElementSibling.style.display="block"
+        country.nextElementSibling.textContent="Country name is required !"
+    }
+    if(postalcode=="" || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(postalcode.value)) {
+        showPopup('Required fields missing', 'Please enter the valid postal code.', 'images/1382678.webp')
+        postalcode.nextElementSibling.style.display="block"
+        postalcode.nextElementSibling.textContent="Postalcode name is required !"
+    }
+    if (contact.value.length !== 10 || !/^\d+$/.test(contact.value)) {
+        showPopup('Required fields missing', 'Please enter the valid phone number.', 'images/1382678.webp')
+        contact.nextElementSibling.style.display="block"
+        contact.nextElementSibling.textContent="Contact name is required !"
+    }
+    if(shippingmethod.value==""){
+        showPopup('Required fields missing', 'Please select the valid shipping method.', 'images/1382678.webp')
+        shippingmethod.nextElementSibling.style.display="block"
+        shippingmethod.nextElementSibling.textContent="Shipping method name is required !"
+    }
+})
+//event for clear button
+document.getElementById("btn-clear").addEventListener('click',function (){
+    
+    document.querySelector("form").reset();
+} )
+// for footer
+const footer = document.getElementById('footer-scroll')
+footer.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+})
+//functions for popups
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.querySelector('h2').innerText = title; // Set the title
+    modalContent.querySelector('p').innerText = message; // Set the message
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = icon; // Replace with your image URL
+    iconDiv.appendChild(imgElement);
+
+    modal.style.display = "block"; // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
+    }, 10); // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after transition
+            callback(); // Execute the callback after closing the modal
+        }, 500); // Wait for the transition to finish before hiding
+    };
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal;
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}

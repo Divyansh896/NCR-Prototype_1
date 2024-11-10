@@ -4,18 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="View and filter NCRs (Non-Conformance Reports) in Crossfire.">
-    <meta name="keywords" content="NCR, view NCR, filter NCR, Crossfire">
+    <meta name="description"
+        content="Crossfire homepage to manage, create, and view NCRs (Non-Conformance Reports), ensuring smooth operations.">
+    <meta name="keywords" content="NCR, Crossfire, manage NCR, create NCR, view NCR, Non-Conformance Reports">
     <meta name="author" content="Mark">
-    <title>View current NCRs - Crossfire</title>
+    <title>Add Supplier</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <body>
-
-    <!-- Header with Logo and Navigation -->
     <header>
         <div class="logo-container">
             <img src="images/logo.webp" alt="Crossfire Company Logo">
@@ -40,7 +40,7 @@
                 <li>
                     <a href="NCR_log.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
-                        <i class="fa fa-fw fa-search"></i> NCR log
+                        <i class="fa fa-fw fa-search"></i>NCR log
                     </a>
                 </li>
 
@@ -120,104 +120,93 @@
             <!-- create ol or ul list and add class="breadcrumb" -->
             <ul class="breadcrumb" id="brdcrb">
                 <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
-                <li class="breadcrumb-item active" aria-current="page">View Ncr</li>
+                <li class="breadcrumb-item active" aria-current="page">Home</li>
             </ul>
         </nav>
     </div>
-    <!-- Main Section -->
+    <!-- <p class="indicator">* indicate required fields.</p> -->
     <main>
-        <div class="verticalLayout">
-            <h1>View current NCRs</h1>
-
-            <!-- Search Filter Section -->
-            <div class="filter-section">
-                <div>
-                    <div class="autocomplete">
-                        <div class="tooltip-container">
-                            <label>Search NCR Number</label>
-                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
-                            <div id="autocomplete-list" class="autocomplete-items"></div>
-                            <span class="tooltip">Type NCR number in here</span>
-                        </div>
+        <h1>Add Supplier</h1>
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
                     </div>
-
-                    <div>
-                        <div class="tooltip-container">
-                            <label for="search">Search by supplier</label>
-                            <select name="search" id="search" class="serach-bar" required tabindex="7"
-                                aria-label="Search by supplier">
-                                <option value="All">All Suppliers</option>
-                                <option value="SteelWorks Ltd">SteelWorks Ltd</option>
-                                <option value="ConcreteFast">ConcreteFast</option>
-                                <option value="BuildersHub">BuildersHub</option>
-                                <option value="HeavyDuty Works">HeavyDuty Works</option>
-                                <option value="Woodcraft Builders">Woodcraft Builders</option>
-                            </select>
-                            <span class="tooltip ttip-filter">Select supplier from dropdown</span>
-                        </div>
-                    </div>
-
+                    <h2 id="popup-title">Validation Error</h2>
                 </div>
-                <div>
-                    <div>
-                        <div class="tooltip-container">
-                            <label for="dateFrom">Start Date of NCR</label>
-                            <input type="date" name="dateFrom" id="dateFrom">
-                            <span class="tooltip ttip-filter">Select start date of the NCR</span>
-                        </div>
-                    </div>
-
-                    <div>
-                        <div class="tooltip-container">
-                            <label for="dateTo">End Date of NCR</label>
-                            <input type="date" name="dateTo" id="dateTo">
-                            <span class="tooltip ttip-filter">Select end date of the NCR</span>
-                        </div>
-                    </div>
-                </div>
-
-
-
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
             </div>
-
-            <div>
-                <button id="btn-reset" tabindex="12">Reset</button>
-            </div>
-            <!-- Records Found -->
-            <p id="record-count" aria-live="polite">Records found:</p> <!-- Added aria-live for dynamic updates -->
-
-            <!-- NCRs Table -->
-            <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
-                <thead>
-                    <tr>
-                        <th>NCR Number</th>
-                        <th>Date</th>
-                        <th>Supplier</th>
-                        <th>Item</th>
-                        <!-- <th>NCR Stage</th> -->
-                        <th>NCR resolved</th>
-                        <th>Controls</th>
-                    </tr>
-                </thead>
-                <tbody id="ncr-tbody">
-                    <!-- Rows will be dynamically generated here -->
-                </tbody>
-            </table>
         </div>
+        <form>
+            <div class="verticalLayout">
+                <div class="supplier-columns">
+                    <div class="two-cols">
+                        <div>
+                            <label for="supplierName">Supplier Name (Required)</label>
+                            <input type="text" id="supplierName" name="supplierName" tabindex="6"
+                                placeholder="Enter supplier Name">
+                            <span class="error-message" id="supplier-name-error"></span>
+                        </div>
+                        <div>
+                            <label for="address">Address (Required)</label>
+                            <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
+                            <span class="error-message" id="address-error"></span>
+                        </div>
+                        <div>
+                            <label for="city">City (Required)</label>
+                            <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
+                            <span class="error-message" id="city-error"></span>
+                        </div>
+                        <div>
+                            <label for="country">Country (Required)</label>
+                            <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
+                            <span class="error-message" id="country-error"></span>
+                        </div>
+                    </div>
+                    <div class="two-cols">
+                        <div>
+                            <label for="postalCode">Postal Code (Required)</label>
+                            <input type="text" id="postalCode" name="postalCode" tabindex="10"
+                                placeholder="Enter postalCode">
+                            <span class="error-message" id="postal-code-error"></span>
+                        </div>
+                        <div>
+                            <label for="contact">Contact (Required)</label>
+                            <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
+                            <span class="error-message" id="contact-error"></span>
+                        </div>
+                        <div>
+                            <label for="shippingMethod">Shipping Method (Required)</label>
+                            <select id="shippingMethod" name="shippingMethod" tabindex="12">
+                                <option value="">Select a shipping method</option>
+                                <option value="air">Air</option>
+                                <option value="sea">Sea</option>
+                                <option value="courier">Courier</option>
+                            </select>
+                            <span class="error-message" id="shippingMethod-error"></span>
+                        </div>
+                        <div class="btns-supplier">
+                            <button id="btn-clear" tabindex="13">Clear</button>
+                            <button class="active" type="submit" id="submit-btn" tabindex="14">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </main>
 
-    <!-- Footer -->
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="13">Privacy
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="15">Privacy
                 Policy</a>
         </p>
     </footer>
-
-    <script src="script/currentNcr.js"></script>
+    <script src="script/supplier.js"></script>
     <script src="script/breadcrumb.js"></script>
-
 </body>
 
 </html>

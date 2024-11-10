@@ -593,7 +593,7 @@ fieldset legend {
     font-size: 1rem;
 }
 
-.form-section.active button {
+.form-section.active button, .btns-supplier button {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -609,7 +609,8 @@ fieldset legend {
 #clear-btn2,
 #back-btn1,
 #back-btn2,
-#logoutBtn {
+#logoutBtn,
+#btn-clear {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -619,7 +620,8 @@ fieldset legend {
 #clear-btn2:hover,
 #back-btn1:hover,
 #back-btn2:hover,
-#logoutBtn:hover {
+#logoutBtn:hover,
+#btn-clear:hover {
     background-color: #e0e0e0;
 }
 
@@ -638,7 +640,8 @@ fieldset legend {
 }
 
 .btn-qa-create,
-.btn-eng-create {
+.btn-eng-create,
+.btns-supplier {
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -689,10 +692,10 @@ fieldset legend {
     border: none;
 }
 
-.item-conforming input,
-.item-conforming label {
-    display: inline;
-
+.media{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .createncrmainfield {
@@ -734,7 +737,13 @@ fieldset legend {
     border-color: #000;
 }
 
+.upload-icon {
+    font-size: 48px !important; /* Adjust size as needed */
+}
 
+#drop-area .tooltip{
+    bottom: 140px;
+}
 
 
 /* Dropdown for qa-section  */
@@ -815,8 +824,8 @@ label.radio-button {
     justify-content: space-around;
     background-color: #fff;
     border-radius: 5px;
-    padding: 5px 10px;
-    flex-direction: column;
+    padding: 15px 10px;
+    flex-direction: row;
     gap: 10px;
     width: fit-content;
 }
@@ -846,7 +855,7 @@ label.radio-button {
 }
 
 /* Filter Section */
-.filter-section {
+.filter-section, .supplier-columns {
     margin: 0 auto;
     /* Center align and prevent overflow */
     display: flex;
@@ -861,9 +870,26 @@ label.radio-button {
 .filter-section #Departments,
 .filter-section #dateFrom,
 .filter-section #dateTo,
-.filter-section #autocomplete-list {
+.filter-section #autocomplete-list,
+.supplier-columns #supplierName, 
+.supplier-columns #address, 
+.supplier-columns #city, 
+.supplier-columns #country, 
+.supplier-columns #postalCode, 
+.supplier-columns #contact, 
+.supplier-columns #shippingMethod, 
+.supplier-columns .btns-supplier {
     width: 100%;
 }
+
+ .supplier-columns .error-message{
+    text-align: left;
+}
+/* .btns-supplier button {
+    margin: 10px 0;
+    
+}  */
+
 
 .autocomplete {
     position: relative;
@@ -1539,7 +1565,7 @@ td button:focus {
 }
 
 
-
+/* supplier page css */
 
 
 
@@ -1628,7 +1654,7 @@ td button:focus {
     }
 
     .btn-qa-create,
-    .btn-eng-create {
+    .btn-eng-create, .btns-supplier {
         align-self: flex-end;
         width: 50%;
     }
@@ -1663,7 +1689,7 @@ td button:focus {
         margin-top: 10px;
     }
 
-    .filter-section {
+    .filter-section, .supplier-columns {
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1672,7 +1698,7 @@ td button:focus {
     }
 
 
-    .filter-section div {
+    .filter-section div, .supplier-columns div {
         width: 90%;
         text-align: left;
     }
@@ -1714,7 +1740,7 @@ td button:focus {
     /*view ncr*/
 
     .filter-section label,
-    #status-filter {
+    #status-filter, .supplier-columns label {
         text-align: left;
     }
 
@@ -1926,7 +1952,7 @@ td button:focus {
     /*view ncr*/
 
 
-    .filter-section {
+    .filter-section, .supplier-columns {
         margin: 0 auto;
         width: 70%;
         align-items: center;
@@ -2321,7 +2347,7 @@ td button:focus {
         font-size: 1.2rem;
     }
 
-    .form-section.active button {
+    .form-section.active button, .btns-supplier button {
         height: 50px;
         width: 30%;
     }
