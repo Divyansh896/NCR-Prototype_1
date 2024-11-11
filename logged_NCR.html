@@ -149,11 +149,11 @@
 
                         <li class="status-step active">
                             <span class="step-icon"></span>
-                            Details and Revision Information
+                            Disposition Details
                         </li>
                         <li class="status-step">
                             <span class="step-icon"></span>
-                            Disposition and Options
+                            Revision Information
                         </li>
 
                         <li class="status-step">
@@ -169,7 +169,7 @@
                     <details id="qa-section">
                         <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep
                         </summary>
-                        <div class="two-cols">
+                        <div class="qa-info-logged-ncr">
                             <!-- First Column -->
                             <div class="form-row">
                                 <div class="form-group">
@@ -194,9 +194,6 @@
                                             Defective]</span></label>
 
                                 </div>
-                            </div>
-                            <!-- Second Column -->
-                            <div class="form-row">
                                 <div class="form-group">
                                     <label>QA Date:<span id="qa-date-d">[QA Date]</span></label>
 
@@ -209,26 +206,32 @@
                                     <label>Product No:<span id="product-no-d">[Product No]</span></label>
 
                                 </div>
+
+                            </div>
+                            <!-- Second Column -->
+                            <div class="form-row">
+
+                                <div class="form-group">
+                                    <label>Description of Item (Including SAP No.)</label>
+                                    <span id="description-item-d">[Description of Item]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Description of Defect</label>
+                                    <span id="description-defect-d">[Description of Defect]</span>
+                                </div>
+                                <!-- Radio Buttons for Non-Conforming -->
+                                <div class="form-group">
+                                    <label>Item Marked Non-Conforming?:<span
+                                            id="item-marked-nonconforming-d">[Yes/No]</span></label>
+
+                                </div>
                                 <div class="form-group">
                                     <label>Identify Process Applicable:<span id="process-d">[Process]</span></label>
 
                                 </div>
                             </div>
                             <!-- Textarea Section -->
-                            <div class="form-group">
-                                <label>Description of Item (Including SAP No.)</label>
-                                <span id="description-item-d">[Description of Item]</span>
-                            </div>
-                            <div class="form-group">
-                                <label>Description of Defect</label>
-                                <span id="description-defect-d">[Description of Defect]</span>
-                            </div>
-                            <!-- Radio Buttons for Non-Conforming -->
-                            <div class="form-group">
-                                <label>Item Marked Non-Conforming?:<span
-                                        id="item-marked-nonconforming-d">[Yes/No]</span></label>
 
-                            </div>
                         </div>
                     </details>
 
@@ -326,7 +329,7 @@
                             <div class="qa-info-section" id="drawing-rad">
 
                                 <!--<legend id="step2-legend">Engineering Review</legend>!-->
-                                
+
                             </div>
 
 
@@ -345,14 +348,14 @@
                                 <div>
                                     <div class="tooltip-container">
                                         <label for="original_rev_number">Original Revision Number:</label>
-                                        <input type="text" id="original_rev_number"
+                                        <input type="number" id="original_rev_number"
                                             aria-label="Original Revision Number"
                                             placeholder="Original Revision Number">
                                         <span class="tooltip">Enter original revision number</span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="updated_rev_number">Updated Revision Number:</label>
-                                        <input type="text" id="updated_rev_number" aria-label="Updated Revision Number"
+                                        <input type="number" id="updated_rev_number" aria-label="Updated Revision Number"
                                             placeholder="Updated Revision Number">
                                         <span class="tooltip">Enter updated revision number</span>
                                     </div>
@@ -429,41 +432,37 @@
                             <div class="col-confirm" role="group" aria-labelledby="confirmation-group">
 
                                 <div class="confirm-create-qa" aria-labelledby="step1-legend">
-                                    <p>Review by CF Engineer: <span id="confirm-disposition-options"
-                                            aria-live="polite"></span></p>
+                                    <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite"></span>
+                                    </p>
 
-                                    <p>Customer Notification Required: <span id="confirm-customer-notification"
-                                            aria-live="polite"></span></p>
-                                </div>
-
-                                <!-- Details and Revision Information Confirmation Section -->
-                                <div class="confirm-create-qa" aria-labelledby="step2-legend">
-
-                                    <p>Disposition Details: <span id="confirm-disposition-details"
-                                            aria-live="polite"></span>
-                                    <p>
                                     <p>Drawing Update Required: <span id="confirm-drawing-update"
                                             aria-live="polite"></span></p>
                                     <p>Original Revision Number: <span id="confirm-original-rev-number"
                                             aria-live="polite"></span></p>
                                     <p>Updated Revision Number: <span id="confirm-updated-rev-number"
                                             aria-live="polite"></span>
-                                    </p>
-                                </div>
-
-                                <!-- Engineering Review Confirmation Section -->
-                                <div class="confirm-create-qa" aria-labelledby="step3-legend">
-                                    <h3 id="step3-legend">Engineering Review</h3>
-                                    <p>Engineer Name: <span id="confirm-engineer-name" aria-live="polite"></span>
-                                    </p>
                                     <p>Revision Date: <span id="confirm-revision-date" aria-live="polite"></span>
                                     </p>
                                     <p>Engineering Review Date: <span id="confirm-engineering-review-date"
                                             aria-live="polite"></span></p>
                                     <p>Resolved: <span id="confirm-resolved" aria-live="polite"></span></p>
                                 </div>
+
+                                <!-- Details and Revision Information Confirmation Section -->
+                                <div class="confirm-create-qa" aria-labelledby="step2-legend">
+                                    <p>Review by CF Engineer: <span id="confirm-disposition-options"
+                                            aria-live="polite"></span></p>
+                                    <p>Disposition Details: <span id="confirm-disposition-details"
+                                            aria-live="polite"></span>
+                                    <p>Customer Notification Required: <span id="confirm-customer-notification"
+                                            aria-live="polite"></span></p>
+                                    <p>
+                                        Notification for Customer:<span id="confirm-customer-message"
+                                            aria-live="polite"></span>
+                                    </p>
+                                </div>
                             </div>
-                            <div class="btn-rng-create">
+                            <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
                                     tabindex="21">Back</button>
                                 <button type="submit" id="submit-btn" aria-label="Submit the form"

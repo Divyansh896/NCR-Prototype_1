@@ -841,11 +841,48 @@ label.radio-button {
     text-align: center;
 }
 
+/* pop up for add a supplier in the dropwon list*/
+#supplierModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+  }
+  .close {
+    color: red;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    cursor: pointer;
+  }
+
+
 /*create ncr for engineers*/
 .disp-opt-confirm {
     width: fit-content;
 }
 
+.qa-info-logged-ncr{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 /* View NCR */
 .verticalLayout {
     width: 100%;
