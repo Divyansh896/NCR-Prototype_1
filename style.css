@@ -78,7 +78,7 @@ textarea {
 button {
     background-color: #f4f4f4;
     color: #163650;
-    border:solid 3px;
+    border: none;
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
@@ -321,15 +321,15 @@ nav ul a {
 }
 
 .featuresCreateNCR {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/CreateNCR.webp");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/CreateNCR.webp");
 }
 
 .featuresViewNCR {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ViewNCR.webp");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ViewNCR.webp");
 }
 
 .featuresManageAcc {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.20), rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
+    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
 }
 
 .featuresCreateNCR h2,
@@ -452,14 +452,15 @@ nav ul a {
     /* Stack content vertically */
 }
 
-#itemBarChart {
+#itemBarChart,
+#dateLineChart {
     width: 100%;
     /* Full width of the container */
     height: 150px;
     /* Small height */
     background-color: #f5f5f5;
     /* Light gray background for better visibility */
-    border: 2px solid #4a90e2;
+    border: 2px solid #163650;
     /* Blue border for a defined outline */
     border-radius: 8px;
     /* Rounded corners */
@@ -641,7 +642,6 @@ fieldset legend {
 .btn-qa-create,
 .btn-eng-create,
 .btns-supplier {
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -798,7 +798,7 @@ fieldset legend {
     transition: background-color 0.3s, color 0.3s;
     border: #4c6488, solid;
     border-radius: 20px;
-
+    width: 150px;
 }
 
 .checkbox-button input[type="checkbox"],
@@ -822,19 +822,67 @@ label.radio-button {
 .rad-create-ncr {
     display: flex;
     justify-content: space-around;
-    background-color: #eeeeee;
+    background-color: #fff;
     border-radius: 5px;
     padding: 15px 10px;
     flex-direction: column;
     gap: 10px;
     width: fit-content;
-
 }
 
 .rad-create-ncr {
-    width: 200px;
+    align-items: center;
+    text-align: center;
+    flex-direction: row;
 }
 
+.rad-create-ncr .radio-button {
+    width: 85px;
+    text-align: center;
+}
+
+/* pop up for add a supplier in the dropwon list
+#supplierModal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .modal-content {
+    background-color: white;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+  }
+  .close {
+    color: red;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  .close:hover,
+  .close:focus {
+    color: black;
+    cursor: pointer;
+  }
+
+
+/*create ncr for engineers*/
+.disp-opt-confirm {
+    width: fit-content;
+}
+
+.qa-info-logged-ncr{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 /* View NCR */
 .verticalLayout {
     width: 100%;
@@ -870,7 +918,6 @@ label.radio-button {
 .supplier-columns .btns-supplier {
     width: 100%;
 }
-
 
  .supplier-columns .error-message{
     text-align: left;
@@ -994,12 +1041,11 @@ input[type="radio"] {
     width: 100%;
     border-collapse: collapse;
     text-align: left;
-    font-family: Arial, sans-serif;
     font-size: 0.85em;
 }
 
 .ncr-table thead th {
-    background-color: #4c6488;
+    background-color: #1a3153;
     color: #f4f4f4;
     padding: 18px;
     border-bottom: 2px solid #ccc;
@@ -1012,7 +1058,7 @@ input[type="radio"] {
 }
 
 .ncr-table tbody tr:nth-child(even) {
-    background-color: #d7e4f9;
+    background-color: #fcfcfc;
 }
 
 .ncr-table tbody tr:nth-child(odd) {
@@ -1240,7 +1286,7 @@ input[type="radio"] {
     /* Rounded corners */
     padding: 20px;
     border: 1px solid #888;
-    width: 450px;
+    width: 365px;
     /* Set a fixed width */
     height: 200px;
     position: absolute;
@@ -1431,7 +1477,8 @@ td button:focus {
 
 .notification-box ul li i,
 .settings-box ul li i {
-    margin-right: 10px;
+    margin-right: 15px;
+    font-size: 1.3em;
 }
 
 
@@ -1556,33 +1603,11 @@ td button:focus {
 
 
 /* supplier page css */
-=======
-/* NCR REPORT*/
- /*Pdf Button*/
-    .button-container{
-    display: flex;
-       justify-content: flex-end;  /* Align button to the right */
-       padding: 20px;
-    }
-    .ncr-buttons .fa{
-     margin-right: 10px;
-    }
-  
-    .custom-summary{
-     font-size: 1.0em;
-    }
-
 
 
 
 /*media*/
 @media screen and (min-width: 320px) {
-    h1{
-        font-size:1.3em;;
-    }
-    .custom-summary{
-        font-size:0.9em ;
-    }
     header {
         padding: 10px 10px;
     }
@@ -1591,32 +1616,6 @@ td button:focus {
         max-width: 200px;
     }
 
-
-     /*NCR Report */
-    
-
-    /*QA Report*/ 
-        
-        /*edit button Same for all three*/
-        .btn-report{
-            margin-right:40px
-        }
-        /*text look in same way for every line*/
-        .resolved{
-            padding-top:10px ;
-        }
-    /*Engineering */
-        /*text look in same way for every line*/
-        .rad-report{
-            padding-bottom: 10px;
-        }
-    /*Purchasing*/
-         /*text look in same way*/
-        .rad-report{
-            padding-top: 10px;
-        } 
-
-    
 }
 
 @media screen and (min-width: 768px) {
@@ -1680,7 +1679,7 @@ td button:focus {
         height: 250px;
         width: 100%;
     }
-    
+
     #description-item {
         margin: 18;
     }
@@ -1693,7 +1692,6 @@ td button:focus {
 
     .btn-qa-create,
     .btn-eng-create, .btns-supplier {
-
         align-self: flex-end;
         width: 50%;
     }
@@ -1730,15 +1728,15 @@ td button:focus {
 
     .filter-section, .supplier-columns {
         margin: 0 auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* justify-content: space-evenly; */
+        gap: 10px;
     }
 
 
     .filter-section div, .supplier-columns div {
         width: 90%;
-
         text-align: left;
     }
 
@@ -1754,7 +1752,7 @@ td button:focus {
         gap: 8px;
         width: 350px;
     }
-     
+
     .ncr-table th,
     .ncr-table td {
         display: table-cell;
@@ -1770,8 +1768,6 @@ td button:focus {
     .ncr-table {
         font-size: 14px;
     }
-    
-    
 
     .chkboxes-create-ncr,
     .rad-create-ncr{
@@ -1785,13 +1781,17 @@ td button:focus {
         text-align: left;
     }
 
-    #search,
-    #date-filter {
+    .filter-section #search,
+    .filter-section #ncrInput,
+    .filter-section #Departments,
+    .filter-section #dateFrom,
+    .filter-section #dateTo,
+    .filter-section #autocomplete-list {
         width: 100%;
     }
 
     .ncr-table tbody td {
-        padding: 15px;
+        padding: 5px 15px;
     }
 
     .main-container section {
@@ -1841,7 +1841,7 @@ td button:focus {
         position: relative;
         overflow-y: visible;
         overflow-x: visible;
-        }
+    }
 
     nav li {
         display: inline-block;
@@ -1877,17 +1877,23 @@ td button:focus {
         text-decoration: underline;
     }
 
-    .notification-box, .settings-box{
-        width: 180px;
+    .notification-box,
+    .settings-box {
+        width: 200px;
     }
-    .notification-box ul, .settings-box ul{
+
+    .notification-box ul,
+    .settings-box ul {
         margin: 5px auto;
         box-shadow: none;
 
     }
-    .notification-box ul li, .settings-box ul li{
+
+    .notification-box ul li,
+    .settings-box ul li {
         margin: 8px auto;
     }
+
     /* contacat us */
     .fieldset-contact {
         padding: 0px 40px;
@@ -1928,7 +1934,10 @@ td button:focus {
     .descr-container {
         width: 100%;
     }
-   
+
+    .rad-create-ncr {
+        justify-content: flex-start;
+    }
 }
 
 
@@ -1973,6 +1982,10 @@ td button:focus {
         padding: 40px;
     }
 
+    .modal-content {
+        width: 425px;
+    }
+
     /*view ncr*/
 
 
@@ -1996,7 +2009,6 @@ td button:focus {
     }
 
     /* ncr  report page */
-    /*QA PERSON*/
     .form-group {
         margin-left: 90px;
     }
@@ -2024,11 +2036,13 @@ td button:focus {
     .two-cols {
         gap: 2px;
     }
+
+    .rad-report,
     .resolved {
-        padding-top: 0px;
-        margin-bottom: 50px;
+        align-self: flex-start;
+        margin-left: 82px;
+        margin-top: 15px;
     }
-    
 
     .rad-report input,
     .resolved input {
@@ -2047,25 +2061,22 @@ td button:focus {
         font-weight: 550;
     }
 
-
-    /*Engenering*/
-    .rad-report{
-        margin-left: 90px;
-    }
-    .form-row{
-        box-sizing: 20;
-    }
-
     /* Home Page - Three-column Layout */
     /*home*/
 
-    .main-container {
+    .main-container,
+    .left-align {
         display: flex;
         flex-direction: row;
         max-width: 1200px;
         margin: 0 auto;
         justify-content: space-between;
         padding: 0 40px 40px;
+
+    }
+
+    .left-align {
+        padding-bottom: 0;
     }
 
     .featuresCreateNCR,
@@ -2076,6 +2087,7 @@ td button:focus {
 
     .main-container section {
         width: 100%;
+
     }
 
     .featuresCreateNCR,
@@ -2089,7 +2101,7 @@ td button:focus {
         background-repeat: no-repeat;
         color: #fff;
         flex: 0 1 30%;
-        height: 500px;
+        height: 200px;
         padding: 20px;
         text-align: center;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
@@ -2116,11 +2128,21 @@ td button:focus {
         /* Default padding */
     }
 
-    .report-card .pinIcon {
+    .report-card .pinIcon,
+    .report-card .unpinIcon {
         visibility: hidden;
+        width: 30px;
+        height: 30px;
+        background-color: rgba(38, 39, 39, 0.134);
+        text-align: center;
+        font-size: 1.5em;
+        padding: 2px;
+        border-radius: 50%;
     }
 
-    .report-card:hover .pinIcon {
+
+    .report-card:hover .pinIcon,
+    .report-card:hover .unpinIcon {
         visibility: visible;
         /* Show pin icon on hover for laptops */
     }
@@ -2130,18 +2152,15 @@ td button:focus {
         align-items: center;
     }
 
+    #graphs {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
     /* view ncr */
 
-
-    #search,
-    #date-filter {
-        width: 90%;
-    }
-
-    .filter-section {
-        margin: 0px 40px;
-    }
-
+   
 
     p {
         margin-top: 5px;
@@ -2214,7 +2233,6 @@ td button:focus {
     .radio-button {
         width: 100px;
     }
-
 
     .main-container-create {
         flex-direction: row;
@@ -2344,6 +2362,7 @@ td button:focus {
         width: 250px;
     }
 
+
     /*view ncr*/
 
     .ncr-table th,
@@ -2397,8 +2416,8 @@ td button:focus {
     .rad-report,
     .resolved {
         align-self: flex-start;
-        /*margin-left: 115px;
-        margin-top: 15px;*/
+        margin-left: 115px;
+        margin-top: 15px;
     }
 
     .rad-report input,
@@ -2441,6 +2460,18 @@ td button:focus {
         margin-left: 125px;
     }
 
+    .checkbox-button,
+    .radio-button {
+        width: 250px;
+    }
+
+    .ncr-table tbody td {
+        padding: 10px 15px;
+    }
+
+    td button {
+        margin: 10px 5px;
+    }
 
 }
 
@@ -2660,7 +2691,7 @@ td button:focus {
     .resolved {
         align-self: flex-start;
         margin-left: 140px;
-        /*margin-top: 15px;*/
+        margin-top: 15px;
     }
 
     .rad-report input,
@@ -2727,8 +2758,4 @@ td button:focus {
     .fieldset-contact #email {
         height: 60px;
     }
-}
-
-@media screen and(min-width:320px) {
-   
 }

@@ -141,3 +141,9 @@ function setNotificationText() {
         notificationList.appendChild(li);
     });
 }
+function logout() {
+    localStorage.removeItem('isLoggedIn')
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
+}
