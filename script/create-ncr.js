@@ -747,7 +747,50 @@ function setNotificationText() {
         notificationList.appendChild(li);
     });
 }
+const supplierDropdown = document.getElementById("supplier-name");
+  const supplierModal = document.getElementById("supplierModal");
+  const closeModalButton = document.querySelector(".close");
+  const addSupplierButton = document.getElementById("addSupplierButton");
 
+  // Show modal when "Add a Supplier" is selected
+  supplierDropdown.addEventListener("change", function () {
+    if (supplierDropdown.value === "addSupplier") {
+      supplierModal.style.display = "block";
+      supplierDropdown.value = ""; // Reset selection
+    }
+  });
+
+  // Close the modal when the user clicks the "X" button
+  closeModalButton.addEventListener("click", function () {
+    supplierModal.style.display = "none";
+  });
+
+  // Add the new supplier to the dropdown when the user clicks "Add Supplier" in the modal
+  addSupplierButton.addEventListener("click", function () {
+    const newSupplierName = document.getElementById("newSupplierName").value;
+    if (newSupplierName) {
+      // Create new option element
+      const newOption = document.createElement("option");
+      newOption.value = newSupplierName;
+      newOption.textContent = newSupplierName;
+
+      // Insert new option before the "Add a Supplier" option
+      supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'));
+      
+      // Clear the input and hide the modal
+      document.getElementById("newSupplierName").value = "";
+      supplierModal.style.display = "none";
+    } else {
+      alert("Please enter a supplier name.");
+    }
+  });
+
+  // Close the modal if the user clicks outside of it
+  window.addEventListener("click", function (event) {
+    if (event.target === supplierModal) {
+      supplierModal.style.display = "none";
+    }
+  });
 
 
  

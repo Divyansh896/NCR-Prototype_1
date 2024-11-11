@@ -841,7 +841,7 @@ label.radio-button {
     text-align: center;
 }
 
-/* pop up for add a supplier in the dropwon list
+/* pop up for add a supplier in the dropwon list*/
 #supplierModal {
     display: none;
     position: fixed;
