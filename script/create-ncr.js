@@ -156,25 +156,30 @@ if (user.role === 'QA Inspector') {
 
     // Add event listeners for navigation buttons
     document.getElementById("next-btn1").addEventListener("click", () => {
-        const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10);
-        const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10);
-        if (validateSection1()) {
-            sections[currentStep].classList.remove("active")
-            currentStep++
-            sections[currentStep].classList.add("active")
-            updateStatusBar()
-        }
-        else if (!isNaN(quantityReceived) && !isNaN(quantityDefective)) {
-            if (quantityDefective > quantityReceived) {
-
-                showPopup('Invalid quantity', 'The number of defective items cannot exceed the number of received items.', 'images/1382678.webp')
+        const { isValid, quantityError } = validateSection1();
+    
+        if (isValid) {
+            sections[currentStep].classList.remove("active");
+            currentStep++;
+            sections[currentStep].classList.add("active");
+            updateStatusBar();
+        } else {
+            if (quantityError) {
+                showPopup(
+                    'Invalid quantity',
+                    'The number of defective items cannot exceed the number of received items.',
+                    'images/1382678.webp'
+                );
+            } else {
+                showPopup(
+                    'Required fields missing',
+                    'Please fill in required fields before proceeding.',
+                    'images/1382678.webp'
+                );
             }
-
         }
-        else {
-            showPopup('Required fields missing', 'Please fill in required fields before proceeding.', 'images/1382678.webp')
-        }
-    })
+    });
+    
 
     document.getElementById("next-btn2").addEventListener("click", () => {
         if (validateSection2()) {
@@ -253,6 +258,7 @@ if (user.role === 'QA Inspector') {
     // Validate Section 1
     function validateSection1() {
         let isValid = true;
+        let quantityError = false
 
         // Reset all error messages
         const errorMessages = {
@@ -293,6 +299,7 @@ if (user.role === 'QA Inspector') {
                 errorSpan.style.display = 'inline';
                 errorSpan.textContent = errorMessages['quantity-defective'];
                 isValid = false; // Ensure isValid is set to false
+                quantityError = true
             }
         }
 
@@ -319,7 +326,7 @@ if (user.role === 'QA Inspector') {
         }
 
 
-        return isValid;
+        return {isValid, quantityError};
     }
 
 
@@ -509,7 +516,7 @@ function submitForm(role) {
             }
         };
 
-        
+
         ncrData.push(newEntry);  // Append new entry to the array
         console.log(ncrData)
 
@@ -563,7 +570,7 @@ async function handleFiles(files) {
                 localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
             });
 
-            
+
 
             // Convert file to base64 and create an image or video element based on the file type
             const base64Data = await fileToBase64(file);
@@ -747,50 +754,64 @@ function setNotificationText() {
         notificationList.appendChild(li);
     });
 }
+
 const supplierDropdown = document.getElementById("supplier-name");
-  const supplierModal = document.getElementById("supplierModal");
-  const closeModalButton = document.querySelector(".close");
-  const addSupplierButton = document.getElementById("addSupplierButton");
+const supplierModal = document.getElementById("supplierModal");
+const closeModalButton = supplierModal.querySelector(".close");
+const addSupplierButton = document.getElementById("addSupplierButton");
 
-  // Show modal when "Add a Supplier" is selected
-  supplierDropdown.addEventListener("change", function () {
+// Function to show supplier modal
+function showSupplierPopup() {
+    supplierModal.style.display = "block";
+    setTimeout(() => {
+        supplierModal.querySelector('.modal-content').style.opacity = "1";
+        supplierModal.querySelector('.modal-content').style.transform = "translate(-50%, -50%)";
+    }, 10);
+}
+
+// Function to close supplier modal
+function closeSupplierPopup() {
+    const modalContent = supplierModal.querySelector('.modal-content');
+    modalContent.style.opacity = "0"; // Fade-out effect
+    modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+    setTimeout(() => {
+        supplierModal.style.display = "none"; // Hide the modal after transition
+    }, 500);
+}
+
+// Show modal when "Add a Supplier" is selected
+supplierDropdown.addEventListener("change", function () {
     if (supplierDropdown.value === "addSupplier") {
-      supplierModal.style.display = "block";
-      supplierDropdown.value = ""; // Reset selection
+        showSupplierPopup();
+        supplierDropdown.value = ""; // Reset selection
     }
-  });
+});
 
-  // Close the modal when the user clicks the "X" button
-  closeModalButton.addEventListener("click", function () {
-    supplierModal.style.display = "none";
-  });
+// Close the modal when the user clicks the "X" button
+closeModalButton.addEventListener("click", closeSupplierPopup);
 
-  // Add the new supplier to the dropdown when the user clicks "Add Supplier" in the modal
-  addSupplierButton.addEventListener("click", function () {
+// Add the new supplier to the dropdown when the user clicks "Add Supplier" in the modal
+addSupplierButton.addEventListener("click", function () {
     const newSupplierName = document.getElementById("newSupplierName").value;
     if (newSupplierName) {
-      // Create new option element
-      const newOption = document.createElement("option");
-      newOption.value = newSupplierName;
-      newOption.textContent = newSupplierName;
+        const newOption = document.createElement("option");
+        newOption.value = newSupplierName;
+        newOption.textContent = newSupplierName;
 
-      // Insert new option before the "Add a Supplier" option
-      supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'));
-      
-      // Clear the input and hide the modal
-      document.getElementById("newSupplierName").value = "";
-      supplierModal.style.display = "none";
+        // Insert the new option before the "Add a Supplier" option
+        supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'));
+
+        // Clear the input and close the modal
+        document.getElementById("newSupplierName").value = "";
+        closeSupplierPopup();
     } else {
-      alert("Please enter a supplier name.");
+        showPopup("Please enter a supplier name.");
     }
-  });
+});
 
-  // Close the modal if the user clicks outside of it
-  window.addEventListener("click", function (event) {
+// Close the modal if the user clicks outside of it
+window.addEventListener("click", function (event) {
     if (event.target === supplierModal) {
-      supplierModal.style.display = "none";
+        closeSupplierPopup();
     }
-  });
-
-
- 
+});
