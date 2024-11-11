@@ -77,10 +77,21 @@ function initializeButtons() {
     const header = document.getElementById('create-ncr-header');
 
     if (user.role === 'QA Inspector') {
+        const nextNcrNumber = generateNextNcrNumber(ncr); // Calculate only once
+    
+        // Update the 'Create NCR' button's action
         btnCreate.addEventListener('click', () => {
-            window.location.href = `create_NCR.html?ncr_no=${generateNextNcrNumber(ncr)}`;
+            window.location.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
         });
-    } else {
+    
+        // Update the link's href
+        const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+        if (ncrLink) {
+            ncrLink.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
+        }
+    }
+    
+    else {
         btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open current NCR';
         btnCreate.nextElementSibling.textContent = "Click to open current NCRs"
         header.innerHTML = 'Open current NCR';
