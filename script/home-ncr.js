@@ -4,6 +4,7 @@ const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const panels = document.querySelectorAll('.tab-panel');
 const btnRecent = document.getElementById('btn-recent');
 const btnPinned = document.getElementById('btn-pinned');
+const btnSaved = document.getElementById('btn-saved');
 const recentContainer = document.getElementById('recentReportsContainer');
 const pinnedContainer = document.getElementById('pinnedReportsContainer');
 const notificationlist = document.getElementById('notification-list');
@@ -219,6 +220,7 @@ function displayRecentReports(data) {
     const container = recentContainer;
     container.innerHTML = ''; // Clear previous content
 
+    
     // Get the last 5 reports
     const lastFiveReports = data.slice(-5);
 
@@ -383,6 +385,52 @@ function displayPinnedReports() {
     });
 }
 
+function displaySavedReports() {
+    const container = document.getElementById("savedReportsContainer");
+    if (!container) {
+        console.error("savedReportsContainer element not found.");
+        return;
+    }
+    container.innerHTML = ''; // Clear previous content
+
+    // Retrieve saved NCRs from local storage
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRs')) || [];
+    console.log("Retrieved saved NCRs:", savedNCRs); // Debugging output
+
+    if (savedNCRs.length === 0) {
+        container.innerHTML = '<p>No saved reports available.</p>';
+        return;
+    }
+
+    savedNCRs.forEach(ncr => {
+        const reportCard = document.createElement('div');
+        reportCard.classList.add('report-card');
+
+        // Supplier and report information
+        const supplierName = document.createElement('span');
+        supplierName.classList.add('supplier-name');
+        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier';
+
+        const reportInfo = document.createElement('span');
+        reportInfo.classList.add('reportInfo');
+        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
+
+        // Add a click event for the entire report card
+        reportCard.addEventListener("click", () => {
+            const data = extractData(ncr);
+            sessionStorage.setItem('data', JSON.stringify(data));
+            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        });
+
+        // Append elements to the report card
+        reportCard.appendChild(supplierName);
+        reportCard.appendChild(reportInfo);
+
+        // Append report card to the main container
+        container.appendChild(reportCard);
+    });
+
+}
 
 
 
@@ -397,6 +445,12 @@ btnPinned.addEventListener('click', () => {
 
     displayPinnedReports(); // Ensure pinned reports are displayed when tab is clicked
 });
+btnSaved.addEventListener('click', () => {
+    showTab('saved');
+
+    displaySavedReports(); // Ensure pinned reports are displayed when tab is clicked
+    console.log(JSON.parse(localStorage.getItem("savedNCRs")))
+});
 
 function showTab(tab) {
     // Hide all panels
@@ -405,6 +459,7 @@ function showTab(tab) {
     // Deactivate all buttons
     btnRecent.classList.remove('active');
     btnPinned.classList.remove('active');
+    btnSaved.classList.remove('active');
 
     // Activate the selected tab
     if (tab === 'recent') {
@@ -413,6 +468,9 @@ function showTab(tab) {
     } else if (tab === 'pinned') {
         document.getElementById('pinned-reports').classList.add('active');
         btnPinned.classList.add('active'); // Activate pinned button
+    }else if (tab === 'saved'){
+        document.getElementById('saved-reports').classList.add('active');
+        btnSaved.classList.add('active');
     }
 }
 
@@ -652,3 +710,5 @@ function setNotificationText() {
         notificationList.appendChild(li);
     });
 }
+
+

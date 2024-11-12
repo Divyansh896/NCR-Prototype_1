@@ -510,6 +510,7 @@ nav ul a {
     align-items: flex-start;
     width: 100%;
     padding-top: 20px;
+    justify-content: space-evenly;
 }
 
 .step-icon {
@@ -611,7 +612,9 @@ fieldset legend {
 #back-btn1,
 #back-btn2,
 #logoutBtn,
-#btn-clear {
+#btn-clear,
+#save1,
+#save2 {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -622,7 +625,9 @@ fieldset legend {
 #back-btn1:hover,
 #back-btn2:hover,
 #logoutBtn:hover,
-#btn-clear:hover {
+#btn-clear:hover,
+#save1:hover,
+#save2:hover {
     background-color: #e0e0e0;
 }
 
