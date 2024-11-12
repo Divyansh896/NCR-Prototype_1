@@ -4,6 +4,15 @@ userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+
+const btnEdit = document.querySelectorAll('.edit');
+
+btnEdit.forEach(button => {
+    button.addEventListener('click', () => {
+        editNCR(retrievedNCRData);
+    });
+});
+
 setNotificationText()
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -41,7 +50,11 @@ document.querySelectorAll('details').forEach(details => {
 })
 
 const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
-
+function editNCR(retrievedNCRData) {
+    // const data = extractData(ncr)
+    sessionStorage.setItem('data', JSON.stringify(retrievedNCRData))
+    window.location.href = 'edit_Report.html' // Adjust the URL as needed
+}
 function setSpanContentFromSession() {
     // Retrieve values from session storage for each department
 
