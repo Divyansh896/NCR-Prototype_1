@@ -186,23 +186,27 @@
                     <!-- Status Filter Section -->
                     <div>
                         <label id="status-filter">NCR Status</label>
-                        <div class="horizontal">
-                            <!-- <label for="status-all">
-                                <input type="radio" name="status" id="status-all" value="all" tabindex="9"> All -->
-                            <!-- </label> -->
 
-                            <label for="status-no">
-                                <input type="radio" class="radio-btn" name="status" id="status-no" value="incomplete"
-                                    tabindex="11"> Open
-                            </label>
-                            <label for="status-yes">
-                                <input type="radio" class="radio-btn" name="status" id="status-yes" value="completed"
-                                    tabindex="10"> Closed
-                            </label>
-                            <label for="status-archived">
-                                <input type="radio" class="radio-btn" name="status" id="status-archived"
-                                    value="archived" tabindex="10"> Archived <!-- correct tab index-->
-                            </label>
+                        <div class="tooltip-container">
+                            <div class="horizontal">
+
+                                <label for="status-no">
+                                    <input type="radio" class="radio-btn" name="status" id="status-no"
+                                        value="incomplete" tabindex="11"> Open
+                                </label>
+
+                                <label for="status-yes">
+                                    <input type="radio" class="radio-btn" name="status" id="status-yes"
+                                        value="completed" tabindex="10"> Closed
+                                </label>
+
+                                <label for="status-archived">
+                                    <input type="radio" class="radio-btn" name="status" id="status-archived"
+                                        value="archived" tabindex="10"> Archived <!-- correct tab index-->
+                                </label>
+
+                                <span class="tooltip">Select the status of the report: Open, Closed, or Archived.</span>
+                            </div>
                         </div>
                     </div>
 

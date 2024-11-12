@@ -186,14 +186,14 @@
                                         <label for="ncr-no-generated">NCR No:</label>
                                         <input type="text" id="ncr-no-generated" name="ncr_no"
                                             placeholder="Auto-generated NCR No" readonly tabindex="7">
-                                        <span class="tooltip">Auto generated NCR number (readonly)</span>
+                                        <span class="tooltip">This NCR number is auto-generated and cannot be edited.</span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="sales-order-no">Sales Order No (Required):</label>
                                         <input type="text" id="sales-order-no" name="sales_order_no"
                                             placeholder="Enter Sales Order No" tabindex="8">
                                         <span class="error-message" id="sales-order-no-error"></span>
-                                        <span class="tooltip">Enter the product sales order number</span>
+                                        <span class="tooltip">Enter the product sales order number.</span>
                                     </div>
 
                                     <div class="tooltip-container">
@@ -238,7 +238,7 @@
                                         <input type="text" id="product-no" name="product_no"
                                             placeholder="Enter Product No" tabindex="12">
                                         <span class="error-message" id="product-no-error"></span>
-                                        <span class="tooltip">Enter the product number.</span>
+                                        <span class="tooltip">Enter the product's unique number for identification.</span>
                                     </div>
 
                                     <!-- Checkbox-like buttons -->
@@ -298,8 +298,7 @@
                                                 aria-label="Enter item description, including SAP Number"
                                                 spellcheck="true" tabindex="17"></textarea>
                                             <span class="error-message" id="description-item-error"></span>
-                                            <span class="tooltip ttip-descr">Write description of Item (including SAP
-                                                Number) in text area.</span>
+                                            <span class="tooltip ttip-descr">Describe the item including the SAP number in this field.</span>
                                         </div>
                                     </div>
                                     <div class="descr-container">
@@ -310,8 +309,7 @@
                                                 aria-label="Describe the defect of the product" spellcheck="true"
                                                 tabindex="18"></textarea>
                                             <span class="error-message" id="description-defect-error"></span>
-                                            <span class="tooltip ttip-descr">Write description of defect of product in
-                                                text area.</span>
+                                            <span class="tooltip ttip-descr">Provide a detailed description of the defect in the item.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -329,7 +327,7 @@
                                                     onclick="toggleRadio(this)">
                                                 Yes
                                             </label>
-                                            <span class="tooltip">Click to select yes</span>
+                                            <span class="tooltip">Select 'Yes' if the item is marked as non-conforming.</span>
                                         </div>
 
                                         <!-- Hidden radio input -->
@@ -339,7 +337,7 @@
                                                     value="no" class="hidden-radio" onclick="toggleRadio(this)">
                                                 No
                                             </label>
-                                            <span class="tooltip">Click to select no</span>
+                                            <span class="tooltip">Select 'No' if the item is not marked as non-conforming.</span>
                                         </div>
                                     </div>
                                 </fieldset>
