@@ -131,18 +131,17 @@
                 <div>
                     <div class="autocomplete">
                         <div class="tooltip-container">
-                            <label>Search NCR Number</label>
+                            <label for="ncrInput">Search NCR Number</label>
                             <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
                             <div id="autocomplete-list" class="autocomplete-items"></div>
-                            <span class="tooltip">Type NCR number in here</span>
+                            <span class="tooltip">Enter the NCR number to search for a specific report.</span>
                         </div>
                     </div>
-
+                
                     <div>
                         <div class="tooltip-container">
                             <label for="search">Search by supplier</label>
-                            <select name="search" id="search" class="serach-bar" required tabindex="7"
-                                aria-label="Search by supplier">
+                            <select name="search" id="search" class="serach-bar" required tabindex="7" aria-label="Search by supplier">
                                 <option value="All">All Suppliers</option>
                                 <option value="SteelWorks Ltd">SteelWorks Ltd</option>
                                 <option value="ConcreteFast">ConcreteFast</option>
@@ -150,28 +149,29 @@
                                 <option value="HeavyDuty Works">HeavyDuty Works</option>
                                 <option value="Woodcraft Builders">Woodcraft Builders</option>
                             </select>
-                            <span class="tooltip ttip-filter">Select supplier from dropdown</span>
+                            <span class="tooltip ttip-filter">Choose a supplier to filter the NCR list by.</span>
                         </div>
                     </div>
-
                 </div>
+                
                 <div>
                     <div>
                         <div class="tooltip-container">
                             <label for="dateFrom">Start Date of NCR</label>
                             <input type="date" name="dateFrom" id="dateFrom">
-                            <span class="tooltip ttip-filter">Select start date of the NCR</span>
+                            <span class="tooltip ttip-filter">Select the start date to filter NCR reports by date range.</span>
                         </div>
                     </div>
-
+                
                     <div>
                         <div class="tooltip-container">
                             <label for="dateTo">End Date of NCR</label>
                             <input type="date" name="dateTo" id="dateTo">
-                            <span class="tooltip ttip-filter">Select end date of the NCR</span>
+                            <span class="tooltip ttip-filter">Select the end date to filter NCR reports by date range.</span>
                         </div>
                     </div>
                 </div>
+                
 
 
 

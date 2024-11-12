@@ -132,49 +132,51 @@
                     </legend>
                     <div class="acc-two-cols">
                         <div>
-                            <div>
+                            <div class="tooltip-container">
                                 <label for="fname">First Name (Required): <span class="required">*</span></label>
-                                <input type="text" id="fname" name="fname" placeholder="Enter your first name" required
-                                    tabindex="7">
+                                <input type="text" id="fname" name="fname" placeholder="Enter your first name" required tabindex="7">
+                                <span class="tooltip">Please enter your first name.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="lname">Last Name (Required): <span class="required">*</span></label>
-                                <input type="text" id="lname" name="lname" placeholder="Enter your last name" required
-                                    tabindex="8">
+                                <input type="text" id="lname" name="lname" placeholder="Enter your last name" required tabindex="8">
+                                <span class="tooltip">Please enter your last name.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="Uname">User Name (Required): <span class="required">*</span></label>
-                                <input type="text" id="Uname" name="Uname" placeholder="Choose a user name" required
-                                    tabindex="9">
+                                <input type="text" id="Uname" name="Uname" placeholder="Choose a user name" required tabindex="9">
+                                <span class="tooltip">Choose a unique user name.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="employeeId">Employee ID (Required): <span class="required">*</span></label>
-                                <input type="text" id="employeeId" name="employeeID"
-                                    placeholder="Enter your employee ID" required tabindex="10">
+                                <input type="text" id="employeeId" name="employeeID" placeholder="Enter your employee ID" required tabindex="10">
+                                <span class="tooltip">Enter your employee ID.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="emailId">Email Id (Required): <span class="required">*</span></label>
-                                <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required
-                                    tabindex="11">
+                                <input type="email" id="emailId" name="emailId" placeholder="Enter your email" required tabindex="11">
+                                <span class="tooltip">Enter a valid email address.</span>
                             </div>
                         </div>
+                        
                         <div>
-                            <div>
+                            <div class="tooltip-container">
                                 <label for="phone">Phone Number (Required): <span class="required">*</span></label>
-                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required
-                                    pattern="\d{10}" title="Please enter a valid 10-digit phone number" tabindex="12">
+                                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\d{10}" title="Please enter a valid 10-digit phone number" tabindex="12">
+                                <span class="tooltip">Enter your 10-digit phone number.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="bday">Date of birth (Required): <span class="required">*</span></label>
                                 <input type="date" id="bday" name="bday" required tabindex="13">
+                                <span class="tooltip">Select your date of birth.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="gender">Select Gender: <span class="required">*</span></label>
                                 <select id="gender" name="gender" required tabindex="14">
                                     <option value="" disabled selected>Select your gender</option>
@@ -182,16 +184,17 @@
                                     <option value="Female">Female</option>
                                     <option value="Other">Other</option>
                                 </select>
+                                <span class="tooltip">Select your gender from the options.</span>
                             </div>
-
-                            <div>
+                    
+                            <div class="tooltip-container">
                                 <label for="password">Password (Required): <span class="required">*</span></label>
-                                <input type="text" id="password" name="password" placeholder="Choose a Password"
-                                    required tabindex="15">
+                                <input type="text" id="password" name="password" placeholder="Choose a Password" required tabindex="15">
+                                <span class="tooltip">Choose a secure password.</span>
                             </div>
-
                         </div>
                     </div>
+                    
                     <div class="btns-acc">
                         <button id="logoutBtn" tabindex="17">Logout</button>
                         <button type="submit" id="submit-btn" form="profileForm" value="Submit"

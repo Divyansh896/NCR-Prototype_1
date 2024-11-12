@@ -594,7 +594,8 @@ fieldset legend {
     font-size: 1rem;
 }
 
-.form-section.active button, .btns-supplier button {
+.form-section.active button,
+.btns-supplier button {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -697,7 +698,7 @@ fieldset legend {
     border: none;
 }
 
-.media{
+.media {
     display: flex;
     align-items: center;
     flex-direction: column;
@@ -743,10 +744,11 @@ fieldset legend {
 }
 
 .upload-icon {
-    font-size: 48px !important; /* Adjust size as needed */
+    font-size: 48px !important;
+    /* Adjust size as needed */
 }
 
-#drop-area .tooltip{
+#drop-area .tooltip {
     bottom: 140px;
 }
 
@@ -857,26 +859,29 @@ label.radio-button {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-  }
-  .modal-content {
+}
+
+.modal-content {
     background-color: white;
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
     width: 300px;
     text-align: center;
-  }
-  .close {
+}
+
+.close {
     color: red;
     float: right;
     font-size: 20px;
     font-weight: bold;
-  }
-  .close:hover,
-  .close:focus {
+}
+
+.close:hover,
+.close:focus {
     color: black;
     cursor: pointer;
-  }
+}
 
 
 /*create ncr for engineers*/
@@ -884,10 +889,11 @@ label.radio-button {
     width: fit-content;
 }
 
-.qa-info-logged-ncr{
+.qa-info-logged-ncr {
     display: grid;
     grid-template-columns: 1fr 1fr;
 }
+
 /* View NCR */
 .verticalLayout {
     width: 100%;
@@ -897,7 +903,8 @@ label.radio-button {
 }
 
 /* Filter Section */
-.filter-section, .supplier-columns {
+.filter-section,
+.supplier-columns {
     margin: 0 auto;
     /* Center align and prevent overflow */
     display: flex;
@@ -913,20 +920,21 @@ label.radio-button {
 .filter-section #dateFrom,
 .filter-section #dateTo,
 .filter-section #autocomplete-list,
-.supplier-columns #supplierName, 
-.supplier-columns #address, 
-.supplier-columns #city, 
-.supplier-columns #country, 
-.supplier-columns #postalCode, 
-.supplier-columns #contact, 
-.supplier-columns #shippingMethod, 
+.supplier-columns #supplierName,
+.supplier-columns #address,
+.supplier-columns #city,
+.supplier-columns #country,
+.supplier-columns #postalCode,
+.supplier-columns #contact,
+.supplier-columns #shippingMethod,
 .supplier-columns .btns-supplier {
     width: 100%;
 }
 
- .supplier-columns .error-message{
+.supplier-columns .error-message {
     text-align: left;
 }
+
 /* .btns-supplier button {
     margin: 10px 0;
     
@@ -1495,16 +1503,20 @@ td button:focus {
     font-size: 12px;
     margin-left: 5px;
 }
-#userName{
+
+#userName {
     font-size: 1.4em;
     font-weight: 300;
 }
+
 .tools {
     text-align: left;
 }
-.tools:hover{
+
+.tools:hover {
     text-decoration: underline;
 }
+
 .tools-container {
     gap: 15px;
     margin: 20px auto;
@@ -1517,7 +1529,8 @@ td button:focus {
     text-align: left;
     margin-left: 25px;
 }
-.show-tools{
+
+.show-tools {
     display: block;
 }
 
@@ -1556,17 +1569,16 @@ td button:focus {
     bottom: 280px;
 }
 
-.ttip-btn-reset{
+.ttip-btn-reset {
     left: 25%;
     bottom: 65px;
 }
-.two-cols{
+
+.two-cols {
     width: 100%;
 }
 
-.controls-container {
-    display: inline;
-}
+
 
 .ttip-control {
     bottom: 45px;
@@ -1696,7 +1708,8 @@ td button:focus {
     }
 
     .btn-qa-create,
-    .btn-eng-create, .btns-supplier {
+    .btn-eng-create,
+    .btns-supplier {
         align-self: flex-end;
         width: 50%;
     }
@@ -1731,7 +1744,8 @@ td button:focus {
         margin-top: 10px;
     }
 
-    .filter-section, .supplier-columns {
+    .filter-section,
+    .supplier-columns {
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1740,7 +1754,8 @@ td button:focus {
     }
 
 
-    .filter-section div, .supplier-columns div {
+    .filter-section div,
+    .supplier-columns div {
         width: 90%;
         text-align: left;
     }
@@ -1775,14 +1790,15 @@ td button:focus {
     }
 
     .chkboxes-create-ncr,
-    .rad-create-ncr{
+    .rad-create-ncr {
         flex-direction: row;
     }
 
     /*view ncr*/
 
     .filter-section label,
-    #status-filter, .supplier-columns label {
+    #status-filter,
+    .supplier-columns label {
         text-align: left;
     }
 
@@ -1805,9 +1821,10 @@ td button:focus {
 
     /* account */
 
-    .acc-two-cols{
+    .acc-two-cols {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+        grid-template-columns: 1fr 1fr;
+        /* Two equal-width columns */
         gap: 10%;
         align-items: start;
         padding: 0px 40px;
@@ -1943,6 +1960,11 @@ td button:focus {
     .rad-create-ncr {
         justify-content: flex-start;
     }
+
+    .two-cols-edit {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 
@@ -1994,13 +2016,14 @@ td button:focus {
     /*view ncr*/
 
 
-    .filter-section, .supplier-columns {
+    .filter-section,
+    .supplier-columns {
         margin: 0 auto;
         width: 70%;
         align-items: center;
     }
 
-    .radio-button{
+    .radio-button {
         width: 100%;
     }
 
@@ -2165,7 +2188,7 @@ td button:focus {
 
     /* view ncr */
 
-   
+
 
     p {
         margin-top: 5px;
@@ -2319,6 +2342,11 @@ td button:focus {
     .status-step.completed .step-icon {
         background-color: #1a3153;
     }
+
+    .controls-container {
+        display: inline;
+        /* flex-direction: row; */
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -2389,7 +2417,8 @@ td button:focus {
         font-size: 1.2rem;
     }
 
-    .form-section.active button, .btns-supplier button {
+    .form-section.active button,
+    .btns-supplier button {
         height: 50px;
         width: 30%;
     }
