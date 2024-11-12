@@ -830,7 +830,7 @@ label.radio-button {
     font-size: 1rem;
 }
 
-.chkboxes-create-ncr,
+.chkboxes-create-ncr, .chkboxes-logged-ncr,
 .rad-create-ncr {
     display: flex;
     justify-content: space-around;
@@ -1797,7 +1797,7 @@ td button:focus {
         font-size: 14px;
     }
 
-    .chkboxes-create-ncr,
+    .chkboxes-create-ncr, .chkboxes-logged-ncr,
     .rad-create-ncr {
         flex-direction: row;
     }
@@ -2064,9 +2064,16 @@ td button:focus {
 
     .form-row label,
     .form-row input,
-    .form-row select,
-    .form-row textarea {
+    .form-row select
+     {
         width: 65%;
+    }
+    .form-row textarea{
+        width: 85%;
+    }
+
+    .span-two-cols{
+        grid-column: 1 / -1;;
     }
 
     .form-row label {
@@ -2362,6 +2369,12 @@ td button:focus {
         display: inline;
         /* flex-direction: row; */
     }
+    .two-cols-edit .form-group{
+        display: flex;
+        margin-left: 82px;
+    }
+
+    
 }
 
 @media screen and (min-width: 1440px) {
@@ -2453,11 +2466,12 @@ td button:focus {
 
     .form-row label,
     .form-row input,
-    .form-row select,
-    .form-row textarea {
+    .form-row select {
         width: 65%;
     }
-
+    .form-row textarea{
+        width: 85%;
+    }
     .two-cols {
         gap: 4px;
     }
@@ -2524,6 +2538,12 @@ td button:focus {
     td button {
         margin: 10px 5px;
     }
+   
+    .chkboxes-logged-ncr .radio-button{
+        width: 120px;
+        text-align: center;
+    }
+
 
 }
 

@@ -279,6 +279,7 @@ ncrInput.addEventListener('input', function () {
         });
 
         autocompleteList.appendChild(item);
+        return ncrInput.value
     });
 
     populateTable(filteredRecords);
