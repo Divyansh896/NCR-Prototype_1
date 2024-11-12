@@ -509,3 +509,94 @@ function setNotificationText() {
         notificationList.appendChild(li);
     });
 }
+
+function sendMail() {
+    const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
+    const subject = encodeURIComponent('Request for Purchasing/Operations Department Details for NCR'); // Subject of the email
+    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${ncrNumber}. At this stage, we kindly request you to provide the necessary details from the Purchasing/Operations Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\nQuality Assurance\nCrossfire NCR`);
+
+    // Construct the Gmail compose link
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+
+    // Open the Gmail compose window
+    window.open(gmailLink, '_blank'); // Opens in a new tab
+}
+
+function submitForm(role) {
+    const today = new Date().toISOString().slice(0, 10);  // Get current date
+    let newEntry = {
+        "ncr_no": ncrNumber,  // Use a unique identifier or generate as needed
+        "status": "incomplete",
+        "qa": {},
+        "engineering": {},
+        "purchasing_decision": {}
+    }
+
+    if (role === "QA Inspector") {
+        const supplierName = document.getElementById('supplier-name').value
+        const salesOrderNo = document.getElementById('sales-order-no').value
+        const quantityReceived = document.getElementById('quantity-received').value
+        const quantityDefective = document.getElementById('quantity-defective').value
+        const productNo = document.getElementById('product-no').value
+
+        // Get values from Section 2
+        const descriptionItem = document.getElementById('description-item').value
+        const descriptionDefect = document.getElementById('description-defect').value
+
+        // Get the non-conforming item marked status
+        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked').value
+
+
+        newEntry.qa = {
+
+            "supplier_name": supplierName,
+            "po_no": productNo,
+            "sales_order_no": salesOrderNo,
+            "item_description": descriptionItem,
+            "quantity_received": Number(quantityReceived),
+            "quantity_defective": Number(quantityDefective),
+            "description_of_defect": descriptionDefect,
+            "item_marked_nonconforming": nonconformingStatusElement,
+            "quality_representative_name": `${user.firstname} ${user.lastname}`,
+            "date": today,
+            "resolved": false,
+            "process": {
+                "supplier_or_rec_insp": false,
+                "wip_production_order": false
+            }
+        };
+
+
+        ncrData.push(newEntry);  // Append new entry to the array
+        console.log(ncrData)
+
+    }
+
+
+
+}
+
+function saveFormData() {
+    const formData = {
+        dispositionOptions: document.querySelector('input[name="disposition-options"]:checked')?.value || "",
+        dispositionDetails: document.getElementById("disposition-details").value,
+        drawingRequired: document.querySelector('input[name="drawing-required"]:checked')?.value || "",
+        originalRevNumber: document.getElementById("original_rev_number").value,
+        updatedRevNumber: document.getElementById("updated_rev_number").value,
+        customerNotification: document.querySelector('input[name="customer-notif"]:checked')?.value || "",
+        revisionDate: document.getElementById("revision_date").value,
+        engineeringReviewDate: document.getElementById("engineering_review_date").value,
+        resolved: document.querySelector('input[name="resolved"]:checked')?.value || "",
+        ncrNo: `NCR-${Math.floor(Math.random() * 100000)}`
+    };
+
+    // Retrieve saved NCRs from local storage
+    let savedNCRs = JSON.parse(localStorage.getItem("savedNCRs")) || [];
+    savedNCRs.push(formData);
+    localStorage.setItem("savedNCRs", JSON.stringify(savedNCRs));
+
+    alert("NCR saved successfully!");
+}
+
+document.getElementById("save1").addEventListener("click", saveFormData);
+document.getElementById("save2").addEventListener("click", saveFormData);
