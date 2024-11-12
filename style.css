@@ -1470,6 +1470,11 @@ td button:focus {
     z-index: 1000;
 }
 
+.notification-box{
+    max-height: 45vh;
+    overflow-y: auto;
+}
+
 .settings-box a {
     color: #333;
 }
@@ -1483,10 +1488,16 @@ td button:focus {
 
 }
 
-.notification-box ul li,
 .settings-box ul li {
     display: flex;
     align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-box ul li{
+    text-align: left;
+    white-space: pre-line;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
@@ -1907,7 +1918,9 @@ td button:focus {
         text-decoration: underline;
     }
 
-    .notification-box,
+    .notification-box{
+        width: 300px;
+    }
     .settings-box {
         width: 200px;
     }

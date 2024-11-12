@@ -402,19 +402,31 @@ function openTools() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
-
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
     notificationList.innerHTML = ''; // Clear existing list items
 
-    // Append each notification as an <li> element
-    notifications.forEach(notificationText => {
-        const li = document.createElement('li');
-        li.innerHTML = notificationText;
-        notificationList.appendChild(li);
-    });
+    if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+
+        // Append each notification as an <li> element
+        notifications.forEach(notificationText => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+            notificationList.appendChild(li);
+        });
+    }
+    else{
+        // Append each notification as an <li> element
+        notifications.forEach(notificationText => {
+            const li = document.createElement('li');
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
+            notificationList.appendChild(li);
+        });
+    }
+
+
+
 }

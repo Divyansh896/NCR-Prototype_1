@@ -726,7 +726,7 @@ function sendNotification(ncrNum) {
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
 
     // Add the new notification message
-    notifications.push(`NCR No. ${ncrNum} has been sent to engineer department via Gmail.`);
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Engineering department via Gmail for review and action.`);
 
     // Save updated notifications back to localStorage
     localStorage.setItem('notifications', JSON.stringify(notifications));
@@ -750,7 +750,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = notificationText;
+        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
         notificationList.appendChild(li);
     });
 }
