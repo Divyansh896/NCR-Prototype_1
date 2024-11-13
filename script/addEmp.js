@@ -1,4 +1,4 @@
-// const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const user = JSON.parse(sessionStorage.getItem("currentUser"));
 
 const addEmp = document.getElementById("add");
 const empID = document.getElementById("empId");
@@ -10,6 +10,9 @@ const pass = document.getElementById("password");
 const dept = document.getElementById("department");
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
 setNotificationText()
 document.getElementById("clear").addEventListener("click", function () {
     document.querySelector("form").reset();
@@ -110,4 +113,33 @@ function setNotificationText() {
 
 
 
+}
+
+if (user && user.role) {
+    // Update the Create NCR link based on user role
+    function updateNCRLink() {
+        var ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]')
+
+        if (ncrLink) { // Ensure ncrLink exists
+            if (user.role === "Lead Engineer" || user.role === "Purchasing") {
+                // Change to "Logged NCR" for lead engineers and purchasing roles
+                ncrLink.href = `current_NCR.html`
+                ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Current NCR'
+                ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
+            }
+        } else {
+            console.warn('Link with aria-label "Create a new Non-Conformance Report" not found.')
+        }
+    }
+
+    updateNCRLink()
+} else {
+    console.warn("User data not found in sessionStorage or missing role.")
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn')
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
 }

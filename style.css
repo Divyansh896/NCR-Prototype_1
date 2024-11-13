@@ -199,7 +199,8 @@ details[open] .custom-summary::before {
 }
 
 
-.form-row label, .form-row span {
+.form-row label,
+.form-row span {
 
     margin: 5px 10px;
 
@@ -761,14 +762,15 @@ fieldset legend {
     padding: 5px;
     /* Adds space inside the div */
     overflow: hidden;
-    grid-template-columns: repeat(2 , 1fr);
+    grid-template-columns: repeat(2, 1fr);
     /* Clips any overflow */
 }
 
-.description{
+.description {
     display: flex;
     flex-direction: column;
 }
+
 #qa-section {
     display: grid;
     grid-template-rows: 1fr;
@@ -830,7 +832,8 @@ label.radio-button {
     font-size: 1rem;
 }
 
-.chkboxes-create-ncr, .chkboxes-logged-ncr,
+.chkboxes-create-ncr,
+.chkboxes-logged-ncr,
 .rad-create-ncr {
     display: flex;
     justify-content: space-around;
@@ -898,7 +901,8 @@ label.radio-button {
     display: grid;
     /* grid-template-columns: 1fr 1fr; */
 }
-.qa-info-logged-ncr span{
+
+.qa-info-logged-ncr span {
     font-weight: lighter;
 }
 
@@ -912,7 +916,8 @@ label.radio-button {
 
 /* Filter Section */
 .filter-section,
-.supplier-columns {
+.supplier-columns,
+.employee-columns {
     margin: 0 auto;
     /* Center align and prevent overflow */
     display: flex;
@@ -935,7 +940,15 @@ label.radio-button {
 .supplier-columns #postalCode,
 .supplier-columns #contact,
 .supplier-columns #shippingMethod,
-.supplier-columns .btns-supplier {
+.supplier-columns .btns-supplier,
+.employee-columns #firstName,
+.employee-columns #lastName,
+.employee-columns #empId,
+.employee-columns #dob,
+.employee-columns #email,
+.employee-columns #password,
+.employee-columns #department,
+.employee-columns .btns-employee {
     width: 100%;
 }
 
@@ -1470,7 +1483,7 @@ td button:focus {
     z-index: 1000;
 }
 
-.notification-box{
+.notification-box {
     max-height: 45vh;
     overflow-y: auto;
 }
@@ -1495,7 +1508,7 @@ td button:focus {
     border-bottom: 1px solid #ddd;
 }
 
-.notification-box ul li{
+.notification-box ul li {
     text-align: left;
     white-space: pre-line;
     padding: 8px;
@@ -1638,9 +1651,16 @@ td button:focus {
 }
 
 
-/* supplier page css */
+.two-cols-view {
+    display: grid;
+}
 
-
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-right: 15px;
+}
 
 /*media*/
 @media screen and (min-width: 320px) {
@@ -1764,7 +1784,8 @@ td button:focus {
     }
 
     .filter-section,
-    .supplier-columns {
+    .supplier-columns,
+    .employee-columns {
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1774,7 +1795,8 @@ td button:focus {
 
 
     .filter-section div,
-    .supplier-columns div {
+    .supplier-columns div,
+    .employee-columns div {
         width: 90%;
         text-align: left;
     }
@@ -1808,7 +1830,8 @@ td button:focus {
         font-size: 14px;
     }
 
-    .chkboxes-create-ncr, .chkboxes-logged-ncr,
+    .chkboxes-create-ncr,
+    .chkboxes-logged-ncr,
     .rad-create-ncr {
         flex-direction: row;
     }
@@ -1918,9 +1941,10 @@ td button:focus {
         text-decoration: underline;
     }
 
-    .notification-box{
+    .notification-box {
         width: 300px;
     }
+
     .settings-box {
         width: 200px;
     }
@@ -1987,7 +2011,14 @@ td button:focus {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .qa-info-logged-ncr{
+    .qa-info-logged-ncr {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .two-cols-view .form-group{
+        margin-left: 18px;
+    }
+    .two-cols-view {
         grid-template-columns: repeat(2, 1fr);
     }
 }
@@ -2042,7 +2073,8 @@ td button:focus {
 
 
     .filter-section,
-    .supplier-columns {
+    .supplier-columns,
+    .employee-columns {
         margin: 0 auto;
         width: 70%;
         align-items: center;
@@ -2077,16 +2109,17 @@ td button:focus {
 
     .form-row label,
     .form-row input,
-    .form-row select
-     {
+    .form-row select {
         width: 65%;
     }
-    .form-row textarea{
+
+    .form-row textarea {
         width: 85%;
     }
 
-    .span-two-cols{
-        grid-column: 1 / -1;;
+    .span-two-cols {
+        grid-column: 1 / -1;
+        ;
     }
 
     .form-row label {
@@ -2120,7 +2153,8 @@ td button:focus {
         padding-left: 95px;
         font-weight: 550;
     }
-    .custom-summary-loggedNcr{
+
+    .custom-summary-loggedNcr {
         padding-left: 20px;
     }
 
@@ -2382,12 +2416,17 @@ td button:focus {
         display: inline;
         /* flex-direction: row; */
     }
-    .two-cols-edit .form-group{
+
+    .two-cols-edit .form-group {
         display: flex;
         margin-left: 82px;
     }
 
-    
+    .two-cols-view .form-group{
+        margin-left: 82px;
+    }
+
+
 }
 
 @media screen and (min-width: 1440px) {
@@ -2482,9 +2521,11 @@ td button:focus {
     .form-row select {
         width: 65%;
     }
-    .form-row textarea{
+
+    .form-row textarea {
         width: 85%;
     }
+
     .two-cols {
         gap: 4px;
     }
@@ -2513,7 +2554,8 @@ td button:focus {
         padding-left: 128px;
         font-weight: 600;
     }
-    .custom-summary-loggedNcr{
+
+    .custom-summary-loggedNcr {
         padding-left: 20px;
     }
 
@@ -2551,10 +2593,17 @@ td button:focus {
     td button {
         margin: 10px 5px;
     }
-   
-    .chkboxes-logged-ncr .radio-button{
+
+    .chkboxes-logged-ncr .radio-button {
         width: 120px;
         text-align: center;
+    }
+    .two-cols-view .form-group{
+        margin-left: 115px;
+    }
+
+    .rad-report, .resolved{
+        margin-left: 0;
     }
 
 
@@ -2775,7 +2824,7 @@ td button:focus {
     .rad-report,
     .resolved {
         align-self: flex-start;
-        margin-left: 140px;
+        /* margin-left: 140px; */
         margin-top: 15px;
     }
 
@@ -2792,7 +2841,7 @@ td button:focus {
 
     .custom-summary {
         font-size: 2em;
-        padding-left: 153px;
+        /* padding-left: 153px; */
     }
 
     /*privacy policy*/
