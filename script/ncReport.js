@@ -67,7 +67,7 @@ function setSpanContentFromSession() {
     document.getElementById('quantity-received').textContent = retrievedNCRData['quantity_received'] || ''
     document.getElementById('quantity-defective').textContent = retrievedNCRData['quantity_defective'] || ''
     document.getElementById('description-defect').textContent = retrievedNCRData['description_of_defect'] || ''
-    
+
     // Handle Non-Conforming Item marked spans
     if (retrievedNCRData['item_marked_nonconforming'] === true) {
         document.getElementById('item-marked-yes').textContent = 'Yes'
@@ -85,10 +85,10 @@ function setSpanContentFromSession() {
     document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === 'true' ? 'Yes' : 'No'
     document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || ''
 
-    if(retrievedNCRData['supplier_or_rec_insp'] == true){
+    if (retrievedNCRData['supplier_or_rec_insp'] == true) {
 
         document.getElementById('qa-process').textContent = 'Supplier or rec insp' // Ensure correct value
-    }else{
+    } else {
 
         document.getElementById('qa-process').textContent = 'Wip production order' // Check if this is intended
     }
@@ -114,7 +114,7 @@ function setSpanContentFromSession() {
             break // Stop after the first true value
         }
     }
-    
+
     // document.getElementById('options').textContent = retrievedNCRData['options'] || '' // Set select value
     document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === 'true' ? 'Yes' : 'No'
     document.getElementById('car-number').textContent = retrievedNCRData['car_number'] || ''
@@ -131,20 +131,75 @@ function setSpanContentFromSession() {
 
 // Call the function on page load
 document.addEventListener('DOMContentLoaded', setSpanContentFromSession)
-// Add similar logs for other data points
 
-document.getElementById('downloadPdf').addEventListener('click', function () {
-    var element = document.getElementById('contentToDownload')
-    html2pdf()
-        .from(element)
-        .set({
-            margin: [0.25, 0.5, 0.5, 0.5],
-            filename: 'my-document.pdf',
-            html2canvas: { scale: 1 },
-            jsPDF: { orientation: 'portrait', unit: 'in', format: 'a4' }
-        })
-        .save()
+
+
+document.getElementById('downloadPdf').addEventListener('click', async function () {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4'); // A4 paper size in mm
+    const elements = document.querySelectorAll('details'); // Select all details elements
+
+    // Function to hide buttons
+    const hideButtons = () => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.style.display = 'none');
+    };
+
+    // Function to restore buttons
+    const restoreButtons = () => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.style.display = '');
+    };
+
+    const imgWidth = 210; // A4 width in mm
+    const pageHeight = 297; // A4 height in mm
+    const options = {
+        scale: 1.5, // Reduce scale factor slightly to avoid blurriness
+        useCORS: true, // Enable CORS for external resources
+        background: '#fff' // Ensure background is solid white
+    };
+
+    let totalHeight = 0; // Variable to track total height for multi-page PDFs
+    const images = [];
+
+    // Add the title at the top of the PDF
+    pdf.setFontSize(20);
+    const title = 'Non-Conformance Report';
+    const titleWidth = pdf.getTextWidth(title);
+    const pageWidth = pdf.internal.pageSize.width; // Page width in mm
+    pdf.text(title, (pageWidth - titleWidth) / 2, 20); // Center the title, adjusted to ensure it doesn't take up the whole width
+
+    const position = 30; // Starting position for the images/content
+
+    hideButtons(); // Hide buttons before generating PDF
+
+    // Capture each element's canvas
+    for (let element of elements) {
+        const canvas = await html2canvas(element, options);
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+        totalHeight += imgHeight;
+        images.push({ imgData: canvas.toDataURL('image/png'), imgHeight });
+    }
+
+    // Adjust the image to fit A4
+    let currentHeight = position; // Start from the title's position
+
+    images.forEach((image, index) => {
+        if (currentHeight + image.imgHeight > pageHeight) {
+            pdf.addPage(); // Add a new page if the content exceeds the page height
+            currentHeight = 20; // Reset vertical position after adding a new page
+        }
+
+        // Add the image to the PDF, adjusting the position and size
+        pdf.addImage(image.imgData, 'PNG', 0, currentHeight, imgWidth, image.imgHeight);
+        currentHeight += image.imgHeight; // Update the current height after adding the image
+    });
+
+    // Save the generated PDF
+    pdf.save('Quality_Assurance_Report.pdf');
+    restoreButtons(); // Restore buttons after generating PDF
 })
+
 
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
@@ -168,7 +223,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -177,7 +232,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -205,7 +260,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -214,7 +269,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -242,7 +297,7 @@ function setNotificationText() {
     const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
     notificationList.innerHTML = ''; // Clear existing list items
 
-    if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    if (user.role == "Lead Engineer" || user.role == "Purchasing") {
 
         // Append each notification as an <li> element
         notifications.forEach(notificationText => {
@@ -251,11 +306,11 @@ function setNotificationText() {
             notificationList.appendChild(li);
         });
     }
-    else{
+    else {
         // Append each notification as an <li> element
         notifications.forEach(notificationText => {
             const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`;
             notificationList.appendChild(li);
         });
     }
