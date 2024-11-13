@@ -4,6 +4,7 @@ userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+loadImages()
 
 const btnEdit = document.querySelectorAll('.edit');
 
@@ -317,4 +318,28 @@ function setNotificationText() {
 
 
 
+}
+
+function loadImages() {
+    const imageContainer = document.getElementById('defectedProdImages'); // Make sure this container exists in your HTML
+
+    // List of image filenames in your 'productImages' folder
+    const imageFiles = [
+        'screw image 1.jpg', 
+        'screw image 2.jpg', 
+        'screw image 3.jpg'
+    ];
+
+    imageContainer.style.display = 'flex'
+
+    // Loop through the image files and create img elements
+    imageFiles.forEach(imageFile => {
+        const imgElement = document.createElement('img');
+        imgElement.src = `/productImages/${imageFile}`; // URL pointing to the static folder
+        imgElement.alt = imageFile; // Image file name as alt text
+        imgElement.style.width = '250px'
+        imgElement.style.height = '250px'
+        imgElement.style.marginLeft = '115px'
+        imageContainer.appendChild(imgElement);
+    });
 }

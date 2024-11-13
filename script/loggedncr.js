@@ -188,7 +188,7 @@ if (user.role === 'Lead Engineer') {
         showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
             // This callback will execute after the popup is closed
             // sendMail(); // Call the email sending function
-            window.location.href = "home.html"; // Redirect to home.html
+            window.location.href = "Dashboard.html"; // Redirect to home.html
         });
     });
 

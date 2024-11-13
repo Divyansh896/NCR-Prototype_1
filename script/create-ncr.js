@@ -219,7 +219,7 @@ if (user.role === 'QA Inspector') {
             // This callback will execute after the popup is closed
             submitForm(user.role); // Call the form submission
             sendMail(); // Call the email sending function
-            window.location.href = "home.html"; // Redirect to home.html
+            window.location.href = "Dashboard.html"; // Redirect to home.html
 
             sendNotification(ncrNumber)
         });
