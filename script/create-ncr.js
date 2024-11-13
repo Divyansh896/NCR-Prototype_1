@@ -814,7 +814,7 @@ addSupplierButton.addEventListener("click", function () {
         document.getElementById("newSupplierName").value = "";
         closeSupplierPopup();
     } else {
-        showPopup("Please enter a supplier name.");
+        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp");
     }
 });
 
