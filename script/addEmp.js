@@ -143,3 +143,40 @@ function logout() {
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools");
+
+}
+
+document.addEventListener("click", function (event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})

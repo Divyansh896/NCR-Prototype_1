@@ -187,3 +187,19 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
+
+document.addEventListener("click", function (event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})
