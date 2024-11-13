@@ -387,15 +387,9 @@ function displayPinnedReports() {
 
 function displaySavedReports() {
     const container = document.getElementById("savedReportsContainer");
-    if (!container) {
-        console.error("savedReportsContainer element not found.");
-        return;
-    }
     container.innerHTML = ''; // Clear previous content
 
-    // Retrieve saved NCRs from local storage
     const savedNCRs = JSON.parse(localStorage.getItem('savedNCRs')) || [];
-    console.log("Retrieved saved NCRs:", savedNCRs); // Debugging output
 
     if (savedNCRs.length === 0) {
         container.innerHTML = '<p>No saved reports available.</p>';
@@ -406,32 +400,36 @@ function displaySavedReports() {
         const reportCard = document.createElement('div');
         reportCard.classList.add('report-card');
 
-        // Supplier and report information
         const supplierName = document.createElement('span');
         supplierName.classList.add('supplier-name');
-        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier';
+        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier';
 
         const reportInfo = document.createElement('span');
         reportInfo.classList.add('reportInfo');
-        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`;
+        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`;
 
-        // Add a click event for the entire report card
-        reportCard.addEventListener("click", () => {
-            const data = extractData(ncr);
-            sessionStorage.setItem('data', JSON.stringify(data));
-            window.location.href = 'NC_Report.html'; // Adjust the URL as needed
+        // "Continue Editing" Button
+        const continueButton = document.createElement('button');
+        continueButton.classList.add('continue-button');
+        continueButton.textContent = "Continue Editing";
+
+        // Button click event to navigate to form page with pre-filled data
+        continueButton.addEventListener('click', () => {
+            if (ncr.ncr_no && ncr.ncr_no !== '[NCR NO]') {
+                // Pass the `ncr_no` via query parameter to `logged_NCR.html`
+                window.location.href = `logged_NCR.html?ncr_no=${encodeURIComponent(ncr.ncr_no)}`;
+            } else {
+                alert('NCR Number is not valid. Please check the saved report.');
+            }
         });
 
-        // Append elements to the report card
         reportCard.appendChild(supplierName);
         reportCard.appendChild(reportInfo);
+        reportCard.appendChild(continueButton); // Append the button to the card
 
-        // Append report card to the main container
         container.appendChild(reportCard);
     });
-
 }
-
 
 
 // Initialize tab buttons
