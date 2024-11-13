@@ -215,7 +215,7 @@ if (user.role === 'QA Inspector') {
         e.preventDefault(); // Prevent default form submission
 
         // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
+        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
             // This callback will execute after the popup is closed
             submitForm(user.role); // Call the form submission
             sendMail(); // Call the email sending function
@@ -640,9 +640,18 @@ function showPopup(title, message, icon, callback) {
     const iconDiv = document.querySelector('.icon');
     // Clear previous icons
     iconDiv.innerHTML = '';
-    const imgElement = document.createElement('img');
-    imgElement.src = icon; // Replace with your image URL
-    iconDiv.appendChild(imgElement);
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg')|| icon.includes('.webp');
+
+    if(isImage){
+
+        const imgElement = document.createElement('img');
+        imgElement.src = icon; // Replace with your image URL
+        iconDiv.appendChild(imgElement);
+    }
+    else{
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
+    }
 
     modal.style.display = "block"; // Show the modal
 
@@ -751,7 +760,7 @@ function setNotificationText() {
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
         li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
-        notificationList.appendChild(li);
+        notificationList.prepend(li);
     });
 }
 
@@ -815,3 +824,17 @@ window.addEventListener("click", function (event) {
         closeSupplierPopup();
     }
 });
+
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()

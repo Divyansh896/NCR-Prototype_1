@@ -24,12 +24,12 @@ const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 const queryParams = new URLSearchParams(window.location.search)
 loadData(queryParams)
-console.log(savedData)
+// console.log(savedData)
 
+const params = new URLSearchParams(window.location.search);
+const ncrNo = params.get('ncr_no');
 document.addEventListener("DOMContentLoaded", () => {
     // Get `ncr_no` from the URL query parameters
-    const params = new URLSearchParams(window.location.search);
-    const ncrNo = params.get('ncr_no');
 
     if (!ncrNo) {
         console.warn("NCR number is not available in the query parameters.");
@@ -380,10 +380,11 @@ if (user.role === 'Lead Engineer') {
         e.preventDefault(); // Prevent default form submission
 
         // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
+        showPopup('Form submitted', 'Your Engineering department form has been sent to the purchasing department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
             // This callback will execute after the popup is closed
             // sendMail(); // Call the email sending function
             window.location.href = "Dashboard.html"; // Redirect to home.html
+            sendNotification(ncrNo)
         });
     });
 
@@ -521,10 +522,18 @@ function showPopup(title, message, icon, callback) {
     const iconDiv = document.querySelector('.icon');
     // Clear previous icons
     iconDiv.innerHTML = '';
-    const imgElement = document.createElement('img');
-    imgElement.src = icon; // Replace with your image URL
-    iconDiv.appendChild(imgElement);
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
 
+    if(isImage){
+
+        const imgElement = document.createElement('img');
+        imgElement.src = icon; // Replace with your image URL
+        iconDiv.appendChild(imgElement);
+    }
+    else{
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
+    }
     modal.style.display = "block"; // Show the modal
 
     setTimeout(() => {
@@ -684,37 +693,50 @@ function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
 
 }
+
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
+
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
     notificationList.innerHTML = ''; // Clear existing list items
 
-    if (user.role == "Lead Engineer" || user.role == "Purchasing") {
-
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li');
+        
+        if (notificationText.includes('Engineering')) {
+            // engineering department person get the mail from qa (will show review and begin work)
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
-            notificationList.appendChild(li);
-        });
-    }
-    else {
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`;
-            notificationList.appendChild(li);
-        });
-    }
+        } else {
+            // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+        }
 
-
-
+        notificationList.prepend(li);
+    });
 }
+
+
+function sendNotification(ncrNum) {
+    // Retrieve existing notifications from localStorage or initialize as an empty array
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    // Add the new notification message
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Purchasing department via Gmail for review and action.`);
+
+    // Save updated notifications back to localStorage
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+
+    // Update the notification display
+    setNotificationText();
+}
+
+
 
 function sendMail() {
     const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
@@ -832,3 +854,17 @@ function saveFormData() {
 
 document.getElementById("save1").addEventListener("click", saveFormData);
 document.getElementById("save2").addEventListener("click", saveFormData);
+
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()

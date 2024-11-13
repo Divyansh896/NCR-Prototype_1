@@ -92,7 +92,7 @@ function populateTable(data) {
             <td>${ncr.qa.date || 'N/A'}</td>
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
-            <td>${ncr.engineering.resolved || 'Not resolved yet!'}</td>
+            <td>${ncr.engineering.resolved || 'Open'}</td>
             <td>
                 <div class="tooltip-container controls-container">
                     <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> Edit</button>
@@ -405,28 +405,44 @@ function setNotificationText() {
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
+
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
     notificationList.innerHTML = ''; // Clear existing list items
 
-    if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li');
+        if(user.role == 'Lead Engineer'){
 
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
-            notificationList.appendChild(li);
-        });
-    }
-    else{
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
-            notificationList.appendChild(li);
-        });
-    }
+            if (notificationText.includes('Engineering')) {
+                // engineering department person get the mail from qa (will show review and begin work)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+            } else {
+                // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+            }
+        }
+        else{
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
+        }
+        
 
-
+        notificationList.prepend(li);
+    });
 }
+
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()

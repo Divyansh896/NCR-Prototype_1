@@ -1340,7 +1340,8 @@ input[type="radio"] {
 }
 
 .modal-content p {
-    margin-left: 45px;
+    margin-left: 55px;
+    text-align: left;
 }
 
 .close {

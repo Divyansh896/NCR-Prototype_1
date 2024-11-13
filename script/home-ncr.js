@@ -50,7 +50,7 @@ if (user && user.role) {
                 // Change to "Logged NCR" for lead engineers and purchasing roles
                 ncrLink.href = `current_NCR.html`
                 ncrLink.innerHTML = '<i class="fa fa-sign-in"></i>Current NCR'
-                ncrLink.setAttribute("aria-label", "View logged Non-Conformance Reports")
+                ncrLink.setAttribute("aria-label", "View current Non-Conformance Reports")
             }
         } else {
             console.warn('Link with aria-label "Create a new Non-Conformance Report" not found.')
@@ -79,19 +79,19 @@ function initializeButtons() {
 
     if (user.role === 'QA Inspector') {
         const nextNcrNumber = generateNextNcrNumber(ncr); // Calculate only once
-    
+
         // Update the 'Create NCR' button's action
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
         });
-    
+
         // Update the link's href
         const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
         if (ncrLink) {
             ncrLink.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
         }
     }
-    
+
     else {
         btnCreate.innerHTML = '<i class="fa fa-clipboard"></i> Open current NCR';
         btnCreate.nextElementSibling.textContent = "Click to open current NCRs"
@@ -220,7 +220,7 @@ function displayRecentReports(data) {
     const container = recentContainer;
     container.innerHTML = ''; // Clear previous content
 
-    
+
     // Get the last 5 reports
     const lastFiveReports = data.slice(-5);
 
@@ -339,12 +339,25 @@ function displayPinnedReports() {
         const tooltip = document.createElement('span');
         tooltip.classList.add('tooltip');
         tooltip.textContent = "Click to view/edit NCR";
-        
+
         // Create the unpin icon
         const unpinIcon = document.createElement('span');
         unpinIcon.classList.add('unpinIcon');
-        unpinIcon.innerHTML = `<i class="fa fa-trash" aria-hidden="true" title="Unpin Report"></i>`;
+        unpinIcon.innerHTML = `<i class="fa fa-thumb-tack" aria-hidden="true" style="position: relative; font-size: 24px;">
+    <span style="
+        position: absolute;
+        top: 11px;
+        left: -5px;
+        right: -5px;
+        bottom: 0;
+        height: 2px;
+        background-color: black;
+        transform: rotate(-45deg) scale(1.2);
+        transform-origin: center;
+    "></span>
+</i>
 
+`
         // Add an event listener to the unpin icon
         unpinIcon.addEventListener('click', (e) => {
             e.stopPropagation(); // Prevent triggering the report card's click event
@@ -359,7 +372,7 @@ function displayPinnedReports() {
 
         // Tooltip text change on hover
         unpinIcon.addEventListener('mouseenter', (e) => {
-            tooltip.textContent = "Click to delete this pinned NCR";
+            tooltip.textContent = "Click to unpin this pinned NCR";
 
         });
         unpinIcon.addEventListener('mouseleave', () => {
@@ -466,7 +479,7 @@ function showTab(tab) {
     } else if (tab === 'pinned') {
         document.getElementById('pinned-reports').classList.add('active');
         btnPinned.classList.add('active'); // Activate pinned button
-    }else if (tab === 'saved'){
+    } else if (tab === 'saved') {
         document.getElementById('saved-reports').classList.add('active');
         btnSaved.classList.add('active');
     }
@@ -695,30 +708,45 @@ function setNotificationText() {
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
+
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
     notificationList.innerHTML = ''; // Clear existing list items
 
-    if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li');
+        if(user.role == 'Lead Engineer'){
 
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
-            notificationList.appendChild(li);
-        });
-    }
-    else{
-        // Append each notification as an <li> element
-        notifications.forEach(notificationText => {
-            const li = document.createElement('li');
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
-            notificationList.appendChild(li);
-        });
-    }
+            if (notificationText.includes('Engineering')) {
+                // engineering department person get the mail from qa (will show review and begin work)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+            } else {
+                // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+            }
+        }
+        else{
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
+        }
+        
 
-
+        notificationList.prepend(li);
+    });
 }
 
 
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()
