@@ -302,6 +302,7 @@
 
                                 <div class="tooltip-container">
                                     <label for="disposition-details">Disposition (Required):</label>
+                                    <span class="error-message" id="disposition-details-error"></span>
                                     <p id="descriptionMessage" style="display: none">
                                         Write the sequence of work steps as well.
                                     </p>
@@ -309,7 +310,6 @@
                                         aria-describedby="disposition-details-desc"
                                         placeholder="Disposition details" tabindex="10"></textarea>
                                     <span class="tooltip ttip-descr">Type in disposition details</span>
-                                    <span class="error-message" id="disposition-details-error"></span>
                                 </div>
 
                             </div>
@@ -319,6 +319,7 @@
                             <label for="drawing-required">
                                 Drawing Update Needed:
                             </label>
+                            <span class="error-message" id="drawing-required-error"></span>
                             <div class="rad-create-ncr">
                                 <div class="tooltip-container">
                                     <label class="radio-button">
@@ -361,21 +362,24 @@
 
                                 <div>
                                     <div class="tooltip-container">
-                                        <label for="original_rev_number">Original Revision Number:</label>
+                                        <label for="original_rev_number">Original Version Number:</label>
                                         <input type="number" id="original_rev_number"
-                                            aria-label="Original Revision Number"
-                                            placeholder="Original Revision Number" tabindex="15">
-                                        <span class="tooltip">Enter original revision number</span>
+                                        aria-label="Original Version Number"
+                                        placeholder="Original Revision Number" tabindex="15">
+                                        <span class="tooltip">Enter original version number</span>
+                                        <span class="required" id="original_rev_number-error"></span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="updated_rev_number">Updated Revision Number:</label>
                                         <input type="number" id="updated_rev_number" aria-label="Updated Revision Number"
-                                            placeholder="Updated Revision Number" tabindex="16">
+                                        placeholder="Updated Revision Number" tabindex="16">
+                                        <span class="required" id="updated_rev_number-error"></span>
                                         <span class="tooltip">Enter updated revision number</span>
                                     </div>
                                     <label for="customer-notif">
                                         Customer Notification Needed:
                                     </label>
+                                    <span class="required" id="notification-required-error"></span>
                                     <div class="rad-create-ncr">
 
                                         <div class="tooltip-container">
@@ -400,13 +404,15 @@
                                     <div class="tooltip-container">
                                         <label for="revision_date">Revision Date:</label>
                                         <input type="date" id="revision_date" aria-label="Revision Date"
-                                            name="revision_date" tabindex="19">
+                                        name="revision_date" tabindex="19">
+                                        <span class="required" id="revision_date-error"></span>
                                         <span class="tooltip">Enter revision date of NCR</span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="engineering_review_date">Engineering Review Date:</label>
                                         <input type="date" id="engineering_review_date"
-                                            aria-label="Engineering Review Date" name="engineering_review_date" tabindex="20">
+                                        aria-label="Engineering Review Date" name="engineering_review_date" tabindex="20">
+                                        <span class="required" id="engineering_review_date-error"></span>
                                         <span class="tooltip">Select engineering review date</span>
                                     </div>
                                     <label for="resolved">Resolved (Required):</label>

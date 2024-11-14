@@ -488,6 +488,46 @@ if (user.role === 'Lead Engineer') {
                 errorSpan.style.display = 'none'; // Hide error if no error
             }
         }
+        const drawingRadiobtn = document.querySelectorAll('input[name="drawing-required"]');
+        const drawingError = document.getElementById('drawing-required-error')
+        if (![...drawingRadiobtn].some(radio => radio.checked)) {
+            drawingError.style.display = "inline"
+            drawingError.textContent = "Please select drawing update is required or not!"
+            isValid = false
+        }
+        else {
+            drawingError.style.display = 'none'
+            let selectedRadio = null;
+
+            // Loop through all radio buttons to find the selected one
+            drawingRadiobtn.forEach(radio => {
+                if (radio.checked) {
+                    selectedRadio = radio;
+                }
+            });
+
+            if (selectedRadio && selectedRadio.value === "yes") {
+                const updatedRevNum = document.getElementById('updated_rev_number');
+                const revisionDate = document.getElementById('revision_date');
+                updatedRevNum.style.display = 'block';
+                updatedRevNum.previousElementSibling.style.display = 'block'
+                updatedRevNum.nextElementSibling.style.display = 'inline'
+                revisionDate.style.display = 'block';
+                revisionDate.previousElementSibling.style.display = 'block'
+                revisionDate.nextElementSibling.style.display = 'inline'
+
+            } else if (selectedRadio && selectedRadio.value === "no") {
+                const updatedRevNum = document.getElementById('updated_rev_number');
+                const revisionDate = document.getElementById('revision_date');
+                updatedRevNum.style.display = 'none';
+                updatedRevNum.previousElementSibling.style.display = 'none'
+                updatedRevNum.nextElementSibling.style.display = 'none'
+                revisionDate.style.display = 'none';
+                revisionDate.previousElementSibling.style.display = 'none'
+                revisionDate.nextElementSibling.style.display = 'none'
+            }
+
+        }
 
 
         return isValid;
@@ -497,6 +537,36 @@ if (user.role === 'Lead Engineer') {
     function validateSection2() {
         let isValid = true;
 
+        const errorMessages = {
+            'original_rev_number': '',
+            'updated_rev_number': '',
+            'revision_date': '',
+            'engineering_review_date': ''
+        };
+        
+        const requiredFields = [
+            'original_rev_number', 'updated_rev_number', 'revision_date', 'engineering_review_date'
+        ];
+        
+        requiredFields.forEach(field => {
+            const inputElement = document.getElementById(field);
+            const errorSpan = document.getElementById(`${field}-error`);
+        
+            // Check if the input is empty and the element is visible
+            if (inputElement.value.trim() === '' && inputElement.offsetParent !== null) {
+                // Replace all underscores with spaces, and capitalize the first letter of the first word only
+                const fieldNameWithSpaces = field.replace(/_/g, ' ');
+                const capitalizedField = fieldNameWithSpaces.charAt(0).toUpperCase() + fieldNameWithSpaces.slice(1);
+        
+                errorMessages[field] = `${capitalizedField} is required.`; // Set error message
+                errorSpan.style.display = 'inline'; // Show error message
+                errorSpan.textContent = errorMessages[field]; // Set the error message
+                isValid = false;
+            } else {
+                errorSpan.style.display = 'none'; // Hide error if filled
+            }
+        });
+        
         const radioButtons = document.querySelectorAll('input[name="resolved"]');
         const radioErrorSpan = document.getElementById("resolved-error");
 
@@ -509,8 +579,22 @@ if (user.role === 'Lead Engineer') {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
         }
 
+        const notifRadioBtns = document.querySelectorAll('input[name="customer-notif"]')
+        const notificationError = document.getElementById('notification-required-error')
+        if (![...notifRadioBtns].some(radio => radio.checked)) {
+            notificationError.style.display = 'inline'; // Show error in the span if no radio button is checked
+            notificationError.textContent = 'Please select if the notification is required or not.'; // Set error message
+            isValid = false;
+        } else {
+            notificationError.style.display = 'none'; // Hide error if valid
+        }
+
+
+
         return isValid;
     }
+
+
 
 }
 
@@ -524,13 +608,13 @@ function showPopup(title, message, icon, callback) {
     iconDiv.innerHTML = '';
     const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
 
-    if(isImage){
+    if (isImage) {
 
         const imgElement = document.createElement('img');
         imgElement.src = icon; // Replace with your image URL
         iconDiv.appendChild(imgElement);
     }
-    else{
+    else {
         iconDiv.style.fontSize = '45px'
         iconDiv.innerHTML = icon
     }
@@ -708,7 +792,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        
+
         if (notificationText.includes('Engineering')) {
             // engineering department person get the mail from qa (will show review and begin work)
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
@@ -855,14 +939,14 @@ function saveFormData() {
 document.getElementById("save1").addEventListener("click", saveFormData);
 document.getElementById("save2").addEventListener("click", saveFormData);
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
