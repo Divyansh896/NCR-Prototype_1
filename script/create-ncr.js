@@ -157,7 +157,7 @@ if (user.role === 'QA Inspector') {
     // Add event listeners for navigation buttons
     document.getElementById("next-btn1").addEventListener("click", () => {
         const { isValid, quantityError } = validateSection1();
-    
+
         if (isValid) {
             sections[currentStep].classList.remove("active");
             currentStep++;
@@ -179,7 +179,7 @@ if (user.role === 'QA Inspector') {
             }
         }
     });
-    
+
 
     document.getElementById("next-btn2").addEventListener("click", () => {
         if (validateSection2()) {
@@ -326,7 +326,7 @@ if (user.role === 'QA Inspector') {
         }
 
 
-        return {isValid, quantityError};
+        return { isValid, quantityError };
     }
 
 
@@ -539,6 +539,7 @@ function fileToBase64(file) {
 }
 
 async function handleFiles(files) {
+    
     for (const file of files) {
         if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
             existingFiles.push(file); // Add new files to the existing list
@@ -564,11 +565,25 @@ async function handleFiles(files) {
             deleteButton.style.color = 'red'; // Color for the delete button
 
             // Attach click event to delete the item
-            deleteButton.addEventListener('click', () => {
-                existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size)); // Remove file from existingFiles
-                mediaList.removeChild(listItem); // Remove the list item
-                localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
+            deleteButton.addEventListener('click', (e) => {
+                e.preventDefault()
+                const btnDelete = document.getElementById('yes-delete-img');
+                const btnCancel = document.getElementById('no-delete-img');
+
+                // Show the confirmation modal with custom message, icon, and button handlers
+                deleteImgConfirm("Confirm Deletion",
+                    "Are you sure you want to delete this image? You can add it back later.",
+                    'images/1382678.webp', 
+                    btnDelete,
+                    btnCancel,
+                    () => {
+                        // The callback will be triggered when 'Yes' is clicked (perform the delete)
+                        existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size));
+                        mediaList.removeChild(listItem); // Remove the list item
+                        localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
+                    });
             });
+
 
 
 
@@ -640,15 +655,15 @@ function showPopup(title, message, icon, callback) {
     const iconDiv = document.querySelector('.icon');
     // Clear previous icons
     iconDiv.innerHTML = '';
-    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg')|| icon.includes('.webp');
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
 
-    if(isImage){
+    if (isImage) {
 
         const imgElement = document.createElement('img');
         imgElement.src = icon; // Replace with your image URL
         iconDiv.appendChild(imgElement);
     }
-    else{
+    else {
         iconDiv.style.fontSize = '45px'
         iconDiv.innerHTML = icon
     }
@@ -759,7 +774,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17, )}`;
+        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`;
         notificationList.prepend(li);
     });
 }
@@ -825,16 +840,77 @@ window.addEventListener("click", function (event) {
     }
 });
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
 
 updateToolContent()
+
+function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) {
+    const modal = document.querySelector('.deletemodal')
+    const modalContent = modal.querySelector('.modal-content');
+
+    // Set the title and message inside the modal
+    modalContent.querySelector('h2').innerText = title;
+    modalContent.querySelector('p').innerText = message;
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
+
+    // Display the icon based on its type (image or text)
+    if (isImage) {
+        const imgElement = document.createElement('img');
+        imgElement.src = icon;
+        iconDiv.appendChild(imgElement);
+    } else {
+        iconDiv.style.fontSize = '45px';
+        iconDiv.innerHTML = icon;
+    }
+
+    // Show the modal
+    modal.style.display = "block";
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade-in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Center modal
+    }, 10);
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade-out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Move modal out
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal
+        }, 500); // Wait for the transition to finish
+    };
+
+    // When "Yes" (btnDelete) is clicked, perform the delete action
+    btnDelete.addEventListener('click', () => {
+        // Perform the callback action (e.g., deleting the file)
+        callback();
+        closeModal(); // Close the modal after the action
+    });
+
+    // When "No" (btnCancel) is clicked, just close the modal
+    btnCancel.addEventListener('click', () => {
+        closeModal(); // Close the modal without any action
+    });
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}

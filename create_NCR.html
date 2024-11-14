@@ -143,6 +143,23 @@
             </div>
         </div>
 
+        <div id="popup" class="deletemodal">
+            <div class="modal-content">
+                <!-- <span id="closePopup" class="close">&times;</span> -->
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"><img src="images/1382678.webp" alt="exclamation image"></div> 
+                    </div>
+                    <h2 id="popup-title"></h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="delete-confirm">
+                    <button type="button" id="yes-delete-img">Delete</button>
+                    <button type="button" id="no-delete-img">Cancel</button>
+                </div>
+            </div>
+        </div>
+
 
 
         <div id="supplierModal">
@@ -360,18 +377,21 @@
                                 </fieldset>
 
                                 <div id="drop-area">
-                                    <div class="tooltip-container">
-                                        <p class="media">Drag & drop images and videos here, or <i
-                                                class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i> <label
-                                                for="media-input"
-                                                style="cursor: pointer; color: blue; text-decoration: underline;">Upload
-                                                files</label></p>
-                                        <!-- <i class="fa fa-upload"></i> -->
-                                        <input type="file" name="media" id="media-input" accept="image/*,video/*"
-                                            multiple style="display: none;">
+                                    <div>
+                                        <div class="tooltip-container">
+
+                                            <p class="media">Drag & drop images and videos here, or <i
+                                                    class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i>
+                                                <label for="media-input"
+                                                    style="cursor: pointer; color: blue; text-decoration: underline;">Upload
+                                                    files</label></p>
+                                            <span class="tooltip">Drag & drop images and videos here of the product, or
+                                                click upload files.</span>
+                                            <!-- <i class="fa fa-upload"></i> -->
+                                            <input type="file" name="media" id="media-input" accept="image/*,video/*"
+                                                multiple style="display: none;">
+                                        </div>
                                         <ul id="media-list"></ul>
-                                        <span class="tooltip">Drag & drop images and videos here of the product, or
-                                            click upload files.</span>
                                     </div>
                                 </div>
 
