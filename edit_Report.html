@@ -140,9 +140,9 @@
         <!-- Main Content -->
         <h1>Non-Conformance Report</h1>
         <details>
-            <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep</summary>
+            <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance representative</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
-            <div class="two-cols-edit">
+            <div class="two-cols-edit two-cols-view">
                 <!-- First Column -->
                 <div class="form-row">
                     <div class="form-group">
@@ -200,7 +200,7 @@
                 </div>
             </div>
 
-            <div class="two-cols-edit">
+            <div class="two-cols-edit two-cols-view">
                 <div class="form-row span-two-cols">
 
                     <!-- Textarea Section -->
@@ -251,7 +251,7 @@
         <details>
             <summary class="custom-summary" aria-label="Engineering department details">Engineering</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
-            <div class="two-cols-edit">
+            <div class="two-cols-edit two-cols-view">
                 <div class="form-row">
                     <div class="confirm-create-qa">
                         <div class="form-group">
@@ -289,8 +289,6 @@
 
                 <div class="form-row">
 
-
-
                     <div class="form-group">
                         <label for="revision-date">Revision Date: <span class="required">*</span></label>
                         <input type="date" class="eng-editable" id="revision-date" name="revision_date"
@@ -313,22 +311,25 @@
                     </div>
                 </div>
             </div>
-            <div class="two-cols-edit">
-                <div class="form-row">
-                    <div class="rad-report">
-                        <input type="checkbox" class="eng-editable" id="resolved" name="resolved" aria-label="Resolved"
-                            tabindex="30">
-                        <label for="resolved">Resolved:</label>
-                    </div>
-                    <div class="rad-report">
-                        <input type="checkbox" class="eng-editable" id="customer-notification"
-                            name="customer_notification" aria-label="Customer Notification Required" tabindex="31">
-                        <label for="customer-notification">Customer Notification Required:</label>
-                    </div>
-                    <div class="rad-report">
-                        <input type="checkbox" class="eng-editable" id="drawing-update-required"
-                            name="drawing_update_required" aria-label="Drawing Update Required" tabindex="32">
-                        <label for="drawing-update-required">Drawing Update Required:</label>
+            <div class="two-cols-edit two-cols-view">
+                <div class="form-group">
+
+                    <div class="form-row">
+                        <div class="rad-report">
+                            <input type="checkbox" class="eng-editable" id="resolved" name="resolved" aria-label="Resolved"
+                                tabindex="30">
+                            <label for="resolved">Resolved:</label>
+                        </div>
+                        <div class="rad-report">
+                            <input type="checkbox" class="eng-editable" id="customer-notification"
+                                name="customer_notification" aria-label="Customer Notification Required" tabindex="31">
+                            <label for="customer-notification">Customer Notification Required:</label>
+                        </div>
+                        <div class="rad-report">
+                            <input type="checkbox" class="eng-editable" id="drawing-update-required"
+                                name="drawing_update_required" aria-label="Drawing Update Required" tabindex="32">
+                            <label for="drawing-update-required">Drawing Update Required:</label>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -344,7 +345,7 @@
         <details>
             <summary class="custom-summary" aria-label="Purchasing department details">Purchasing Decision</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
-            <div class="two-cols-edit">
+            <div class="two-cols-edit two-cols-view">
                 <div class="form-row">
                     <div class="form-group">
                         <label for="preliminary-decision">Preliminary Decision: <span class="required">*</span></label>
@@ -402,32 +403,40 @@
                     </div>
                 </div>
             </div>
-            <div class="form-row">
-                <div class="rad-report">
-                    <input class="purch-editable" type="checkbox" id="car-raised" name="car_raised"
-                        aria-label="CAR Raised" tabindex="37">
-                    <label for="car-raised">CAR Raised:</label>
-                </div>
-                <div class="rad-report">
-                    <input class="purch-editable" type="checkbox" id="re-inspected-acceptable"
-                        name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="42">
-                    <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
-                </div>
-                <div class="rad-report">
-                    <input class="purch-editable" type="checkbox" id="follow-up-required" name="follow_up_required"
-                        aria-label="Follow-Up Required" tabindex="39">
-                    <label for="follow-up-required">Follow-Up Required:</label>
-                </div>
-                <div class="rad-report">
-                    <input class="purch-editable" type="checkbox" id="ncr-closed" name="ncr_closed"
-                        aria-label="NCR Closed" tabindex="45">
-                    <label for="ncr-closed">NCR Closed:</label>
-                </div>
 
-                <div class="rad-report">
-                    <input class="purch-editable" type="checkbox" id="resolved" name="resolved" aria-label="Resolved"
-                        tabindex="46">
-                    <label for="resolved">Resolved:</label>
+            <div class="two-cols-edit two-cols-view">
+
+                <div class="form-row">
+                    <div class="form-group">
+
+                        <div class="rad-report">
+                            <input class="purch-editable" type="checkbox" id="car-raised" name="car_raised"
+                                aria-label="CAR Raised" tabindex="37">
+                            <label for="car-raised">CAR Raised:</label>
+                        </div>
+                    
+                    <div class="rad-report">
+                        <input class="purch-editable" type="checkbox" id="re-inspected-acceptable"
+                            name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="42">
+                        <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
+                    </div>
+                    <div class="rad-report">
+                        <input class="purch-editable" type="checkbox" id="follow-up-required" name="follow_up_required"
+                            aria-label="Follow-Up Required" tabindex="39">
+                        <label for="follow-up-required">Follow-Up Required:</label>
+                    </div>
+                    <div class="rad-report">
+                        <input class="purch-editable" type="checkbox" id="ncr-closed" name="ncr_closed"
+                            aria-label="NCR Closed" tabindex="45">
+                        <label for="ncr-closed">NCR Closed:</label>
+                    </div>
+    
+                    <div class="rad-report">
+                        <input class="purch-editable" type="checkbox" id="resolved" name="resolved" aria-label="Resolved"
+                            tabindex="46">
+                        <label for="resolved">Resolved:</label>
+                    </div>
+                    </div>
                 </div>
             </div>
 

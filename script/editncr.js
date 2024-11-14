@@ -1,7 +1,7 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
 const footer = document.getElementById('footer-scroll')
 const userName = document.getElementById('userName');
-
+const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
@@ -27,6 +27,11 @@ if (user && user.role) {
     updateNCRLink()
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
+}
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
 
 footer.addEventListener('click', () => {
@@ -65,12 +70,12 @@ const enableFieldsForRole = (role) => {
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
                 // Implement your save logic here, like sending the data to the server
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
                 // disableFields()
 
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
 
 
@@ -86,13 +91,13 @@ const enableFieldsForRole = (role) => {
             if (validateEngSection()) {
 
                 // Implement your save logic here, like sending the data to the server
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // Optionally, disable fields again after saving
                 // disableFields()
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
     } else if (role === 'Purchasing') {
@@ -102,12 +107,12 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // disableFields()
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
     } else if (role === "Project Manager") {
@@ -118,12 +123,12 @@ const enableFieldsForRole = (role) => {
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
                 // Implement your save logic here, like sending the data to the server
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
                 // disableFields()
 
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
 
 
@@ -139,13 +144,13 @@ const enableFieldsForRole = (role) => {
             if (validateEngSection()) {
 
                 // Implement your save logic here, like sending the data to the server
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // Optionally, disable fields again after saving
                 // disableFields()
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
         document.querySelectorAll('.purch-editable').forEach(field => {
@@ -154,12 +159,12 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
-                showPopup('Changes saved!') // Example feedback message
+                showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // disableFields()
             }
             else {
-                showPopup("Please fill in all the required fields before submitting.")
+                showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
     }
@@ -212,93 +217,93 @@ function loadData() {
 
     // Populate input fields from the retrieved NCR data
     for (const [fieldId, paramName] of Object.entries(fieldsMap)) {
-        const field = document.getElementById(fieldId)
+        const field = document.getElementById(fieldId);
         if (field && retrievedNCRData) {
-            if (field.type === 'radio') {
-                // Set the radio button checked state based on the value from the retrieved data
-                const itemMarkedValue = retrievedNCRData[paramName] // Accessing the value directly
-                if (itemMarkedValue === true) {
-                    document.getElementById('item-marked-yes').checked = true
-                } else if (itemMarkedValue === false) {
-                    document.getElementById('item-marked-no').checked = true
-                }
-            } else {
+            const value = retrievedNCRData[paramName];
+    
+            // Only update fields if data is available and the field is empty
+            if (value !== null && value !== undefined && field.value === '') {
                 // Set the value of the field from retrievedNCRData
-                field.value = retrievedNCRData[paramName] || '' // Fallback to an empty string if no value
+                field.value = value || ''; // Fallback to an empty string if no value
             }
         }
     }
+    
 
     // Assuming 'process' is a select element
-    const processSelect = document.getElementById('process')
-    const dispositionOptions = document.getElementById('disposition')
-    const options = document.getElementById('options')
+    const processSelect = document.getElementById('process');
+    const dispositionOptions = document.getElementById('disposition');
+    const options = document.getElementById('options');
 
     if (retrievedNCRData['supplier_or_rec_insp']) {
-        processSelect.value = 'supplier' // Set to 'supplier' if true
+        processSelect.value = 'supplier'; // Set to 'supplier' if true
     } else if (retrievedNCRData['wip_production_order']) {
-        processSelect.value = 'wip' // Set to 'wip' if true
+        processSelect.value = 'wip'; // Set to 'wip' if true
     } else {
-        processSelect.value = 'Not applicable' // Default to empty if both are false (or set to a specific option if needed)
+        processSelect.value = 'Not applicable'; // Default to empty if both are false (or set to a specific option if needed)
     }
 
-    if (retrievedNCRData.disposition_options.use_as_is) {
-        dispositionOptions.value = 'use_as_is'
-    } else if (retrievedNCRData.disposition_options.repair) {
-        dispositionOptions.value = 'repair'
-
-    } else if (retrievedNCRData.disposition_options.rework) {
-        dispositionOptions.value = 'rework'
-
-    } else if (retrievedNCRData.disposition_options.scrap) {
-        dispositionOptions.value = 'scrap'
+    if (retrievedNCRData.disposition_options) {
+        if (retrievedNCRData.disposition_options.use_as_is) {
+            dispositionOptions.value = 'use_as_is';
+        } else if (retrievedNCRData.disposition_options.repair) {
+            dispositionOptions.value = 'repair';
+        } else if (retrievedNCRData.disposition_options.rework) {
+            dispositionOptions.value = 'rework';
+        } else if (retrievedNCRData.disposition_options.scrap) {
+            dispositionOptions.value = 'scrap';
+        }
     }
 
-    if (retrievedNCRData.options.rework_in_house) {
-        options.value = 'rework_in_house'
-    } else if (retrievedNCRData.options.scrap_in_house) {
-        options.value = 'scrap_in_house'
-    } else if (retrievedNCRData.options.defer_to_engineering) {
-        options.value = 'defer_to_engineering'
+    if (retrievedNCRData.options) {
+        if (retrievedNCRData.options.rework_in_house) {
+            options.value = 'rework_in_house';
+        } else if (retrievedNCRData.options.scrap_in_house) {
+            options.value = 'scrap_in_house';
+        } else if (retrievedNCRData.options.defer_to_engineering) {
+            options.value = 'defer_to_engineering';
+        }
     }
 
+    // Checking checkboxes
+    const engResolvedChk = document.getElementById('resolved');
+    const CustNotif = document.getElementById('customer-notification');
+    const drawingUpdate = document.getElementById('drawing-update-required');
+    const carRaised = document.getElementById('car-raised');
+    const followUp = document.getElementById('follow-up-required');
+    const reInspect = document.getElementById('re-inspected-acceptable');
+    const ncrClosed = document.getElementById('ncr-closed');
+    const puResolved = document.getElementById('resolved');
+    const itemNonConforming = document.querySelector('input[name="item_marked_nonconforming"]')
 
-
-    // checking the checkboxes
-    const engResolvedChk = document.getElementById('resolved')
-    const CustNotif = document.getElementById('customer-notification')
-    const drawingUpdate = document.getElementById('drawing-update-required')
-    const carRaised = document.getElementById('car-raised')
-    const followUp = document.getElementById('follow-up-required')
-    const reInspect = document.getElementById('re-inspected-acceptable')
-    const ncrClosed = document.getElementById('ncr-closed')
-    const puResolved = document.getElementById('resolved')
-
-    if (retrievedNCRData['eng_resolved']) {
-        engResolvedChk.checked = true
+    // Use the same null/undefined check for checkboxes, only update if the checkbox is not already checked
+    if (retrievedNCRData['eng_resolved'] !== null && retrievedNCRData['eng_resolved'] !== undefined && !engResolvedChk.checked) {
+        engResolvedChk.checked = retrievedNCRData['eng_resolved'];
     }
-    if (retrievedNCRData['customer_notification_required']) {
-        CustNotif.checked = true
+    if (retrievedNCRData['customer_notification_required'] !== null && retrievedNCRData['customer_notification_required'] !== undefined && !CustNotif.checked) {
+        CustNotif.checked = retrievedNCRData['customer_notification_required'];
     }
-    if (retrievedNCRData['drawing_update_required']) {
-        drawingUpdate.checked = true
+    if (retrievedNCRData['drawing_update_required'] !== null && retrievedNCRData['drawing_update_required'] !== undefined && !drawingUpdate.checked) {
+        drawingUpdate.checked = retrievedNCRData['drawing_update_required'];
     }
-    if (retrievedNCRData['pu_resolved']) {
-        puResolved.checked = true
+    if (retrievedNCRData['pu_resolved'] !== null && retrievedNCRData['pu_resolved'] !== undefined && !puResolved.checked) {
+        puResolved.checked = retrievedNCRData['pu_resolved'];
     }
-    if (retrievedNCRData['car_raised']) {
-        carRaised.checked = true
+    if (retrievedNCRData['car_raised'] !== null && retrievedNCRData['car_raised'] !== undefined && !carRaised.checked) {
+        carRaised.checked = retrievedNCRData['car_raised'];
     }
-    if (retrievedNCRData['follow_up_required']) {
-        followUp.checked = true
+    if (retrievedNCRData['follow_up_required'] !== null && retrievedNCRData['follow_up_required'] !== undefined && !followUp.checked) {
+        followUp.checked = retrievedNCRData['follow_up_required'];
     }
-    if (retrievedNCRData['re_inspected_acceptable']) {
-        reInspect.checked = true
+    if (retrievedNCRData['re_inspected_acceptable'] !== null && retrievedNCRData['re_inspected_acceptable'] !== undefined && !reInspect.checked) {
+        reInspect.checked = retrievedNCRData['re_inspected_acceptable'];
     }
-    if (retrievedNCRData['ncr_closed']) {
-        ncrClosed.checked = true
+    if (retrievedNCRData['ncr_closed'] !== null && retrievedNCRData['ncr_closed'] !== undefined && !ncrClosed.checked) {
+        ncrClosed.checked = retrievedNCRData['ncr_closed'];
     }
-
+    if (retrievedNCRData['item_marked_nonconforming'] !==null && retrievedNCRData['item_marked_nonconforming'] !== undefined && !itemNonConforming.checked){
+        itemNonConforming.checked = retrievedNCRData['item_marked_nonconforming']
+    }
 }
 
 

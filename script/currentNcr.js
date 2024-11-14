@@ -1,4 +1,5 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
@@ -26,6 +27,12 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
+
 let ncrData = [] // Define a variable to hold the data
 const footer = document.getElementById('footer-scroll')
 const ncrInput = document.getElementById('ncrInput')

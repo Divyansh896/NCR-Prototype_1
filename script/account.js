@@ -4,6 +4,13 @@ const userName = document.getElementById('userName');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
+
+const ncrNo = localStorage.getItem('ncrNo')
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
 if (user && user.role) {

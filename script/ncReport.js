@@ -7,13 +7,18 @@ const notificationCount = document.getElementById('notification-count');
 loadImages()
 
 const btnEdit = document.querySelectorAll('.edit');
-
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
         editNCR(retrievedNCRData);
     });
 });
 
+const ncrNo = localStorage.getItem('ncrNo')
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
 setNotificationText()
 // Check if user data is available and has a role
 if (user && user.role) {

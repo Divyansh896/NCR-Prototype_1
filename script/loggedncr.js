@@ -1,5 +1,6 @@
 
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+
 const savedData = JSON.parse(localStorage.getItem('savedNCRs'));
 const nextBtn1 = document.getElementById("next-btn1")
 const nextBtn2 = document.getElementById("next-btn2")

@@ -127,7 +127,10 @@ function generateNextNcrNumber(ncrData) {
         nextNumber = '001'; // Reset number if it's a new year
     }
 
-    return `${currentYear}-${nextNumber}`; // Return new NCR number
+    const num = `${currentYear}-${nextNumber}`
+
+    localStorage.setItem('ncrNo', num)
+    return num ; // Return new NCR number
 }
 
 // Create a query string from the NCR data

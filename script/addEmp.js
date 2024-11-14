@@ -1,5 +1,5 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
-
+const ncrNo = localStorage.getItem('ncrNo')
 const addEmp = document.getElementById("add");
 const empID = document.getElementById("empId");
 const email = document.getElementById("email");
@@ -10,7 +10,10 @@ const pass = document.getElementById("password");
 const dept = document.getElementById("department");
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
-
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 setNotificationText()

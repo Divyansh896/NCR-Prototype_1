@@ -7,6 +7,13 @@ const mediaList = document.getElementById('media-list');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 
+const ncrNo = localStorage.getItem('ncrNo')
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink) {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
+
 let notifications = []
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
@@ -494,8 +501,14 @@ function submitForm(role) {
         const descriptionDefect = document.getElementById('description-defect').value
 
         // Get the non-conforming item marked status
-        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked').value
+        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked')
 
+        // Get the checked value of the process radio button
+        const processApplicableElement = document.querySelector('input[name=process]:checked').value;
+
+        // Assign values based on the process selection
+        const processSupplierInsp = processApplicableElement === 'supplier_or_rec_insp';
+        const processWipProdOrder = processApplicableElement === 'wip_production_order';
 
         newEntry.qa = {
 
@@ -506,19 +519,21 @@ function submitForm(role) {
             "quantity_received": Number(quantityReceived),
             "quantity_defective": Number(quantityDefective),
             "description_of_defect": descriptionDefect,
-            "item_marked_nonconforming": nonconformingStatusElement,
+            "item_marked_nonconforming": nonconformingStatusElement ? true : false,
             "quality_representative_name": `${user.firstname} ${user.lastname}`,
             "date": today,
-            "resolved": false,
+            "resolved": true,
             "process": {
-                "supplier_or_rec_insp": false,
-                "wip_production_order": false
+                "supplier_or_rec_insp": processSupplierInsp,
+                "wip_production_order": processWipProdOrder
             }
         };
 
 
         ncrData.push(newEntry);  // Append new entry to the array
-        console.log(ncrData)
+        // console.log(ncrData)
+
+        localStorage.setItem('nextReport', JSON.stringify(ncrData))
 
     }
 
@@ -539,7 +554,7 @@ function fileToBase64(file) {
 }
 
 async function handleFiles(files) {
-    
+
     for (const file of files) {
         if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
             existingFiles.push(file); // Add new files to the existing list
@@ -573,7 +588,7 @@ async function handleFiles(files) {
                 // Show the confirmation modal with custom message, icon, and button handlers
                 deleteImgConfirm("Confirm Deletion",
                     "Are you sure you want to delete this image? You can add it back later.",
-                    'images/1382678.webp', 
+                    'images/1382678.webp',
                     btnDelete,
                     btnCancel,
                     () => {

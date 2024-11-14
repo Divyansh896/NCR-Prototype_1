@@ -1,4 +1,5 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
@@ -33,6 +34,11 @@ footer.addEventListener('click', ()=>{
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 })
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
 
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")

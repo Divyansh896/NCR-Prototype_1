@@ -1,5 +1,5 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
-
+const ncrNo = localStorage.getItem('ncrNo')
 //geting all the inputs from html
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
@@ -218,3 +218,8 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
