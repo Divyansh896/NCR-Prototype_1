@@ -31,6 +31,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .then(data => {
             ncr = data; // Store NCR data
+            // localStorage.setItem('AllReports', JSON.stringify(ncr))
+
             initializeButtons();
             displayRecentReports(ncr); // Initially display recent reports
             initializeItemBarChart();
@@ -39,6 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         .catch(error => console.error('Error fetching NCR data:', error));
 });
+
+ncr = JSON.parse(localStorage.getItem('AllReports'))
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role

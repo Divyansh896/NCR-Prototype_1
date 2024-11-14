@@ -3,6 +3,11 @@ const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
+
+function getNCRDataFromLocalStorage() {
+    const data = localStorage.getItem('AllReports');
+    return data ? JSON.parse(data) : [];
+}
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
@@ -33,7 +38,7 @@ if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
 
-let ncrData = [] // Define a variable to hold the data
+let ncrData = getNCRDataFromLocalStorage() // Define a variable to hold the data
 const footer = document.getElementById('footer-scroll')
 const ncrInput = document.getElementById('ncrInput')
 const autocompleteList = document.getElementById('autocomplete-list')
@@ -47,18 +52,8 @@ footer.addEventListener('click', () => {
     })
 })
 
-// Load data after DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('Data/ncr_reports.json')
-        .then(response => response.json())
-        .then(data => {
-            ncrData = data
-            populateTable(ncrData) // Populate table initially
-            // document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`
-            // document.getElementById('status-all').checked = true
-        })
-        .catch(error => console.error("An error occurred while retrieving data: ", error))
-})
+// load the data from local storage
+populateTable(ncrData)
 
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {

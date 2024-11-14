@@ -63,8 +63,7 @@ footer.addEventListener('click', () => {
     })
 })
 
-let ncrData = []
-
+ 
 starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
@@ -478,6 +477,7 @@ function sendMail() {
     // Open the Gmail compose window
     window.open(gmailLink, '_blank'); // Opens in a new tab
 }
+let ncrData = []
 
 function submitForm(role) {
     const today = new Date().toISOString().slice(0, 10);  // Get current date
@@ -534,12 +534,40 @@ function submitForm(role) {
         // console.log(ncrData)
 
         localStorage.setItem('nextReport', JSON.stringify(ncrData))
+        updateNCRDataFromLocalStorage()
 
     }
 
-
-
 }
+
+// Retrieve NCR data from localStorage
+function updateNCRDataFromLocalStorage() {
+    const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+
+    // Fetch AllReports from the server or local storage
+    fetch('Data/ncr_reports.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch NCR reports');
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            let AllReports = data || []; // Ensure data is an array, fallback to an empty array if undefined
+
+            // Append the nextReport to AllReports
+            AllReports = AllReports.concat(nextReport);
+
+            // Save the updated AllReports back to localStorage
+            localStorage.setItem('AllReports', JSON.stringify(AllReports));
+        })
+        .catch(error => {
+            console.error('Error fetching NCR reports:', error);
+        });
+}
+
+
+
 
 let existingFiles = []; // Track previously added files
 
