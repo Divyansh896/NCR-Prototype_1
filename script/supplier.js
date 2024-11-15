@@ -52,6 +52,9 @@ document.getElementById("submit-btn").addEventListener('click', function (e) {
         shippingmethod.nextElementSibling.style.display = "block"
         shippingmethod.nextElementSibling.textContent = "Shipping method name is required !"
     }
+    else{
+        showPopup('Confirmation', 'Supplier Added Successfully.', 'images/confirmationIcon.webp')
+    }
 })
 //event for clear button
 document.getElementById("btn-clear").addEventListener('click', function () {

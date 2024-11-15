@@ -60,6 +60,7 @@ function showPopup(title, message, icon, callback) {
         }
     };
 }
+
 addEmp.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -103,9 +104,24 @@ addEmp.addEventListener("click", (e) => {
         email.nextElementSibling.style.display = "block"
         email.nextElementSibling.textContent = "Email Address must follow the same pattern"
 
-    }
-});
+    }else{
+        showPopup('Confirmation','Employee Added successfully','images/confirmationIcon.webp');
 
+    }
+    
+});
+function clearErrorMessage(inputField) {
+    const errorMessage = inputField.nextElementSibling; // Select the corresponding error message
+    if (inputField.value.trim() !== "") { // Check if the input is not empty
+        errorMessage.style.display = "none"; // Hide the error message
+        errorMessage.textContent = ""; // Clear the error message content
+    }
+}
+
+// Attach input event listeners to all fields
+[empID, email, fName, lName, dob, pass, dept].forEach((field) => {
+    field.addEventListener("input", () => clearErrorMessage(field));
+});
 
 
 function openTools() {
