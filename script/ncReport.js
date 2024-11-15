@@ -148,28 +148,28 @@ document.getElementById('downloadPdf').addEventListener('click', async function 
     // Function to hide buttons
     const hideButtons = () => {
         const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.display = 'none');
+        buttons.forEach(button => button.style.display = 'none'); // Hide all buttons
     };
 
     // Function to restore buttons
     const restoreButtons = () => {
         const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.display = '');
+        buttons.forEach(button => button.style.display = ''); // Restore all buttons
     };
 
     const imgWidth = 210; // A4 width in mm
     const pageHeight = 297; // A4 height in mm
     const options = {
-        scale: 1.5, // Reduce scale factor slightly to avoid blurriness
+        scale: 1, // Slightly lower scale for smaller file size
         useCORS: true, // Enable CORS for external resources
         background: '#fff' // Ensure background is solid white
     };
 
-    let totalHeight = 0; // Variable to track total height for multi-page PDFs
     const images = [];
+    const spacing = 10; // Add 10mm spacing between elements
 
     // Add the title at the top of the PDF
-    pdf.setFontSize(20);
+    pdf.setFontSize(25);
     const title = 'Non-Conformance Report';
     const titleWidth = pdf.getTextWidth(title);
     const pageWidth = pdf.internal.pageSize.width; // Page width in mm
@@ -181,30 +181,39 @@ document.getElementById('downloadPdf').addEventListener('click', async function 
 
     // Capture each element's canvas
     for (let element of elements) {
+        const originalFontSize = window.getComputedStyle(element).fontSize; // Store the original font size
+        element.style.fontSize = '25px'; // Temporarily increase font size (e.g., 20px)
+        
         const canvas = await html2canvas(element, options);
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
-        totalHeight += imgHeight;
-        images.push({ imgData: canvas.toDataURL('image/png'), imgHeight });
+
+        // Convert canvas to JPEG for smaller size
+        const imgData = canvas.toDataURL('image/jpeg', 0.8); // Use JPEG with 80% quality
+        images.push({ imgData, imgHeight });
+
+        element.style.fontSize = originalFontSize; // Restore the original font size
     }
 
-    // Adjust the image to fit A4
+    restoreButtons(); // Restore buttons after capturing the canvas
+
+    // Adjust the image to fit A4 and add spacing
     let currentHeight = position; // Start from the title's position
 
     images.forEach((image, index) => {
-        if (currentHeight + image.imgHeight > pageHeight) {
+        if (currentHeight + image.imgHeight + spacing > pageHeight) {
             pdf.addPage(); // Add a new page if the content exceeds the page height
             currentHeight = 20; // Reset vertical position after adding a new page
         }
 
         // Add the image to the PDF, adjusting the position and size
-        pdf.addImage(image.imgData, 'PNG', 0, currentHeight, imgWidth, image.imgHeight);
-        currentHeight += image.imgHeight; // Update the current height after adding the image
+        pdf.addImage(image.imgData, 'JPEG', 0, currentHeight, imgWidth, image.imgHeight);
+        currentHeight += image.imgHeight + spacing; // Update the current height after adding the image and spacing
     });
 
     // Save the generated PDF
     pdf.save('Quality_Assurance_Report.pdf');
-    restoreButtons(); // Restore buttons after generating PDF
-})
+});
+
 
 
 function toggleSettings() {
@@ -307,7 +316,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        if(user.role == 'Lead Engineer'){
+        if (user.role == 'Lead Engineer') {
 
             if (notificationText.includes('Engineering')) {
                 // engineering department person get the mail from qa (will show review and begin work)
@@ -317,11 +326,11 @@ function setNotificationText() {
                 li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
             }
         }
-        else{
+        else {
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
         }
-        
+
 
         notificationList.prepend(li);
     });
@@ -332,8 +341,8 @@ function loadImages() {
 
     // List of image filenames in your 'productImages' folder
     const imageFiles = [
-        'screw image 1.jpg', 
-        'screw image 2.jpg', 
+        'screw image 1.jpg',
+        'screw image 2.jpg',
         'screw image 3.jpg'
     ];
 
@@ -352,14 +361,14 @@ function loadImages() {
 }
 
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
