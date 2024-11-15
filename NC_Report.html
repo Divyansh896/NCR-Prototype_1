@@ -90,11 +90,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -158,28 +160,6 @@
                             <span class="qa-editable" id="ncr-no" name="ncr_no" readonly placeholder="Enter NCR number"
                                 tabindex="8"></span>
                         </div>
-
-                        <div class="form-group">
-                            <label for="sales-order-no">Sales Order No.:</label>
-                            <span class="qa-editable" id="sales-order-no" name="sales_order_no"
-                                placeholder="Enter sales order number" tabindex="9"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantity-received">Quantity Received:</label>
-                            <span class="qa-editable" id="quantity-received" name="quantity_received"
-                                placeholder="Enter quantity received" tabindex="10"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantity-defective">Quantity Defective:</label>
-                            <span class="qa-editable" id="quantity-defective" name="quantity_defective"
-                                placeholder="Enter quantity defective" tabindex="11"></span>
-                        </div>
-                    </div>
-
-                    <!-- Second Column -->
-                    <div class="form-row">
                         <div class="form-group">
                             <label for="qa-date">QA Date:</label>
                             <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
@@ -197,12 +177,9 @@
                                 placeholder="Enter product number" required tabindex="14"></span>
                         </div>
 
-                        <div class="form-group">
-                            <label for="process">Identify Process Applicable:</label>
-                            <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
-                            </span>
-                        </div>
+
                     </div>
+
 
                     <div class="two-cols-view">
                         <div class="form-row span-two-cols">
@@ -240,6 +217,33 @@
                             </div>
                         </div>
                     </div>
+                    <!-- Second Column -->
+                    <div class="form-row">
+
+                        <div class="form-group">
+                            <label for="sales-order-no">Sales Order No.:</label>
+                            <span class="qa-editable" id="sales-order-no" name="sales_order_no"
+                                placeholder="Enter sales order number" tabindex="9"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity-received">Quantity Received:</label>
+                            <span class="qa-editable" id="quantity-received" name="quantity_received"
+                                placeholder="Enter quantity received" tabindex="10"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="quantity-defective">Quantity Defective:</label>
+                            <span class="qa-editable" id="quantity-defective" name="quantity_defective"
+                                placeholder="Enter quantity defective" tabindex="11"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="process">Identify Process Applicable:</label>
+                            <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
@@ -276,7 +280,31 @@
                                 placeholder="Enter details about the disposition..."></span>
                         </div>
                     </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <div class="rad-report">
+                                <label for="resolved">Resolved:</label>
+                                <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
+                                    tabindex="30"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
 
+                            <div class="rad-report">
+                                <label for="customer-notification">Customer Notification:</label>
+                                <span class="eng-editable" id="customer-notification" name="customer_notification"
+                                    aria-label="Customer Notification Required" tabindex="31"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="rad-report">
+                                <label for="drawing-update-required">Drawing Update:</label>
+                                <span class="eng-editable" id="drawing-update-required" name="drawing_update_required"
+                                    aria-label="Drawing Update Required" tabindex="32"></span>
+                            </div>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group">
                             <label for="original-rev-number">Original Revision Number:</label>
@@ -303,31 +331,7 @@
                         </div>
                     </div>
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <div class="rad-report">
-                                <label for="resolved">Resolved:</label>
-                                <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
-                                    tabindex="30"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
 
-                            <div class="rad-report">
-                                <label for="customer-notification">Customer Notification:</label>
-                                <span class="eng-editable" id="customer-notification" name="customer_notification"
-                                    aria-label="Customer Notification Required" tabindex="31"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="rad-report">
-                                <label for="drawing-update-required">Drawing Update:</label>
-                                <span class="eng-editable" id="drawing-update-required" name="drawing_update_required"
-                                    aria-label="Drawing Update Required" tabindex="32"></span>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
