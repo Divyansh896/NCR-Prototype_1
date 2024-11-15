@@ -67,15 +67,42 @@ addEmp.addEventListener("click", (e) => {
 
     if (empID.value == "" || email.value == "" || fName.value == "" || lName.value == "" || dob.value == "" || pass.value =="" || dept.value == ""  ) {
         showPopup('Required field missing','All the fields are required and can not be empty', 'images/1382678.webp');
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "Employee ID is required !"
+
+        email.nextElementSibling.style.display = "block"
+        email.nextElementSibling.textContent = "Email Address is required !"
+
+        fName.nextElementSibling.style.display = "block"
+        fName.nextElementSibling.textContent = "First Name is required !"
+
+        lName.nextElementSibling.style.display = "block"
+        lName.nextElementSibling.textContent = "Last Name is required !"
+
+        dob.nextElementSibling.style.display = "block"
+        dob.nextElementSibling.textContent = "Date Of Birth is required !"
+
+        pass.nextElementSibling.style.display = "block"
+        pass.nextElementSibling.textContent = "Password is required !"
+
+        dept.nextElementSibling.style.display = "block"
+        dept.nextElementSibling.textContent = "Department is required please select one !"
+
     } else if (empID.value.length > 4) {
         showPopup('Required field missing','Employee ID cannot be greater than 4 digits', 'images/1382678.webp');
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "Employee ID cannot be greater than 4 digits"
+
     }else if (empID.value.length < 4) {
         showPopup('Required field missing','Employee ID cannot be less than 4', 'images/1382678.webp');
-    }
-    else if(email.value == ""){
-        showPopup('Required field missing','Email cannot be empty','images/1382678.webp');
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "Employee ID cannot be less than 4 digits"
+
     }else if(!email.value.includes("@crossfire.ca" )){
         showPopup('Required field missing','Email is not valid','images/1382678.webp');
+        email.nextElementSibling.style.display = "block"
+        email.nextElementSibling.textContent = "Email Address must follow the same pattern"
+
     }
 });
 
