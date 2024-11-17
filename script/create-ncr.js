@@ -207,6 +207,7 @@ if (user.role === 'QA Inspector') {
         sections[currentStep].classList.remove("active")
         currentStep--
         sections[currentStep].classList.add("active")
+        document.getElementById("confirm-media-list").textContent = null
         updateStatusBar()
     })
 
@@ -383,7 +384,7 @@ if (user.role === 'QA Inspector') {
     }
 
 
-    function populateConfirmationData() {
+    async function populateConfirmationData() {
         // Get values from Section 1
         const supplierName = document.getElementById('supplier-name').value
         const salesOrderNo = document.getElementById('sales-order-no').value
@@ -391,6 +392,7 @@ if (user.role === 'QA Inspector') {
         const quantityDefective = document.getElementById('quantity-defective').value
         const productNo = document.getElementById('product-no').value
         const proccesApplicabable = document.querySelector('input[name=process]:checked').value
+        
 
         // Get values from Section 2
         const descriptionItem = document.getElementById('description-item').value
@@ -413,6 +415,29 @@ if (user.role === 'QA Inspector') {
         document.getElementById('confirm-description-defect').textContent = descriptionDefect
         document.getElementById('confirm-nonconforming-status').textContent = nonconformingStatusElement
         document.getElementById('confirm-process-applicable').textContent = processApplicableElement
+
+        for (const file of existingFiles) {
+            const base64Data = await fileToBase64(file);
+    
+            // Create and append image or video elements based on file type
+            if (file.type.startsWith('image/')) {
+                const img = document.createElement('img');
+                img.src = base64Data;
+                img.alt = file.name;
+                img.style.maxWidth = '200px';
+                img.style.margin = '10px';
+                document.getElementById("confirm-media-list").appendChild(img);
+            } else if (file.type.startsWith('video/')) {
+                const video = document.createElement('video');
+                video.src = base64Data;
+                video.controls = true;
+                video.style.maxWidth = '200px';
+                video.style.margin = '10px';
+                document.getElementById("confirm-media-list").appendChild(video);
+            }
+          
+        }
+        
     }
 } else {
     // Remove sections based on user role
@@ -421,6 +446,8 @@ if (user.role === 'QA Inspector') {
     // Load data for non-QA users
     loadData(queryParams)
 }
+
+
 
 
 function loadData(params) {
