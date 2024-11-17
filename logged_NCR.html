@@ -27,8 +27,8 @@
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
                 <li>
-                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
-                        <i class="fa fa-fw fa-home"></i> Home
+                    <a href="Dashboard.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Dashboard
                     </a>
                 </li>
 
@@ -90,11 +90,11 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -139,6 +139,17 @@
             </div>
         </div>
 
+        <div id="leaveConfirmationModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Are you sure you want to leave without saving?</h2>
+                <div class="modal-buttons">
+                    <button id="saveAndLeaveBtn">Save and Leave</button>
+                    <button id="leaveWithoutSavingBtn">Leave Without Saving</button>
+                    <button id="cancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
         <fieldset class="createncrmainfield">
             <div class="main-container-create">
                 <!-- Status Bar -->
@@ -167,43 +178,43 @@
 
                     <!-- QA Rep Dropdown -->
                     <details id="qa-section">
-                        <summary class="custom-summary" aria-label="Quality assurance department details">QA Rep
+                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Quality assurance department details">QA Rep
                         </summary>
                         <div class="qa-info-logged-ncr">
                             <!-- First Column -->
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>QA Name:<span id="qa-name-d">[QA Name]</span></label>
+                                    <label>QA Name:</label><span id="qa-name-d">[QA Name]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>NCR No:<span id="ncr-no-d">[NCR No]</span></label>
+                                    <label>NCR No:</label><span id="ncr-no-d">[NCR No]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Sales Order No:<span id="sales-order-no-d">[Sales Order No]</span></label>
+                                    <label>Sales Order No:</label><span id="sales-order-no-d">[Sales Order No]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Quantity Received:<span id="quantity-received-d">[Quantity
-                                            Received]</span></label>
+                                    <label>Quantity Received:</label><span id="quantity-received-d">[Quantity
+                                        Received]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Quantity Defective:<span id="quantity-defective-d">[Quantity
-                                            Defective]</span></label>
+                                    <label>Quantity Defective:</label><span id="quantity-defective-d">[Quantity
+                                        Defective]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>QA Date:<span id="qa-date-d">[QA Date]</span></label>
+                                    <label>QA Date:</label><span id="qa-date-d">[QA Date]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Supplier Name:<span id="supplier-name-d">[Supplier Name]</span></label>
+                                    <label>Supplier Name:</label><span id="supplier-name-d">[Supplier Name]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Product No:<span id="product-no-d">[Product No]</span></label>
+                                    <label>Product No:</label><span id="product-no-d">[Product No]</span>
 
                                 </div>
 
@@ -211,22 +222,22 @@
                             <!-- Second Column -->
                             <div class="form-row">
 
-                                <div class="form-group">
+                                <div class="form-group description">
                                     <label>Description of Item (Including SAP No.)</label>
                                     <span id="description-item-d">[Description of Item]</span>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group description">
                                     <label>Description of Defect</label>
                                     <span id="description-defect-d">[Description of Defect]</span>
                                 </div>
                                 <!-- Radio Buttons for Non-Conforming -->
                                 <div class="form-group">
-                                    <label>Item Marked Non-Conforming?:<span
-                                            id="item-marked-nonconforming-d">[Yes/No]</span></label>
+                                    <label>Item Marked Non-Conforming?:</label><span
+                                    id="item-marked-nonconforming-d">[Yes/No]</span>
 
                                 </div>
                                 <div class="form-group">
-                                    <label>Identify Process Applicable:<span id="process-d">[Process]</span></label>
+                                    <label>Identify Process Applicable:</label><span id="process-d">[Process]</span>
 
                                 </div>
                             </div>
@@ -248,12 +259,12 @@
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
                             <label id="disposition-options">Review by CF Engineer (Required):</label>
                             <span class="required" id="disposition-options-error"></span>
-                            <div class="chkboxes-create-ncr" onchange="showDescriptionMessage()">
+                            <div class="chkboxes-logged-ncr" onchange="showDescriptionMessage()">
                                 <div class="tooltip-container">
                                     <label class="radio-button">
                                         <input type="radio" id="use_as_is" name="disposition-options"
                                             aria-label="Use as is option" class="hidden-radio"
-                                            onclick="toggleRadio(this)" value="Use as is">
+                                            onclick="toggleRadio(this)" value="Use as is" tabindex="6">
                                         Use as is
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -262,7 +273,7 @@
                                     <label class="radio-button">
                                         <input type="radio" id="repair" name="disposition-options"
                                             aria-label="Repair option" class="hidden-radio" onclick="toggleRadio(this)"
-                                            value="Repair">
+                                            value="Repair" tabindex="7">
                                         Repair
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -271,7 +282,7 @@
                                     <label class="radio-button">
                                         <input type="radio" id="rework" name="disposition-options"
                                             aria-label="Rework option" class="hidden-radio" onclick="toggleRadio(this)"
-                                            value="Rework">
+                                            value="Rework" tabindex="8">
                                         Rework
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -280,7 +291,7 @@
                                     <label class="radio-button">
                                         <input type="radio" id="scrap" name="disposition-options"
                                             aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)"
-                                            value="Scrap">
+                                            value="Scrap" tabindex="9">
                                         Scrap
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -291,14 +302,14 @@
 
                                 <div class="tooltip-container">
                                     <label for="disposition-details">Disposition (Required):</label>
+                                    <span class="error-message" id="disposition-details-error"></span>
                                     <p id="descriptionMessage" style="display: none">
-                                        Write the sequense of work steps as well.
+                                        Write the sequence of work steps as well.
                                     </p>
                                     <textarea id="disposition-details" rows="3"
                                         aria-describedby="disposition-details-desc"
-                                        placeholder="Disposition details"></textarea>
+                                        placeholder="Disposition details" tabindex="10"></textarea>
                                     <span class="tooltip ttip-descr">Type in disposition details</span>
-                                    <span class="error-message" id="disposition-details-error"></span>
                                 </div>
 
                             </div>
@@ -308,11 +319,12 @@
                             <label for="drawing-required">
                                 Drawing Update Needed:
                             </label>
+                            <span class="error-message" id="drawing-required-error"></span>
                             <div class="rad-create-ncr">
                                 <div class="tooltip-container">
                                     <label class="radio-button">
                                         <input type="radio" id="drawing-required-yes" name="drawing-required"
-                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)" tabindex="11">
                                         Yes
                                     </label>
                                     <span class="tooltip">Click to check yes</span>
@@ -320,7 +332,7 @@
                                 <div class="tooltip-container">
                                     <label class="radio-button">
                                         <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
-                                            class="hidden-radio" onclick="toggleRadio(this)">
+                                            class="hidden-radio" onclick="toggleRadio(this)" tabindex="12">
                                         No
                                     </label>
                                     <span class="tooltip">Click to check no</span>
@@ -334,13 +346,13 @@
 
 
                             <div class="btn-eng-create">
-                                <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
-                                    tabindex="15">Clear</button>
+                                <button type="button" id="clear-btn1" aria-label="Clear all the input fields" tabindex="13"
+                                    >Clear</button>
                                     <button type="button" id="save1" aria-label="Save current progress">
                                         Save
                                     </button>
-                                <button type="button" id="next-btn1" aria-label="Move to next step"
-                                    tabindex="16">Next</button>
+                                <button type="button" id="next-btn1" aria-label="Move to next step" tabindex="14"
+                                    >Next</button>
                             </div>
                         </fieldset>
 
@@ -350,27 +362,30 @@
 
                                 <div>
                                     <div class="tooltip-container">
-                                        <label for="original_rev_number">Original Revision Number:</label>
+                                        <label for="original_rev_number">Original Version Number:</label>
                                         <input type="number" id="original_rev_number"
-                                            aria-label="Original Revision Number"
-                                            placeholder="Original Revision Number">
-                                        <span class="tooltip">Enter original revision number</span>
+                                        aria-label="Original Version Number"
+                                        placeholder="Original Revision Number" tabindex="15">
+                                        <span class="tooltip">Enter original version number</span>
+                                        <span class="required" id="original_rev_number-error"></span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="updated_rev_number">Updated Revision Number:</label>
                                         <input type="number" id="updated_rev_number" aria-label="Updated Revision Number"
-                                            placeholder="Updated Revision Number">
+                                        placeholder="Updated Revision Number" tabindex="16">
+                                        <span class="required" id="updated_rev_number-error"></span>
                                         <span class="tooltip">Enter updated revision number</span>
                                     </div>
                                     <label for="customer-notif">
                                         Customer Notification Needed:
                                     </label>
+                                    <span class="required" id="notification-required-error"></span>
                                     <div class="rad-create-ncr">
 
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" id="customer-notif-yes" name="customer-notif"
-                                                    value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                                    value="yes" class="hidden-radio" onclick="toggleRadio(this)" tabindex="17">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to check yes</span>
@@ -378,7 +393,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" id="customer-notif-no" name="customer-notif"
-                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)" tabindex="18">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to check no</span>
@@ -389,13 +404,15 @@
                                     <div class="tooltip-container">
                                         <label for="revision_date">Revision Date:</label>
                                         <input type="date" id="revision_date" aria-label="Revision Date"
-                                            name="revision_date">
+                                        name="revision_date" tabindex="19">
+                                        <span class="required" id="revision_date-error"></span>
                                         <span class="tooltip">Enter revision date of NCR</span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="engineering_review_date">Engineering Review Date:</label>
                                         <input type="date" id="engineering_review_date"
-                                            aria-label="Engineering Review Date" name="engineering_review_date">
+                                        aria-label="Engineering Review Date" name="engineering_review_date" tabindex="20">
+                                        <span class="required" id="engineering_review_date-error"></span>
                                         <span class="tooltip">Select engineering review date</span>
                                     </div>
                                     <label for="resolved">Resolved (Required):</label>
@@ -405,7 +422,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" id="resolved-yes" name="resolved" value="yes"
-                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                    class="hidden-radio" onclick="toggleRadio(this)" tabindex="21">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to check yes</span>
@@ -413,7 +430,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" id="resolved-no" name="resolved" value="no"
-                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                    class="hidden-radio" onclick="toggleRadio(this)" tabindex="22">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to check no</span>
@@ -422,12 +439,12 @@
                                 </div>
                             </div>
                             <div class="btn-eng-create">
-                                <button type="button" id="back-btn1" tabindex="21">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="22">Clear</button>
-                                <button type="button" id="save2" aria-label="Save current progress">
+                                <button type="button" id="back-btn1" tabindex="23">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                <button type="button" id="save2" aria-label="Save current progress" tabindex="25">
                                     Save
                                 </button>
-                                <button type="button" id="next-btn2" tabindex="22">Next</button>
+                                <button type="button" id="next-btn2" tabindex="26" >Next</button>
                             </div>
                         </fieldset>
 
@@ -470,9 +487,9 @@
                             </div>
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
-                                    tabindex="21">Back</button>
+                                    tabindex="27">Back</button>
                                 <button type="submit" id="submit-btn" aria-label="Submit the form"
-                                    tabindex="25">Submit</button>
+                                    tabindex="28">Submit</button>
                             </div>
                         </fieldset>
 
@@ -485,14 +502,13 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="27">Privacy
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="29">Privacy
                 Policy</a>
         </p>
     </footer>
 
     <script src="script/loggedncr.js"></script>
     <script src="script/breadcrumb.js"></script>
-    <script src="script/navbar.js"></script>
 
 </body>
 

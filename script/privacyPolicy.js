@@ -1,4 +1,5 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
@@ -33,6 +34,11 @@ footer.addEventListener('click', ()=>{
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 })
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
 
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
@@ -86,7 +92,6 @@ function openTools() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
@@ -98,7 +103,36 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = notificationText;
-        notificationList.appendChild(li);
+        if(user.role == 'Lead Engineer'){
+
+            if (notificationText.includes('Engineering')) {
+                // engineering department person get the mail from qa (will show review and begin work)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+            } else {
+                // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+            }
+        }
+        else{
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+
+        }
+        
+
+        notificationList.prepend(li);
     });
 }
+
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()

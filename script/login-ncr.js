@@ -26,7 +26,7 @@ document.getElementById("btn-login").addEventListener("click", () => {
                     if (user.password === password) {
                         sessionStorage.setItem("currentUser", JSON.stringify(user)); // Store user data
                         onLoginSuccess(); // After successful login
-                        window.location.href = "home.html"; // Redirect to home page
+                        window.location.href = "Dashboard.html"; // Redirect to home page
                     } else {
                         // Incorrect password
                         passwordErrorSpan.style.display = 'inline';

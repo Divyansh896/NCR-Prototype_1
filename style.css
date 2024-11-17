@@ -199,7 +199,8 @@ details[open] .custom-summary::before {
 }
 
 
-.form-row label {
+.form-row label,
+.form-row span {
 
     margin: 5px 10px;
 
@@ -755,13 +756,19 @@ fieldset legend {
 
 /* Dropdown for qa-section  */
 .form-group {
-    display: flex;
+    display: grid;
     flex-direction: column;
     /* Ensures label and span stack vertically */
     padding: 5px;
     /* Adds space inside the div */
     overflow: hidden;
+    grid-template-columns: repeat(2, 1fr);
     /* Clips any overflow */
+}
+
+.description {
+    display: flex;
+    flex-direction: column;
 }
 
 #qa-section {
@@ -826,6 +833,7 @@ label.radio-button {
 }
 
 .chkboxes-create-ncr,
+.chkboxes-logged-ncr,
 .rad-create-ncr {
     display: flex;
     justify-content: space-around;
@@ -891,7 +899,11 @@ label.radio-button {
 
 .qa-info-logged-ncr {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* grid-template-columns: 1fr 1fr; */
+}
+
+.qa-info-logged-ncr span {
+    font-weight: lighter;
 }
 
 /* View NCR */
@@ -904,7 +916,8 @@ label.radio-button {
 
 /* Filter Section */
 .filter-section,
-.supplier-columns {
+.supplier-columns,
+.employee-columns {
     margin: 0 auto;
     /* Center align and prevent overflow */
     display: flex;
@@ -927,7 +940,15 @@ label.radio-button {
 .supplier-columns #postalCode,
 .supplier-columns #contact,
 .supplier-columns #shippingMethod,
-.supplier-columns .btns-supplier {
+.supplier-columns .btns-supplier,
+.employee-columns #firstName,
+.employee-columns #lastName,
+.employee-columns #empId,
+.employee-columns #dob,
+.employee-columns #email,
+.employee-columns #password,
+.employee-columns #department,
+.employee-columns .btns-employee {
     width: 100%;
 }
 
@@ -1269,7 +1290,7 @@ input[type="radio"] {
 }
 
 
-.modal {
+.modal, .deletemodal {
     display: none;
     /* Hidden by default */
     position: fixed;
@@ -1319,7 +1340,8 @@ input[type="radio"] {
 }
 
 .modal-content p {
-    margin-left: 45px;
+    margin-left: 55px;
+    text-align: left;
 }
 
 .close {
@@ -1334,6 +1356,12 @@ input[type="radio"] {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+#delete-confirm{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10px;
 }
 
 .error-message {
@@ -1462,6 +1490,11 @@ td button:focus {
     z-index: 1000;
 }
 
+.notification-box {
+    max-height: 45vh;
+    overflow-y: auto;
+}
+
 .settings-box a {
     color: #333;
 }
@@ -1475,10 +1508,16 @@ td button:focus {
 
 }
 
-.notification-box ul li,
 .settings-box ul li {
     display: flex;
     align-items: center;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-box ul li {
+    text-align: left;
+    white-space: pre-line;
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
@@ -1619,9 +1658,16 @@ td button:focus {
 }
 
 
-/* supplier page css */
+.two-cols-view {
+    display: grid;
+}
 
-
+.button-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-right: 15px;
+}
 
 /*media*/
 @media screen and (min-width: 320px) {
@@ -1745,7 +1791,8 @@ td button:focus {
     }
 
     .filter-section,
-    .supplier-columns {
+    .supplier-columns,
+    .employee-columns {
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -1755,7 +1802,8 @@ td button:focus {
 
 
     .filter-section div,
-    .supplier-columns div {
+    .supplier-columns div,
+    .employee-columns div {
         width: 90%;
         text-align: left;
     }
@@ -1790,6 +1838,7 @@ td button:focus {
     }
 
     .chkboxes-create-ncr,
+    .chkboxes-logged-ncr,
     .rad-create-ncr {
         flex-direction: row;
     }
@@ -1899,7 +1948,10 @@ td button:focus {
         text-decoration: underline;
     }
 
-    .notification-box,
+    .notification-box {
+        width: 300px;
+    }
+
     .settings-box {
         width: 200px;
     }
@@ -1965,6 +2017,17 @@ td button:focus {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .qa-info-logged-ncr {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .two-cols-view .form-group{
+        margin-left: 18px;
+    }
+    .two-cols-view {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 
@@ -2017,7 +2080,8 @@ td button:focus {
 
 
     .filter-section,
-    .supplier-columns {
+    .supplier-columns,
+    .employee-columns {
         margin: 0 auto;
         width: 70%;
         align-items: center;
@@ -2037,9 +2101,9 @@ td button:focus {
     }
 
     /* ncr  report page */
-    .form-group {
+    /* .form-group {
         margin-left: 90px;
-    }
+    } */
 
     .indicator {
         margin-left: 100px;
@@ -2052,9 +2116,17 @@ td button:focus {
 
     .form-row label,
     .form-row input,
-    .form-row select,
-    .form-row textarea {
+    .form-row select {
         width: 65%;
+    }
+
+    .form-row textarea {
+        width: 85%;
+    }
+
+    .span-two-cols {
+        grid-column: 1 / -1;
+        ;
     }
 
     .form-row label {
@@ -2087,6 +2159,10 @@ td button:focus {
         font-size: 1.5em;
         padding-left: 95px;
         font-weight: 550;
+    }
+
+    .custom-summary-loggedNcr {
+        padding-left: 20px;
     }
 
     /* Home Page - Three-column Layout */
@@ -2351,6 +2427,17 @@ td button:focus {
         display: inline;
         /* flex-direction: row; */
     }
+
+    .two-cols-edit .form-group {
+        display: flex;
+        margin-left: 82px;
+    }
+
+    .two-cols-view .form-group{
+        margin-left: 82px;
+    }
+
+
 }
 
 @media screen and (min-width: 1440px) {
@@ -2436,15 +2523,18 @@ td button:focus {
         font-size: 1.2rem;
     }
 
-    .form-row {
+    /* .form-row {
         margin-left: 26px;
-    }
+    } */
 
     .form-row label,
     .form-row input,
-    .form-row select,
-    .form-row textarea {
+    .form-row select {
         width: 65%;
+    }
+
+    .form-row textarea {
+        width: 85%;
     }
 
     .two-cols {
@@ -2474,6 +2564,10 @@ td button:focus {
         font-size: 1.2em;
         padding-left: 128px;
         font-weight: 600;
+    }
+
+    .custom-summary-loggedNcr {
+        padding-left: 20px;
     }
 
     .confirmation p {
@@ -2510,6 +2604,19 @@ td button:focus {
     td button {
         margin: 10px 5px;
     }
+
+    .chkboxes-logged-ncr .radio-button {
+        width: 120px;
+        text-align: center;
+    }
+    .two-cols-view .form-group{
+        margin-left: 115px;
+    }
+
+    .rad-report, .resolved{
+        margin-left: 0;
+    }
+
 
 }
 
@@ -2728,7 +2835,7 @@ td button:focus {
     .rad-report,
     .resolved {
         align-self: flex-start;
-        margin-left: 140px;
+        /* margin-left: 140px; */
         margin-top: 15px;
     }
 
@@ -2745,7 +2852,7 @@ td button:focus {
 
     .custom-summary {
         font-size: 2em;
-        padding-left: 153px;
+        /* padding-left: 153px; */
     }
 
     /*privacy policy*/

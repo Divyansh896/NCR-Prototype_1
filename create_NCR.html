@@ -29,8 +29,8 @@
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
                 <li>
-                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
-                        <i class="fa fa-fw fa-home"></i> Home
+                    <a href="Dashboard.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Dashboard
                     </a>
                 </li>
 
@@ -57,7 +57,7 @@
                     </button>
                     <div id="notification-box" class="notification-box">
                         <ul id="notification-list">
-                            
+
                         </ul>
                     </div>
                 </li>
@@ -93,11 +93,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -141,16 +143,42 @@
             </div>
         </div>
 
+        <div id="popup" class="deletemodal">
+            <div class="modal-content">
+                <!-- <span id="closePopup" class="close">&times;</span> -->
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"><img src="images/1382678.webp" alt="exclamation image"></div> 
+                    </div>
+                    <h2 id="popup-title"></h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="delete-confirm">
+                    <button type="button" id="yes-delete-img">Delete</button>
+                    <button type="button" id="no-delete-img">Cancel</button>
+                </div>
+            </div>
+        </div>
+
 
 
         <div id="supplierModal">
             <div class="modal-content">
-              <span class="close">&times;</span>
-              <h3>Add New Supplier</h3>
-              <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
-              <button id="addSupplierButton">Add Supplier</button>
+                <span class="close">&times;</span>
+                <div class="header-container">
+
+                    <div class="icon-container">
+                        <div class="icon">
+                            <img src="images/cargo-truck.webp" alt="cargo truck icon">
+
+                        </div>
+                    </div>
+                    <h2> Add New Supplier</h2>
+                </div>
+                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
+                <button id="addSupplierButton">Add Supplier</button>
             </div>
-          </div>
+        </div>
 
         <fieldset class="createncrmainfield">
             <div class="main-container-create">
@@ -186,7 +214,8 @@
                                         <label for="ncr-no-generated">NCR No:</label>
                                         <input type="text" id="ncr-no-generated" name="ncr_no"
                                             placeholder="Auto-generated NCR No" readonly tabindex="7">
-                                        <span class="tooltip">This NCR number is auto-generated and cannot be edited.</span>
+                                        <span class="tooltip">This NCR number is auto-generated and cannot be
+                                            edited.</span>
                                     </div>
                                     <div class="tooltip-container">
                                         <label for="sales-order-no">Sales Order No (Required):</label>
@@ -238,7 +267,8 @@
                                         <input type="text" id="product-no" name="product_no"
                                             placeholder="Enter Product No" tabindex="12">
                                         <span class="error-message" id="product-no-error"></span>
-                                        <span class="tooltip">Enter the product's unique number for identification.</span>
+                                        <span class="tooltip">Enter the product's unique number for
+                                            identification.</span>
                                     </div>
 
                                     <!-- Checkbox-like buttons -->
@@ -298,7 +328,8 @@
                                                 aria-label="Enter item description, including SAP Number"
                                                 spellcheck="true" tabindex="17"></textarea>
                                             <span class="error-message" id="description-item-error"></span>
-                                            <span class="tooltip ttip-descr">Describe the item including the SAP number in this field.</span>
+                                            <span class="tooltip ttip-descr">Describe the item including the SAP number
+                                                in this field.</span>
                                         </div>
                                     </div>
                                     <div class="descr-container">
@@ -309,7 +340,8 @@
                                                 aria-label="Describe the defect of the product" spellcheck="true"
                                                 tabindex="18"></textarea>
                                             <span class="error-message" id="description-defect-error"></span>
-                                            <span class="tooltip ttip-descr">Provide a detailed description of the defect in the item.</span>
+                                            <span class="tooltip ttip-descr">Provide a detailed description of the
+                                                defect in the item.</span>
                                         </div>
                                     </div>
                                 </div>
@@ -327,7 +359,8 @@
                                                     onclick="toggleRadio(this)">
                                                 Yes
                                             </label>
-                                            <span class="tooltip">Select 'Yes' if the item is marked as non-conforming.</span>
+                                            <span class="tooltip">Select 'Yes' if the item is marked as
+                                                non-conforming.</span>
                                         </div>
 
                                         <!-- Hidden radio input -->
@@ -337,22 +370,28 @@
                                                     value="no" class="hidden-radio" onclick="toggleRadio(this)">
                                                 No
                                             </label>
-                                            <span class="tooltip">Select 'No' if the item is not marked as non-conforming.</span>
+                                            <span class="tooltip">Select 'No' if the item is not marked as
+                                                non-conforming.</span>
                                         </div>
                                     </div>
                                 </fieldset>
 
                                 <div id="drop-area">
-                                    <div class="tooltip-container">
-                                        <p class="media">Drag & drop images and videos here, or <i class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i> <label for="media-input"
-                                                style="cursor: pointer; color: blue; text-decoration: underline;">Upload
-                                                files</label></p>
-                                        <!-- <i class="fa fa-upload"></i> -->
-                                        <input type="file" name="media" id="media-input" accept="image/*,video/*"
-                                            multiple style="display: none;">
+                                    <div>
+                                        <div class="tooltip-container">
+
+                                            <p class="media">Drag & drop images and videos here, or <i
+                                                    class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i>
+                                                <label for="media-input"
+                                                    style="cursor: pointer; color: blue; text-decoration: underline;">Upload
+                                                    files</label></p>
+                                            <span class="tooltip">Drag & drop images and videos here of the product, or
+                                                click upload files.</span>
+                                            <!-- <i class="fa fa-upload"></i> -->
+                                            <input type="file" name="media" id="media-input" accept="image/*,video/*"
+                                                multiple style="display: none;">
+                                        </div>
                                         <ul id="media-list"></ul>
-                                        <span class="tooltip">Drag & drop images and videos here of the product, or
-                                            click upload files.</span>
                                     </div>
                                 </div>
 
@@ -412,7 +451,6 @@
 
     <script src="script/create-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
-    <script src="script/navbar.js"></script>
 
 </body>
 

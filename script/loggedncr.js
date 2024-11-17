@@ -1,5 +1,7 @@
 
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+
+const savedData = JSON.parse(localStorage.getItem('savedNCRs'));
 const nextBtn1 = document.getElementById("next-btn1")
 const nextBtn2 = document.getElementById("next-btn2")
 const backBtn1 = document.getElementById("back-btn1")
@@ -8,6 +10,7 @@ const clearBtn1 = document.getElementById("clear-btn1")
 const clearBtn2 = document.getElementById("clear-btn2")
 const submitBtn = document.getElementById("submit-btn")
 const starElements = document.querySelectorAll('.required');
+const dateOfReport = new Date().toLocaleDateString()
 
 const footer = document.getElementById('footer-scroll')
 
@@ -22,7 +25,200 @@ const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 const queryParams = new URLSearchParams(window.location.search)
 loadData(queryParams)
+// console.log(savedData)
 
+const params = new URLSearchParams(window.location.search);
+const ncrNo = params.get('ncr_no');
+document.addEventListener("DOMContentLoaded", () => {
+    // Get `ncr_no` from the URL query parameters
+
+    if (!ncrNo) {
+        console.warn("NCR number is not available in the query parameters.");
+        return; // Exit if there's no NCR number
+    }
+
+    console.log("NCR Number from URL:", ncrNo); // Debugging output to check if `ncr_no` is retrieved
+
+    // Retrieve saved NCRs from local storage
+    const savedDataArray = JSON.parse(localStorage.getItem('savedNCRs')) || [];
+
+    // Find the matching saved NCR by `ncr_no`
+    const savedData = savedDataArray.find(ncr => ncr.ncr_no === ncrNo);
+
+    if (savedData) {
+        console.log("Matching saved NCR found:", savedData); // Debugging output
+
+        // Prefill fields from saved data if a match is found
+        prefillFormFromSavedData(savedData);
+    } else {
+        console.warn("No matching saved NCR found for NCR No:", ncrNo);
+    }
+});
+
+function prefillFormFromSavedData(savedData) {
+    // Prefill Disposition Radio Button
+    if (savedData.dispositionOptions) {
+        console.log("Prefilling Disposition Options with:", savedData.dispositionOptions); // Debugging output
+        const dispositionOptions = document.getElementsByName("disposition-options");
+        dispositionOptions.forEach(option => {
+            if (option.value === savedData.dispositionOptions) {
+                option.checked = true;
+                option.parentElement.classList.add('checked'); // Add visual styling if necessary
+            }
+        });
+    }
+
+    // Prefill Drawing Required Radio Button
+    if (savedData.drawingRequired) {
+        console.log("Prefilling Drawing Required with:", savedData.drawingRequired); // Debugging output
+        const drawingRequiredOptions = document.getElementsByName("drawing-required");
+        drawingRequiredOptions.forEach(option => {
+            if (option.value === savedData.drawingRequired) {
+                option.checked = true;
+                option.parentElement.classList.add('checked');
+            }
+        });
+    }
+
+    // Prefill Customer Notification Needed Radio Button
+    if (savedData.customerNotification) {
+        console.log("Prefilling Customer Notification with:", savedData.customerNotification); // Debugging output
+        const customerNotifOptions = document.getElementsByName("customer-notif");
+        customerNotifOptions.forEach(option => {
+            if (option.value === savedData.customerNotification) {
+                option.checked = true;
+                option.parentElement.classList.add('checked');
+            }
+        });
+    }
+
+    // Prefill Resolved Radio Button
+    if (savedData.resolved) {
+        console.log("Prefilling Resolved with:", savedData.resolved); // Debugging output
+        const resolvedOptions = document.getElementsByName("resolved");
+        resolvedOptions.forEach(option => {
+            if (option.value === savedData.resolved) {
+                option.checked = true;
+                option.parentElement.classList.add('checked');
+            }
+        });
+    }
+
+    // Prefill other input fields (similar as before)
+    if (savedData.dispositionDetails) {
+        document.getElementById("disposition-details").value = savedData.dispositionDetails;
+    }
+    if (savedData.originalRevNumber) {
+        document.getElementById("original_rev_number").value = savedData.originalRevNumber;
+    }
+    if (savedData.updatedRevNumber) {
+        document.getElementById("updated_rev_number").value = savedData.updatedRevNumber;
+    }
+    if (savedData.revisionDate) {
+        document.getElementById("revision_date").value = savedData.revisionDate;
+    }
+    if (savedData.engineeringReviewDate) {
+        document.getElementById("engineering_review_date").value = savedData.engineeringReviewDate;
+    }
+
+    document.getElementById('ncr-no-d').textContent = savedData.supplier_name;
+    document.getElementById('supplier-name-d').textContent = savedData.supplier_name;
+    document.getElementById('product-no-d').textContent = savedData.po_no;
+    document.getElementById('sales-order-no-d').textContent = savedData.sales_order_no;
+    document.getElementById('description-item-d').textContent = savedData.item_description;
+    document.getElementById('quantity-received-d').textContent = savedData.quantity_received;
+    document.getElementById('quantity-defective-d').textContent = savedData.quantity_defective;
+    document.getElementById('description-defect-d').textContent = savedData.description_of_defect;
+    document.getElementById('item-marked-nonconforming-d').textContent = savedData.item_marked_nonconforming;
+    document.getElementById('qa-name-d').textContent = savedData.quality_representative_name;
+    document.getElementById('qa-date-d').textContent = savedData.date;
+    document.getElementById('process-d').textContent = savedData.identify_process;
+    // Prefill QA Fields if present
+
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    let isModalOpen = false;
+    let pendingNavigationURL = null;
+    let allowNavigation = false;
+
+    // Get elements
+    const leaveConfirmationModal = document.getElementById('leaveConfirmationModal');
+    const saveAndLeaveBtn = document.getElementById('saveAndLeaveBtn');
+    const leaveWithoutSavingBtn = document.getElementById('leaveWithoutSavingBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Function to show the modal
+    function showLeaveConfirmationModal(url) {
+        leaveConfirmationModal.style.display = 'block'; // Set display to block to make modal visible
+        pendingNavigationURL = url; // Store the URL the user wanted to navigate to
+
+        // Add a slight delay before making the modal fully opaque to trigger CSS transition
+        setTimeout(() => {
+            leaveConfirmationModal.querySelector('.modal-content').style.opacity = '1';
+            leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 10); // Small delay for transition to apply
+
+        isModalOpen = true;
+    }
+
+    // Function to hide the modal
+    function hideLeaveConfirmationModal() {
+        leaveConfirmationModal.querySelector('.modal-content').style.opacity = '0';
+        leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(0.95)';
+
+        // Wait for the transition to finish before actually hiding the modal
+        setTimeout(() => {
+            leaveConfirmationModal.style.display = 'none';
+        }, 500); // Match the transition duration in your CSS
+
+        isModalOpen = false;
+    }
+
+    // Attach the event listener for "Save and Leave" button
+    saveAndLeaveBtn.addEventListener('click', () => {
+        saveFormData(); // Save the current data
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Leave Without Saving" button
+    leaveWithoutSavingBtn.addEventListener('click', () => {
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Cancel" button
+    cancelBtn.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+
+    // Attach click event listener to all links
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default navigation
+            showLeaveConfirmationModal(link.href); // Show the custom modal with the link URL
+        });
+    });
+
+    // Handle window close detection via beforeunload (suppress default behavior)
+    function beforeUnloadHandler(event) {
+        if (!allowNavigation && !isModalOpen) {
+            event.preventDefault();
+            showLeaveConfirmationModal(null);
+            return ''; // Required for some browsers to prevent navigation
+        }
+    }
+
+    // Attach the "beforeunload" event listener
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+});
 //hide errors in the beggining
 starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
@@ -185,10 +381,11 @@ if (user.role === 'Lead Engineer') {
         e.preventDefault(); // Prevent default form submission
 
         // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
+        showPopup('Form submitted', 'Your Engineering department form has been sent to the purchasing department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
             // This callback will execute after the popup is closed
             // sendMail(); // Call the email sending function
-            window.location.href = "home.html"; // Redirect to home.html
+            window.location.href = "Dashboard.html"; // Redirect to home.html
+            sendNotification(ncrNo)
         });
     });
 
@@ -196,14 +393,14 @@ if (user.role === 'Lead Engineer') {
     document.getElementById("clear-btn1").addEventListener("click", () => {
         const section1 = document.querySelector('fieldset[aria-labelledby="step1-legend"]')
         clearSection(section1)
-        
+
         //Clear radio buttons
         const radioButtons = document.querySelectorAll('input[name="drawing-required"]');
         radioButtons.forEach(radioButtons => {
             radioButtons.checked = false
             radioButtons.parentElement.classList.remove('checked')
         });
-        
+
         //clear the instruction for disposition details
         document.getElementById("descriptionMessage").style.display = "none";
 
@@ -212,8 +409,8 @@ if (user.role === 'Lead Engineer') {
             radioButtons1.checked = false
             radioButtons1.parentElement.classList.remove('checked')
         });
-        
-       
+
+
     })
 
     // Clear fields in Section 2
@@ -234,11 +431,11 @@ if (user.role === 'Lead Engineer') {
             radioButtons2.parentElement.classList.remove('checked')
         });
 
-         //Clear date pickers
-         const datePicker1 = document.getElementById("revision_date")
-         datePicker1.value = null;
-         const datePicker2 = document.getElementById("engineering_review_date")
-         datePicker2.value = null;
+        //Clear date pickers
+        const datePicker1 = document.getElementById("revision_date")
+        datePicker1.value = null;
+        const datePicker2 = document.getElementById("engineering_review_date")
+        datePicker2.value = null;
 
     })
 
@@ -275,11 +472,11 @@ if (user.role === 'Lead Engineer') {
         //validate radio buttons
         const radioButtons = document.querySelectorAll('input[name="disposition-options"]');
         const radioErrorSpan = document.getElementById('disposition-options-error');
-        
+
         if (![...radioButtons].some(radio => radio.checked)) {
             // console.log(radioErrorSpan)
             radioErrorSpan.style.display = 'inline'; // Show error message
-            radioErrorSpan.textContent  = 'Please select one of the Review by CF Engineer options'; // Set error message
+            radioErrorSpan.textContent = 'Please select one of the Review by CF Engineer options'; // Set error message
             isValid = false;
         } else {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
@@ -292,6 +489,46 @@ if (user.role === 'Lead Engineer') {
                 errorSpan.style.display = 'none'; // Hide error if no error
             }
         }
+        const drawingRadiobtn = document.querySelectorAll('input[name="drawing-required"]');
+        const drawingError = document.getElementById('drawing-required-error')
+        if (![...drawingRadiobtn].some(radio => radio.checked)) {
+            drawingError.style.display = "inline"
+            drawingError.textContent = "Please select drawing update is required or not!"
+            isValid = false
+        }
+        else {
+            drawingError.style.display = 'none'
+            let selectedRadio = null;
+
+            // Loop through all radio buttons to find the selected one
+            drawingRadiobtn.forEach(radio => {
+                if (radio.checked) {
+                    selectedRadio = radio;
+                }
+            });
+
+            if (selectedRadio && selectedRadio.value === "yes") {
+                const updatedRevNum = document.getElementById('updated_rev_number');
+                const revisionDate = document.getElementById('revision_date');
+                updatedRevNum.style.display = 'block';
+                updatedRevNum.previousElementSibling.style.display = 'block'
+                updatedRevNum.nextElementSibling.style.display = 'inline'
+                revisionDate.style.display = 'block';
+                revisionDate.previousElementSibling.style.display = 'block'
+                revisionDate.nextElementSibling.style.display = 'inline'
+
+            } else if (selectedRadio && selectedRadio.value === "no") {
+                const updatedRevNum = document.getElementById('updated_rev_number');
+                const revisionDate = document.getElementById('revision_date');
+                updatedRevNum.style.display = 'none';
+                updatedRevNum.previousElementSibling.style.display = 'none'
+                updatedRevNum.nextElementSibling.style.display = 'none'
+                revisionDate.style.display = 'none';
+                revisionDate.previousElementSibling.style.display = 'none'
+                revisionDate.nextElementSibling.style.display = 'none'
+            }
+
+        }
 
 
         return isValid;
@@ -301,6 +538,36 @@ if (user.role === 'Lead Engineer') {
     function validateSection2() {
         let isValid = true;
 
+        const errorMessages = {
+            'original_rev_number': '',
+            'updated_rev_number': '',
+            'revision_date': '',
+            'engineering_review_date': ''
+        };
+        
+        const requiredFields = [
+            'original_rev_number', 'updated_rev_number', 'revision_date', 'engineering_review_date'
+        ];
+        
+        requiredFields.forEach(field => {
+            const inputElement = document.getElementById(field);
+            const errorSpan = document.getElementById(`${field}-error`);
+        
+            // Check if the input is empty and the element is visible
+            if (inputElement.value.trim() === '' && inputElement.offsetParent !== null) {
+                // Replace all underscores with spaces, and capitalize the first letter of the first word only
+                const fieldNameWithSpaces = field.replace(/_/g, ' ');
+                const capitalizedField = fieldNameWithSpaces.charAt(0).toUpperCase() + fieldNameWithSpaces.slice(1);
+        
+                errorMessages[field] = `${capitalizedField} is required.`; // Set error message
+                errorSpan.style.display = 'inline'; // Show error message
+                errorSpan.textContent = errorMessages[field]; // Set the error message
+                isValid = false;
+            } else {
+                errorSpan.style.display = 'none'; // Hide error if filled
+            }
+        });
+        
         const radioButtons = document.querySelectorAll('input[name="resolved"]');
         const radioErrorSpan = document.getElementById("resolved-error");
 
@@ -313,8 +580,22 @@ if (user.role === 'Lead Engineer') {
             radioErrorSpan.style.display = 'none'; // Hide error if valid
         }
 
+        const notifRadioBtns = document.querySelectorAll('input[name="customer-notif"]')
+        const notificationError = document.getElementById('notification-required-error')
+        if (![...notifRadioBtns].some(radio => radio.checked)) {
+            notificationError.style.display = 'inline'; // Show error in the span if no radio button is checked
+            notificationError.textContent = 'Please select if the notification is required or not.'; // Set error message
+            isValid = false;
+        } else {
+            notificationError.style.display = 'none'; // Hide error if valid
+        }
+
+
+
         return isValid;
     }
+
+
 
 }
 
@@ -326,10 +607,18 @@ function showPopup(title, message, icon, callback) {
     const iconDiv = document.querySelector('.icon');
     // Clear previous icons
     iconDiv.innerHTML = '';
-    const imgElement = document.createElement('img');
-    imgElement.src = icon; // Replace with your image URL
-    iconDiv.appendChild(imgElement);
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
 
+    if (isImage) {
+
+        const imgElement = document.createElement('img');
+        imgElement.src = icon; // Replace with your image URL
+        iconDiv.appendChild(imgElement);
+    }
+    else {
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
+    }
     modal.style.display = "block"; // Show the modal
 
     setTimeout(() => {
@@ -489,12 +778,11 @@ function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
 
 }
+
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-
     // Set the notification count
- 
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
 
@@ -505,10 +793,35 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = notificationText;
-        notificationList.appendChild(li);
+
+        if (notificationText.includes('Engineering')) {
+            // engineering department person get the mail from qa (will show review and begin work)
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+        } else {
+            // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+        }
+
+        notificationList.prepend(li);
     });
 }
+
+
+function sendNotification(ncrNum) {
+    // Retrieve existing notifications from localStorage or initialize as an empty array
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+    // Add the new notification message
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Purchasing department via Gmail for review and action.`);
+
+    // Save updated notifications back to localStorage
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+
+    // Update the notification display
+    setNotificationText();
+}
+
+
 
 function sendMail() {
     const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
@@ -587,12 +900,38 @@ function saveFormData() {
         revisionDate: document.getElementById("revision_date").value,
         engineeringReviewDate: document.getElementById("engineering_review_date").value,
         resolved: document.querySelector('input[name="resolved"]:checked')?.value || "",
-        ncrNo: `NCR-${Math.floor(Math.random() * 100000)}`
+        ncr_no: document.getElementById('ncr-no-d').textContent,
+        supplier_name: document.getElementById('supplier-name-d').textContent,
+        po_no: document.getElementById('product-no-d').textContent,
+        sales_order_no: document.getElementById('sales-order-no-d').textContent,
+        item_description: document.getElementById('description-item-d').textContent,
+        quantity_received: document.getElementById('quantity-received-d').textContent,
+        quantity_defective: document.getElementById('quantity-defective-d').textContent,
+        description_of_defect: document.getElementById('description-defect-d').textContent,
+        item_marked_nonconforming: document.getElementById('item-marked-nonconforming-d').textContent,
+        quality_representative_name: document.getElementById('qa-name-d').textContent,
+        date: document.getElementById('qa-date-d').textContent,
+        identify_process: document.getElementById('process-d').textContent,
+        date_of_saved: new Date().toLocaleDateString()
+
     };
 
-    // Retrieve saved NCRs from local storage
     let savedNCRs = JSON.parse(localStorage.getItem("savedNCRs")) || [];
-    savedNCRs.push(formData);
+
+    // Find the index of the existing report with the same `ncr_no`
+    const existingIndex = savedNCRs.findIndex(ncr => ncr.ncr_no === formData.ncr_no);
+
+    if (existingIndex !== -1) {
+        // Update the existing report
+        savedNCRs[existingIndex] = formData;
+        console.log(`Updated existing report with NCR No: ${formData.ncr_no}`);
+    } else {
+        // Add a new report if no existing one is found
+        savedNCRs.push(formData);
+        console.log(`Added new report with NCR No: ${formData.ncr_no}`);
+    }
+
+    // Save the updated reports list back to local storage
     localStorage.setItem("savedNCRs", JSON.stringify(savedNCRs));
 
     alert("NCR saved successfully!");
@@ -600,3 +939,17 @@ function saveFormData() {
 
 document.getElementById("save1").addEventListener("click", saveFormData);
 document.getElementById("save2").addEventListener("click", saveFormData);
+
+function updateToolContent() {
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
+    }
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()

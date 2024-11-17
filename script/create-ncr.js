@@ -7,6 +7,13 @@ const mediaList = document.getElementById('media-list');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 
+const ncrNo = localStorage.getItem('ncrNo')
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink) {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
+
 let notifications = []
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
@@ -56,8 +63,7 @@ footer.addEventListener('click', () => {
     })
 })
 
-let ncrData = []
-
+ 
 starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
@@ -157,7 +163,7 @@ if (user.role === 'QA Inspector') {
     // Add event listeners for navigation buttons
     document.getElementById("next-btn1").addEventListener("click", () => {
         const { isValid, quantityError } = validateSection1();
-    
+
         if (isValid) {
             sections[currentStep].classList.remove("active");
             currentStep++;
@@ -179,7 +185,7 @@ if (user.role === 'QA Inspector') {
             }
         }
     });
-    
+
 
     document.getElementById("next-btn2").addEventListener("click", () => {
         if (validateSection2()) {
@@ -216,11 +222,11 @@ if (user.role === 'QA Inspector') {
         e.preventDefault(); // Prevent default form submission
 
         // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', 'images/gmail.webp', () => {
+        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
             // This callback will execute after the popup is closed
             submitForm(user.role); // Call the form submission
             sendMail(); // Call the email sending function
-            window.location.href = "home.html"; // Redirect to home.html
+            window.location.href = "Dashboard.html"; // Redirect to home.html
 
             sendNotification(ncrNumber)
         });
@@ -327,7 +333,7 @@ if (user.role === 'QA Inspector') {
         }
 
 
-        return {isValid, quantityError};
+        return { isValid, quantityError };
     }
 
 
@@ -498,6 +504,7 @@ function sendMail() {
     // Open the Gmail compose window
     window.open(gmailLink, '_blank'); // Opens in a new tab
 }
+let ncrData = []
 
 function submitForm(role) {
     const today = new Date().toISOString().slice(0, 10);  // Get current date
@@ -521,8 +528,14 @@ function submitForm(role) {
         const descriptionDefect = document.getElementById('description-defect').value
 
         // Get the non-conforming item marked status
-        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked').value
+        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked')
 
+        // Get the checked value of the process radio button
+        const processApplicableElement = document.querySelector('input[name=process]:checked').value;
+
+        // Assign values based on the process selection
+        const processSupplierInsp = processApplicableElement === 'supplier_or_rec_insp';
+        const processWipProdOrder = processApplicableElement === 'wip_production_order';
 
         newEntry.qa = {
 
@@ -533,25 +546,55 @@ function submitForm(role) {
             "quantity_received": Number(quantityReceived),
             "quantity_defective": Number(quantityDefective),
             "description_of_defect": descriptionDefect,
-            "item_marked_nonconforming": nonconformingStatusElement,
+            "item_marked_nonconforming": nonconformingStatusElement ? true : false,
             "quality_representative_name": `${user.firstname} ${user.lastname}`,
             "date": today,
-            "resolved": false,
+            "resolved": true,
             "process": {
-                "supplier_or_rec_insp": false,
-                "wip_production_order": false
+                "supplier_or_rec_insp": processSupplierInsp,
+                "wip_production_order": processWipProdOrder
             }
         };
 
 
         ncrData.push(newEntry);  // Append new entry to the array
-        console.log(ncrData)
+        // console.log(ncrData)
+
+        localStorage.setItem('nextReport', JSON.stringify(ncrData))
+        updateNCRDataFromLocalStorage()
 
     }
 
-
-
 }
+
+// Retrieve NCR data from localStorage
+function updateNCRDataFromLocalStorage() {
+    const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+
+    // Fetch AllReports from the server or local storage
+    fetch('Data/ncr_reports.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch NCR reports');
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            let AllReports = data || []; // Ensure data is an array, fallback to an empty array if undefined
+
+            // Append the nextReport to AllReports
+            AllReports = AllReports.concat(nextReport);
+
+            // Save the updated AllReports back to localStorage
+            localStorage.setItem('AllReports', JSON.stringify(AllReports));
+        })
+        .catch(error => {
+            console.error('Error fetching NCR reports:', error);
+        });
+}
+
+
+
 
 let existingFiles = []; // Track previously added files
 
@@ -566,6 +609,7 @@ function fileToBase64(file) {
 }
 
 async function handleFiles(files) {
+
     for (const file of files) {
         if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
             existingFiles.push(file); // Add new files to the existing list
@@ -591,11 +635,25 @@ async function handleFiles(files) {
             deleteButton.style.color = 'red'; // Color for the delete button
 
             // Attach click event to delete the item
-            deleteButton.addEventListener('click', () => {
-                existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size)); // Remove file from existingFiles
-                mediaList.removeChild(listItem); // Remove the list item
-                localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
+            deleteButton.addEventListener('click', (e) => {
+                e.preventDefault()
+                const btnDelete = document.getElementById('yes-delete-img');
+                const btnCancel = document.getElementById('no-delete-img');
+
+                // Show the confirmation modal with custom message, icon, and button handlers
+                deleteImgConfirm("Confirm Deletion",
+                    "Are you sure you want to delete this image? You can add it back later.",
+                    'images/1382678.webp',
+                    btnDelete,
+                    btnCancel,
+                    () => {
+                        // The callback will be triggered when 'Yes' is clicked (perform the delete)
+                        existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size));
+                        mediaList.removeChild(listItem); // Remove the list item
+                        localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
+                    });
             });
+
 
 
 
@@ -667,9 +725,18 @@ function showPopup(title, message, icon, callback) {
     const iconDiv = document.querySelector('.icon');
     // Clear previous icons
     iconDiv.innerHTML = '';
-    const imgElement = document.createElement('img');
-    imgElement.src = icon; // Replace with your image URL
-    iconDiv.appendChild(imgElement);
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
+
+    if (isImage) {
+
+        const imgElement = document.createElement('img');
+        imgElement.src = icon; // Replace with your image URL
+        iconDiv.appendChild(imgElement);
+    }
+    else {
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
+    }
 
     modal.style.display = "block"; // Show the modal
 
@@ -753,7 +820,7 @@ function sendNotification(ncrNum) {
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
 
     // Add the new notification message
-    notifications.push(`NCR No. ${ncrNum} has been sent to engineer department via Gmail.`);
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Engineering department via Gmail for review and action.`);
 
     // Save updated notifications back to localStorage
     localStorage.setItem('notifications', JSON.stringify(notifications));
@@ -777,8 +844,8 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = notificationText;
-        notificationList.appendChild(li);
+        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`;
+        notificationList.prepend(li);
     });
 }
 
@@ -832,7 +899,7 @@ addSupplierButton.addEventListener("click", function () {
         document.getElementById("newSupplierName").value = "";
         closeSupplierPopup();
     } else {
-        showPopup("Please enter a supplier name.");
+        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp");
     }
 });
 
@@ -842,3 +909,78 @@ window.addEventListener("click", function (event) {
         closeSupplierPopup();
     }
 });
+
+function updateToolContent() {
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
+    }
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()
+
+function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) {
+    const modal = document.querySelector('.deletemodal')
+    const modalContent = modal.querySelector('.modal-content');
+
+    // Set the title and message inside the modal
+    modalContent.querySelector('h2').innerText = title;
+    modalContent.querySelector('p').innerText = message;
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
+
+    // Display the icon based on its type (image or text)
+    if (isImage) {
+        const imgElement = document.createElement('img');
+        imgElement.src = icon;
+        iconDiv.appendChild(imgElement);
+    } else {
+        iconDiv.style.fontSize = '45px';
+        iconDiv.innerHTML = icon;
+    }
+
+    // Show the modal
+    modal.style.display = "block";
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade-in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Center modal
+    }, 10);
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade-out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Move modal out
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal
+        }, 500); // Wait for the transition to finish
+    };
+
+    // When "Yes" (btnDelete) is clicked, perform the delete action
+    btnDelete.addEventListener('click', () => {
+        // Perform the callback action (e.g., deleting the file)
+        callback();
+        closeModal(); // Close the modal after the action
+    });
+
+    // When "No" (btnCancel) is clicked, just close the modal
+    btnCancel.addEventListener('click', () => {
+        closeModal(); // Close the modal without any action
+    });
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}

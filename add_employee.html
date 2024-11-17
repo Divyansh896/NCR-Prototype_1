@@ -25,8 +25,8 @@
             <a href="#" id="menu-icon" aria-label="Menu icon"></a>
             <ul>
                 <li>
-                    <a href="home.html" class="linksNav" tabindex="1" aria-label="Go to home page">
-                        <i class="fa fa-fw fa-home"></i> Home
+                    <a href="Dashboard.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Dashboard
                     </a>
                 </li>
 
@@ -88,11 +88,11 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -139,63 +139,81 @@
             </div>
         </div>
         <form>
-            <div class="tooltip-container">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" placeholder="Enter first name"
-                    aria-label="Enter employee's first name here" tabindex="6">
-                <span class="tooltip">Enter the employee's first name</span>
-            </div>
+            <div class="verticalLayout">
+                <div class="employee-columns">
+                    <div class="two-cols">
+                        <div class="tooltip-container">
+                            <label for="firstName">First Name:</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter first name"
+                                aria-label="Enter employee's first name here" tabindex="6">
+                                <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the employee's first name</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" placeholder="Enter last name"
-                    aria-label="Enter employee's last name" tabindex="7">
-                <span class="tooltip">Enter the employee's last name</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="lastName">Last Name:</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name"
+                                aria-label="Enter employee's last name" tabindex="7">
+                                <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the employee's last name</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <label for="empId">Employee Id:</label>
-                <input type="number" id="empId" name="empId" placeholder="0000" aria-label="Enter employee ID here"
-                    tabindex="8">
-                <span class="tooltip">Enter the employee's unique ID</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="empId">Employee Id:</label>
+                            <input type="number" id="empId" name="empId" placeholder="0000"
+                                aria-label="Enter employee ID here" tabindex="8">
+                                <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the employee's unique ID</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <label for="dob">Date of Birth:</label>
-                <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="9">
-                <span class="tooltip">Select the employee's date of birth</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="9">
+                            <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Select the employee's date of birth</span>
+                        </div>
+                    </div>
+                    <div class="two-cols">
 
-            <div class="tooltip-container">
-                <label for="email">Email ID:</label>
-                <input type="email" id="email" name="email" placeholder="abc@crossfire.ca" aria-label="Enter email ID"
-                    tabindex="10">
-                <span class="tooltip">Enter the employee's email address</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="email">Email ID:</label>
+                            <input type="email" id="email" name="email" placeholder="abc@crossfire.ca"
+                                aria-label="Enter email ID" tabindex="10">
+                                <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the employee's email address</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" placeholder="password" aria-label="Enter password"
-                    tabindex="11">
-                <span class="tooltip">Enter a password for the employee</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" placeholder="password"
+                                aria-label="Enter password" tabindex="11">
+                                <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter a password for the employee</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <label for="department">Departments:</label>
-                <select id="department" name="department" aria-label="Select department" tabindex="12">
-                    <option value="" disabled selected hidden>Select a department</option>
-                    <option value="QA">QA</option>
-                    <option value="engineer">Engineer</option>
-                    <option value="Purchasing">Purchasing</option>
-                </select>
-                <span class="tooltip">Select the employee's department</span>
-            </div>
+                        <div class="tooltip-container">
+                            <label for="department">Departments:</label>
+                            <select id="department" name="department" aria-label="Select department" tabindex="12">
+                                <option value="" disabled selected hidden>Select a department</option>
+                                <option value="QA">QA</option>
+                                <option value="engineer">Engineer</option>
+                                <option value="Purchasing">Purchasing</option>
+                            </select>
+                            <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Select the employee's department</span>
+                        </div>
 
-            <div class="tooltip-container">
-                <button type="button" id="clear" aria-label="Clear button" tabindex="13">Clear</button>
-                <span class="tooltip">Clear all fields</span>
-                <button type="submit" id="add" aria-label="Add employee button" tabindex="14">Add Employee</button>
-                <span class="tooltip">Add the employee to the system</span>
+                        <div class="tooltip-container">
+                            <div class="btns-employee">
+                                <button type="button" id="clear" aria-label="Clear button" tabindex="13">Clear</button>
+                                <span class="tooltip">Clear all fields</span>
+                                <button type="submit" id="add" aria-label="Add employee button" tabindex="14">Add
+                                    Employee</button>
+                                <span class="tooltip">Add the employee to the system</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </form>
 
@@ -209,10 +227,6 @@
         </p>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@latest"></script>
-    <script src="script/navbar.js"></script>
-    <script src="script/home-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
     <script src="script/addEmp.js"></script>
 </body>

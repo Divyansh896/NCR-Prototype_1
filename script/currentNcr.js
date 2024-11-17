@@ -1,7 +1,13 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
+
+function getNCRDataFromLocalStorage() {
+    const data = localStorage.getItem('AllReports');
+    return data ? JSON.parse(data) : [];
+}
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
@@ -26,7 +32,13 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
-let ncrData = [] // Define a variable to hold the data
+
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+if (ncrLink && user.role == "QA Inspector") {
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+}
+
+let ncrData = getNCRDataFromLocalStorage() // Define a variable to hold the data
 const footer = document.getElementById('footer-scroll')
 const ncrInput = document.getElementById('ncrInput')
 const autocompleteList = document.getElementById('autocomplete-list')
@@ -40,18 +52,8 @@ footer.addEventListener('click', () => {
     })
 })
 
-// Load data after DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('Data/ncr_reports.json')
-        .then(response => response.json())
-        .then(data => {
-            ncrData = data
-            populateTable(ncrData) // Populate table initially
-            // document.getElementById('record-count').textContent = `Records found: ${ncrData.length}`
-            // document.getElementById('status-all').checked = true
-        })
-        .catch(error => console.error("An error occurred while retrieving data: ", error))
-})
+// load the data from local storage
+populateTable(ncrData)
 
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {
@@ -92,7 +94,7 @@ function populateTable(data) {
             <td>${ncr.qa.date || 'N/A'}</td>
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
-            <td>${ncr.engineering.resolved || 'Not resolved yet!'}</td>
+            <td>${ncr.engineering.resolved || 'Open'}</td>
             <td>
                 <div class="tooltip-container controls-container">
                     <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> Edit</button>
@@ -402,7 +404,6 @@ function openTools() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-
     // Set the notification count
     const count = document.getElementById('notification-count');
     count.innerHTML = notifications.length;
@@ -414,7 +415,36 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        li.innerHTML = notificationText;
-        notificationList.appendChild(li);
+        if(user.role == 'Lead Engineer'){
+
+            if (notificationText.includes('Engineering')) {
+                // engineering department person get the mail from qa (will show review and begin work)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`;
+            } else {
+                // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+            }
+        }
+        else{
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
+
+        }
+        
+
+        notificationList.prepend(li);
     });
 }
+
+function updateToolContent(){
+    const toolsContainer = document.querySelector('.tools')
+    const emp = document.getElementById('add-emp')
+    const supplier = document.getElementById('add-sup')
+    if(user.role == "QA Inspector"){
+        emp.style.display= 'none'
+    }
+    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+        toolsContainer.style.display = 'none'
+    }
+}
+
+updateToolContent()
