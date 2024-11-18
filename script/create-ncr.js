@@ -507,7 +507,7 @@ function sendMail() {
 let ncrData = []
 
 function submitForm(role) {
-    const today = new Date().toISOString().slice(0, 10);  // Get current date
+    const today = new Date().toLocaleDateString().slice(0, 10);  // Get current date
     let newEntry = {
         "ncr_no": ncrNumber,  // Use a unique identifier or generate as needed
         "status": "incomplete",

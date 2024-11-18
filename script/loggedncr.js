@@ -20,6 +20,9 @@ const purchdropdown = document.getElementById('purch-section')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
+
+const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+
 // Get the modal
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
@@ -383,7 +386,8 @@ if (user.role === 'Lead Engineer') {
         // Show the popup and wait for it to close
         showPopup('Form submitted', 'Your Engineering department form has been sent to the purchasing department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
             // This callback will execute after the popup is closed
-            // sendMail(); // Call the email sending function
+            submitForm()
+            sendMail(); // Call the email sending function
             window.location.href = "Dashboard.html"; // Redirect to home.html
             sendNotification(ncrNo)
         });
@@ -544,21 +548,21 @@ if (user.role === 'Lead Engineer') {
             'revision_date': '',
             'engineering_review_date': ''
         };
-        
+
         const requiredFields = [
             'original_rev_number', 'updated_rev_number', 'revision_date', 'engineering_review_date'
         ];
-        
+
         requiredFields.forEach(field => {
             const inputElement = document.getElementById(field);
             const errorSpan = document.getElementById(`${field}-error`);
-        
+
             // Check if the input is empty and the element is visible
             if (inputElement.value.trim() === '' && inputElement.offsetParent !== null) {
                 // Replace all underscores with spaces, and capitalize the first letter of the first word only
                 const fieldNameWithSpaces = field.replace(/_/g, ' ');
                 const capitalizedField = fieldNameWithSpaces.charAt(0).toUpperCase() + fieldNameWithSpaces.slice(1);
-        
+
                 errorMessages[field] = `${capitalizedField} is required.`; // Set error message
                 errorSpan.style.display = 'inline'; // Show error message
                 errorSpan.textContent = errorMessages[field]; // Set the error message
@@ -567,7 +571,7 @@ if (user.role === 'Lead Engineer') {
                 errorSpan.style.display = 'none'; // Hide error if filled
             }
         });
-        
+
         const radioButtons = document.querySelectorAll('input[name="resolved"]');
         const radioErrorSpan = document.getElementById("resolved-error");
 
@@ -826,7 +830,7 @@ function sendNotification(ncrNum) {
 function sendMail() {
     const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
     const subject = encodeURIComponent('Request for Purchasing/Operations Department Details for NCR'); // Subject of the email
-    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${ncrNumber}. At this stage, we kindly request you to provide the necessary details from the Purchasing/Operations Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\nQuality Assurance\nCrossfire NCR`);
+    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${nextReport.ncr_no}. At this stage, we kindly request you to provide the necessary details from the Purchasing/Operations Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\Engineering Department\nCrossfire NCR`);
 
     // Construct the Gmail compose link
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
@@ -834,60 +838,89 @@ function sendMail() {
     // Open the Gmail compose window
     window.open(gmailLink, '_blank'); // Opens in a new tab
 }
-
-function submitForm(role) {
+let ncrData = []
+function submitForm() {
     const today = new Date().toISOString().slice(0, 10);  // Get current date
+
+    if (!nextReport || !ncrData) {
+        console.error("Required data (nextReport or ncrData) is missing.");
+        return;
+    }
+
     let newEntry = {
-        "ncr_no": ncrNumber,  // Use a unique identifier or generate as needed
+        "ncr_no": nextReport[0].ncr_no,
         "status": "incomplete",
-        "qa": {},
+        "qa": nextReport[0].qa, // Deep clone to avoid modifying the original
         "engineering": {},
         "purchasing_decision": {}
-    }
+    };
 
-    if (role === "QA Inspector") {
-        const supplierName = document.getElementById('supplier-name').value
-        const salesOrderNo = document.getElementById('sales-order-no').value
-        const quantityReceived = document.getElementById('quantity-received').value
-        const quantityDefective = document.getElementById('quantity-defective').value
-        const productNo = document.getElementById('product-no').value
+    // Gather engineering department inputs
+    let dispositionOption = document.querySelector('input[name="disposition-options"]:checked')?.value || null;
+    let dispositionDetails = document.getElementById("disposition-details")?.value || null;
 
-        // Get values from Section 2
-        const descriptionItem = document.getElementById('description-item').value
-        const descriptionDefect = document.getElementById('description-defect').value
+    // Correctly handle boolean values for checkboxes
+    let drawingUpdate = document.querySelector('input[name="drawing-required"]:checked')?.checked || false;
+    let customerNotification = document.querySelector('input[name="customer-notif"]:checked')?.checked || false;
+    let resolvedStatus = document.querySelector('input[name="resolved"]:checked')?.checked || false;
 
-        // Get the non-conforming item marked status
-        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked').value
+    let originalRevNumber = document.getElementById("original_rev_number")?.value || null;
+    let updatedRevNumber = document.getElementById("updated_rev_number")?.value || 'Not applicable';
+    let revisionDate = document.getElementById("revision_date")?.value || null;
+    let engineeringReviewDate = document.getElementById("engineering_review_date")?.value || null;
 
+    newEntry.engineering = {
+        "disposition": dispositionOption,
+        "disposition_details": dispositionDetails,
+        "drawing_update_required": drawingUpdate,
+        "original_rev_number": originalRevNumber,
+        "updated_rev_number": updatedRevNumber,
+        "customer_notification_required": customerNotification,
+        "revision_date": revisionDate,
+        "engineering_review_date": engineeringReviewDate,
+        "engineer_name": `${user.firstname} ${user.lastname}`,
+        "resolved": resolvedStatus
+    };
 
-        newEntry.qa = {
+    // Add the new entry to the array
+    ncrData.push(newEntry);
 
-            "supplier_name": supplierName,
-            "po_no": productNo,
-            "sales_order_no": salesOrderNo,
-            "item_description": descriptionItem,
-            "quantity_received": Number(quantityReceived),
-            "quantity_defective": Number(quantityDefective),
-            "description_of_defect": descriptionDefect,
-            "item_marked_nonconforming": nonconformingStatusElement,
-            "quality_representative_name": `${user.firstname} ${user.lastname}`,
-            "date": today,
-            "resolved": false,
-            "process": {
-                "supplier_or_rec_insp": false,
-                "wip_production_order": false
-            }
-        };
+    // Store updated data in localStorage
+    localStorage.setItem('nextReport', JSON.stringify(ncrData));
 
-
-        ncrData.push(newEntry);  // Append new entry to the array
-        console.log(ncrData)
-
-    }
-
-
+    // Update data from localStorage
+    updateNCRDataFromLocalStorage();
 
 }
+
+
+
+// Retrieve NCR data from localStorage
+function updateNCRDataFromLocalStorage() {
+    const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+
+    // Fetch AllReports from the server or local storage
+    fetch('Data/ncr_reports.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to fetch NCR reports');
+            }
+            return response.json(); // Parse the JSON response
+        })
+        .then(data => {
+            let AllReports = data || []; // Ensure data is an array, fallback to an empty array if undefined
+
+            // Append the nextReport to AllReports
+            AllReports = AllReports.concat(nextReport);
+
+            // Save the updated AllReports back to localStorage
+            localStorage.setItem('AllReports', JSON.stringify(AllReports));
+        })
+        .catch(error => {
+            console.error('Error fetching NCR reports:', error);
+        });
+}
+
 
 function saveFormData() {
     const formData = {
