@@ -88,7 +88,7 @@ function setSpanContentFromSession() {
 
     document.getElementById('qa-name').textContent = retrievedNCRData['quality_representative_name'] || ''
     document.getElementById('qa-date').textContent = retrievedNCRData['date'] || ''
-    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === 'true' ? 'Yes' : 'No'
+    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === true ? 'Yes' : 'No'
     document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || ''
 
     if (retrievedNCRData['supplier_or_rec_insp'] == true) {
@@ -107,9 +107,9 @@ function setSpanContentFromSession() {
     document.getElementById('updated-rev-number').textContent = retrievedNCRData['updated_rev_number'] || ''
     document.getElementById('revision-date').textContent = retrievedNCRData['revision_date'] || '' // Set date input value
     document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering_review_date'] || '' // Set date input value
-    document.getElementById('eng-resolved').textContent = retrievedNCRData['eng_resolved'] === 'true' ? 'Yes' : 'No'
-    document.getElementById('customer-notification').textContent = retrievedNCRData['customer_notification_required'] === 'true' ? 'Yes' : 'No'
-    document.getElementById('drawing-update-required').textContent = retrievedNCRData['drawing_update_required'] === 'true' ? 'Yes' : 'No'
+    document.getElementById('eng-resolved').textContent = retrievedNCRData['eng_resolved'] === true ? 'Yes' : 'No'
+    document.getElementById('customer-notification').textContent = retrievedNCRData['customer_notification_required'] === true ? 'Yes' : 'No'
+    document.getElementById('drawing-update-required').textContent = retrievedNCRData['drawing_update_required'] === true ? 'Yes' : 'No'
 
     // Set Purchasing data to spans and inputs
     document.getElementById('preliminary-decision').textContent = retrievedNCRData['preliminary_decision'] || ''
@@ -122,14 +122,14 @@ function setSpanContentFromSession() {
     }
 
     // document.getElementById('options').textContent = retrievedNCRData['options'] || '' // Set select value
-    document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === 'true' ? 'Yes' : 'No'
+    document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === true ? 'Yes' : 'No'
     document.getElementById('car-number').textContent = retrievedNCRData['car_number'] || ''
-    document.getElementById('follow-up-required').textContent = retrievedNCRData['follow_up_required'] === 'true' ? 'Yes' : 'No'
+    document.getElementById('follow-up-required').textContent = retrievedNCRData['follow_up_required'] === true ? 'Yes' : 'No'
     document.getElementById('operations-manager-name').textContent = retrievedNCRData['operations_manager_name'] || ''
     document.getElementById('operations-manager-date').textContent = retrievedNCRData['operations_manager_date'] || '' // Set date input value
     document.getElementById('inspector-name').textContent = retrievedNCRData['inspector_name'] || ''
-    document.getElementById('ncr-closed').textContent = retrievedNCRData['ncr_closed'] === 'true' ? 'Yes' : 'No'
-    document.getElementById('pu-resolved').textContent = retrievedNCRData['pu_resolved'] === 'true' ? 'Yes' : 'No'
+    document.getElementById('ncr-closed').textContent = retrievedNCRData['ncr_closed'] === true ? 'Yes' : 'No'
+    document.getElementById('pu-resolved').textContent = retrievedNCRData['pu_resolved'] === true ? 'Yes' : 'No'
     document.getElementById('new-ncr-number').textContent = retrievedNCRData['new_ncr_number'] || ''
     // console.log('review date:', retrievedNCRData['engineering_review_date'])
     // console.log('Product No:', qaData.productNo)

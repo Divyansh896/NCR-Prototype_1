@@ -38,6 +38,21 @@ if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
 
+const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+
+document.addEventListener('DOMContentLoaded', () => {
+    fetch('Data/ncr_reports.json')
+        .then(response => response.json())
+        .then(data => {
+            ncrData = data
+            ncrData = ncrData.concat(nextReport)
+            localStorage.setItem('AllReports', JSON.stringify(ncrData))
+            populateTable(ncrData) // Populate table initially
+            document.getElementById('status-no').checked = true
+        })
+        .catch(error => console.error("An error occurred while retrieving data: ", error))
+})
+
 let ncrData = getNCRDataFromLocalStorage() // Define a variable to hold the data
 const footer = document.getElementById('footer-scroll')
 const ncrInput = document.getElementById('ncrInput')
@@ -81,7 +96,7 @@ function populateTable(data) {
     const count = resolvedItems.length;
 
     // Display the count (you can adjust the element ID to match your HTML)
-    document.getElementById('record-count').textContent = `Unresolved NCRs: ${count}`;
+    document.getElementById('record-count').textContent = `Open NCRs: ${count}`;
 
     // Populate the table with resolved items
     resolvedItems.forEach(ncr => {

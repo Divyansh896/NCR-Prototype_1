@@ -2344,6 +2344,10 @@ td button:focus {
 
     .status-bar {
         width: 420px;
+        background-image: url("images/background-create.jpg");
+        background-position:bottom;
+        background-size: cover;
+        background-repeat: no-repeat;
     }
 
     .status-steps {
@@ -2412,7 +2416,7 @@ td button:focus {
 
 
     .status-step.completed {
-        color: #757575;
+        color: #1a3153;
     }
 
     .status-step.completed .step-icon {
