@@ -175,7 +175,7 @@
                     </div>
                     <h2> Add New Supplier</h2>
                 </div>
-                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required tabindex="6"/>
+                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
                 <button id="addSupplierButton">Add Supplier</button>
             </div>
         </div>
@@ -278,10 +278,10 @@
                                     <div class="chkboxes-create-ncr">
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button" tabindex="13">
                                                     <input type="radio" id="supplier" name="process"
-                                                        value="Supplier or Rec-Insp" class="hidden-checkbox" 
-                                                        onclick="toggleCheck(this)" tabindex="13">
+                                                        value="Supplier or Rec-Insp" class="hidden-checkbox"
+                                                        onclick="toggleCheck(this)">
                                                     Supplier or Rec-Insp
                                                 </label>
                                                 <span class="tooltip">Click to select Supplier or Rec-Insp
@@ -290,10 +290,10 @@
                                         </div>
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button"  tabindex="14">
                                                     <input type="radio" id="wip" name="process"
                                                         value="WIP (Production order)" class="hidden-checkbox"
-                                                        onclick="toggleCheck(this)" tabindex="14">
+                                                        onclick="toggleCheck(this)">
                                                     WIP (Production order)
                                                 </label>
                                                 <span class="tooltip">Click to select WIP (Production order)
@@ -309,8 +309,11 @@
                             <div class="btn-qa-create">
                                 <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
                                     tabindex="15">Clear</button>
+                                    <button type="button" id="save1" aria-label="Save current progress" tabindex="16">
+                                        Save
+                                    </button>
                                 <button type="button" id="next-btn1" aria-label="Move to next step"
-                                    tabindex="16">Next</button>
+                                    tabindex="17">Next</button>
                             </div>
                         </fieldset>
 
@@ -326,7 +329,7 @@
                                             <textarea id="description-item" name="description_item"
                                                 placeholder="Enter item description, including SAP Number"
                                                 aria-label="Enter item description, including SAP Number"
-                                                spellcheck="true" tabindex="17"></textarea>
+                                                spellcheck="true" tabindex="18"></textarea>
                                             <span class="error-message" id="description-item-error"></span>
                                             <span class="tooltip ttip-descr">Describe the item including the SAP number
                                                 in this field.</span>
@@ -338,7 +341,7 @@
                                             <textarea id="description-defect" name="description_defect"
                                                 placeholder="Describe the defect"
                                                 aria-label="Describe the defect of the product" spellcheck="true"
-                                                tabindex="18"></textarea>
+                                                tabindex="19"></textarea>
                                             <span class="error-message" id="description-defect-error"></span>
                                             <span class="tooltip ttip-descr">Provide a detailed description of the
                                                 defect in the item.</span>
@@ -353,10 +356,10 @@
                                     <div class="rad-create-ncr">
                                         <!-- Hidden radio input -->
                                         <div class="tooltip-container">
-                                            <label class="radio-button">
+                                            <label class="radio-button" tabindex="20">
                                                 <input type="radio" id="item-marked-yes"
                                                     name="item_marked_nonconforming" value="yes" class="hidden-radio"
-                                                    onclick="toggleRadio(this)" tabindex="19">
+                                                    onclick="toggleRadio(this)">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Select 'Yes' if the item is marked as
@@ -365,9 +368,9 @@
 
                                         <!-- Hidden radio input -->
                                         <div class="tooltip-container">
-                                            <label class="radio-button">
+                                            <label class="radio-button" tabindex="21">
                                                 <input type="radio" id="item-marked-no" name="item_marked_nonconforming"
-                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)" tabindex="20">
+                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)">
                                                 No
                                             </label>
                                             <span class="tooltip">Select 'No' if the item is not marked as
@@ -382,7 +385,7 @@
 
                                             <p class="media">Drag & drop images and videos here, or <i
                                                     class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i>
-                                                <label for="media-input"
+                                                <label for="media-input" tabindex="22"
                                                     style="cursor: pointer; color: blue; text-decoration: underline;">Upload
                                                     files</label></p>
                                             <span class="tooltip">Drag & drop images and videos here of the product, or
@@ -397,9 +400,12 @@
 
                             </div>
                             <div class="btn-qa-create">
-                                <button type="button" id="back-btn1" tabindex="19">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="20">Clear</button>
-                                <button type="button" id="next-btn2" tabindex="21">Next</button>
+                                <button type="button" id="back-btn1" tabindex="23">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                <button type="button" id="save2" aria-label="Save current progress" tabindex="25">
+                                    Save
+                                </button>
+                                <button type="button" id="next-btn2" tabindex="26">Next</button>
                             </div>
                         </fieldset>
 
@@ -424,14 +430,15 @@
                                 <div class="confirm-create-qa">
                                     <p>Description Item: <span id="confirm-description-item"></span></p>
                                     <p>Description Defect: <span id="confirm-description-defect"></span></p>
+                                    <p>Mediafiles: <ul id="confirm-media-list"></ul></p>
                                 </div>
                             </div>
 
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
-                                    tabindex="22">Back</button>
+                                    tabindex="27">Back</button>
                                 <button type="submit" id="submit-btn" aria-label="Submit the form"
-                                    tabindex="23">Submit</button>
+                                    tabindex="28">Submit</button>
                             </div>
                         </fieldset>
                     </form>
@@ -443,7 +450,7 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="24">Privacy
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="29">Privacy
                 Policy</a>
         </p>
     </footer>

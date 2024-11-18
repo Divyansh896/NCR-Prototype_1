@@ -133,7 +133,7 @@
                     <div class="autocomplete">
                         <div class="tooltip-container">
                             <label>Search NCR Number</label>
-                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" />
+                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" tabindex="7" />
                             <div id="autocomplete-list" class="autocomplete-items"></div>
                             <span class="tooltip">Type NCR number in here</span>
                         </div>
@@ -141,7 +141,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="Departments">Department status</label>
-                            <select name="Departments" id="Departments">
+                            <select name="Departments" id="Departments" tabindex="8">
                                 <option value="All">All Departments</option>
                                 <option value="QA">Quality Assurance</option>
                                 <option value="Engineering">Engineering</option>
@@ -153,7 +153,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="search">Search by supplier</label>
-                            <select name="search" id="search" class="serach-bar" required tabindex="7"
+                            <select name="search" id="search" class="serach-bar" required tabindex="9"
                                 aria-label="Search by supplier">
                                 <option value="All">All Suppliers</option>
                                 <option value="SteelWorks Ltd">SteelWorks Ltd</option>
@@ -171,7 +171,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="dateFrom">Start Date of NCR</label>
-                            <input type="date" name="dateFrom" id="dateFrom">
+                            <input type="date" name="dateFrom" id="dateFrom" tabindex="10">
                             <span class="tooltip ttip-filter">Select start date of the NCR</span>
                         </div>
                     </div>
@@ -179,7 +179,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="dateTo">End Date of NCR</label>
-                            <input type="date" name="dateTo" id="dateTo">
+                            <input type="date" name="dateTo" id="dateTo" tabindex="11">
                             <span class="tooltip ttip-filter">Select end date of the NCR</span>
                         </div>
                     </div>
@@ -192,17 +192,17 @@
 
                                 <label for="status-no">
                                     <input type="radio" class="radio-btn" name="status" id="status-no"
-                                        value="incomplete" tabindex="11"> Open
+                                        value="incomplete" tabindex="12"> Open
                                 </label>
 
                                 <label for="status-yes">
                                     <input type="radio" class="radio-btn" name="status" id="status-yes"
-                                        value="completed" tabindex="10"> Closed
+                                        value="completed" tabindex="13"> Closed
                                 </label>
 
                                 <label for="status-archived">
                                     <input type="radio" class="radio-btn" name="status" id="status-archived"
-                                        value="archived" tabindex="10"> Archived <!-- correct tab index-->
+                                        value="archived" tabindex="14"> Archived <!-- correct tab index-->
                                 </label>
 
                                 <span class="tooltip">Select the status of the report: Open, Closed, or Archived.</span>
@@ -215,7 +215,7 @@
                 <div></div>
                 <div>
                     <div class="tooltip-container">
-                        <button id="btn-reset" tabindex="12">Reset</button>
+                        <button id="btn-reset" tabindex="13">Reset</button>
                         <span class="tooltip ttip-btn-reset">Click to reset all filters</span>
                     </div>
                 </div>
@@ -249,7 +249,7 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="13">Privacy
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
                 Policy</a>
         </p>
     </footer>

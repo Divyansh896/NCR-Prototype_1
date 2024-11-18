@@ -2908,13 +2908,10 @@ td button:focus {
 /* Show a focus outline for all focusable elements */
 :focus {
     outline: 2px solid black; /* Black outline for better visibility */
-    outline-offset: 4px; /* Adds space between the element and the outline */
 }
 
 /* Specific focus styles for form elements */
 input:focus, button:focus, select:focus, textarea:focus {
     border: 2px solid black; /* Add a subtle black border */
-    background-color: #f0f0f0; /* Light gray background to highlight the element */
-    box-shadow: 0 0 3px black; /* Optional: subtle shadow around the element for more focus visibility */
-}
+}  
 
