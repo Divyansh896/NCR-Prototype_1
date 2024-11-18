@@ -19,6 +19,74 @@ const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 setNotificationText()
+document.addEventListener("DOMContentLoaded", () => {
+    // Attempt to retrieve the report index from sessionStorage
+    const reportIndexStr = sessionStorage.getItem("editReportIndex");
+
+    const reportIndex = parseInt(reportIndexStr, 10);
+
+    if (!isNaN(reportIndex)) {
+        // Clear the index after using it, so it doesn't persist
+        sessionStorage.removeItem("editReportIndex");
+
+        // Retrieve saved reports from localStorage
+        const savedReports = JSON.parse(localStorage.getItem("savedNCRsQa")) || [];
+        
+        // Check if the index is within the bounds of the savedReports array
+        if (reportIndex >= 0 && reportIndex < savedReports.length) {
+            const reportData = savedReports[reportIndex];
+
+            // Prefill data into the form fields
+            document.getElementById("ncr-no-generated").value = reportData.ncr_no || "";
+            document.getElementById("sales-order-no").value = reportData.sales_order_no || "";
+            document.getElementById("quantity-received").value = reportData.quantity_received || "";
+            document.getElementById("quantity-defective").value = reportData.quantity_defective || "";
+            document.getElementById("supplier-name").value = reportData.supplier_name || "";
+            document.getElementById("product-no").value = reportData.product_no || "";
+
+            // Prefill radio buttons for 'process'
+            if (reportData.process) {
+                const processRadio = document.getElementsByName("process");
+                processRadio.forEach(option => {
+                    if (option.value === reportData.process) {
+                        option.checked = true;
+                        option.parentElement.classList.add('checked');
+                    }
+                });
+            }
+
+            // Prefill textarea fields
+            document.getElementById("description-item").value = reportData.description_item || "";
+            document.getElementById("description-defect").value = reportData.description_defect || "";
+
+            // Prefill radio buttons for 'item_marked_nonconforming'
+            if (reportData.item_marked_nonconforming) {
+                const itemMarkedRadio = document.getElementsByName("item_marked_nonconforming");
+                itemMarkedRadio.forEach(option => {
+                    if (option.value === reportData.item_marked_nonconforming) {
+                        option.checked = true;
+                        option.parentElement.classList.add('checked');
+                    }
+                });
+            }
+
+            // Prefill media files as a list of names or thumbnails
+            const mediaList = document.getElementById("media-list");
+            mediaList.innerHTML = ""; // Clear any existing items
+            if (reportData.media && Array.isArray(reportData.media)) {
+                reportData.media.forEach(mediaItem => {
+                    const listItem = document.createElement("li");
+                    listItem.textContent = mediaItem.name; // Display the file name
+                    mediaList.appendChild(listItem);
+                });
+            }
+        } else {
+            console.warn("Invalid report index or no saved report data found.");
+        }
+    } else {
+        console.warn("No report index provided to continue editing.");
+    }
+});
 
 // Get the modal
 const modal = document.getElementById("popup");
@@ -984,3 +1052,83 @@ function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) 
         }
     };
 }
+
+function saveReportData() {
+    // Collect data from each input field
+    const reportData = {
+        ncr_no: document.getElementById("ncr-no-generated").value,
+        sales_order_no: document.getElementById("sales-order-no").value,
+        quantity_received: document.getElementById("quantity-received").value,
+        quantity_defective: document.getElementById("quantity-defective").value,
+        supplier_name: document.getElementById("supplier-name").value,
+        product_no: document.getElementById("product-no").value,
+        process: document.querySelector('input[name="process"]:checked')?.value || "",
+        description_item: document.getElementById("description-item").value,
+        description_defect: document.getElementById("description-defect").value,
+        item_marked_nonconforming: document.querySelector('input[name="item_marked_nonconforming"]:checked')?.value || "",
+        media: [], // Initialize an empty array for media
+        date_of_saved: new Date().toLocaleDateString()
+    };
+
+    // Handle media uploads and save as Base64
+    const mediaInput = document.getElementById("media-input");
+    const mediaFiles = mediaInput.files;
+
+    if (mediaFiles.length > 0) {
+        const fileReaders = [];
+        for (let i = 0; i < mediaFiles.length; i++) {
+            const file = mediaFiles[i];
+            const reader = new FileReader();
+
+            // Define what happens when file reader has read the file
+            reader.onload = function(event) {
+                reportData.media.push({
+                    name: file.name,
+                    type: file.type,
+                    data: event.target.result // Base64 encoded string
+                });
+
+                // Check if all files are processed
+                if (reportData.media.length === mediaFiles.length) {
+                    saveDataToLocalStorage(reportData); // Call function to save to localStorage
+                }
+            };
+
+            reader.onerror = function(error) {
+                console.error("Error reading file:", error);
+            };
+
+            // Read file as Base64
+            reader.readAsDataURL(file);
+            fileReaders.push(reader);
+        }
+    } else {
+        saveDataToLocalStorage(reportData); // Save directly if no media is selected
+    }
+}
+
+// Function to save data to localStorage
+function saveDataToLocalStorage(reportData) {
+    // Retrieve existing saved reports from localStorage
+    let savedNCRsQa = JSON.parse(localStorage.getItem("savedNCRsQa")) || [];
+
+    // Check if a report with the same NCR No. already exists
+    const existingReportIndex = savedNCRsQa.findIndex(report => report.ncr_no === reportData.ncr_no);
+
+    if (existingReportIndex !== -1) {
+        // If it exists, update the existing report
+        savedNCRsQa[existingReportIndex] = reportData;
+    } else {
+        // If it doesn't exist, add as a new report
+        savedNCRsQa.push(reportData);
+    }
+
+    // Save the updated reports array back to localStorage
+    localStorage.setItem("savedNCRsQa", JSON.stringify(savedNCRsQa));
+
+    alert("Report saved successfully!");
+}
+
+// Attach the save function to the save button
+document.getElementById("save1").addEventListener("click", saveReportData);
+document.getElementById("save2").addEventListener("click", saveReportData);

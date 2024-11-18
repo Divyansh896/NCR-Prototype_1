@@ -73,7 +73,7 @@ function prefillFormFromSavedData(savedData) {
 
     // Prefill Drawing Required Radio Button
     if (savedData.drawingRequired) {
-        console.log("Prefilling Drawing Required with:", savedData.drawingRequired); // Debugging output
+
         const drawingRequiredOptions = document.getElementsByName("drawing-required");
         drawingRequiredOptions.forEach(option => {
             if (option.value === savedData.drawingRequired) {
@@ -85,7 +85,7 @@ function prefillFormFromSavedData(savedData) {
 
     // Prefill Customer Notification Needed Radio Button
     if (savedData.customerNotification) {
-        console.log("Prefilling Customer Notification with:", savedData.customerNotification); // Debugging output
+
         const customerNotifOptions = document.getElementsByName("customer-notif");
         customerNotifOptions.forEach(option => {
             if (option.value === savedData.customerNotification) {

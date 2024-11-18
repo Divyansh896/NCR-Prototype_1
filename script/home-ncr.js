@@ -88,8 +88,18 @@ function initializeButtons() {
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
         });
+        
 
         // Update the link's href
+        
+
+        btnSaved.addEventListener('click', () => {
+            showTab('saved');
+        
+            displaySavedReportsQa();
+            console.log(JSON.parse(localStorage.getItem("savedNCRsQa")))
+        });
+
         const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
         if (ncrLink) {
             ncrLink.href = `create_NCR.html?ncr_no=${nextNcrNumber}`;
@@ -105,6 +115,19 @@ function initializeButtons() {
             const queryString = createQueryString(ncr[0]);
             window.location.href = `current_NCR.html?${queryString}`;
         });
+    }
+
+    if(user.role === 'Lead Engineer'){
+
+        //listing different saved NCRs for each role
+        btnSaved.addEventListener('click', () => {
+            showTab('saved');
+        
+            displaySavedReportsEng();
+            console.log(JSON.parse(localStorage.getItem("savedNCRs")))
+        });
+
+
     }
 
     btnView.addEventListener('click', () => {
@@ -405,7 +428,7 @@ function displayPinnedReports() {
     });
 }
 
-function displaySavedReports() {
+function displaySavedReportsEng() {
     const container = document.getElementById("savedReportsContainer");
     container.innerHTML = ''; // Clear previous content
 
@@ -429,8 +452,8 @@ function displaySavedReports() {
         reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`;
 
         // "Continue Editing" Button
-        const continueButton = document.createElement('button');
-        continueButton.classList.add('continue-button');
+        const continueButton = document.createElement('button-eng');
+        continueButton.classList.add('continue-button-eng');
         continueButton.textContent = "Continue Editing";
 
         // Button click event to navigate to form page with pre-filled data
@@ -451,6 +474,57 @@ function displaySavedReports() {
     });
 }
 
+function displaySavedReportsQa() {
+    const container = document.getElementById("savedReportsContainer");
+    container.innerHTML = ''; // Clear previous content
+
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRsQa')) || [];
+
+    if (savedNCRs.length === 0) {
+        container.innerHTML = '<p>No saved reports available.</p>';
+        return;
+    }
+
+    savedNCRs.forEach((ncr, index) => { 
+        const reportCard = document.createElement('div');
+        reportCard.classList.add('report-card');
+
+        const supplierName = document.createElement('span');
+        supplierName.classList.add('supplier-name');
+        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier';
+
+        const reportInfo = document.createElement('span');
+        reportInfo.classList.add('reportInfo');
+        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.description_item.substring(0, 80) || 'No Description Available'}...`;
+
+        // "Continue Editing" Button
+        const continueButton = document.createElement('button');
+        continueButton.classList.add('continue-button-qa');
+        continueButton.textContent = "Continue Editing";
+
+        // Attach click event to each button with the correct index
+        continueButton.addEventListener('click', () => {
+            // Set the editReportIndex in sessionStorage
+            sessionStorage.setItem("editReportIndex", index);
+            console.log("Set editReportIndex to:", index); // Check that index is set
+
+            // Verify the value immediately after setting
+            const checkIndex = sessionStorage.getItem("editReportIndex");
+            console.log("Check editReportIndex immediately after setting:", checkIndex);
+
+            // Delay to ensure the value is set in sessionStorage
+            setTimeout(() => {
+                window.location.href = "create_NCR.html"; // Redirect to Create NCR page
+            }, 100); // Short delay to ensure sessionStorage writes
+        });
+
+        reportCard.appendChild(supplierName);
+        reportCard.appendChild(reportInfo);
+        reportCard.appendChild(continueButton);
+
+        container.appendChild(reportCard);
+    });
+}
 
 // Initialize tab buttons
 btnRecent.addEventListener('click', () => {
@@ -463,12 +537,7 @@ btnPinned.addEventListener('click', () => {
 
     displayPinnedReports(); // Ensure pinned reports are displayed when tab is clicked
 });
-btnSaved.addEventListener('click', () => {
-    showTab('saved');
 
-    displaySavedReports(); // Ensure pinned reports are displayed when tab is clicked
-    console.log(JSON.parse(localStorage.getItem("savedNCRs")))
-});
 
 function showTab(tab) {
     // Hide all panels
