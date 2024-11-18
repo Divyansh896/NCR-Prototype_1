@@ -175,7 +175,7 @@
                     </div>
                     <h2> Add New Supplier</h2>
                 </div>
-                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
+                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required tabindex="6"/>
                 <button id="addSupplierButton">Add Supplier</button>
             </div>
         </div>
@@ -280,8 +280,8 @@
                                             <div class="tooltip-container">
                                                 <label class="radio-button">
                                                     <input type="radio" id="supplier" name="process"
-                                                        value="Supplier or Rec-Insp" class="hidden-checkbox"
-                                                        onclick="toggleCheck(this)">
+                                                        value="Supplier or Rec-Insp" class="hidden-checkbox" 
+                                                        onclick="toggleCheck(this)" tabindex="13">
                                                     Supplier or Rec-Insp
                                                 </label>
                                                 <span class="tooltip">Click to select Supplier or Rec-Insp
@@ -293,7 +293,7 @@
                                                 <label class="radio-button">
                                                     <input type="radio" id="wip" name="process"
                                                         value="WIP (Production order)" class="hidden-checkbox"
-                                                        onclick="toggleCheck(this)">
+                                                        onclick="toggleCheck(this)" tabindex="14">
                                                     WIP (Production order)
                                                 </label>
                                                 <span class="tooltip">Click to select WIP (Production order)
@@ -356,7 +356,7 @@
                                             <label class="radio-button">
                                                 <input type="radio" id="item-marked-yes"
                                                     name="item_marked_nonconforming" value="yes" class="hidden-radio"
-                                                    onclick="toggleRadio(this)">
+                                                    onclick="toggleRadio(this)" tabindex="19">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Select 'Yes' if the item is marked as
@@ -367,7 +367,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" id="item-marked-no" name="item_marked_nonconforming"
-                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)" tabindex="20">
                                                 No
                                             </label>
                                             <span class="tooltip">Select 'No' if the item is not marked as
@@ -397,9 +397,9 @@
 
                             </div>
                             <div class="btn-qa-create">
-                                <button type="button" id="back-btn1" tabindex="21">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="22">Clear</button>
-                                <button type="button" id="next-btn2" tabindex="22">Next</button>
+                                <button type="button" id="back-btn1" tabindex="19">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="20">Clear</button>
+                                <button type="button" id="next-btn2" tabindex="21">Next</button>
                             </div>
                         </fieldset>
 
@@ -429,9 +429,9 @@
 
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
-                                    tabindex="21">Back</button>
+                                    tabindex="22">Back</button>
                                 <button type="submit" id="submit-btn" aria-label="Submit the form"
-                                    tabindex="25">Submit</button>
+                                    tabindex="23">Submit</button>
                             </div>
                         </fieldset>
                     </form>
@@ -443,7 +443,7 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="27">Privacy
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="24">Privacy
                 Policy</a>
         </p>
     </footer>
