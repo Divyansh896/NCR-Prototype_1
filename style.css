@@ -2935,3 +2935,14 @@ td button:focus {
         height: 60px;
     }
 }
+
+/* Show a focus outline for all focusable elements */
+:focus {
+    outline: 2px solid black; /* Black outline for better visibility */
+}
+
+/* Specific focus styles for form elements */
+input:focus, button:focus, select:focus, textarea:focus {
+    border: 2px solid black; /* Add a subtle black border */
+}  
+

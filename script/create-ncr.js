@@ -221,14 +221,32 @@ starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
 
+// document.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//         const activeElement = document.activeElement;
+//         if (activeElement.type === 'radio') {
+//             activeElement.click(); // Programmatically click the radio button
+//         }
+//         if (activeElement.type === 'checkbox') {
+//             activeElement.click()
+//         }
+//     }
+// });
+
+// Add keyboard navigation functionality
 document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        const activeElement = document.activeElement;
-        if (activeElement.type === 'radio') {
-            activeElement.click(); // Programmatically click the radio button
-        }
-        if (activeElement.type === 'checkbox') {
-            activeElement.click()
+    // Check if the focused element is a radio button label
+    const focusedElement = document.activeElement;
+
+    if (focusedElement && focusedElement.classList.contains('radio-button')) {
+        // Check if "Enter" key is pressed
+        if (event.key === 'Enter') {
+            const radio = focusedElement.querySelector('input[type="radio"]');
+            if (radio) {
+                // Simulate a click on the radio button
+                radio.click();
+                toggleRadio(radio);
+            }
         }
     }
 });
@@ -374,15 +392,18 @@ if (user.role === 'QA Inspector') {
     document.getElementById("submit-btn").addEventListener("click", (e) => {
         e.preventDefault(); // Prevent default form submission
 
-        // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
-            // This callback will execute after the popup is closed
-            submitForm(user.role); // Call the form submission
-            sendMail(); // Call the email sending function
-            window.location.href = "Dashboard.html"; // Redirect to home.html
+        if(validateSection1()&&validateSection2){
 
-            sendNotification(ncrNumber)
-        });
+            // Show the popup and wait for it to close
+            showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
+                // This callback will execute after the popup is closed
+                submitForm(user.role); // Call the form submission
+                sendMail(); // Call the email sending function
+                window.location.href = "Dashboard.html"; // Redirect to home.html
+    
+                sendNotification(ncrNumber)
+            });
+        }
     });
 
     // Clear fields in Section 1

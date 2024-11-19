@@ -91,12 +91,13 @@ function showRequiredFields() {
 
 // Submit button event listener
 document.getElementById('submit-btn').addEventListener('click', (e) => {
+    e.preventDefault()
     if (!showRequiredFields()) {
-        e.preventDefault(); // Prevent form submission if invalid
-        alert("Please fill in the required fields before submitting.")
+        // e.preventDefault(); // Prevent form submission if invalid
+        showPopup("Required Field missing","Please fill in the required fields before submitting.", "images/1382678.webp")
     } else {
 
-        alert("Credentials updated  successfully.")
+        showPopup("Credentials updated", "You credentials has been updated successfully.", "images/confirmationIcon.webp")
     }
 });
 
@@ -222,3 +223,49 @@ function updateToolContent(){
 }
 
 updateToolContent()
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
+setNotificationText()
+document.getElementById("clear").addEventListener("click", function () {
+    document.querySelector("form").reset();
+});
+
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content');
+    modalContent.querySelector('h2').innerText = title; // Set the title
+    modalContent.querySelector('p').innerText = message; // Set the message
+
+    const iconDiv = document.querySelector('.icon');
+    // Clear previous icons
+    iconDiv.innerHTML = '';
+    const imgElement = document.createElement('img');
+    imgElement.src = icon; // Replace with your image URL
+    iconDiv.appendChild(imgElement);
+
+    modal.style.display = "block"; // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1"; // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
+    }, 10); // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0"; // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none"; // Hide the modal after transition
+            callback(); // Execute the callback after closing the modal
+        }, 500); // Wait for the transition to finish before hiding
+    };
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal;
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal();
+        }
+    };
+}
