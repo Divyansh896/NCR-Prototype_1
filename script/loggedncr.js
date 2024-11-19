@@ -202,6 +202,16 @@ document.addEventListener('DOMContentLoaded', () => {
         hideLeaveConfirmationModal(); // Simply hide the modal
     });
 
+    closeModal.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+    
+    leaveConfirmationModal.addEventListener('click', (event) => {
+        if (event.target === leaveConfirmationModal) {
+            hideLeaveConfirmationModal();
+        }
+    });
+
     // Attach click event listener to all links
     document.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', (event) => {

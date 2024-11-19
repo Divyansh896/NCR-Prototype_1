@@ -94,6 +94,10 @@ h1 {
     font-size: 1.5rem;
 }
 
+.modal-buttons button{
+    margin: 10px;
+}
+
 
 /*header*/
 header {
@@ -371,7 +375,8 @@ nav ul a {
     text-align: left;
 }
 
-.report-card {
+.report-card,
+.report-card-saved {
     display: flex;
     gap: 1em;
     padding: 0.5em;
@@ -383,8 +388,8 @@ nav ul a {
     transition: all 0.2s ease;
     margin-bottom: 3px;
     justify-content: left;
-    flex-direction: column;
     align-items: flex-start;
+    align-items: center;
 }
 
 .reportInfo {
@@ -396,13 +401,16 @@ nav ul a {
     background-color: #e2dfdf;
 }
 
-.report-card .supplier-name {
+.report-card .supplier-name, .report-card-saved .supplier-name{
     font-weight: bold;
 }
 
 .report-card .report-date,
 .report-card .report-number,
-.report-card .report-description {
+.report-card .report-description,
+.report-card-saved .report-date,
+.report-card-saved .report-number,
+.report-card-saved .report-description{
     color: #666;
 }
 
@@ -596,7 +604,8 @@ fieldset legend {
 }
 
 .form-section.active button,
-.btns-supplier button {
+.btns-supplier button
+ {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -604,9 +613,19 @@ fieldset legend {
     width: 95%;
 }
 
-.form-section.active button:hover {
+.form-section.active button:hover, #saveAndLeaveBtn:hover{
     background-color: #10223d;
 }
+
+#saveAndLeaveBtn
+
+{
+    background-color: #1a3153;
+    color: #f4f4f4;
+    margin: 10px 10px;
+    height: 40px;
+}
+
 
 #clear-btn1,
 #clear-btn2,
@@ -615,7 +634,11 @@ fieldset legend {
 #logoutBtn,
 #btn-clear,
 #save1,
-#save2 {
+#save2,
+#leaveWithoutSavingBtn,
+#cancelBtn,
+.continue-button-qa,
+.continue-button-eng {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -628,8 +651,16 @@ fieldset legend {
 #logoutBtn:hover,
 #btn-clear:hover,
 #save1:hover,
-#save2:hover {
+#save2:hover,
+#leaveWithoutSavingBtn:hover,
+#cancelBtn:hover,
+.continue-button-qa:hover,
+.continue-button-eng:hover {
     background-color: #e0e0e0;
+}
+.continue-button-qa,
+.continue-button-eng{
+    font-size: 14.4px;
 }
 
 .form-section p {
@@ -2252,7 +2283,7 @@ td button:focus {
     }
 
     .report-card {
-        height: 40px;
+        height: 60px;
         align-items: center;
     }
 
