@@ -160,6 +160,17 @@
             </div>
         </div>
 
+        <div id="leaveConfirmationModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Are you sure you want to leave without saving?</h2>
+                <div class="modal-buttons">
+                    <button id="saveAndLeaveBtn">Save & Leave</button>
+                    <button id="leaveWithoutSavingBtn">Leave Without Saving</button>
+                    <button id="cancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
 
 
         <div id="supplierModal">
@@ -437,7 +448,7 @@
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
                                     tabindex="27">Back</button>
-                                <button type="submit" id="submit-btn" aria-label="Submit the form"
+                                <button id="submit-btn" aria-label="Submit the form"
                                     tabindex="28">Submit</button>
                             </div>
                         </fieldset>

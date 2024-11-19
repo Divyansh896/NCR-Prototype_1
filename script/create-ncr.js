@@ -91,6 +91,91 @@ document.addEventListener("DOMContentLoaded", () => {
 // Get the modal
 const modal = document.getElementById("popup");
 
+document.addEventListener('DOMContentLoaded', () => {
+    let isModalOpen = false;
+    let pendingNavigationURL = null;
+    let allowNavigation = false;
+
+    // Get elements
+    const leaveConfirmationModal = document.getElementById('leaveConfirmationModal');
+    const saveAndLeaveBtn = document.getElementById('saveAndLeaveBtn');
+    const leaveWithoutSavingBtn = document.getElementById('leaveWithoutSavingBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Function to show the modal
+    function showLeaveConfirmationModal(url) {
+        leaveConfirmationModal.style.display = 'block'; // Set display to block to make modal visible
+        pendingNavigationURL = url; // Store the URL the user wanted to navigate to
+
+        // Add a slight delay before making the modal fully opaque to trigger CSS transition
+        setTimeout(() => {
+            leaveConfirmationModal.querySelector('.modal-content').style.opacity = '1';
+            leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 10); // Small delay for transition to apply
+
+        isModalOpen = true;
+    }
+
+    // Function to hide the modal
+    function hideLeaveConfirmationModal() {
+        leaveConfirmationModal.querySelector('.modal-content').style.opacity = '0';
+        leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(0.95)';
+
+        // Wait for the transition to finish before actually hiding the modal
+        setTimeout(() => {
+            leaveConfirmationModal.style.display = 'none';
+        }, 500); // Match the transition duration in your CSS
+
+        isModalOpen = false;
+    }
+    closeModal.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+    
+    leaveConfirmationModal.addEventListener('click', (event) => {
+        if (event.target === leaveConfirmationModal) {
+            hideLeaveConfirmationModal();
+        }
+    });
+
+    // Attach the event listener for "Save and Leave" button
+    saveAndLeaveBtn.addEventListener('click', () => {
+        saveReportData(); // Save the current data
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Leave Without Saving" button
+    leaveWithoutSavingBtn.addEventListener('click', () => {
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Cancel" button
+    cancelBtn.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+
+
+    // Attach click event listener to all links
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default navigation
+            showLeaveConfirmationModal(link.href); // Show the custom modal with the link URL
+        });
+    });
+
+    // Attach the "beforeunload" event listener
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+});
+
+
 // Get the <span> element that closes the modal
 const span = document.getElementById("closePopup");
 // Get the input elements
@@ -136,14 +221,32 @@ starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
 
+// document.addEventListener('keydown', function (event) {
+//     if (event.key === 'Enter') {
+//         const activeElement = document.activeElement;
+//         if (activeElement.type === 'radio') {
+//             activeElement.click(); // Programmatically click the radio button
+//         }
+//         if (activeElement.type === 'checkbox') {
+//             activeElement.click()
+//         }
+//     }
+// });
+
+// Add keyboard navigation functionality
 document.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        const activeElement = document.activeElement;
-        if (activeElement.type === 'radio') {
-            activeElement.click(); // Programmatically click the radio button
-        }
-        if (activeElement.type === 'checkbox') {
-            activeElement.click()
+    // Check if the focused element is a radio button label
+    const focusedElement = document.activeElement;
+
+    if (focusedElement && focusedElement.classList.contains('radio-button')) {
+        // Check if "Enter" key is pressed
+        if (event.key === 'Enter') {
+            const radio = focusedElement.querySelector('input[type="radio"]');
+            if (radio) {
+                // Simulate a click on the radio button
+                radio.click();
+                toggleRadio(radio);
+            }
         }
     }
 });
@@ -289,15 +392,18 @@ if (user.role === 'QA Inspector') {
     document.getElementById("submit-btn").addEventListener("click", (e) => {
         e.preventDefault(); // Prevent default form submission
 
-        // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
-            // This callback will execute after the popup is closed
-            submitForm(user.role); // Call the form submission
-            sendMail(); // Call the email sending function
-            window.location.href = "Dashboard.html"; // Redirect to home.html
+        if(validateSection1()&&validateSection2){
 
-            sendNotification(ncrNumber)
-        });
+            // Show the popup and wait for it to close
+            showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
+                // This callback will execute after the popup is closed
+                submitForm(user.role); // Call the form submission
+                sendMail(); // Call the email sending function
+                window.location.href = "Dashboard.html"; // Redirect to home.html
+    
+                sendNotification(ncrNumber)
+            });
+        }
     });
 
     // Clear fields in Section 1

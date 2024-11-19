@@ -29,7 +29,23 @@ userName.innerHTML = `${user.firstname}  ${user.lastname}`
 const queryParams = new URLSearchParams(window.location.search)
 loadData(queryParams)
 // console.log(savedData)
+// Add keyboard navigation functionality
+document.addEventListener('keydown', function (event) {
+    // Check if the focused element is a radio button label
+    const focusedElement = document.activeElement;
 
+    if (focusedElement && focusedElement.classList.contains('radio-button')) {
+        // Check if "Enter" key is pressed
+        if (event.key === 'Enter') {
+            const radio = focusedElement.querySelector('input[type="radio"]');
+            if (radio) {
+                // Simulate a click on the radio button
+                radio.click();
+                toggleRadio(radio);
+            }
+        }
+    }
+});
 const params = new URLSearchParams(window.location.search);
 const ncrNo = params.get('ncr_no');
 document.addEventListener("DOMContentLoaded", () => {
@@ -200,6 +216,16 @@ document.addEventListener('DOMContentLoaded', () => {
     // Attach the event listener for "Cancel" button
     cancelBtn.addEventListener('click', () => {
         hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+
+    closeModal.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+    
+    leaveConfirmationModal.addEventListener('click', (event) => {
+        if (event.target === leaveConfirmationModal) {
+            hideLeaveConfirmationModal();
+        }
     });
 
     // Attach click event listener to all links

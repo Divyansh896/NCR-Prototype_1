@@ -441,7 +441,7 @@ function displaySavedReportsEng() {
 
     savedNCRs.forEach(ncr => {
         const reportCard = document.createElement('div');
-        reportCard.classList.add('report-card');
+        reportCard.classList.add('report-card-saved');
 
         const supplierName = document.createElement('span');
         supplierName.classList.add('supplier-name');
@@ -452,7 +452,7 @@ function displaySavedReportsEng() {
         reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`;
 
         // "Continue Editing" Button
-        const continueButton = document.createElement('button-eng');
+        const continueButton = document.createElement('button');
         continueButton.classList.add('continue-button-eng');
         continueButton.textContent = "Continue Editing";
 
@@ -469,7 +469,7 @@ function displaySavedReportsEng() {
         reportCard.appendChild(supplierName);
         reportCard.appendChild(reportInfo);
         reportCard.appendChild(continueButton); // Append the button to the card
-
+        
         container.appendChild(reportCard);
     });
 }
@@ -487,7 +487,7 @@ function displaySavedReportsQa() {
 
     savedNCRs.forEach((ncr, index) => { 
         const reportCard = document.createElement('div');
-        reportCard.classList.add('report-card');
+        reportCard.classList.add('report-card-saved');
 
         const supplierName = document.createElement('span');
         supplierName.classList.add('supplier-name');
