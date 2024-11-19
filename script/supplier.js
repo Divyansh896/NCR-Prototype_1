@@ -52,9 +52,15 @@ document.getElementById("submit-btn").addEventListener('click', function (e) {
         shippingmethod.nextElementSibling.style.display = "block"
         shippingmethod.nextElementSibling.textContent = "Shipping method name is required !"
     }
-    else{
-        showPopup('Confirmation', 'Supplier Added Successfully.', 'images/confirmationIcon.webp')
+
+    if (suppliername.value !== "" && address.value !== "" && city.value !== "" && country.value !== "" && postalcode.value !== "" && contact.value !== "" && shippingmethod.value !== "") {
+        // All fields have a value, proceed with further logic
+        showPopup('Confirmation', 'All fields are filled correctly.', 'images/confirmationIcon.webp');
+    } else {
+        // At least one field is empty, show an error or prompt
+        showPopup('Required fields missing', 'Please fill in all the required fields.', 'images/1382678.webp');
     }
+    
 })
 //event for clear button
 document.getElementById("btn-clear").addEventListener('click', function () {
