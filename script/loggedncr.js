@@ -1,5 +1,6 @@
-
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
+// Gettting JSON Data from the local storage
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const savedData = JSON.parse(localStorage.getItem('savedNCRs'));
 const nextBtn1 = document.getElementById("next-btn1")
@@ -21,7 +22,6 @@ const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
 
-const nextReport = JSON.parse(localStorage.getItem('nextReport'));
 
 // Get the modal
 const userName = document.getElementById('userName');
@@ -846,7 +846,7 @@ function sendNotification(ncrNum) {
 function sendMail() {
     const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
     const subject = encodeURIComponent('Request for Purchasing/Operations Department Details for NCR'); // Subject of the email
-    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${nextReport.ncr_no}. At this stage, we kindly request you to provide the necessary details from the Purchasing/Operations Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\Engineering Department\nCrossfire NCR`);
+    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${ncrNo}. At this stage, we kindly request you to provide the necessary details from the Purchasing/Operations Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\Engineering Department\nCrossfire NCR`);
 
     // Construct the Gmail compose link
     const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
@@ -856,20 +856,8 @@ function sendMail() {
 }
 let ncrData = []
 function submitForm() {
-    const today = new Date().toISOString().slice(0, 10);  // Get current date
 
-    if (!nextReport || !ncrData) {
-        console.error("Required data (nextReport or ncrData) is missing.");
-        return;
-    }
-
-    let newEntry = {
-        "ncr_no": nextReport[0].ncr_no,
-        "status": "incomplete",
-        "qa": nextReport[0].qa, // Deep clone to avoid modifying the original
-        "engineering": {},
-        "purchasing_decision": {}
-    };
+    let ncrIndex = AllReports.findIndex(report => report.ncr_no === ncrNo);
 
     // Gather engineering department inputs
     let dispositionOption = document.querySelector('input[name="disposition-options"]:checked')?.value || null;
@@ -878,14 +866,15 @@ function submitForm() {
     // Correctly handle boolean values for checkboxes
     let drawingUpdate = document.querySelector('input[name="drawing-required"]:checked')?.checked || false;
     let customerNotification = document.querySelector('input[name="customer-notif"]:checked')?.checked || false;
-    let resolvedStatus = document.querySelector('input[name="resolved"]:checked')?.checked || false;
+// Get the resolved status from the radio button group
+let resolvedStatus = document.querySelector('input[name="resolved"]:checked')?.value === 'yes';
 
     let originalRevNumber = document.getElementById("original_rev_number")?.value || null;
     let updatedRevNumber = document.getElementById("updated_rev_number")?.value || 'Not applicable';
     let revisionDate = document.getElementById("revision_date")?.value || null;
     let engineeringReviewDate = document.getElementById("engineering_review_date")?.value || null;
-
-    newEntry.engineering = {
+    // Update the engineering data for the found NCR record
+    AllReports[ncrIndex].engineering = {
         "disposition": dispositionOption,
         "disposition_details": dispositionDetails,
         "drawing_update_required": drawingUpdate,
@@ -898,44 +887,10 @@ function submitForm() {
         "resolved": resolvedStatus
     };
 
-    // Add the new entry to the array
-    ncrData.push(newEntry);
-
-    // Store updated data in localStorage
-    localStorage.setItem('nextReport', JSON.stringify(ncrData));
-
-    // Update data from localStorage
-    updateNCRDataFromLocalStorage();
+    localStorage.setItem('AllReports', JSON.stringify(AllReports))
 
 }
 
-
-
-// Retrieve NCR data from localStorage
-function updateNCRDataFromLocalStorage() {
-    const nextReport = JSON.parse(localStorage.getItem('nextReport'));
-
-    // Fetch AllReports from the server or local storage
-    fetch('Data/ncr_reports.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch NCR reports');
-            }
-            return response.json(); // Parse the JSON response
-        })
-        .then(data => {
-            let AllReports = data || []; // Ensure data is an array, fallback to an empty array if undefined
-
-            // Append the nextReport to AllReports
-            AllReports = AllReports.concat(nextReport);
-
-            // Save the updated AllReports back to localStorage
-            localStorage.setItem('AllReports', JSON.stringify(AllReports));
-        })
-        .catch(error => {
-            console.error('Error fetching NCR reports:', error);
-        });
-}
 
 
 function saveFormData() {

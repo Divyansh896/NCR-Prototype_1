@@ -1,15 +1,22 @@
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
-const ncrNo = localStorage.getItem('ncrNo')
-const notificationlist = document.getElementById('notification-list');
-const notificationCount = document.getElementById('notification-count');
+// Gettting JSON Data from the local storage
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+const notificationlist = document.getElementById('notification-list')
+const notificationCount = document.getElementById('notification-count')
+const userName = document.getElementById('userName');
+const footer = document.getElementById('footer-scroll')
+const ncrInput = document.getElementById('ncrInput')
+const autocompleteList = document.getElementById('autocomplete-list')
+const records = document.getElementById('record-count')
+
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
+let currentFocus = -1
+
+populateTable(AllReports) // Populate table initially
 setNotificationText()
 
-function getNCRDataFromLocalStorage() {
-    const data = localStorage.getItem('AllReports');
-    return data ? JSON.parse(data) : [];
-}
-const userName = document.getElementById('userName');
-userName.innerHTML = `${user.firstname}  ${user.lastname}`
+
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role
@@ -33,31 +40,9 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
-if (ncrLink && user.role == "QA Inspector") {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
-}
 
-const nextReport = JSON.parse(localStorage.getItem('nextReport'));
 
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('Data/ncr_reports.json')
-        .then(response => response.json())
-        .then(data => {
-            ncrData = data
-            ncrData = ncrData.concat(nextReport)
-            localStorage.setItem('AllReports', JSON.stringify(ncrData))
-            populateTable(ncrData) // Populate table initially
-            document.getElementById('status-no').checked = true
-        })
-        .catch(error => console.error("An error occurred while retrieving data: ", error))
-})
 
-let ncrData = getNCRDataFromLocalStorage() // Define a variable to hold the data
-const footer = document.getElementById('footer-scroll')
-const ncrInput = document.getElementById('ncrInput')
-const autocompleteList = document.getElementById('autocomplete-list')
-const records = document.getElementById('record-count')
 
 // Smooth scroll to the top on footer click
 footer.addEventListener('click', () => {
@@ -67,8 +52,6 @@ footer.addEventListener('click', () => {
     })
 })
 
-// load the data from local storage
-populateTable(ncrData)
 
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {
@@ -100,7 +83,6 @@ function populateTable(data) {
 
     // Populate the table with resolved items
     resolvedItems.forEach(ncr => {
-        const stage = getReportStage(ncr)
         const row = document.createElement('tr');
 
         // Generate the row content
@@ -210,15 +192,15 @@ function filterNcr(ncrData) {
 }
 
 // Attach filter events
-document.getElementById('search').addEventListener('change', () => filterNcr(ncrData));
+document.getElementById('search').addEventListener('change', () => filterNcr(AllReports));
 
 
 // Attach input event for NCR number input
-document.getElementById('ncrInput').addEventListener('input', () => filterNcr(ncrData));
+document.getElementById('ncrInput').addEventListener('input', () => filterNcr(AllReports));
 
 // Attach change events for date pickers
-document.getElementById('dateFrom').addEventListener('change', () => filterNcr(ncrData));
-document.getElementById('dateTo').addEventListener('change', () => filterNcr(ncrData));
+document.getElementById('dateFrom').addEventListener('change', () => filterNcr(AllReports));
+document.getElementById('dateTo').addEventListener('change', () => filterNcr(AllReports));
 
 
 // Reset filter inputs and update table
@@ -231,13 +213,12 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     // Clear autocomplete suggestions
     autocompleteList.innerHTML = ''
 
-    filterNcr(ncrData) // Update the table after resetting filters
+    filterNcr(AllReports) // Update the table after resetting filters
 })
 
+
+
 // Autocomplete functionality
-
-let currentFocus = -1
-
 ncrInput.addEventListener('input', function () {
     const input = this.value.toUpperCase();
     const hasLetters = /[a-zA-Z]/; // Pattern to check for any letters
@@ -254,7 +235,7 @@ ncrInput.addEventListener('input', function () {
     autocompleteList.innerHTML = ''; // Clear previous suggestions
     currentFocus = -1; // Reset focus index
 
-    const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(input));
+    const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(input));
     filteredRecords.forEach((record, index) => {
         const item = document.createElement('div');
         const regex = new RegExp(input, 'gi');

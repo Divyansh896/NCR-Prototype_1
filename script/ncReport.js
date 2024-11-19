@@ -12,7 +12,11 @@ btnEdit.forEach(button => {
         editNCR(retrievedNCRData);
     });
 });
-
+function editNCR(ncr) {
+    //const data = extractData(ncr)
+    sessionStorage.setItem('data', JSON.stringify(ncr))
+    window.location.href = 'edit_Report.html' // Adjust the URL as needed
+}
 const ncrNo = localStorage.getItem('ncrNo')
 
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
@@ -55,85 +59,79 @@ document.querySelectorAll('details').forEach(details => {
     details.setAttribute('open', '') // Expand if not on Create NCR page
 })
 
-const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
-function editNCR(retrievedNCRData) {
-    // const data = extractData(ncr)
-    sessionStorage.setItem('data', JSON.stringify(retrievedNCRData))
-    window.location.href = 'edit_Report.html' // Adjust the URL as needed
-}
-function setSpanContentFromSession() {
-    // Retrieve values from session storage for each department
 
+const retrievedNCRData = JSON.parse(sessionStorage.getItem('data')) || {};
+console.log(retrievedNCRData)
+function setSpanContentFromSession() {
+    // Retrieve data from session storage
 
     // Set QA data to spans and inputs
-    document.getElementById('supplier-name').textContent = retrievedNCRData['supplier_name'] || ''
-    document.getElementById('product-no').textContent = retrievedNCRData['product_no'] || ''
-    document.getElementById('sales-order-no').textContent = retrievedNCRData['sales_order_no'] || ''
-    document.getElementById('description-item').textContent = retrievedNCRData['item_description'] || ''
-    document.getElementById('quantity-received').textContent = retrievedNCRData['quantity_received'] || ''
-    document.getElementById('quantity-defective').textContent = retrievedNCRData['quantity_defective'] || ''
-    document.getElementById('description-defect').textContent = retrievedNCRData['description_of_defect'] || ''
+    document.getElementById('supplier-name').textContent = retrievedNCRData.qa?.supplier_name || '';
+    document.getElementById('product-no').textContent = retrievedNCRData['qa']?.po_no || '';
+    document.getElementById('sales-order-no').textContent = retrievedNCRData['qa']?.sales_order_no || '';
+    document.getElementById('description-item').textContent = retrievedNCRData['qa']?.item_description || '';
+    document.getElementById('quantity-received').textContent = retrievedNCRData['qa']?.quantity_received || 0;
+    document.getElementById('quantity-defective').textContent = retrievedNCRData['qa']?.quantity_defective || 0;
+    document.getElementById('description-defect').textContent = retrievedNCRData['qa']?.description_of_defect || '';
 
     // Handle Non-Conforming Item marked spans
-    if (retrievedNCRData['item_marked_nonconforming'] === true) {
-        document.getElementById('item-marked-yes').textContent = 'Yes'
-        document.getElementById('item-marked-no').textContent = '' // Clear 'No'
-    } else if (retrievedNCRData['item_marked_nonconforming'] === false) {
-        document.getElementById('item-marked-no').textContent = 'No'
-        document.getElementById('item-marked-yes').textContent = '' // Clear 'Yes'
+    if (retrievedNCRData['qa']?.item_marked_nonconforming === true) {
+        document.getElementById('item-marked-yes').textContent = 'Yes';
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
+    } else if (retrievedNCRData['qa']?.item_marked_nonconforming === false) {
+        document.getElementById('item-marked-no').textContent = 'No';
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
     } else {
-        document.getElementById('item-marked-yes').textContent = '' // Clear 'Yes'
-        document.getElementById('item-marked-no').textContent = '' // Clear 'No'
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
     }
 
-    document.getElementById('qa-name').textContent = retrievedNCRData['quality_representative_name'] || ''
-    document.getElementById('qa-date').textContent = retrievedNCRData['date'] || ''
-    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || ''
+    document.getElementById('qa-name').textContent = retrievedNCRData['qa']?.quality_representative_name || '';
+    document.getElementById('qa-date').textContent = retrievedNCRData['qa']?.date || '';
+    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa']?.resolved === true ? 'Yes' : 'No';
+    document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || '';
 
-    if (retrievedNCRData['supplier_or_rec_insp'] == true) {
-
-        document.getElementById('qa-process').textContent = 'Supplier or rec insp' // Ensure correct value
+    if (retrievedNCRData['qa']?.process?.supplier_or_rec_insp == true) {
+        document.getElementById('qa-process').textContent = 'Supplier or rec insp'; // Ensure correct value
     } else {
-
-        document.getElementById('qa-process').textContent = 'Wip production order' // Check if this is intended
+        document.getElementById('qa-process').textContent = 'Wip production order'; // Check if this is intended
     }
 
     // Set Engineering data to spans and inputs
-    document.getElementById('engineer-name').textContent = retrievedNCRData['engineer_name'] || ''
-    document.getElementById('disposition').textContent = retrievedNCRData['disposition'] || '' // Set select value
-    document.getElementById('disposition-details').textContent = retrievedNCRData['disposition_details'] || ''
-    document.getElementById('original-rev-number').textContent = retrievedNCRData['original_rev_number'] || ''
-    document.getElementById('updated-rev-number').textContent = retrievedNCRData['updated_rev_number'] || ''
-    document.getElementById('revision-date').textContent = retrievedNCRData['revision_date'] || '' // Set date input value
-    document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering_review_date'] || '' // Set date input value
-    document.getElementById('eng-resolved').textContent = retrievedNCRData['eng_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('customer-notification').textContent = retrievedNCRData['customer_notification_required'] === true ? 'Yes' : 'No'
-    document.getElementById('drawing-update-required').textContent = retrievedNCRData['drawing_update_required'] === true ? 'Yes' : 'No'
+    document.getElementById('engineer-name').textContent = retrievedNCRData['engineering']?.engineer_name || '';
+    document.getElementById('disposition').textContent = retrievedNCRData['engineering']?.disposition || ''; // Set select value
+    document.getElementById('disposition-details').textContent = retrievedNCRData['engineering']?.disposition_details || '';
+    document.getElementById('original-rev-number').textContent = retrievedNCRData['engineering']?.original_rev_number || '';
+    document.getElementById('updated-rev-number').textContent = retrievedNCRData['engineering']?.updated_rev_number || '';
+    document.getElementById('revision-date').textContent = retrievedNCRData['engineering']?.revision_date || ''; // Set date input value
+    document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering']?.engineering_review_date || ''; // Set date input value
+    document.getElementById('eng-resolved').textContent = retrievedNCRData['engineering']?.eng_resolved === true ? 'Yes' : 'No';
+    document.getElementById('customer-notification').textContent = retrievedNCRData['engineering']?.customer_notification_required === true ? 'Yes' : 'No';
+    document.getElementById('drawing-update-required').textContent = retrievedNCRData['engineering']?.drawing_update_required === true ? 'Yes' : 'No';
 
     // Set Purchasing data to spans and inputs
-    document.getElementById('preliminary-decision').textContent = retrievedNCRData['preliminary_decision'] || ''
-    const dispositionOptions = retrievedNCRData['options'] || {}
+    document.getElementById('preliminary-decision').textContent = retrievedNCRData['purchasing_decision']?.preliminary_decision || '';
+    
+    const dispositionOptions = retrievedNCRData['purchasing_decision']?.options || {};
     for (const [key, value] of Object.entries(dispositionOptions)) {
         if (value === true) {
-            document.getElementById('options').textContent = key.replace(/_/g, ' ') // Replace underscores with spaces for readability
-            break // Stop after the first true value
+            document.getElementById('options').textContent = key.replace(/_/g, ' '); // Replace underscores with spaces for readability
+            break; // Stop after the first true value
         }
     }
 
-    // document.getElementById('options').textContent = retrievedNCRData['options'] || '' // Set select value
-    document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === true ? 'Yes' : 'No'
-    document.getElementById('car-number').textContent = retrievedNCRData['car_number'] || ''
-    document.getElementById('follow-up-required').textContent = retrievedNCRData['follow_up_required'] === true ? 'Yes' : 'No'
-    document.getElementById('operations-manager-name').textContent = retrievedNCRData['operations_manager_name'] || ''
-    document.getElementById('operations-manager-date').textContent = retrievedNCRData['operations_manager_date'] || '' // Set date input value
-    document.getElementById('inspector-name').textContent = retrievedNCRData['inspector_name'] || ''
-    document.getElementById('ncr-closed').textContent = retrievedNCRData['ncr_closed'] === true ? 'Yes' : 'No'
-    document.getElementById('pu-resolved').textContent = retrievedNCRData['pu_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('new-ncr-number').textContent = retrievedNCRData['new_ncr_number'] || ''
-    // console.log('review date:', retrievedNCRData['engineering_review_date'])
-    // console.log('Product No:', qaData.productNo)
+    document.getElementById('car-raised').textContent = retrievedNCRData['purchasing_decision']?.car_raised === true ? 'Yes' : 'No';
+    document.getElementById('car-number').textContent = retrievedNCRData['purchasing_decision']?.car_number || '';
+    document.getElementById('follow-up-required').textContent = retrievedNCRData['purchasing_decision']?.follow_up_required === true ? 'Yes' : 'No';
+    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || '';
+    document.getElementById('operations-manager-date').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_date || ''; // Set date input value
+    document.getElementById('inspector-name').textContent = retrievedNCRData['purchasing_decision']?.inspector_name || '';
+    document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
+    document.getElementById('pu-resolved').textContent = retrievedNCRData['purchasing_decision']?.pu_resolved === true ? 'Yes' : 'No';
+    document.getElementById('new-ncr-number').textContent = retrievedNCRData['purchasing_decision']?.new_ncr_number || '';
+    document.getElementById('re-inspected-acceptable').textContent = retrievedNCRData['purchasing_decision']?.re_inspected_acceptable === true? 'Yes' : 'No';
 }
+
 
 // Call the function on page load
 document.addEventListener('DOMContentLoaded', setSpanContentFromSession)

@@ -1,105 +1,134 @@
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
-const queryParams = new URLSearchParams(window.location.search)
-const starElements = document.querySelectorAll('.required');
-const dropArea = document.getElementById('drop-area');
-const mediaInput = document.getElementById('media-input');
-const mediaList = document.getElementById('media-list');
-const notificationlist = document.getElementById('notification-list');
-const notificationCount = document.getElementById('notification-count');
+// Gettting JSON Data from the local storage
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
-const ncrNo = localStorage.getItem('ncrNo')
+const starElements = document.querySelectorAll('.required')
+const dropArea = document.getElementById('drop-area')
+const mediaInput = document.getElementById('media-input')
+const mediaList = document.getElementById('media-list')
+const notificationlist = document.getElementById('notification-list')
+const notificationCount = document.getElementById('notification-count')
+const userName = document.getElementById('userName')
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
+const quantityReceivedInput = document.getElementById('quantity-received')
+const quantityDefectiveInput = document.getElementById('quantity-defective')
+const supplierDropdown = document.getElementById("supplier-name")
+const supplierModal = document.getElementById("supplierModal")
+const closeModalButton = supplierModal.querySelector(".close")
+const addSupplierButton = document.getElementById("addSupplierButton")
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
-if (ncrLink) {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
-}
+const footer = document.getElementById('footer-scroll')
 
-let notifications = []
-const userName = document.getElementById('userName');
+
+
+// Attach the preventNegativeInput function to both inputs
+quantityReceivedInput.addEventListener('input', preventNegativeInput)
+quantityDefectiveInput.addEventListener('input', preventNegativeInput)
+
+let ncrNumber
+
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
+let notifications = []
+let NewReport = []
+let existingFiles = []
+let events = ['dragenter', 'dragover', 'dragleave', 'drop']
+
 setNotificationText()
+
+// Generate the next NCR number
+function generateNextNcrNumber(AllReports) {
+    const lastNcrNumber = AllReports[AllReports.length - 1].ncr_no // Get the last NCR number from data
+    const year = lastNcrNumber.substring(0, 4) // Extract the first 4 digits as the year
+    const lastNumber = lastNcrNumber.slice(-3) // Extract the last 3 digits
+    const currentYear = new Date().getFullYear().toString()
+    let nextNumber
+
+    // Increment number if it's the same year
+    if (year === currentYear) {
+        nextNumber = (parseInt(lastNumber) + 1).toString().padStart(3, '0')
+    } else {
+        nextNumber = '001' // Reset number if it's a new year
+    }
+
+    const num = `${currentYear}-${nextNumber}`
+
+    return num // Return new NCR number
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
     // Attempt to retrieve the report index from sessionStorage
-    const reportIndexStr = sessionStorage.getItem("editReportIndex");
+    const reportIndexStr = sessionStorage.getItem("editReportIndex")
 
-    const reportIndex = parseInt(reportIndexStr, 10);
+    const reportIndex = parseInt(reportIndexStr, 10)
 
     if (!isNaN(reportIndex)) {
         // Clear the index after using it, so it doesn't persist
-        sessionStorage.removeItem("editReportIndex");
+        sessionStorage.removeItem("editReportIndex")
 
         // Retrieve saved reports from localStorage
-        const savedReports = JSON.parse(localStorage.getItem("savedNCRsQa")) || [];
-        
+        const savedReports = JSON.parse(localStorage.getItem("savedNCRsQa")) || []
+
         // Check if the index is within the bounds of the savedReports array
         if (reportIndex >= 0 && reportIndex < savedReports.length) {
-            const reportData = savedReports[reportIndex];
+            const reportData = savedReports[reportIndex]
 
             // Prefill data into the form fields
-            document.getElementById("ncr-no-generated").value = reportData.ncr_no || "";
-            document.getElementById("sales-order-no").value = reportData.sales_order_no || "";
-            document.getElementById("quantity-received").value = reportData.quantity_received || "";
-            document.getElementById("quantity-defective").value = reportData.quantity_defective || "";
-            document.getElementById("supplier-name").value = reportData.supplier_name || "";
-            document.getElementById("product-no").value = reportData.product_no || "";
+            document.getElementById("ncr-no-generated").value = reportData.ncr_no || ""
+            document.getElementById("sales-order-no").value = reportData.sales_order_no || ""
+            document.getElementById("quantity-received").value = reportData.quantity_received || ""
+            document.getElementById("quantity-defective").value = reportData.quantity_defective || ""
+            document.getElementById("supplier-name").value = reportData.supplier_name || ""
+            document.getElementById("product-no").value = reportData.product_no || ""
 
             // Prefill radio buttons for 'process'
             if (reportData.process) {
-                const processRadio = document.getElementsByName("process");
+                const processRadio = document.getElementsByName("process")
                 processRadio.forEach(option => {
                     if (option.value === reportData.process) {
-                        option.checked = true;
-                        option.parentElement.classList.add('checked');
+                        option.checked = true
+                        option.parentElement.classList.add('checked')
                     }
-                });
+                })
             }
 
             // Prefill textarea fields
-            document.getElementById("description-item").value = reportData.description_item || "";
-            document.getElementById("description-defect").value = reportData.description_defect || "";
+            document.getElementById("description-item").value = reportData.description_item || ""
+            document.getElementById("description-defect").value = reportData.description_defect || ""
 
             // Prefill radio buttons for 'item_marked_nonconforming'
             if (reportData.item_marked_nonconforming) {
-                const itemMarkedRadio = document.getElementsByName("item_marked_nonconforming");
+                const itemMarkedRadio = document.getElementsByName("item_marked_nonconforming")
                 itemMarkedRadio.forEach(option => {
                     if (option.value === reportData.item_marked_nonconforming) {
-                        option.checked = true;
-                        option.parentElement.classList.add('checked');
+                        option.checked = true
+                        option.parentElement.classList.add('checked')
                     }
-                });
+                })
             }
 
             // Prefill media files as a list of names or thumbnails
-            const mediaList = document.getElementById("media-list");
-            mediaList.innerHTML = ""; // Clear any existing items
+            const mediaList = document.getElementById("media-list")
+            mediaList.innerHTML = "" // Clear any existing items
             if (reportData.media && Array.isArray(reportData.media)) {
                 reportData.media.forEach(mediaItem => {
-                    const listItem = document.createElement("li");
-                    listItem.textContent = mediaItem.name; // Display the file name
-                    mediaList.appendChild(listItem);
-                });
+                    const listItem = document.createElement("li")
+                    listItem.textContent = mediaItem.name // Display the file name
+                    mediaList.appendChild(listItem)
+                })
             }
         } else {
-            console.warn("Invalid report index or no saved report data found.");
+            console.warn("Invalid report index or no saved report data found.")
         }
     } else {
-        console.warn("No report index provided to continue editing.");
+        console.warn("No report index provided to continue editing.")
     }
-});
+})
 
-// Get the modal
-const modal = document.getElementById("popup");
 
-// Get the <span> element that closes the modal
-const span = document.getElementById("closePopup");
-// Get the input elements
-const quantityReceivedInput = document.getElementById('quantity-received');
-const quantityDefectiveInput = document.getElementById('quantity-defective');
 
-// Attach the preventNegativeInput function to both inputs
-quantityReceivedInput.addEventListener('input', preventNegativeInput);
-quantityDefectiveInput.addEventListener('input', preventNegativeInput);
 
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -123,7 +152,8 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
-const footer = document.getElementById('footer-scroll')
+
+
 footer.addEventListener('click', () => {
     window.scrollTo({
         top: 0,
@@ -131,51 +161,39 @@ footer.addEventListener('click', () => {
     })
 })
 
- 
-starElements.forEach(star => {
-    star.style.display = 'none'; // Hide each star element
-});
 
-// document.addEventListener('keydown', function (event) {
-//     if (event.key === 'Enter') {
-//         const activeElement = document.activeElement;
-//         if (activeElement.type === 'radio') {
-//             activeElement.click(); // Programmatically click the radio button
-//         }
-//         if (activeElement.type === 'checkbox') {
-//             activeElement.click()
-//         }
-//     }
-// });
+starElements.forEach(star => {
+    star.style.display = 'none' // Hide each star element
+})
+
+
 
 // Add keyboard navigation functionality
 document.addEventListener('keydown', function (event) {
     // Check if the focused element is a radio button label
-    const focusedElement = document.activeElement;
+    const focusedElement = document.activeElement
 
     if (focusedElement && focusedElement.classList.contains('radio-button')) {
         // Check if "Enter" key is pressed
         if (event.key === 'Enter') {
-            const radio = focusedElement.querySelector('input[type="radio"]');
+            const radio = focusedElement.querySelector('input[type="radio"]')
             if (radio) {
                 // Simulate a click on the radio button
-                radio.click();
-                toggleRadio(radio);
+                radio.click()
+                toggleRadio(radio)
             }
         }
     }
-});
+})
 
 function preventNegativeInput(event) {
     if (event.target.value < 0) {
         showPopup('Invalid quantity', 'The quantity cannot be in negative!!\nEnter only positive values.', 'images/1382678.webp')
-        event.target.value = 0;
+        event.target.value = 0
     }
 }
 
-// Initialize NCR number based on user role
-let ncrNumber = queryParams.get('ncr_no') // Function to generate the latest NCR number
-console.log(ncrNumber)
+
 
 // Only proceed if the user is QA
 if (user.role === 'QA Inspector') {
@@ -183,10 +201,8 @@ if (user.role === 'QA Inspector') {
 
     updateStatusBar()
 
-    // Remove sections based on user role
-
     // Handle form elements for QA user
-    document.getElementById('ncr-no-generated').value = ncrNumber // Set NCR number in the input field
+    document.getElementById('ncr-no-generated').value = generateNextNcrNumber(AllReports) // Set NCR number in the input field
 
     // Initialize form steps and elements for QA
     const sections = document.querySelectorAll(".form-section")
@@ -194,37 +210,37 @@ if (user.role === 'QA Inspector') {
     // Update status bar based on current step
     // Update status bar based on current step
     function updateStatusBar() {
-        const steps = document.querySelectorAll(".status-steps .status-step"); // Get all status steps
+        const steps = document.querySelectorAll(".status-steps .status-step") // Get all status steps
         steps.forEach((step, index) => {
             // Highlight the current step
-            step.classList.toggle("active", index === currentStep);
+            step.classList.toggle("active", index === currentStep)
 
             // Optionally, you can add a class for completed steps
-            step.classList.toggle("completed", index < currentStep);
-        });
+            step.classList.toggle("completed", index < currentStep)
+        })
     }
 
     //chekboxes and radio buttons formatted as buttons for design purposes
     function toggleCheck(radio) {
         // Remove 'checked' class from all sibling radio buttons' parent elements
-        const radios = document.querySelectorAll(`input[name="${radio.name}"]`);
-        radios.forEach(r => r.parentElement.classList.remove('checked'));
+        const radios = document.querySelectorAll(`input[name="${radio.name}"]`)
+        radios.forEach(r => r.parentElement.classList.remove('checked'))
 
         // Add 'checked' class to the selected radio button's parent element
         if (radio.checked) {
-            radio.parentElement.classList.add('checked');
+            radio.parentElement.classList.add('checked')
         }
     }
 
 
     function toggleRadio(radio) {
         // Remove 'checked' class from all radio button labels
-        const buttons = document.querySelectorAll('.radio-button');
-        buttons.forEach(button => button.classList.remove('checked'));
+        const buttons = document.querySelectorAll('.radio-button')
+        buttons.forEach(button => button.classList.remove('checked'))
 
         // Add 'checked' class only to the selected radio button's label
         if (radio.checked) {
-            radio.parentElement.classList.add('checked');
+            radio.parentElement.classList.add('checked')
         }
     }
 
@@ -248,29 +264,29 @@ if (user.role === 'QA Inspector') {
 
     // Add event listeners for navigation buttons
     document.getElementById("next-btn1").addEventListener("click", () => {
-        const { isValid, quantityError } = validateSection1();
+        const { isValid, quantityError } = validateSection1()
 
         if (isValid) {
-            sections[currentStep].classList.remove("active");
-            currentStep++;
-            sections[currentStep].classList.add("active");
-            updateStatusBar();
+            sections[currentStep].classList.remove("active")
+            currentStep++
+            sections[currentStep].classList.add("active")
+            updateStatusBar()
         } else {
             if (quantityError) {
                 showPopup(
                     'Invalid quantity',
                     'The number of defective items cannot exceed the number of received items.',
                     'images/1382678.webp'
-                );
+                )
             } else {
                 showPopup(
                     'Required fields missing',
                     'Please fill in required fields before proceeding.',
                     'images/1382678.webp'
-                );
+                )
             }
         }
-    });
+    })
 
 
     document.getElementById("next-btn2").addEventListener("click", () => {
@@ -305,21 +321,21 @@ if (user.role === 'QA Inspector') {
 
     // Event listener for the submit button
     document.getElementById("submit-btn").addEventListener("click", (e) => {
-        e.preventDefault(); // Prevent default form submission
+        e.preventDefault() // Prevent default form submission
 
-        if(validateSection1()&&validateSection2){
+        if (validateSection1() && validateSection2) {
 
             // Show the popup and wait for it to close
             showPopup('Form submitted', 'Your Quality Assurance form has been sent to the engineering department and your automated mail is generated.', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
                 // This callback will execute after the popup is closed
-                submitForm(user.role); // Call the form submission
-                sendMail(); // Call the email sending function
-                window.location.href = "Dashboard.html"; // Redirect to home.html
-    
+                submitForm(user.role) // Call the form submission
+                sendMail() // Call the email sending function
+                window.location.href = "Dashboard.html" // Redirect to home.html
+
                 sendNotification(ncrNumber)
-            });
+            })
         }
-    });
+    })
 
     // Clear fields in Section 1
     document.getElementById("clear-btn1").addEventListener("click", () => {
@@ -327,11 +343,11 @@ if (user.role === 'QA Inspector') {
         clearSection(section1)
 
         // clear the radio buttons
-        const radioButtons = document.querySelectorAll('input[name="process"]');
+        const radioButtons = document.querySelectorAll('input[name="process"]')
         radioButtons.forEach(radioButtons => {
             radioButtons.checked = false
             radioButtons.parentElement.classList.remove('checked')
-        });
+        })
         quantityDefectiveInput.value = 0
 
     })
@@ -341,19 +357,19 @@ if (user.role === 'QA Inspector') {
         const section2 = document.querySelector('fieldset[aria-labelledby="product-desc"]')
         clearSection(section2)
         // Clear radio buttons
-        const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
-        radioButtons.forEach(radioButton => radioButton.checked = false);
-        mediaList.innerHTML = ''; // Clear the photo list
+        const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]')
+        radioButtons.forEach(radioButton => radioButton.checked = false)
+        mediaList.innerHTML = '' // Clear the photo list
 
         // Optionally reset the file input elements
-        mediaList.value = '';
+        mediaList.value = ''
     })
 
 
 
     // Validate Section 1
     function validateSection1() {
-        let isValid = true;
+        let isValid = true
         let quantityError = false
 
         // Reset all error messages
@@ -363,119 +379,119 @@ if (user.role === 'QA Inspector') {
             'quantity-received': '',
             'quantity-defective': '',
             'product-no': ''
-        };
+        }
 
         const requiredFields = [
             'supplier-name', 'sales-order-no', 'quantity-received', 'quantity-defective', 'product-no'
-        ];
+        ]
 
         requiredFields.forEach(field => {
-            const inputElement = document.getElementById(field);
-            const errorSpan = document.getElementById(`${field}-error`);
+            const inputElement = document.getElementById(field)
+            const errorSpan = document.getElementById(`${field}-error`)
 
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
-                errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
-                errorSpan.style.display = 'inline'; // Show error message
-                errorSpan.textContent = errorMessages[field]; // Set the error message
-                isValid = false;
+                errorMessages[field] = `${field.replace('-', ' ')} is required.` // Set error message
+                errorSpan.style.display = 'inline' // Show error message
+                errorSpan.textContent = errorMessages[field] // Set the error message
+                isValid = false
             } else {
-                errorSpan.style.display = 'none'; // Hide error if filled
+                errorSpan.style.display = 'none' // Hide error if filled
             }
-        });
+        })
 
-        const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10);
-        const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10);
+        const quantityReceived = parseInt(document.getElementById('quantity-received').value, 10)
+        const quantityDefective = parseInt(document.getElementById('quantity-defective').value, 10)
 
         // Check if quantities are valid numbers
         if (!isNaN(quantityReceived) && !isNaN(quantityDefective)) {
             if (quantityDefective > quantityReceived) {
-                errorMessages['quantity-defective'] = 'The number of defective items cannot exceed the number of received items.';
-                const errorSpan = document.getElementById('quantity-defective-error');
-                errorSpan.style.display = 'inline';
-                errorSpan.textContent = errorMessages['quantity-defective'];
-                isValid = false; // Ensure isValid is set to false
+                errorMessages['quantity-defective'] = 'The number of defective items cannot exceed the number of received items.'
+                const errorSpan = document.getElementById('quantity-defective-error')
+                errorSpan.style.display = 'inline'
+                errorSpan.textContent = errorMessages['quantity-defective']
+                isValid = false // Ensure isValid is set to false
                 quantityError = true
             }
         }
 
 
         //validate radio buttons
-        const radioButtons = document.querySelectorAll('input[name="process"]');
-        const radioErrorSpan = document.getElementById('process-applicable-error');
+        const radioButtons = document.querySelectorAll('input[name="process"]')
+        const radioErrorSpan = document.getElementById('process-applicable-error')
 
         if (![...radioButtons].some(radio => radio.checked)) {
             // console.log(radioErrorSpan)
-            radioErrorSpan.style.display = 'inline'; // Show error message
-            radioErrorSpan.textContent = 'Please identify applicabale process.'; // Set error message
-            isValid = false;
+            radioErrorSpan.style.display = 'inline' // Show error message
+            radioErrorSpan.textContent = 'Please identify applicabale process.' // Set error message
+            isValid = false
         } else {
-            radioErrorSpan.style.display = 'none'; // Hide error if valid
+            radioErrorSpan.style.display = 'none' // Hide error if valid
         }
 
         // Clear specific error messages for non-empty fields
         for (const field of requiredFields) {
-            const errorSpan = document.getElementById(`${field}-error`);
+            const errorSpan = document.getElementById(`${field}-error`)
             if (errorMessages[field] === '') {
-                errorSpan.style.display = 'none'; // Hide error if no error
+                errorSpan.style.display = 'none' // Hide error if no error
             }
         }
 
 
-        return { isValid, quantityError };
+        return { isValid, quantityError }
     }
 
 
     // Validate Section 2
     function validateSection2() {
-        let isValid = true;
+        let isValid = true
 
         const requiredFields = [
             'description-item', 'description-defect'
-        ];
+        ]
 
         const errorMessages = {
             'description-item': '',
             'description-defect': '',
-        };
+        }
 
         requiredFields.forEach(field => {
-            const inputElement = document.getElementById(field);
-            const errorSpan = document.getElementById(`${field}-error`); // Select the corresponding error span
+            const inputElement = document.getElementById(field)
+            const errorSpan = document.getElementById(`${field}-error`) // Select the corresponding error span
 
             // Check if the input is empty
             if (inputElement.value.trim() === '') {
-                errorMessages[field] = `${field.replace('-', ' ')} is required.`; // Set error message
-                errorSpan.style.display = 'inline'; // Show error message
-                errorSpan.textContent = errorMessages[field]; // Set the error message
-                isValid = false;
+                errorMessages[field] = `${field.replace('-', ' ')} is required.` // Set error message
+                errorSpan.style.display = 'inline' // Show error message
+                errorSpan.textContent = errorMessages[field] // Set the error message
+                isValid = false
             } else {
-                errorSpan.style.display = 'none'; // Hide error if filled
+                errorSpan.style.display = 'none' // Hide error if filled
             }
-        });
+        })
 
-        const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]');
-        const radioError = document.querySelector('legend[for="item-marked-nonconforming"]');
-        const radioErrorSpan = radioError.nextElementSibling;
+        const radioButtons = document.querySelectorAll('input[name="item_marked_nonconforming"]')
+        const radioError = document.querySelector('legend[for="item-marked-nonconforming"]')
+        const radioErrorSpan = radioError.nextElementSibling
 
         // Check if at least one radio button is checked
         if (![...radioButtons].some(radio => radio.checked)) {
-            radioErrorSpan.style.display = 'inline'; // Show error in the span if no radio button is checked
-            radioErrorSpan.textContent = 'Please select an option for item marked non-conforming.'; // Set error message
-            isValid = false;
+            radioErrorSpan.style.display = 'inline' // Show error in the span if no radio button is checked
+            radioErrorSpan.textContent = 'Please select an option for item marked non-conforming.' // Set error message
+            isValid = false
         } else {
-            radioErrorSpan.style.display = 'none'; // Hide error if valid
+            radioErrorSpan.style.display = 'none' // Hide error if valid
         }
 
         // Clear specific error messages for non-empty fields
         for (const field of requiredFields) {
-            const errorSpan = document.getElementById(`${field}-error`);
+            const errorSpan = document.getElementById(`${field}-error`)
             if (errorMessages[field] === '') {
-                errorSpan.style.display = 'none'; // Hide error if no error
+                errorSpan.style.display = 'none' // Hide error if no error
             }
         }
 
-        return isValid;
+        return isValid
     }
 
 
@@ -487,7 +503,7 @@ if (user.role === 'QA Inspector') {
         const quantityDefective = document.getElementById('quantity-defective').value
         const productNo = document.getElementById('product-no').value
         const proccesApplicabable = document.querySelector('input[name=process]:checked').value
-        
+
 
         // Get values from Section 2
         const descriptionItem = document.getElementById('description-item').value
@@ -512,27 +528,27 @@ if (user.role === 'QA Inspector') {
         document.getElementById('confirm-process-applicable').textContent = processApplicableElement
 
         for (const file of existingFiles) {
-            const base64Data = await fileToBase64(file);
-    
+            const base64Data = await fileToBase64(file)
+
             // Create and append image or video elements based on file type
             if (file.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = base64Data;
-                img.alt = file.name;
-                img.style.maxWidth = '200px';
-                img.style.margin = '10px';
-                document.getElementById("confirm-media-list").appendChild(img);
+                const img = document.createElement('img')
+                img.src = base64Data
+                img.alt = file.name
+                img.style.maxWidth = '200px'
+                img.style.margin = '10px'
+                document.getElementById("confirm-media-list").appendChild(img)
             } else if (file.type.startsWith('video/')) {
-                const video = document.createElement('video');
-                video.src = base64Data;
-                video.controls = true;
-                video.style.maxWidth = '200px';
-                video.style.margin = '10px';
-                document.getElementById("confirm-media-list").appendChild(video);
+                const video = document.createElement('video')
+                video.src = base64Data
+                video.controls = true
+                video.style.maxWidth = '200px'
+                video.style.margin = '10px'
+                document.getElementById("confirm-media-list").appendChild(video)
             }
-          
+
         }
-        
+
     }
 } else {
     // Remove sections based on user role
@@ -551,12 +567,12 @@ function loadData(params) {
         'quantity-defective-d', 'qa-date-d', 'supplier-name-d',
         'product-no-d', 'process-d', 'description-item-d',
         'description-defect-d', 'item-marked-nonconforming-d'
-    ];
+    ]
 
     // Define process values with labels showing 'Yes' or 'No'
-    const processSupplierInsp = `Supplier Inspection: ${params.get('supplier_or_rec_insp') === 'true' ? 'Yes' : 'No'}`;
-    const processWipProdOrder = `WIP Production Order: ${params.get('wip_production_order') === 'true' ? 'Yes' : 'No'}`;
-    const processValue = `${processSupplierInsp}\n${processWipProdOrder}`;
+    const processSupplierInsp = `Supplier Inspection: ${params.get('supplier_or_rec_insp') === 'true' ? 'Yes' : 'No'}`
+    const processWipProdOrder = `WIP Production Order: ${params.get('wip_production_order') === 'true' ? 'Yes' : 'No'}`
+    const processValue = `${processSupplierInsp}\n${processWipProdOrder}`
 
     // Prepare values, including formatted process and description of defect
     const values = [
@@ -572,31 +588,33 @@ function loadData(params) {
         params.get('item_description') || '[Description of Item]',
         params.get('description_of_defect') || '[Description of Defect]',
         params.get('item_marked_nonconforming') === 'true' ? 'Yes' : 'No'
-    ];
+    ]
 
     elements.forEach((id, index) => {
-        const element = document.getElementById(id);
-        element.textContent = values[index];
-        element.setAttribute('disabled', 'true'); // Disable the element
-    });
+        const element = document.getElementById(id)
+        element.textContent = values[index]
+        element.setAttribute('disabled', 'true') // Disable the element
+    })
 }
 
 
 function sendMail() {
-    const recipient = 'divyansh9030@gmail.com'; // Change to valid recipient's email
-    const subject = encodeURIComponent('Request for Engineering Department Details for NCR'); // Subject of the email
-    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${ncrNumber}. At this stage, we kindly request you to provide the necessary details from the Engineering Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\nQuality Assurance\nCrossfire NCR`);
+    const recipient = 'divyansh9030@gmail.com' // Change to valid recipient's email
+    const subject = encodeURIComponent('Request for Engineering Department Details for NCR') // Subject of the email
+    const body = encodeURIComponent(`Dear Davis Henry,\n\nI hope this message finds you well.\n\nI am writing to inform you that we have initiated the Non-Conformance Report (NCR) No. ${ncrNumber}. At this stage, we kindly request you to provide the necessary details from the Engineering Department to ensure a comprehensive assessment of the issue.\n\nYour prompt attention to this matter is essential for us to move forward efficiently. Please include any relevant information that could aid in our evaluation and resolution process.\n\nThank you for your cooperation. Should you have any questions or require further clarification, please do not hesitate to reach out.\n\nBest regards,\n\n${user.firstname} ${user.lastname}\nQuality Assurance\nCrossfire NCR`)
 
     // Construct the Gmail compose link
-    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`;
+    const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${recipient}&su=${subject}&body=${body}`
 
     // Open the Gmail compose window
-    window.open(gmailLink, '_blank'); // Opens in a new tab
+    window.open(gmailLink, '_blank') // Opens in a new tab
 }
-let ncrData = []
 
-function submitForm(role) {
-    const today = new Date().toLocaleDateString().slice(0, 10);  // Get current date
+function submitForm() {
+    const today = new Date().toISOString().slice(0, 10)  // Get current date
+
+    ncrNumber = document.getElementById('ncr-no-generated').value
+
     let newEntry = {
         "ncr_no": ncrNumber,  // Use a unique identifier or generate as needed
         "status": "incomplete",
@@ -605,129 +623,100 @@ function submitForm(role) {
         "purchasing_decision": {}
     }
 
-    if (role === "QA Inspector") {
-        const supplierName = document.getElementById('supplier-name').value
-        const salesOrderNo = document.getElementById('sales-order-no').value
-        const quantityReceived = document.getElementById('quantity-received').value
-        const quantityDefective = document.getElementById('quantity-defective').value
-        const productNo = document.getElementById('product-no').value
 
-        // Get values from Section 2
-        const descriptionItem = document.getElementById('description-item').value
-        const descriptionDefect = document.getElementById('description-defect').value
+    const supplierName = document.getElementById('supplier-name').value
+    const salesOrderNo = document.getElementById('sales-order-no').value
+    const quantityReceived = document.getElementById('quantity-received').value
+    const quantityDefective = document.getElementById('quantity-defective').value
+    const productNo = document.getElementById('product-no').value
 
-        // Get the non-conforming item marked status
-        const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked')
+    // Get values from Section 2
+    const descriptionItem = document.getElementById('description-item').value
+    const descriptionDefect = document.getElementById('description-defect').value
 
-        // Get the checked value of the process radio button
-        const processApplicableElement = document.querySelector('input[name=process]:checked').value;
+    // Get the non-conforming item marked status
+    const nonconformingStatusElement = document.querySelector('input[name=item_marked_nonconforming]:checked')
 
-        // Assign values based on the process selection
-        const processSupplierInsp = processApplicableElement === 'supplier_or_rec_insp';
-        const processWipProdOrder = processApplicableElement === 'wip_production_order';
+    // Get the checked value of the process radio button
+    const processApplicableElement = document.querySelector('input[name=process]:checked')
 
-        newEntry.qa = {
+    // Assign values based on the process selection
+    const processSupplierInsp = processApplicableElement.value === 'Supplier or Rec-Insp'
+    const processWipProdOrder = processApplicableElement.value === 'WIP (Production order)'
 
-            "supplier_name": supplierName,
-            "po_no": productNo,
-            "sales_order_no": salesOrderNo,
-            "item_description": descriptionItem,
-            "quantity_received": Number(quantityReceived),
-            "quantity_defective": Number(quantityDefective),
-            "description_of_defect": descriptionDefect,
-            "item_marked_nonconforming": nonconformingStatusElement ? true : false,
-            "quality_representative_name": `${user.firstname} ${user.lastname}`,
-            "date": today,
-            "resolved": true,
-            "process": {
-                "supplier_or_rec_insp": processSupplierInsp,
-                "wip_production_order": processWipProdOrder
-            }
-        };
+    newEntry.qa = {
 
-
-        ncrData.push(newEntry);  // Append new entry to the array
-        // console.log(ncrData)
-
-        localStorage.setItem('nextReport', JSON.stringify(ncrData))
-        updateNCRDataFromLocalStorage()
-
+        "supplier_name": supplierName,
+        "po_no": productNo,
+        "sales_order_no": salesOrderNo,
+        "item_description": descriptionItem,
+        "quantity_received": Number(quantityReceived),
+        "quantity_defective": Number(quantityDefective),
+        "description_of_defect": descriptionDefect,
+        "item_marked_nonconforming": nonconformingStatusElement ? true : false,
+        "quality_representative_name": `${user.firstname} ${user.lastname}`,
+        "date": today,
+        "resolved": true,
+        "process": {
+            "supplier_or_rec_insp": processSupplierInsp,
+            "wip_production_order": processWipProdOrder
+        }
     }
 
-}
 
-// Retrieve NCR data from localStorage
-function updateNCRDataFromLocalStorage() {
-    const nextReport = JSON.parse(localStorage.getItem('nextReport'));
+    NewReport.push(newEntry)  // Append new entry to the array
 
-    // Fetch AllReports from the server or local storage
-    fetch('Data/ncr_reports.json')
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to fetch NCR reports');
-            }
-            return response.json(); // Parse the JSON response
-        })
-        .then(data => {
-            let AllReports = data || []; // Ensure data is an array, fallback to an empty array if undefined
-
-            // Append the nextReport to AllReports
-            AllReports = AllReports.concat(nextReport);
-
-            // Save the updated AllReports back to localStorage
-            localStorage.setItem('AllReports', JSON.stringify(AllReports));
-        })
-        .catch(error => {
-            console.error('Error fetching NCR reports:', error);
-        });
+    AllReports.push(newEntry)
+    localStorage.setItem('AllReports', JSON.stringify(AllReports))
 }
 
 
 
 
-let existingFiles = []; // Track previously added files
+
+
 
 // Function to convert files to base64
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onloadend = () => resolve(reader.result);
-        reader.onerror = reject;
-        reader.readAsDataURL(file);
-    });
+        const reader = new FileReader()
+        reader.onloadend = () => resolve(reader.result)
+        reader.onerror = reject
+        reader.readAsDataURL(file)
+    })
 }
 
 async function handleFiles(files) {
 
     for (const file of files) {
         if (!existingFiles.some(existingFile => existingFile.name === file.name && existingFile.size === file.size)) {
-            existingFiles.push(file); // Add new files to the existing list
+            existingFiles.push(file) // Add new files to the existing list
 
             // Create list item for file name
-            const listItem = document.createElement('li');
-            listItem.style.display = 'flex'; // Use flex to align items
-            listItem.style.alignItems = 'center'; // Center align items
+            const listItem = document.createElement('li')
+            listItem.style.display = 'flex' // Use flex to align items
+            listItem.style.alignItems = 'center' // Center align items
 
             // Create a span for the file name
-            const fileName = document.createElement('span');
-            fileName.textContent = file.name; // Display selected file names
+            const fileName = document.createElement('span')
+            fileName.textContent = file.name // Display selected file names
             fileName.style.maxWidth = '150px'
-            // listItem.appendChild(fileName);
+            // listItem.appendChild(fileName)
 
             // Create a delete button
-            const deleteButton = document.createElement('button');
-            deleteButton.textContent = '✖'; // Cross symbol
-            deleteButton.style.marginLeft = '10px'; // Add some margin
-            deleteButton.style.cursor = 'pointer'; // Change cursor on hover
-            deleteButton.style.background = 'transparent'; // Make background transparent
-            deleteButton.style.border = 'none'; // Remove border
-            deleteButton.style.color = 'red'; // Color for the delete button
+            const deleteButton = document.createElement('button')
+            deleteButton.textContent = '✖' // Cross symbol
+            deleteButton.style.marginLeft = '10px' // Add some margin
+            deleteButton.style.cursor = 'pointer' // Change cursor on hover
+            deleteButton.style.background = 'transparent' // Make background transparent
+            deleteButton.style.border = 'none' // Remove border
+            deleteButton.style.color = 'red' // Color for the delete button
 
             // Attach click event to delete the item
             deleteButton.addEventListener('click', (e) => {
                 e.preventDefault()
-                const btnDelete = document.getElementById('yes-delete-img');
-                const btnCancel = document.getElementById('no-delete-img');
+                const btnDelete = document.getElementById('yes-delete-img')
+                const btnCancel = document.getElementById('no-delete-img')
 
                 // Show the confirmation modal with custom message, icon, and button handlers
                 deleteImgConfirm("Confirm Deletion",
@@ -737,122 +726,123 @@ async function handleFiles(files) {
                     btnCancel,
                     () => {
                         // The callback will be triggered when 'Yes' is clicked (perform the delete)
-                        existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size));
-                        mediaList.removeChild(listItem); // Remove the list item
-                        localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)); // Update local storage
-                    });
-            });
+                        existingFiles = existingFiles.filter(existingFile => !(existingFile.name === file.name && existingFile.size === file.size))
+                        mediaList.removeChild(listItem) // Remove the list item
+                        localStorage.setItem('mediaFiles', JSON.stringify(existingFiles)) // Update local storage
+                    })
+            })
 
 
 
 
             // Convert file to base64 and create an image or video element based on the file type
-            const base64Data = await fileToBase64(file);
+            const base64Data = await fileToBase64(file)
             if (file.type.startsWith('image/')) {
-                const img = document.createElement('img');
-                img.src = base64Data; // Set base64 image source
-                img.alt = file.name; // Set alt text for accessibility
-                img.style.maxWidth = '100px'; // Set a max width for the image
-                img.style.marginLeft = '10px'; // Add some margin around images
-                img.style.marginRight = '10px'; // Add some margin around images
+                const img = document.createElement('img')
+                img.src = base64Data // Set base64 image source
+                img.alt = file.name // Set alt text for accessibility
+                img.style.maxWidth = '100px' // Set a max width for the image
+                img.style.marginLeft = '10px' // Add some margin around images
+                img.style.marginRight = '10px' // Add some margin around images
 
                 // Append the image to the list item
-                listItem.appendChild(img);
+                listItem.appendChild(img)
             } else if (file.type.startsWith('video/')) {
-                const video = document.createElement('video');
-                video.src = base64Data; // Set base64 video source
-                video.controls = true; // Add controls for the video
-                video.style.maxWidth = '100px'; // Set a max width for the video
-                video.style.marginLeft = '10px'; // Add some margin around videos
-                video.style.marginRight = '10px';
+                const video = document.createElement('video')
+                video.src = base64Data // Set base64 video source
+                video.controls = true // Add controls for the video
+                video.style.maxWidth = '100px' // Set a max width for the video
+                video.style.marginLeft = '10px' // Add some margin around videos
+                video.style.marginRight = '10px'
 
                 // Append the video to the list item
-                listItem.appendChild(video);
+                listItem.appendChild(video)
             }
 
             listItem.appendChild(fileName)
             listItem.appendChild(deleteButton)
 
             // Append the list item to the media list
-            mediaList.appendChild(listItem);
+            mediaList.appendChild(listItem)
         }
     }
 
     // Update local storage after handling files
-    // localStorage.setItem('mediaFiles', JSON.stringify(existingFiles));
+    // localStorage.setItem('mediaFiles', JSON.stringify(existingFiles))
 }
 
 
 
 // Handle file selection
 mediaInput.addEventListener('change', function () {
-    handleFiles(this.files);
-});
+    handleFiles(this.files)
+})
 
 // Handle drag and drop
-['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-    dropArea.addEventListener(eventName, e => e.preventDefault());
-    dropArea.addEventListener(eventName, e => e.stopPropagation());
+
+events.forEach(eventName => {
+    dropArea.addEventListener(eventName, e => e.preventDefault())
+    dropArea.addEventListener(eventName, e => e.stopPropagation())
 });
 
-dropArea.addEventListener('dragover', () => dropArea.classList.add('dragover'));
-dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'));
+dropArea.addEventListener('dragover', () => dropArea.classList.add('dragover'))
+dropArea.addEventListener('dragleave', () => dropArea.classList.remove('dragover'))
 dropArea.addEventListener('drop', e => {
-    dropArea.classList.remove('dragover');
-    const files = e.dataTransfer.files;
-    handleFiles(files);
-});
+    dropArea.classList.remove('dragover')
+    const files = e.dataTransfer.files
+    handleFiles(files)
+})
 
 
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {
-    const modalContent = modal.querySelector('.modal-content');
-    modalContent.querySelector('h2').innerText = title; // Set the title
-    modalContent.querySelector('p').innerText = message; // Set the message
+    const modalContent = modal.querySelector('.modal-content')
+    modalContent.querySelector('h2').innerText = title // Set the title
+    modalContent.querySelector('p').innerText = message // Set the message
 
-    const iconDiv = document.querySelector('.icon');
+    const iconDiv = document.querySelector('.icon')
     // Clear previous icons
-    iconDiv.innerHTML = '';
-    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
+    iconDiv.innerHTML = ''
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp')
 
     if (isImage) {
 
-        const imgElement = document.createElement('img');
-        imgElement.src = icon; // Replace with your image URL
-        iconDiv.appendChild(imgElement);
+        const imgElement = document.createElement('img')
+        imgElement.src = icon // Replace with your image URL
+        iconDiv.appendChild(imgElement)
     }
     else {
         iconDiv.style.fontSize = '45px'
         iconDiv.innerHTML = icon
     }
 
-    modal.style.display = "block"; // Show the modal
+    modal.style.display = "block" // Show the modal
 
     setTimeout(() => {
-        modalContent.style.opacity = "1"; // Fade in effect
-        modalContent.style.transform = "translate(-50%, -50%)"; // Ensure it's centered
-    }, 10); // Short timeout to ensure the transition applies
+        modalContent.style.opacity = "1" // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Ensure it's centered
+    }, 10) // Short timeout to ensure the transition applies
 
     // Define the close function
     const closeModal = () => {
-        modalContent.style.opacity = "0"; // Fade out effect
-        modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+        modalContent.style.opacity = "0" // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
         setTimeout(() => {
-            modal.style.display = "none"; // Hide the modal after transition
-            callback(); // Execute the callback after closing the modal
-        }, 500); // Wait for the transition to finish before hiding
-    };
+            modal.style.display = "none" // Hide the modal after transition
+            callback() // Execute the callback after closing the modal
+        }, 500) // Wait for the transition to finish before hiding
+    }
 
     // Close modal when <span> (x) is clicked
-    span.onclick = closeModal;
+    span.onclick = closeModal
 
     // Close modal when clicking outside of it
     window.onclick = function (event) {
         if (event.target === modal) {
-            closeModal();
+            closeModal()
         }
-    };
+    }
 }
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
@@ -893,111 +883,107 @@ document.addEventListener("click", function (event) {
 })
 
 function logout() {
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isLoggedIn')
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
 
 function openTools() {
-    document.querySelector(".tools-container").classList.toggle("show-tools");
+    document.querySelector(".tools-container").classList.toggle("show-tools")
 
 }
 
 function sendNotification(ncrNum) {
     // Retrieve existing notifications from localStorage or initialize as an empty array
-    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
 
     // Add the new notification message
-    notifications.push(`NCR No. ${ncrNum} has been sent to the Engineering department via Gmail for review and action.`);
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Engineering department via Gmail for review and action.`)
 
     // Save updated notifications back to localStorage
-    localStorage.setItem('notifications', JSON.stringify(notifications));
+    localStorage.setItem('notifications', JSON.stringify(notifications))
 
     // Update the notification display
-    setNotificationText();
+    setNotificationText()
 }
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
-    const notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
 
     // Set the notification count
-    const count = document.getElementById('notification-count');
-    count.innerHTML = notifications.length;
+    const count = document.getElementById('notification-count')
+    count.innerHTML = notifications.length
 
     // Clear any existing notifications in the list to avoid duplicates
-    const notificationList = document.getElementById('notification-list'); // Ensure this element exists in your HTML
-    notificationList.innerHTML = ''; // Clear existing list items
+    const notificationList = document.getElementById('notification-list') // Ensure this element exists in your HTML
+    notificationList.innerHTML = '' // Clear existing list items
 
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
-        const li = document.createElement('li');
-        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`;
-        notificationList.prepend(li);
-    });
+        const li = document.createElement('li')
+        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`
+        notificationList.prepend(li)
+    })
 }
 
-const supplierDropdown = document.getElementById("supplier-name");
-const supplierModal = document.getElementById("supplierModal");
-const closeModalButton = supplierModal.querySelector(".close");
-const addSupplierButton = document.getElementById("addSupplierButton");
 
 // Function to show supplier modal
 function showSupplierPopup() {
-    supplierModal.style.display = "block";
+    supplierModal.style.display = "block"
     setTimeout(() => {
-        supplierModal.querySelector('.modal-content').style.opacity = "1";
-        supplierModal.querySelector('.modal-content').style.transform = "translate(-50%, -50%)";
-    }, 10);
+        supplierModal.querySelector('.modal-content').style.opacity = "1"
+        supplierModal.querySelector('.modal-content').style.transform = "translate(-50%, -50%)"
+    }, 10)
 }
 
 // Function to close supplier modal
 function closeSupplierPopup() {
-    const modalContent = supplierModal.querySelector('.modal-content');
-    modalContent.style.opacity = "0"; // Fade-out effect
-    modalContent.style.transform = "translate(-50%, -60%)"; // Adjust position for effect
+    const modalContent = supplierModal.querySelector('.modal-content')
+    modalContent.style.opacity = "0" // Fade-out effect
+    modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
     setTimeout(() => {
-        supplierModal.style.display = "none"; // Hide the modal after transition
-    }, 500);
+        supplierModal.style.display = "none" // Hide the modal after transition
+    }, 500)
 }
 
 // Show modal when "Add a Supplier" is selected
 supplierDropdown.addEventListener("change", function () {
     if (supplierDropdown.value === "addSupplier") {
-        showSupplierPopup();
-        supplierDropdown.value = ""; // Reset selection
+        showSupplierPopup()
+        supplierDropdown.value = "" // Reset selection
     }
-});
+})
 
 // Close the modal when the user clicks the "X" button
-closeModalButton.addEventListener("click", closeSupplierPopup);
+closeModalButton.addEventListener("click", closeSupplierPopup)
 
 // Add the new supplier to the dropdown when the user clicks "Add Supplier" in the modal
 addSupplierButton.addEventListener("click", function () {
-    const newSupplierName = document.getElementById("newSupplierName").value;
+    const newSupplierName = document.getElementById("newSupplierName").value
     if (newSupplierName) {
-        const newOption = document.createElement("option");
-        newOption.value = newSupplierName;
-        newOption.textContent = newSupplierName;
+        const newOption = document.createElement("option")
+        newOption.value = newSupplierName
+        newOption.textContent = newSupplierName
 
         // Insert the new option before the "Add a Supplier" option
-        supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'));
+        supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'))
 
         // Clear the input and close the modal
-        document.getElementById("newSupplierName").value = "";
-        closeSupplierPopup();
+        document.getElementById("newSupplierName").value = ""
+        closeSupplierPopup()
     } else {
-        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp");
+        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp")
     }
-});
+})
 
 // Close the modal if the user clicks outside of it
 window.addEventListener("click", function (event) {
     if (event.target === supplierModal) {
-        closeSupplierPopup();
+        closeSupplierPopup()
     }
-});
+})
 
 function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
@@ -1015,63 +1001,63 @@ updateToolContent()
 
 function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) {
     const modal = document.querySelector('.deletemodal')
-    const modalContent = modal.querySelector('.modal-content');
+    const modalContent = modal.querySelector('.modal-content')
 
     // Set the title and message inside the modal
-    modalContent.querySelector('h2').innerText = title;
-    modalContent.querySelector('p').innerText = message;
+    modalContent.querySelector('h2').innerText = title
+    modalContent.querySelector('p').innerText = message
 
-    const iconDiv = document.querySelector('.icon');
+    const iconDiv = document.querySelector('.icon')
     // Clear previous icons
-    iconDiv.innerHTML = '';
+    iconDiv.innerHTML = ''
 
-    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp');
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp')
 
     // Display the icon based on its type (image or text)
     if (isImage) {
-        const imgElement = document.createElement('img');
-        imgElement.src = icon;
-        iconDiv.appendChild(imgElement);
+        const imgElement = document.createElement('img')
+        imgElement.src = icon
+        iconDiv.appendChild(imgElement)
     } else {
-        iconDiv.style.fontSize = '45px';
-        iconDiv.innerHTML = icon;
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
     }
 
     // Show the modal
-    modal.style.display = "block";
+    modal.style.display = "block"
 
     setTimeout(() => {
-        modalContent.style.opacity = "1"; // Fade-in effect
-        modalContent.style.transform = "translate(-50%, -50%)"; // Center modal
-    }, 10);
+        modalContent.style.opacity = "1" // Fade-in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Center modal
+    }, 10)
 
     // Define the close function
     const closeModal = () => {
-        modalContent.style.opacity = "0"; // Fade-out effect
-        modalContent.style.transform = "translate(-50%, -60%)"; // Move modal out
+        modalContent.style.opacity = "0" // Fade-out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Move modal out
         setTimeout(() => {
-            modal.style.display = "none"; // Hide the modal
-        }, 500); // Wait for the transition to finish
-    };
+            modal.style.display = "none" // Hide the modal
+        }, 500) // Wait for the transition to finish
+    }
 
     // When "Yes" (btnDelete) is clicked, perform the delete action
     btnDelete.addEventListener('click', () => {
         // Perform the callback action (e.g., deleting the file)
-        callback();
-        closeModal(); // Close the modal after the action
-    });
+        callback()
+        closeModal() // Close the modal after the action
+    })
 
     // When "No" (btnCancel) is clicked, just close the modal
     btnCancel.addEventListener('click', () => {
-        closeModal(); // Close the modal without any action
-    });
+        closeModal() // Close the modal without any action
+    })
 
     // Close modal when clicking outside of it
     window.onclick = function (event) {
         if (event.target === modal) {
-            closeModal();
+            closeModal()
         }
-    };
+    }
 }
 
 function saveReportData() {
@@ -1089,67 +1075,67 @@ function saveReportData() {
         item_marked_nonconforming: document.querySelector('input[name="item_marked_nonconforming"]:checked')?.value || "",
         media: [], // Initialize an empty array for media
         date_of_saved: new Date().toLocaleDateString()
-    };
+    }
 
     // Handle media uploads and save as Base64
-    const mediaInput = document.getElementById("media-input");
-    const mediaFiles = mediaInput.files;
+    const mediaInput = document.getElementById("media-input")
+    const mediaFiles = mediaInput.files
 
     if (mediaFiles.length > 0) {
-        const fileReaders = [];
+        const fileReaders = []
         for (let i = 0; i < mediaFiles.length; i++) {
-            const file = mediaFiles[i];
-            const reader = new FileReader();
+            const file = mediaFiles[i]
+            const reader = new FileReader()
 
             // Define what happens when file reader has read the file
-            reader.onload = function(event) {
+            reader.onload = function (event) {
                 reportData.media.push({
                     name: file.name,
                     type: file.type,
                     data: event.target.result // Base64 encoded string
-                });
+                })
 
                 // Check if all files are processed
                 if (reportData.media.length === mediaFiles.length) {
-                    saveDataToLocalStorage(reportData); // Call function to save to localStorage
+                    saveDataToLocalStorage(reportData) // Call function to save to localStorage
                 }
-            };
+            }
 
-            reader.onerror = function(error) {
-                console.error("Error reading file:", error);
-            };
+            reader.onerror = function (error) {
+                console.error("Error reading file:", error)
+            }
 
             // Read file as Base64
-            reader.readAsDataURL(file);
-            fileReaders.push(reader);
+            reader.readAsDataURL(file)
+            fileReaders.push(reader)
         }
     } else {
-        saveDataToLocalStorage(reportData); // Save directly if no media is selected
+        saveDataToLocalStorage(reportData) // Save directly if no media is selected
     }
 }
 
 // Function to save data to localStorage
 function saveDataToLocalStorage(reportData) {
     // Retrieve existing saved reports from localStorage
-    let savedNCRsQa = JSON.parse(localStorage.getItem("savedNCRsQa")) || [];
+    let savedNCRsQa = JSON.parse(localStorage.getItem("savedNCRsQa")) || []
 
     // Check if a report with the same NCR No. already exists
-    const existingReportIndex = savedNCRsQa.findIndex(report => report.ncr_no === reportData.ncr_no);
+    const existingReportIndex = savedNCRsQa.findIndex(report => report.ncr_no === reportData.ncr_no)
 
     if (existingReportIndex !== -1) {
         // If it exists, update the existing report
-        savedNCRsQa[existingReportIndex] = reportData;
+        savedNCRsQa[existingReportIndex] = reportData
     } else {
         // If it doesn't exist, add as a new report
-        savedNCRsQa.push(reportData);
+        savedNCRsQa.push(reportData)
     }
 
     // Save the updated reports array back to localStorage
-    localStorage.setItem("savedNCRsQa", JSON.stringify(savedNCRsQa));
+    localStorage.setItem("savedNCRsQa", JSON.stringify(savedNCRsQa))
 
-    alert("Report saved successfully!");
+    alert("Report saved successfully!")
 }
 
 // Attach the save function to the save button
-document.getElementById("save1").addEventListener("click", saveReportData);
-document.getElementById("save2").addEventListener("click", saveReportData);
+document.getElementById("save1").addEventListener("click", saveReportData)
+document.getElementById("save2").addEventListener("click", saveReportData)
