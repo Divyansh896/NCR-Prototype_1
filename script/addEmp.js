@@ -124,6 +124,13 @@ function clearErrorMessage(inputField) {
 });
 
 
+document.getElementById('clear').addEventListener('click', ()=>{
+    const spans = document.querySelectorAll('.error-message')
+    spans.forEach(element => {
+        element.style.display = 'none'
+    });
+    
+})
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
 
