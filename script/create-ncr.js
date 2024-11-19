@@ -91,6 +91,91 @@ document.addEventListener("DOMContentLoaded", () => {
 // Get the modal
 const modal = document.getElementById("popup");
 
+document.addEventListener('DOMContentLoaded', () => {
+    let isModalOpen = false;
+    let pendingNavigationURL = null;
+    let allowNavigation = false;
+
+    // Get elements
+    const leaveConfirmationModal = document.getElementById('leaveConfirmationModal');
+    const saveAndLeaveBtn = document.getElementById('saveAndLeaveBtn');
+    const leaveWithoutSavingBtn = document.getElementById('leaveWithoutSavingBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+
+    // Function to show the modal
+    function showLeaveConfirmationModal(url) {
+        leaveConfirmationModal.style.display = 'block'; // Set display to block to make modal visible
+        pendingNavigationURL = url; // Store the URL the user wanted to navigate to
+
+        // Add a slight delay before making the modal fully opaque to trigger CSS transition
+        setTimeout(() => {
+            leaveConfirmationModal.querySelector('.modal-content').style.opacity = '1';
+            leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(1)';
+        }, 10); // Small delay for transition to apply
+
+        isModalOpen = true;
+    }
+
+    // Function to hide the modal
+    function hideLeaveConfirmationModal() {
+        leaveConfirmationModal.querySelector('.modal-content').style.opacity = '0';
+        leaveConfirmationModal.querySelector('.modal-content').style.transform = 'translate(-50%, -50%) scale(0.95)';
+
+        // Wait for the transition to finish before actually hiding the modal
+        setTimeout(() => {
+            leaveConfirmationModal.style.display = 'none';
+        }, 500); // Match the transition duration in your CSS
+
+        isModalOpen = false;
+    }
+    closeModal.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+    
+    leaveConfirmationModal.addEventListener('click', (event) => {
+        if (event.target === leaveConfirmationModal) {
+            hideLeaveConfirmationModal();
+        }
+    });
+
+    // Attach the event listener for "Save and Leave" button
+    saveAndLeaveBtn.addEventListener('click', () => {
+        saveReportData(); // Save the current data
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Leave Without Saving" button
+    leaveWithoutSavingBtn.addEventListener('click', () => {
+        allowNavigation = true; // Allow navigation to proceed
+        hideLeaveConfirmationModal();
+        if (pendingNavigationURL) {
+            window.location.href = pendingNavigationURL; // Redirect to the stored URL
+        }
+    });
+
+    // Attach the event listener for "Cancel" button
+    cancelBtn.addEventListener('click', () => {
+        hideLeaveConfirmationModal(); // Simply hide the modal
+    });
+
+
+    // Attach click event listener to all links
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent default navigation
+            showLeaveConfirmationModal(link.href); // Show the custom modal with the link URL
+        });
+    });
+
+    // Attach the "beforeunload" event listener
+    window.addEventListener('beforeunload', beforeUnloadHandler);
+});
+
+
 // Get the <span> element that closes the modal
 const span = document.getElementById("closePopup");
 // Get the input elements
