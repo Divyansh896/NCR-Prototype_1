@@ -192,8 +192,8 @@
                         <label for="process">Identify Process Applicable <span class="required">*</span></label>
                         <select class="qa-editable" id="process" name="process" required tabindex="16">
                             <option value="">Select a Process</option>
-                            <option value="supplier">Supplier</option>
-                            <option value="wip">WIP</option>
+                            <option value="Supplier or Rec-Insp">Supplier</option>
+                            <option value="WIP (Production order)">WIP</option>
                             <option value="Not applicable">Not Applicable</option>
                         </select>
                     </div>
@@ -235,7 +235,7 @@
                             </div>
                         </div>
                         <div class="resolved">
-                            <input class="qa-editable" type="checkbox" id="resolved" name="resolved"
+                            <input class="qa-editable" type="checkbox" id="resolvedQA" name="resolved"
                                 aria-label="Resolved" tabindex="15">
                             <label for="resolved">Resolved:</label>
                         </div>
@@ -316,7 +316,7 @@
 
                     <div class="form-row">
                         <div class="rad-report">
-                            <input type="checkbox" class="eng-editable" id="resolved" name="resolved" aria-label="Resolved"
+                            <input type="checkbox" class="eng-editable" id="resolvedEng" name="resolved" aria-label="Resolved"
                                 tabindex="30">
                             <label for="resolved">Resolved:</label>
                         </div>
@@ -432,7 +432,7 @@
                     </div>
     
                     <div class="rad-report">
-                        <input class="purch-editable" type="checkbox" id="resolved" name="resolved" aria-label="Resolved"
+                        <input class="purch-editable" type="checkbox" id="resolvedPurch" name="resolved" aria-label="Resolved"
                             tabindex="46">
                         <label for="resolved">Resolved:</label>
                     </div>
