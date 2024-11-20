@@ -13,10 +13,7 @@
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        .conditional-field {
-            display: none;
-            margin-top: 10px;
-        }
+        
     </style>
 </head>
 
@@ -195,6 +192,123 @@
                 </div>
 
                 <div class="form-container">
+
+                    <!-- QA Rep Dropdown -->
+                    <details id="qa-section" tabindex="6">
+                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Quality assurance department details" >Quality Assurance
+                        </summary>
+                        <div class="qa-info-logged-ncr">
+                            <!-- First Column -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>QA Name:</label><span id="qa-name-d">[QA Name]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>NCR No:</label><span id="ncr-no-d">[NCR No]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Sales Order No:</label><span id="sales-order-no-d">[Sales Order No]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity Received:</label><span id="quantity-received-d">[Quantity
+                                        Received]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Quantity Defective:</label><span id="quantity-defective-d">[Quantity
+                                        Defective]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>QA Date:</label><span id="qa-date-d">[QA Date]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Supplier Name:</label><span id="supplier-name-d">[Supplier Name]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Product No:</label><span id="product-no-d">[Product No]</span>
+
+                                </div>
+
+                            </div>
+                            <!-- Second Column -->
+                            <div class="form-row">
+
+                                <div class="form-group description">
+                                    <label>Description of Item (Including SAP No.)</label>
+                                    <span id="description-item-d">[Description of Item]</span>
+                                </div>
+                                <div class="form-group description">
+                                    <label>Description of Defect</label>
+                                    <span id="description-defect-d">[Description of Defect]</span>
+                                </div>
+                                <!-- Radio Buttons for Non-Conforming -->
+                                <div class="form-group">
+                                    <label>Item Marked Non-Conforming?:</label><span
+                                    id="item-marked-nonconforming-d">[Yes/No]</span>
+
+                                </div>
+                                <div class="form-group">
+                                    <label>Identify Process Applicable:</label><span id="process-d">[Process]</span>
+
+                                </div>
+                            </div>
+                            <!-- Textarea Section -->
+
+                        </div>
+                    </details>
+
+                    <details id="eng-section" tabindex="7">
+                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Engineering department details">Engineering
+                        </summary>
+                        <div class="eng-info-logged-ncr">
+                            <!-- First Column -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Engineer Name:</label><span id="engineer-name-d">[Engineer Name]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Drawing Update Required:</label><span id="drawing-update-required-d">[Yes/No]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Original Revision Number:</label><span id="original-rev-number-d">[Original Revision Number]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Updated Revision Number:</label><span id="updated-rev-number-d">[Updated Revision Number]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Revision Date:</label><span id="revision-date-d">[Revision Date]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Engineering Review Date:</label><span id="engineering-review-date-d">[Engineering Review Date]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Resolved:</label><span id="resolved-d">[Yes/No]</span>
+                                </div>
+                            </div>
+                            <!-- Second Column -->
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Review by CF Engineer:</label><span id="review-by-cf-engineer-d">[CF Engineer Review]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Disposition Details:</label><span id="disposition-details-d">[Disposition Details]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Customer Notification Required:</label><span id="customer-notification-required-d">[Yes/No]</span>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notification for Customer:</label><span id="customer-message-d">[Customer Notification Message]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </details>
+                    
                     <!-- Multi-Step Form -->
                     <form id="ncr-form" method="post" action="https://webdevbasics.net/scripts/demo.php"
                         aria-label="Quality assurance department form">

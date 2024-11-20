@@ -259,6 +259,10 @@ label {
     text-align: left;
 }
 
+.conditional-field {
+    display: none;
+    margin-top: 10px;
+}
 
 /* Footer for all pages */
 .linksNav,
@@ -928,12 +932,12 @@ label.radio-button {
     width: fit-content;
 }
 
-.qa-info-logged-ncr {
+.qa-info-logged-ncr, .eng-info-logged-ncr {
     display: grid;
     /* grid-template-columns: 1fr 1fr; */
 }
 
-.qa-info-logged-ncr span {
+.qa-info-logged-ncr span, .eng-info-logged-ncr span {
     font-weight: lighter;
 }
 
@@ -2049,7 +2053,7 @@ td button:focus {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .qa-info-logged-ncr {
+    .qa-info-logged-ncr, .eng-info-logged-ncr {
         grid-template-columns: repeat(2, 1fr);
     }
 

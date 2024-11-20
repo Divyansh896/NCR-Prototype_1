@@ -2,10 +2,27 @@ function onLoginSuccess() {
     localStorage.setItem('isLoggedIn', 'true'); // Set the logged-in state
 }
 
+// Handle Enter key navigation and login
+document.addEventListener("keydown", (event) => {
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
+    const loginButton = document.getElementById("btn-login");
+
+    if (event.key === "Enter") {
+        if (document.activeElement === usernameInput) {
+            event.preventDefault(); // Prevent form submission
+            passwordInput.focus(); // Move focus to the password input
+        } else if (document.activeElement === passwordInput) {
+            event.preventDefault(); // Prevent form submission
+            loginButton.click(); // Trigger login button click
+        }
+    }
+});
+
 // Event listeners and functions for login page
 document.getElementById("btn-login").addEventListener("click", () => {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+    const username = document.getElementById("username").value.trim();
+    const password = document.getElementById("password").value.trim();
 
     // Error message spans
     const usernameErrorSpan = document.getElementById("username-error");
@@ -60,11 +77,6 @@ document.getElementById("username").addEventListener("input", () => {
 });
 document.getElementById("password").addEventListener("input", () => {
     document.getElementById("password-error").style.display = 'none';
-});
-
-const starElements = document.querySelectorAll('.required');
-starElements.forEach(star => {
-    star.style.display = 'none'; // Hide each star element
 });
 
 function validateInputs() {

@@ -1,14 +1,19 @@
-//const userName = document.getElementById('userName')
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+const userName = document.getElementById('userName')
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const decision = document.getElementById("decision")
 const subOptions = document.getElementById("sub-options")
+const footer = document.getElementById('footer-scroll')
 
 const sections = document.querySelectorAll(".form-section")
 
 // Follow-up functionality
 const followUpRadioButtons = document.querySelectorAll('input[name="follow-up"]')
 const followUpDetails = document.getElementById("follow-up-details")
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 let currentStep = 0
 function updateStatusBar() {
@@ -57,6 +62,12 @@ carRadioButtons.forEach(radio => {
         } else {
             carDetails.style.display = "none"
         }
+    })
+})
+footer.addEventListener('click', () => {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
     })
 })
 
@@ -116,6 +127,89 @@ document.getElementById("back-btn2").addEventListener("click", () => {
     sections[currentStep].classList.remove("active")
     currentStep--
     sections[currentStep].classList.add("active")
-    document.getElementById("confirm-media-list").textContent = null
     updateStatusBar()
 })
+
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+
+
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}
+
+// Optional: Hide the notification box if clicked outside
+document.addEventListener("click", function (event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})
+
+function logout() {
+    localStorage.removeItem('isLoggedIn')
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
+}
+
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools")
+
+}
+
+function sendNotification(ncrNum) {
+    // Retrieve existing notifications from localStorage or initialize as an empty array
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
+
+    // Add the new notification message
+    notifications.push(`NCR No. ${ncrNum} has been sent to the Engineering department via Gmail for review and action.`)
+
+    // Save updated notifications back to localStorage
+    localStorage.setItem('notifications', JSON.stringify(notifications))
+
+    // Update the notification display
+    setNotificationText()
+}
+
+function setNotificationText() {
+    // Retrieve and parse notifications from localStorage
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
+
+    // Set the notification count
+    const count = document.getElementById('notification-count')
+    count.innerHTML = notifications.length
+
+    // Clear any existing notifications in the list to avoid duplicates
+    const notificationList = document.getElementById('notification-list') // Ensure this element exists in your HTML
+    notificationList.innerHTML = '' // Clear existing list items
+
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li')
+        li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`
+        notificationList.prepend(li)
+    })
+}

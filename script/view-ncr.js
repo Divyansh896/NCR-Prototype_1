@@ -95,8 +95,8 @@ function populateTable(data, matchedStatus) {
         const reportStage = getReportStage(ncr);
 
         // Determine the status display for incomplete NCRs
-        const statusDisplay = ncr.status === 'incomplete' 
-            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>` 
+        const statusDisplay = ncr.status === 'incomplete'
+            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>`
             : `<span style="color: gray"><i class="fa fa-check"></i> Closed</span>`; // Status for completed/archived
 
         // Set the inner HTML of the row
@@ -129,7 +129,7 @@ function populateTable(data, matchedStatus) {
         tBody.appendChild(row); // Append the row to the table body
     });
 
-    
+
 }
 
 
@@ -149,11 +149,11 @@ function editNCR(ncr) {
 
 function extractData(ncr) {
 
-    
+
     return {
         ncr_no: ncr.ncr_no,
         status: ncr.status || "incomplete", // Status defaults to "incomplete" if not present
-        
+
         qa: {
             supplier_name: ncr.qa.supplier_name,
             po_no: ncr.qa.po_no, // Changed from po_no to product_no as per your comment
@@ -171,9 +171,9 @@ function extractData(ncr) {
                 supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
                 wip_production_order: ncr.qa.process.wip_production_order
             }
-            
+
         },
-        
+
         engineering: {
             disposition: ncr.engineering.disposition || "", // Default to empty string if not available
             customer_notification_required: ncr.engineering.customer_notification_required || false, // Default to false
@@ -313,10 +313,22 @@ ncrInput.addEventListener('keydown', function (e) {
         e.preventDefault() // Prevent default behavior
         currentFocus++
         addActive(items)
+        const selectedItem = items[currentFocus].innerText // Get selected item's text
+        ncrInput.value = selectedItem
+        const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(selectedItem))
+        records.textContent = `Records found: ${filteredRecords.length}`
+
+        populateTable(filteredRecords, status)
     } else if (e.key === 'ArrowUp') {
         e.preventDefault() // Prevent default behavior
         currentFocus--
         addActive(items)
+        const selectedItem = items[currentFocus].innerText // Get selected item's text
+        ncrInput.value = selectedItem
+        const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(selectedItem))
+        records.textContent = `Records found: ${filteredRecords.length}`
+
+        populateTable(filteredRecords, status)
     } else if (e.key === 'Enter') {
         e.preventDefault() // Prevent default behavior
         if (currentFocus > -1 && items.length > 0) {
@@ -427,7 +439,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        if(user.role == 'Lead Engineer'){
+        if (user.role == 'Lead Engineer') {
 
             if (notificationText.includes('Engineering')) {
                 // engineering department person get the mail from qa (will show review and begin work)
@@ -437,24 +449,24 @@ function setNotificationText() {
                 li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
             }
         }
-        else{
+        else {
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
         }
-        
+
 
         notificationList.prepend(li);
     });
 }
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
