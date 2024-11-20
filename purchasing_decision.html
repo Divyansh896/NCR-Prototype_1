@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Create a new NCR report using a step-by-step form with sections for QA information, product info, and defect description.">
+    <meta name="keywords" content="NCR, Crossfire, manage NCR, create NCR, view NCR, Non-Conformance Reports">
+    <meta name="author" content="Mark">
+    <title>Purchasing Decision - Crossfire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="breadcrumb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        .conditional-field {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header with Logo and Navigation -->
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.webp" alt="Crossfire Company Logo">
+        </div>
+
+        <nav aria-label="Primary Navigation">
+            <a href="#" id="menu-icon" aria-label="Menu icon"></a>
+            <ul>
+                <li>
+                    <a href="Dashboard.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="purchasing_decision.html" class="linksNav" tabindex="2"
+                        aria-label="Create a new Non-Conformance Report">
+                        <i class="fa fa-fw fa-pencil"></i> Purchasing Report
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
+                        aria-label="View existing Non-Conformance Reports">
+                        <i class="fa fa-fw fa-search"></i> NCR log
+                    </a>
+                </li>
+
+
+                <li>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
+                        <span><i class="fa fa-bell"></i></span>
+                        <span id="notification-count" class="badge">0</span>
+                    </button>
+                    <div id="notification-box" class="notification-box">
+                        <ul id="notification-list">
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span class="icon-text">Settings</span>
+                        <span><i class="fa fa-cog"></i></span>
+                    </button>
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
+                        <ul>
+                            <!-- User Profile Section -->
+                            <li>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
+                            </li>
+
+                            <!-- Edit Profile Link -->
+                            <li>
+                                <a href="account.html" aria-label="Edit your profile">
+                                    <i class="fa fa-user"></i>
+                                    <span>Edit Profile</span>
+                                </a>
+                            </li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <div class="brdcontainer" id="brdcrmb">
+        <!-- nav element add an attribute "aria-label="breadcrumb""-->
+        <nav aria-label="breadcrumb">
+            <!-- create ol or ul list and add class="breadcrumb" -->
+            <ul class="breadcrumb" id="brdcrb">
+                <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                <li class="breadcrumb-item active" aria-current="page">Create NCR</li>
+            </ul>
+        </nav>
+    </div>
+    <main>
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
+        <!--
+        <div id="popup" class="deletemodal">
+            <div class="modal-content">
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"><img src="images/1382678.webp" alt="exclamation image"></div> 
+                    </div>
+                    <h2 id="popup-title"></h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="delete-confirm">
+                    <button type="button" id="yes-delete-img">Delete</button>
+                    <button type="button" id="no-delete-img">Cancel</button>
+                </div>
+            </div>
+        </div>
+    -->
+        <div id="leaveConfirmationModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span id="closeModal" class="close">&times;</span>
+                <h2>Are you sure you want to leave without saving?</h2>
+                <div class="modal-buttons">
+                    <button id="saveAndLeaveBtn">Save & Leave</button>
+                    <button id="leaveWithoutSavingBtn">Leave Without Saving</button>
+                    <button id="cancelBtn">Cancel</button>
+                </div>
+            </div>
+        </div>
+
+
+        <fieldset class="createncrmainfield">
+            <div class="main-container-create">
+                <!-- Status Bar -->
+                <div class="status-bar">
+                    <h1>Purchasing NCR</h1>
+                    <ul class="status-steps">
+                        <li class="status-step active">
+                            <span class="step-icon"></span>
+                            Preliminary Decision
+                        </li>
+                        <li class="status-step">
+                            <span class="step-icon"></span>
+                            Product Description
+                        </li>
+                        <li class="status-step">
+                            <span class="step-icon"></span>
+                            Confirmation
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="form-container">
+                    <!-- Multi-Step Form -->
+                    <form id="ncr-form" method="post" action="https://webdevbasics.net/scripts/demo.php"
+                        aria-label="Quality assurance department form">
+                        <!-- Product Info Section -->
+                        <fieldset class="form-section active" aria-labelledby="product-info">
+
+                            <div class="qa-info-section">
+                                <div class="qa-info">
+                                    <!-- Primary Decision -->
+                                    <div class="tooltip-container">
+                                        <label for="decision">Select Primary Decision:</label>
+                                        <select id="decision" aria-label="Select the primary decision">
+                                            <option value="return" selected>Return to Supplier</option>
+                                            <option value="rework">Rework "In-House"</option>
+                                            <option value="scrap">Scrap In-House</option>
+                                            <option value="defer">Defer for HBC Engineering Review</option>
+                                        </select>
+                                        <span class="error-message" aria-live="polite">Please select a primary
+                                            decision.</span>
+                                        <span class="tooltip">Choose the action to take for the NCR item, such as return
+                                            or rework.</span>
+                                    </div>
+
+                                    <!-- Sub-options for "Return to Supplier" -->
+                                    <div id="sub-options" aria-label="Options for Return to Supplier">
+                                        <div class="tooltip-container">
+
+                                            <label for="return-options">Return Options:</label>
+                                            <select id="return-options" aria-label="Select return option">
+                                                <option value="rework" selected>Rework</option>
+                                                <option value="replacement">Replacement</option>
+                                            </select>
+                                            <span class="error-message" aria-live="polite">Please select an option for
+                                                return.</span>
+                                            <span class="tooltip">Specify whether the item will be reworked or
+                                                replaced.</span>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Follow-up Required -->
+                                    <label>Follow-up Required?</label>
+                                    <span class="error-message" aria-live="polite">Please indicate if follow-up is
+                                        required.</span>
+                                    <div class="rad-create-ncr" aria-label="Follow-up required options">
+                                        <div>
+                                            <div class="tooltip-container">
+                                                <label class="radio-button">
+                                                    <input type="radio" name="follow-up" value="yes"
+                                                        class="hidden-radio" aria-label="Follow-up required, yes"
+                                                        onclick="toggleCheck(this)"> Yes
+                                                </label>
+                                                <span class="tooltip">Click to select follow up is required.</span>
+
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="tooltip-container">
+                                                <label class="radio-button">
+                                                    <input type="radio" name="follow-up" value="no" class="hidden-radio"
+                                                        aria-label="Follow-up required, no" onclick="toggleCheck(this)">
+                                                    No
+                                                </label>
+                                                <span class="tooltip">Click to select follow up is not required.</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Follow-up Type and Date -->
+                                <div id="follow-up-details" aria-hidden="true" aria-label="Follow-up details section">
+                                    <div class="tooltip-container">
+                                        <label for="follow-type">Follow-up Type:</label>
+                                        <input type="text" id="follow-type" placeholder="Enter follow-up type"
+                                            aria-label="Enter follow-up type">
+                                        <span class="error-message" aria-live="polite">Follow-up type is required if
+                                            follow-up is selected.</span>
+                                        <span class="tooltip">Provide a description of the follow-up action (e.g.,
+                                            inspection).</span>
+                                    </div>
+                                    <div class="tooltip-container">
+                                        <label for="follow-date">Expected Date:</label>
+                                        <input type="date" id="follow-date"
+                                            aria-label="Select the expected follow-up date">
+                                        <span class="error-message" aria-live="polite">Please provide a valid date for
+                                            the follow-up.</span>
+                                        <span class="tooltip">Select the date by which the follow-up should be
+                                            completed.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="btn-qa-create">
+                                <button type="button" id="clear-btn1" aria-label="Clear all input fields"
+                                    tabindex="15">Clear</button>
+                                <button type="button" id="save1" aria-label="Save current progress"
+                                    tabindex="16">Save</button>
+                                <button type="button" id="next-btn1" aria-label="Move to the next step"
+                                    tabindex="17">Next</button>
+                            </div>
+
+
+                        </fieldset>
+
+                        <fieldset class="form-section" aria-labelledby="product-desc" aria-label="Product description">
+                            <div class="qa-info-section">
+                                <!-- Re-Inspected Acceptable -->
+                                <div>
+                                    <label>Re-Inspected Acceptable?</label>
+                                    <span class="error-message" aria-live="polite">Please select whether re-inspection
+                                        is acceptable.</span>
+
+                                    <div class="rad-create-ncr">
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" name="re-inspected" value="yes"
+                                                    class="hidden-radio">
+                                                Yes
+                                            </label>
+                                            <span class="tooltip">Click to select yes.</span>
+
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio">
+                                                No
+                                            </label>
+                                            <span class="tooltip">Click to select no.</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div>
+
+                                    <!-- New NCR Number -->
+                                    <div class="tooltip-container">
+                                        <label for="new-ncr-number">New NCR Number:</label>
+                                        <input type="text" id="new-ncr-number" placeholder="Enter new NCR number">
+                                        <span class="error-message" aria-live="polite">New NCR number is required if
+                                            applicable.</span>
+                                        <span class="tooltip">Enter the NCR number for the new report, if
+                                            required.</span>
+                                    </div>
+                                </div>
+
+                                <!-- New NCR Details -->
+                                <div id="new-ncr-details"> <!--class="conditional-field"-->
+                                    <!-- Inspector's Name -->
+                                    <div class="tooltip-container">
+                                        <label for="inspector-name">Inspector's Name:</label>
+                                        <input type="text" id="inspector-name" placeholder="Enter inspector's name">
+                                        <span class="error-message" aria-live="polite">Please provide the inspector's
+                                            name.</span>
+                                        <span class="tooltip">Enter the full name of the inspector responsible.</span>
+                                    </div>
+
+                                    <!-- NCR Date -->
+                                    <div class="tooltip-container">
+                                        <label for="ncr-date">Date:</label>
+                                        <input type="date" id="ncr-date">
+                                        <span class="error-message" aria-live="polite">Please provide the date for the
+                                            NCR.</span>
+                                        <span class="tooltip">Select the date when the NCR was issued.</span>
+                                    </div>
+                                </div>
+
+                                <!-- NCR Closed -->
+                                <div>
+                                    <label>NCR Closed?</label>
+                                    <span class="error-message" aria-live="polite">Please indicate if the NCR is
+                                        closed.</span>
+                                    <div class="rad-create-ncr">
+                                        <div>
+                                            <div class="tooltip-container">
+
+                                                <label class="radio-button">
+                                                    <input type="radio" name="ncr-closed" value="yes"
+                                                        class="hidden-radio" onclick="toggleCheck(this)">
+                                                    Yes
+                                                </label>
+                                                <span class="tooltip">Choose "Yes" if the NCR is closed.</span>
+                                            </div>
+
+                                        </div>
+                                        <div>
+                                            <div class="tooltip-container">
+
+                                                <label class="radio-button">
+                                                    <input type="radio" name="ncr-closed" value="no"
+                                                        class="hidden-radio" onclick="toggleCheck(this)">
+                                                    No
+                                                </label>
+                                                <span class="tooltip">Choose "No" if the NCR is not closed.</span>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+                                    <!-- Quality Department Closure Details -->
+                                    <div id="ncr-closure-details" class="conditional-field">
+                                        <label for="quality-date">Quality Department Closure Date:</label>
+                                        <input type="date" id="quality-date">
+                                        <span class="error-message" aria-live="polite">Please provide the closure date
+                                            if the NCR is closed.</span>
+                                        <span class="tooltip">Select the date the Quality Department closed the
+                                            NCR.</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="btn-qa-create">
+                                <button type="button" id="back-btn1" tabindex="23">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                <button type="button" id="save2" aria-label="Save current progress"
+                                    tabindex="25">Save</button>
+                                <button type="button" id="next-btn2" tabindex="26">Next</button>
+                            </div>
+                        </fieldset>
+
+
+                        <!-- Confirmation section -->
+                        <!-- Confirmation section -->
+                        <fieldset class="form-section confirmation" aria-labelledby="confirmation-details"
+                            aria-label="Confirm entered details">
+
+                            <div class="col-confirm">
+                                <!-- QA Details -->
+                                <div class="confirm-create-qa">
+                                    <p>Primary Decision: <span id="confirm-decision"></span></p>
+                                    <p>Return Option (if applicable): <span id="confirm-return-options"></span></p>
+                                    <p>Follow-up Required: <span id="confirm-follow-up"></span></p>
+                                    <p>Follow-up Type: <span id="confirm-follow-type"></span></p>
+                                    <p>Follow-up Date: <span id="confirm-follow-date"></span></p>
+                                </div>
+
+                                <!-- Product Details -->
+                                <div class="confirm-create-qa">
+                                    <p>Re-Inspected Acceptable: <span id="confirm-re-inspected"></span></p>
+                                    <p>New NCR Number: <span id="confirm-new-ncr-number"></span></p>
+                                    <p>Inspector's Name: <span id="confirm-inspector-name"></span></p>
+                                    <p>NCR Date: <span id="confirm-ncr-date"></span></p>
+                                    <p>NCR Closed: <span id="confirm-ncr-closed"></span></p>
+                                    <p>Closure Date: <span id="confirm-closure-date"></span></p>
+                                </div>
+                            </div>
+
+                            <!-- Buttons -->
+                            <div class="btn-qa-create">
+                                <button type="button" id="back-btn2" aria-label="Move to the previous step"
+                                    tabindex="27">Back</button>
+                                <button id="submit-btn" aria-label="Submit the form" tabindex="28">Submit</button>
+                            </div>
+                        </fieldset>
+
+                    </form>
+                </div>
+            </div>
+
+    </main>
+
+    <footer aria-label="Footer" id="footer-scroll">
+        <p>&copy; 2024 Crossfire. All rights reserved.</p>
+        <p>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="29">Privacy
+                Policy</a>
+        </p>
+    </footer>
+
+    <script src="script/breadcrumb.js"></script>
+    <script src="script/purchasing.js"></script>
+
+</body>
+
+</html>
