@@ -14,7 +14,8 @@ const sections = document.querySelectorAll(".form-section")
 const followUpRadioButtons = document.querySelectorAll('input[name="follow-up"]')
 const followUpDetails = document.getElementById("follow-up-details")
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
-
+const queryParams = new URLSearchParams(window.location.search)
+loadData(queryParams)
 let currentStep = 0
 function updateStatusBar() {
     const steps = document.querySelectorAll(".status-steps .status-step") // Get all status steps
@@ -140,7 +141,55 @@ function toggleSettings() {
 }
 
 
+function loadData(params) {
+    const elements = [
+        'qa-name-d', 'ncr-no-d', 'sales-order-no-d', 'quantity-received-d',
+        'quantity-defective-d', 'qa-date-d', 'supplier-name-d',
+        'product-no-d', 'process-d', 'description-item-d',
+        'description-defect-d', 'item-marked-nonconforming-d',
+        'review-by-cf-engineer-d','customer-notification-required-d','disposition-details-d',
+        'drawing-update-required-d','original-rev-number-d','updated-rev-number-d','engineer-name-d',
+        'revision-date-d','resolved-d','engineering-review-date-d'
+    ];
 
+    // Define process values with labels showing 'Yes' or 'No'
+    const processSupplierInsp = `Supplier Inspection: ${params.get('supplier_or_rec_insp') === 'true' ? 'Yes' : 'No'}`;
+    const processWipProdOrder = `WIP Production Order: ${params.get('wip_production_order') === 'true' ? 'Yes' : 'No'}`;
+    const processValue = `${processSupplierInsp}\n\n${processWipProdOrder}`;
+
+    // Prepare values, including formatted process and description of defect
+    const values = [
+        params.get('quality_representative_name') || '[QA Name]',
+        params.get('ncr_no') || '[NCR No]',
+        params.get('sales_order_no') || '[Sales Order No]',
+        params.get('quantity_received') || '[Quantity Received]',
+        params.get('quantity_defective') || '[Quantity Defective]',
+        params.get('date') || '[QA Date]',
+        params.get('supplier_name') || '[Supplier Name]',
+        params.get('po_no') || '[Product No]',
+        processValue,
+        params.get('item_description') || '[Description of Item]',
+        params.get('description_of_defect') || '[Description of Defect]',
+        params.get('item_marked_nonconforming') === 'true' ? 'Yes' : 'No',
+        params.get('disposition'),
+        params.get('customer_notification_required') === 'true' ? 'Yes' : 'No',
+        params.get('disposition_details'),
+        params.get('drawing_update_required') === 'true'? 'Yes':'No',
+        params.get('original_rev_number'),
+        params.get('updated_rev_number'),
+        params.get('engineer_name'),
+        params.get('revision_date'),
+        params.get('resolved_engineer') === 'true' ? 'Yes' : 'No',
+        params.get('engineering_review_date')
+        
+    ];
+
+    elements.forEach((id, index) => {
+        const element = document.getElementById(id);
+        element.textContent = values[index];
+        element.setAttribute('disabled', 'true'); // Disable the element
+    });
+}
 
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")

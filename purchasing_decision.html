@@ -302,9 +302,9 @@
                                 <div class="form-group">
                                     <label>Customer Notification Required:</label><span id="customer-notification-required-d">[Yes/No]</span>
                                 </div>
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Notification for Customer:</label><span id="customer-message-d">[Customer Notification Message]</span>
-                                </div>
+                                </div> -->
                             </div>
                         </div>
                     </details>
@@ -426,7 +426,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button">
                                                 <input type="radio" name="re-inspected" value="yes"
-                                                    class="hidden-radio">
+                                                    class="hidden-radio" onclick="toggleCheck(this)">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to select yes.</span>
@@ -434,7 +434,7 @@
                                         </div>
                                         <div class="tooltip-container">
                                             <label class="radio-button">
-                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio">
+                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio" onclick="toggleCheck(this)">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to select no.</span>

@@ -1,11 +1,14 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
-loadImages()
 
+const btnExport = document.getElementById('btnExportExcel')
+loadImages()
+updateToolContent()
 const btnEdit = document.querySelectorAll('.edit');
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
@@ -67,6 +70,7 @@ function setSpanContentFromSession() {
 
     // Set QA data to spans and inputs
     document.getElementById('supplier-name').textContent = retrievedNCRData.qa?.supplier_name || '';
+    document.getElementById('item-name').textContent = retrievedNCRData.qa?.item_name || '';
     document.getElementById('product-no').textContent = retrievedNCRData['qa']?.po_no || '';
     document.getElementById('sales-order-no').textContent = retrievedNCRData['qa']?.sales_order_no || '';
     document.getElementById('description-item').textContent = retrievedNCRData['qa']?.item_description || '';
@@ -371,4 +375,192 @@ function updateToolContent() {
     }
 }
 
-updateToolContent()
+btnExport.addEventListener('click', ()=>{
+    exportToExcel(retrievedNCRData['ncr_no'])
+    
+})
+async function exportToExcel(ncrNum) {
+    
+    let index = AllReports.findIndex(report => report.ncr_no == ncrNum)
+    let report = AllReports[index]
+    const workbook = new ExcelJS.Workbook()
+    const worksheet = workbook.addWorksheet('sheet1')
+
+    // Title and date header
+    worksheet.mergeCells('A1:E1')
+    worksheet.getCell('A1').value = 'Non Conformance Report'
+    worksheet.getCell('A1').alignment = { horizontal: 'center' }
+    worksheet.getCell('A1').font = { bold: true, size: 20 }
+
+    worksheet.mergeCells('A2:E2')
+    worksheet.getCell('A2').value = `Date of Report: ${report.qa.date}`
+    worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true }
+
+
+    // Create headers for QA, Engineering, and Purchasing
+    worksheet.mergeCells('A3:B3')
+    worksheet.getCell('A3').value = 'QA Information'
+    worksheet.getCell('A3').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A3').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A4').value = 'Supplier Name'
+    worksheet.getCell('A4').font = { bold: true }
+    worksheet.getCell('B4').value = report.qa.supplier_name
+
+    worksheet.getCell('A5').value = 'Product Number'
+    worksheet.getCell('A5').font = { bold: true }
+    worksheet.getCell('B5').value = report.qa.po_no
+
+    worksheet.getCell('A6').value = 'Item Name'
+    worksheet.getCell('A6').font = { bold: true }
+    worksheet.getCell('B6').value = report.qa.item_name
+
+    worksheet.getCell('A7').value = 'Item Description'
+    worksheet.getCell('A7').font = { bold: true }
+    worksheet.getCell('B7').value = report.qa.item_description
+
+
+    worksheet.getCell('A8').value = 'Sales Order Number'
+    worksheet.getCell('A8').font = { bold: true }
+    worksheet.getCell('B8').value = report.qa.sales_order_no
+
+    worksheet.getCell('A9').value = 'Quantity Received'
+    worksheet.getCell('A9').font = { bold: true }
+    worksheet.getCell('B9').value = report.qa.quantity_received
+    worksheet.getCell('B9').alignment = { horizontal: 'left' }
+
+    worksheet.getCell('A10').value = 'Quantity Defective'
+    worksheet.getCell('A10').font = { bold: true }
+    worksheet.getCell('B10').value = report.qa.quantity_defective
+    worksheet.getCell('B10').alignment = { horizontal: 'left' }
+
+    worksheet.getCell('D4').value = 'Description Of Defect'
+    worksheet.getCell('D4').font = { bold: true }
+    worksheet.getCell('E4').value = report.qa.description_of_defect
+
+    worksheet.getCell('D5').value = 'Item Marked Non-Conforming'
+    worksheet.getCell('D5').font = { bold: true }
+    worksheet.getCell('E5').value = report.qa.item_marked_nonconforming === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D6').value = 'Quality Representative name'
+    worksheet.getCell('D6').font = { bold: true }
+    worksheet.getCell('E6').value = report.qa.quality_representative_name
+
+    worksheet.getCell('D7').value = 'Resolved'
+    worksheet.getCell('D7').font = { bold: true }
+    worksheet.getCell('E7').value = report.qa.resolved === true ? 'Yes' : 'No'
+
+    // Engineering Department
+    worksheet.mergeCells('A13:B13')
+    worksheet.getCell('A13').value = 'Engineering'
+    worksheet.getCell('A13').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A13').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A14').value = 'Disposition'
+    worksheet.getCell('A14').font = { bold: true }
+    worksheet.getCell('B14').value = report.engineering.disposition
+
+    worksheet.getCell('A15').value = 'Original Version Number'
+    worksheet.getCell('A15').font = { bold: true }
+    worksheet.getCell('B15').value = report.engineering.original_rev_number
+
+    worksheet.getCell('A16').value = 'Updated Revision Number'
+    worksheet.getCell('A16').font = { bold: true }
+    worksheet.getCell('B16').value = report.engineering.updated_rev_number
+
+    worksheet.getCell('A17').value = 'Engineer Name'
+    worksheet.getCell('A17').font = { bold: true }
+    worksheet.getCell('B17').value = report.engineering.engineer_name
+
+
+    worksheet.getCell('A18').value = 'Revision Date'
+    worksheet.getCell('A18').font = { bold: true }
+    worksheet.getCell('B18').value = report.engineering.revision_date
+
+    worksheet.getCell('A19').value = 'Engineer Review Date'
+    worksheet.getCell('A19').font = { bold: true }
+    worksheet.getCell('B19').value = report.engineering.engineering_review_date
+
+
+    worksheet.getCell('D14').value = 'Disposition Details'
+    worksheet.getCell('D14').font = { bold: true }
+    worksheet.getCell('E14').value = report.engineering.disposition_details
+
+    worksheet.getCell('D15').value = 'Drawing Update Required'
+    worksheet.getCell('D15').font = { bold: true }
+    worksheet.getCell('E15').value = report.engineering.drawing_update_required === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D16').value = 'Quality Representative name'
+    worksheet.getCell('D16').font = { bold: true }
+    worksheet.getCell('E16').value = report.qa.quality_representative_name
+
+    worksheet.getCell('D17').value = 'Resolved'
+    worksheet.getCell('D17').font = { bold: true }
+    worksheet.getCell('E17').value = report.qa.resolved === true ? 'Yes' : 'No'
+
+    // Purchasing Department
+    worksheet.mergeCells('A22:B22')
+    worksheet.getCell('A22').value = 'Purchasing'
+    worksheet.getCell('A22').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A22').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A23').value = 'Preliminary Decision'
+    worksheet.getCell('A23').font = { bold: true }
+    worksheet.getCell('B23').value = report.purchasing_decision.preliminary_decision
+
+    worksheet.getCell('A24').value = 'Rework In-House'
+    worksheet.getCell('A24').font = { bold: true }
+    worksheet.getCell('B24').value = report.purchasing_decision.options.rework_in_house === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A25').value = 'Scrap In-House'
+    worksheet.getCell('A25').font = { bold: true }
+    worksheet.getCell('B25').value = report.purchasing_decision.options.scrap_in_house === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A26').value = 'Defer to Engineering'
+    worksheet.getCell('A26').font = { bold: true }
+    worksheet.getCell('B26').value = report.purchasing_decision.options.defer_to_engineering === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A27').value = 'CAR Raised'
+    worksheet.getCell('A27').font = { bold: true }
+    worksheet.getCell('B27').value = report.purchasing_decision.car_raised === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A28').value = 'CAR Number'
+    worksheet.getCell('A28').font = { bold: true }
+    worksheet.getCell('B28').value = report.purchasing_decision.car_number
+
+    worksheet.getCell('A29').value = 'Follow-Up Required'
+    worksheet.getCell('A29').font = { bold: true }
+    worksheet.getCell('B29').value = report.purchasing_decision.follow_up_required === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D23').value = 'Operations Manager Name'
+    worksheet.getCell('D23').font = { bold: true }
+    worksheet.getCell('E23').value = report.purchasing_decision.operations_manager_name
+
+    worksheet.getCell('D24').value = 'Operations Manager Date'
+    worksheet.getCell('D24').font = { bold: true }
+    worksheet.getCell('E24').value = report.purchasing_decision.operations_manager_date
+
+    worksheet.getCell('D25').value = 'Re-Inspected Acceptable'
+    worksheet.getCell('D25').font = { bold: true }
+    worksheet.getCell('E25').value = report.purchasing_decision.re_inspected_acceptable === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D26').value = 'New NCR Number'
+    worksheet.getCell('D26').font = { bold: true }
+    worksheet.getCell('E26').value = report.purchasing_decision.new_ncr_number
+
+    worksheet.getCell('D27').value = 'Inspector Name'
+    worksheet.getCell('D27').font = { bold: true }
+    worksheet.getCell('E27').value = report.purchasing_decision.inspector_name
+
+    worksheet.getCell('D28').value = 'NCR Closed'
+    worksheet.getCell('D28').font = { bold: true }
+    worksheet.getCell('E28').value = report.purchasing_decision.ncr_closed === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D29').value = 'Resolved'
+    worksheet.getCell('D29').font = { bold: true }
+    worksheet.getCell('E29').value = report.purchasing_decision.resolved === true ? 'Yes' : 'No'
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, `NCR-${report.ncr_no}.xlsx`);
+}

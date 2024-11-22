@@ -150,7 +150,8 @@ function prefillFormFromSavedData(savedData) {
     document.getElementById('description-defect-d').textContent = savedData.description_of_defect;
     document.getElementById('item-marked-nonconforming-d').textContent = savedData.item_marked_nonconforming;
     document.getElementById('qa-name-d').textContent = savedData.quality_representative_name;
-    document.getElementById('qa-date-d').textContent = savedData.date;
+    document.getElementById('qa-name-d').textContent = savedData.quality_representative_name;
+    document.getElementById('item-name-d').textContent = savedData.item_name;
     document.getElementById('process-d').textContent = savedData.identify_process;
     // Prefill QA Fields if present
 
@@ -731,13 +732,13 @@ function loadData(params) {
         'qa-name-d', 'ncr-no-d', 'sales-order-no-d', 'quantity-received-d',
         'quantity-defective-d', 'qa-date-d', 'supplier-name-d',
         'product-no-d', 'process-d', 'description-item-d',
-        'description-defect-d', 'item-marked-nonconforming-d'
+        'description-defect-d', 'item-marked-nonconforming-d','item-name-d'
     ];
 
     // Define process values with labels showing 'Yes' or 'No'
     const processSupplierInsp = `Supplier Inspection: ${params.get('supplier_or_rec_insp') === 'true' ? 'Yes' : 'No'}`;
     const processWipProdOrder = `WIP Production Order: ${params.get('wip_production_order') === 'true' ? 'Yes' : 'No'}`;
-    const processValue = `${processSupplierInsp}\n${processWipProdOrder}`;
+    const processValue = `${processSupplierInsp}\n\n${processWipProdOrder}`;
 
     // Prepare values, including formatted process and description of defect
     const values = [
@@ -752,7 +753,8 @@ function loadData(params) {
         processValue,
         params.get('item_description') || '[Description of Item]',
         params.get('description_of_defect') || '[Description of Defect]',
-        params.get('item_marked_nonconforming') === 'true' ? 'Yes' : 'No'
+        params.get('item_marked_nonconforming') === 'true' ? 'Yes' : 'No',
+        params.get('item_name')
     ];
 
     elements.forEach((id, index) => {

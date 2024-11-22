@@ -265,6 +265,9 @@ function loadData() {
         }
     }
 
+    const itemOptions = document.getElementById('item-name')
+    itemOptions.value = retrievedNCRData.qa.item_name
+
     // Checking checkboxes
     const checkboxes = {
         'resolvedQA': 'qa.resolved',
@@ -336,6 +339,7 @@ function updateNCRReport() {
     let itemMarkedYes = document.getElementById('item-marked-yes').checked; // Item Marked Yes (Checkbox)
     let itemMarkedNo = document.getElementById('item-marked-no').checked; // Item Marked No (Checkbox)
     let resolvedQA = document.getElementById('resolvedQA').checked; // Resolved (Checkbox)
+    let itemName = document.getElementById('item-name').value
 
     let engineerName = document.getElementById('engineer-name').value; // Engineer Name
     let disposition = document.getElementById('disposition').value; // Disposition
@@ -383,6 +387,7 @@ function updateNCRReport() {
     AllReports[reportIndex].qa = {
         supplier_name: supplierName,
         po_no: productNo,
+        item_name: itemName,
         sales_order_no: salesOrderNo,
         item_description: descriptionItem,
         quantity_received: quantityReceived,
@@ -464,7 +469,7 @@ const validateQaSection = () => {
     const formElements = [
         'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
         'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
-        'process', 'description-item', 'description-defect'
+        'process', 'description-item', 'description-defect', 'item-name'
     ]
 
 

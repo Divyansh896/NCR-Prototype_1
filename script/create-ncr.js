@@ -24,7 +24,7 @@ const footer = document.getElementById('footer-scroll')
 
 // Attach the preventNegativeInput function to both inputs
 quantityReceivedInput.addEventListener('input', preventNegativeInput)
-quantityDefectiveInput.addEventListener('input', preventNegativeInput)
+quantityDefectiveInput.addEventListener('input', handleInput)
 
 let ncrNumber
 
@@ -193,10 +193,33 @@ function preventNegativeInput(event) {
     }
 }
 
+function preventLessInput(event) {
+    const quantityDefective = event.target; // The defective quantity input
+    const quantityReceived = document.getElementById('quantity-received'); // Received quantity input
 
+    // Parse values as integers
+    const defectiveValue = parseInt(quantityDefective.value, 10) || 0; // Default to 0 if invalid
+    const receivedValue = parseInt(quantityReceived.value, 10) || 0; // Default to 0 if invalid
+
+    if (defectiveValue > receivedValue) {
+        // Show the error message
+        quantityDefective.nextElementSibling.textContent = 
+            'Quantity defective cannot be greater than quantity received!';
+        quantityDefective.nextElementSibling.style.display = 'inline';
+    } else {
+        // Hide the error message if input is valid
+        quantityDefective.nextElementSibling.style.display = 'none';
+    }
+}
+
+
+function handleInput(event) {
+    preventNegativeInput(event);
+    preventLessInput(event);
+}
 
 // Only proceed if the user is QA
-if (user.role === 'QA Inspector') {
+if (user.role === 'QA Inspector' || user.role == 'Admin') {
     let currentStep = 0
 
     updateStatusBar()
@@ -503,6 +526,7 @@ if (user.role === 'QA Inspector') {
         const quantityDefective = document.getElementById('quantity-defective').value
         const productNo = document.getElementById('product-no').value
         const proccesApplicabable = document.querySelector('input[name=process]:checked').value
+        const itemName = document.getElementById('item-name').value
 
 
         // Get values from Section 2
@@ -526,7 +550,7 @@ if (user.role === 'QA Inspector') {
         document.getElementById('confirm-description-defect').textContent = descriptionDefect
         document.getElementById('confirm-nonconforming-status').textContent = nonconformingStatusElement
         document.getElementById('confirm-process-applicable').textContent = processApplicableElement
-
+        document.getElementById('confirm-item-name').textContent = itemName
         for (const file of existingFiles) {
             const base64Data = await fileToBase64(file)
 
@@ -629,7 +653,7 @@ function submitForm() {
     const quantityReceived = document.getElementById('quantity-received').value
     const quantityDefective = document.getElementById('quantity-defective').value
     const productNo = document.getElementById('product-no').value
-
+    const itemName = document.getElementById('item-name').value
     // Get values from Section 2
     const descriptionItem = document.getElementById('description-item').value
     const descriptionDefect = document.getElementById('description-defect').value
@@ -649,6 +673,7 @@ function submitForm() {
         "supplier_name": supplierName,
         "po_no": productNo,
         "sales_order_no": salesOrderNo,
+        'item_name': itemName, 
         "item_description": descriptionItem,
         "quantity_received": Number(quantityReceived),
         "quantity_defective": Number(quantityDefective),

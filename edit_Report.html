@@ -89,11 +89,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -140,7 +142,8 @@
         <!-- Main Content -->
         <h1>Non-Conformance Report</h1>
         <details>
-            <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance representative</summary>
+            <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
+                representative</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
             <div class="two-cols-edit two-cols-view">
                 <!-- First Column -->
@@ -154,6 +157,22 @@
                         <label for="ncr-no">NCR No. <span class="required">*</span></label>
                         <input type="text" readonly class="qa-editable" id="ncr-no" name="ncr_no"
                             placeholder="Enter NCR number" required tabindex="8">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="item-name">Select Item:<span class="required">*</span></label>
+                        <select class="qa-editable" name="items" id="item-name" required>
+                            <option value="Hex Bolts">Hex Bolts</option>
+                            <option value="Lock Nut">Lock Nut</option>
+                            <option value="Screws">Screws</option>
+                            <option value="Carriage Bolts">Carriage Bolts</option>
+                            <option value="Concrete Screws">Concrete Screws</option>
+                            <option value="Machine Screws">Machine Screws</option>
+                            <option value="Deck Screws">Deck Screws</option>
+                            <option value="Eye Bolt">Eye Bolt</option>
+                            <option value="Bolts">Bolts</option>
+                            <option value="Nuts">Nuts</option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="sales-order-no">Sales Order No. <span class="required">*</span></label>
@@ -316,8 +335,8 @@
 
                     <div class="form-row">
                         <div class="rad-report">
-                            <input type="checkbox" class="eng-editable" id="resolvedEng" name="resolved" aria-label="Resolved"
-                                tabindex="30">
+                            <input type="checkbox" class="eng-editable" id="resolvedEng" name="resolved"
+                                aria-label="Resolved" tabindex="30">
                             <label for="resolved">Resolved:</label>
                         </div>
                         <div class="rad-report">
@@ -414,28 +433,28 @@
                                 aria-label="CAR Raised" tabindex="37">
                             <label for="car-raised">CAR Raised:</label>
                         </div>
-                    
-                    <div class="rad-report">
-                        <input class="purch-editable" type="checkbox" id="re-inspected-acceptable"
-                            name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="42">
-                        <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
-                    </div>
-                    <div class="rad-report">
-                        <input class="purch-editable" type="checkbox" id="follow-up-required" name="follow_up_required"
-                            aria-label="Follow-Up Required" tabindex="39">
-                        <label for="follow-up-required">Follow-Up Required:</label>
-                    </div>
-                    <div class="rad-report">
-                        <input class="purch-editable" type="checkbox" id="ncr-closed" name="ncr_closed"
-                            aria-label="NCR Closed" tabindex="45">
-                        <label for="ncr-closed">NCR Closed:</label>
-                    </div>
-    
-                    <div class="rad-report">
-                        <input class="purch-editable" type="checkbox" id="resolvedPurch" name="resolved" aria-label="Resolved"
-                            tabindex="46">
-                        <label for="resolved">Resolved:</label>
-                    </div>
+
+                        <div class="rad-report">
+                            <input class="purch-editable" type="checkbox" id="re-inspected-acceptable"
+                                name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="42">
+                            <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
+                        </div>
+                        <div class="rad-report">
+                            <input class="purch-editable" type="checkbox" id="follow-up-required"
+                                name="follow_up_required" aria-label="Follow-Up Required" tabindex="39">
+                            <label for="follow-up-required">Follow-Up Required:</label>
+                        </div>
+                        <div class="rad-report">
+                            <input class="purch-editable" type="checkbox" id="ncr-closed" name="ncr_closed"
+                                aria-label="NCR Closed" tabindex="45">
+                            <label for="ncr-closed">NCR Closed:</label>
+                        </div>
+
+                        <div class="rad-report">
+                            <input class="purch-editable" type="checkbox" id="resolvedPurch" name="resolved"
+                                aria-label="Resolved" tabindex="46">
+                            <label for="resolved">Resolved:</label>
+                        </div>
                     </div>
                 </div>
             </div>

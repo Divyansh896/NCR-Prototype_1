@@ -229,6 +229,23 @@
                                             edited.</span>
                                     </div>
                                     <div class="tooltip-container">
+                                        <label for="item-name">Select Item:</label>
+                                        <select name="items" id="item-name">
+                                            <option value="Hex Bolts">Hex Bolts</option>
+                                            <option value="Lock Nut">Lock Nut</option>
+                                            <option value="Screws">Screws</option>
+                                            <option value="Carriage Bolts">Carriage Bolts</option>
+                                            <option value="Concrete Screws">Concrete Screws</option>
+                                            <option value="Machine Screws">Machine Screws</option>
+                                            <option value="Deck Screws">Deck Screws</option>
+                                            <option value="Eye Bolt">Eye Bolt</option>
+                                            <option value="Bolts">Bolts</option>
+                                            <option value="Nuts">Nuts</option>
+                                        </select>
+                                        <span class="error-message" id="item-name-error"></span>
+                                        <span class="tooltip">Select the product from dropdown list.</span>
+                                    </div>
+                                    <div class="tooltip-container">
                                         <label for="sales-order-no">Sales Order No (Required):</label>
                                         <input type="text" id="sales-order-no" name="sales_order_no"
                                             placeholder="Enter Sales Order No" tabindex="8">
@@ -429,6 +446,7 @@
                                 <div class="confirm-create-qa">
                                     <p>QA Name: <span id="confirm-qa-name"></span></p>
                                     <p>Date: <span id="confirm-date"></span></p>
+                                    <p>Item Name: <span id="confirm-item-name"></span></p>
                                     <p>Sales Order No: <span id="confirm-sales-order-no"></span></p>
                                     <p>Quantity Received: <span id="confirm-quantity-received"></span></p>
                                     <p>Quantity Defective: <span id="confirm-quantity-defective"></span></p>

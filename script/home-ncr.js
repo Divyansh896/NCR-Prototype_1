@@ -92,7 +92,7 @@ function initializeButtons() {
     const p = document.getElementById('create-ncr-p')
     const header = document.getElementById('create-ncr-header')
 
-    if (user.role === 'QA Inspector') {
+    if (user.role === 'QA Inspector' || user.role == 'Admin') {
         // const nextNcrNumber = generateNextNcrNumber(ncr) // Calculate only once
 
         // Update the 'Create NCR' button's action
@@ -159,6 +159,7 @@ function createQueryString(ncrData) {
         ncr_no: ncrData.ncr_no,
         supplier_name: qa.supplier_name,
         po_no: qa.po_no,
+        item_name: qa.item_name,
         sales_order_no: qa.sales_order_no,
         item_description: qa.item_description,
         quantity_received: qa.quantity_received,
@@ -200,7 +201,7 @@ function extractData(ncr) {
             supplier_name: ncr.qa.supplier_name,
             po_no: ncr.qa.po_no, // Changed from po_no to product_no as per your comment
             sales_order_no: ncr.qa.sales_order_no,
-            item_name: ncr.qa.item_description, // Using item_description as item_name
+            item_name: ncr.qa.item_name, // Using item_description as item_name
             item_description: ncr.qa.item_description,
             quantity_received: ncr.qa.quantity_received,
             quantity_defective: ncr.qa.quantity_defective,

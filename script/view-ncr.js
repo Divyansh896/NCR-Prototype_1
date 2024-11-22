@@ -9,7 +9,8 @@ const footer = document.getElementById('footer-scroll')
 const ncrInput = document.getElementById('ncrInput')
 const autocompleteList = document.getElementById('autocomplete-list')
 const records = document.getElementById('record-count')
-
+const btnSort = document.getElementById('sortNcr')
+const table = document.getElementById('ncr-table')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 let currentFocus = -1
 
@@ -126,11 +127,23 @@ function populateTable(data, matchedStatus) {
             editNCR(ncr);
         });
 
-        tBody.appendChild(row); // Append the row to the table body
+       // tBody.appendChild(row); // Append the row to the table body
+       tBody.prepend(row)
     });
 
 
 }
+
+// btnSort.addEventListener('click', ()=>{
+//     reverseTableRows('ncr-table')
+// })
+// function reverseTableRows(tableId) {
+//     const table = document.getElementById(tableId);
+//     const rows = Array.from(table.rows); // Convert rows to an array
+//     for (let i = rows.length - 1; i > 0; i--) { // Skip the header row (index 0)
+//         table.appendChild(rows[i]); // Move rows in reverse order
+//     }
+// }
 
 
 
@@ -158,7 +171,7 @@ function extractData(ncr) {
             supplier_name: ncr.qa.supplier_name,
             po_no: ncr.qa.po_no, // Changed from po_no to product_no as per your comment
             sales_order_no: ncr.qa.sales_order_no,
-            item_name: ncr.qa.item_description, // Using item_description as item_name
+            item_name: ncr.qa.item_name, // Using item_description as item_name
             item_description: ncr.qa.item_description,
             quantity_received: ncr.qa.quantity_received,
             quantity_defective: ncr.qa.quantity_defective,
