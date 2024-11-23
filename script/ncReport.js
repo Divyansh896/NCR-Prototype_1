@@ -5,16 +5,30 @@ let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
-
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
 const btnExport = document.getElementById('btnExportExcel')
 loadImages()
 updateToolContent()
 const btnEdit = document.querySelectorAll('.edit');
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
-        editNCR(retrievedNCRData);
-    });
-});
+        // Retrieve the department from a data attribute in the button
+        const department = button.getAttribute('data-department');
+
+        // Check if the user is an admin
+        if (user.role === "Admin") {
+            // Admins can edit any department
+            editNCR(retrievedNCRData);
+        } else if (user.role === department) {
+            // Allow the action for the correct department
+            editNCR(retrievedNCRData);
+        } else {
+            // Show an alert if the button belongs to another department
+            showPopup('Access denied!', `You can only edit NCRs for your department (${user.role}).`, 'images/1382678.webp');
+        }
+    })
+})
 function editNCR(ncr) {
     //const data = extractData(ncr)
     sessionStorage.setItem('data', JSON.stringify(ncr))
@@ -115,7 +129,7 @@ function setSpanContentFromSession() {
 
     // Set Purchasing data to spans and inputs
     document.getElementById('preliminary-decision').textContent = retrievedNCRData['purchasing_decision']?.preliminary_decision || '';
-    
+
     const dispositionOptions = retrievedNCRData['purchasing_decision']?.options || {};
     for (const [key, value] of Object.entries(dispositionOptions)) {
         if (value === true) {
@@ -133,7 +147,7 @@ function setSpanContentFromSession() {
     document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
     document.getElementById('pu-resolved').textContent = retrievedNCRData['purchasing_decision']?.pu_resolved === true ? 'Yes' : 'No';
     document.getElementById('new-ncr-number').textContent = retrievedNCRData['purchasing_decision']?.new_ncr_number || '';
-    document.getElementById('re-inspected-acceptable').textContent = retrievedNCRData['purchasing_decision']?.re_inspected_acceptable === true? 'Yes' : 'No';
+    document.getElementById('re-inspected-acceptable').textContent = retrievedNCRData['purchasing_decision']?.re_inspected_acceptable === true ? 'Yes' : 'No';
 }
 
 
@@ -185,7 +199,7 @@ document.getElementById('downloadPdf').addEventListener('click', async function 
     for (let element of elements) {
         const originalFontSize = window.getComputedStyle(element).fontSize; // Store the original font size
         element.style.fontSize = '25px'; // Temporarily increase font size (e.g., 20px)
-        
+
         const canvas = await html2canvas(element, options);
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
 
@@ -375,12 +389,12 @@ function updateToolContent() {
     }
 }
 
-btnExport.addEventListener('click', ()=>{
+btnExport.addEventListener('click', () => {
     exportToExcel(retrievedNCRData['ncr_no'])
-    
+
 })
 async function exportToExcel(ncrNum) {
-    
+
     let index = AllReports.findIndex(report => report.ncr_no == ncrNum)
     let report = AllReports[index]
     const workbook = new ExcelJS.Workbook()
@@ -563,4 +577,44 @@ async function exportToExcel(ncrNum) {
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     saveAs(blob, `NCR-${report.ncr_no}.xlsx`);
+}
+
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content')
+    modalContent.querySelector('h2').innerText = title // Set the title
+    modalContent.querySelector('p').innerHTML = message // Set the message as HTML
+
+    const iconDiv = document.querySelector('.icon')
+    // Clear previous icons
+    iconDiv.innerHTML = ''
+    const imgElement = document.createElement('img')
+    imgElement.src = icon // Replace with your image URL
+    iconDiv.appendChild(imgElement)
+
+    modal.style.display = "block" // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1" // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Ensure it's centered
+    }, 10) // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0" // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none" // Hide the modal after transition
+            callback() // Execute the callback after closing the modal
+        }, 500) // Wait for the transition to finish before hiding
+    }
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal()
+        }
+    }
 }

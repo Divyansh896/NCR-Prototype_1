@@ -130,7 +130,19 @@
         </nav>
     </div>
     <main>
-
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
         <div id="contentToDownload">
             <!-- Main Content -->
             <h1>Non-Conformance Report</h1>
@@ -255,7 +267,7 @@
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="QA Inspector" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -345,7 +357,7 @@
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Lead Engineer" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -449,7 +461,7 @@
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Purchasing" tabindex="22">Edit</button>
                 </div>
 
             </details>

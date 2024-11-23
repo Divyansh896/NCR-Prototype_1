@@ -735,10 +735,10 @@ function populateSuppliers() {
     supplierDropdown.innerHTML = ""; // Clear all options
 
     // Dynamically add options from suppliers list
-    suppliers.forEach(optionText => {
+    suppliers.forEach(supplier => {
         const option = document.createElement("option");
-        option.value = optionText;
-        option.textContent = optionText;
+        option.value = supplier.supplierName;
+        option.textContent = supplier.supplierName;
         supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
     });
 

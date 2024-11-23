@@ -1,107 +1,96 @@
-const supplierSelect = document.getElementById("supplier-select")
-const supplierInfo = document.getElementById("supplier-info")
-const supplierDetails = document.getElementById("supplier-details-container")
-const supplierName = document.getElementById("supplier-name")
-const supplierAddress = document.getElementById("supplier-address")
-const supplierCity = document.getElementById("supplier-city")
-const supplierCountry = document.getElementById("supplier-country")
-const supplierPostalCode = document.getElementById("supplier-postalCode")
-const supplierContact = document.getElementById("supplier-contact")
-const supplierShippingMethod = document.getElementById("supplier-shippingMethod")
-const supplierDataContainer = document.getElementById("supplier-data-container")
-const btnExport = document.getElementById('export-supplier')
-const panels = document.querySelectorAll('.tab-panel')
-const btnsupplier = document.getElementById('btn-supplier')
-const btnemployee = document.getElementById('btn-employee')
-let suppliers = JSON.parse(localStorage.getItem('suppliers'))
+const supplierSelect = document.getElementById("supplier-select");
+const supplierInfo = document.getElementById("supplier-info");
+const supplierDetails = document.getElementById("supplier-details-container");
+const supplierName = document.getElementById("supplier-name");
+const supplierAddress = document.getElementById("supplier-address");
+const supplierCity = document.getElementById("supplier-city");
+const supplierCountry = document.getElementById("supplier-country");
+const supplierPostalCode = document.getElementById("supplier-postalCode");
+const supplierContact = document.getElementById("supplier-contact");
+const supplierShippingMethod = document.getElementById("supplier-shippingMethod");
+const supplierDataContainer = document.getElementById("supplier-data-container");
+const btnExport = document.getElementById('export-supplier');
+const panels = document.querySelectorAll('.tab-panel');
+const btnsupplier = document.getElementById('btn-supplier');
+const btnemployee = document.getElementById('btn-employee');
+let suppliers = JSON.parse(localStorage.getItem('suppliers'));
+
 btnExport.addEventListener('click', () => {
     if (supplierSelect.value == 'All') {
-        console.log(btnExport)
-        exportAllSuppliersToExcel()
+        exportAllSuppliersToExcel();
+    } else {
+        exportToExcel(supplierSelect.value);
     }
-    else {
-        exportToExcel(supplierSelect.value)
-    }
-})
-populateSuppliers()
-populateSupplierDetails()
+});
+
+// Populate the dropdown on page load
+populateSuppliers();
+populateAllSuppliers()
+// Initially, hide supplier details and show supplier list
+supplierDetails.style.display = 'none';
+supplierDataContainer.style.display = 'block';
 
 function populateSuppliers() {
+    supplierSelect.innerHTML = ""; // Clear all options
 
-    // Clear all existing dynamically added options
-    supplierSelect.innerHTML = "" // Clear all options
-    const option = document.createElement("option")
-    option.value = "All"
-    option.textContent = "All Suppliers"
-    supplierSelect.appendChild(option)
+    // Default "All Suppliers" option
+    const option = document.createElement("option");
+    option.value = "All";
+    option.textContent = "All Suppliers";
+    supplierSelect.appendChild(option);
+
+    // Add options for each supplier
     suppliers.forEach(supplier => {
-        const option = document.createElement("option")
-        option.value = supplier.supplierName
-        option.textContent = supplier.supplierName
-        supplierSelect.appendChild(option) // Insert before "Add a Supplier"
-    })
+        const option = document.createElement("option");
+        option.value = supplier.supplierName;
+        option.textContent = supplier.supplierName;
+        supplierSelect.appendChild(option);
+    });
+
+    supplierSelect.value = 'All'; // Set "All" as the default selection
 }
 
+// Event listener for supplier selection change
 supplierSelect.addEventListener('change', () => {
-
-
-    if (supplierSelect.value == "All") {
-        supplierDetails.style.display = 'none'
-        supplierDataContainer.style.display = 'block'
-        populateAllSuppliers()
-        // add a function to add supplier data dynamically
+    if (supplierSelect.value === "All") {
+        supplierDetails.style.display = 'none';
+        supplierDataContainer.style.display = 'block';
+        populateAllSuppliers(); // Populate all suppliers list
+    } else {
+        supplierDetails.style.display = 'block';
+        supplierDataContainer.style.display = 'none';
+        populateSupplierDetails(); // Populate selected supplier details
     }
-    else {
-        supplierDetails.style.display = 'block'
-        supplierDataContainer.style.display = 'none'
-        // add function to add only one supplier data dynamically
-        populateSupplierDetails()
-    }
-
-})
+});
 
 function populateSupplierDetails() {
-    let selectedSupplier = supplierSelect.value
-    if (selectedSupplier == 'All') {
-        supplierDetails.style.display = 'none'
-        supplierDataContainer.style.display = 'block'
-        populateAllSuppliers()
-    }
-    else {
-        supplierDetails.style.display = 'block'
-        supplierDataContainer.style.display = 'none'
-        let index = suppliers.findIndex(supplier => supplier.supplierName == selectedSupplier)
-        let supplier = suppliers[index]
+    let selectedSupplier = supplierSelect.value;
+    let supplier = suppliers.find(supplier => supplier.supplierName === selectedSupplier);
 
-        supplierName.textContent = supplier.supplierName
-        supplierAddress.textContent = supplier.address
-        supplierCity.textContent = supplier.city
-        supplierCountry.textContent = supplier.country
-        supplierPostalCode.textContent = supplier.postalCode
-        supplierContact.textContent = supplier.contactNumber
-        supplierShippingMethod.textContent = supplier.shippingMethod
+    if (supplier) {
+        supplierName.textContent = supplier.supplierName;
+        supplierAddress.textContent = supplier.address;
+        supplierCity.textContent = supplier.city;
+        supplierCountry.textContent = supplier.country;
+        supplierPostalCode.textContent = supplier.postalCode;
+        supplierContact.textContent = supplier.contactNumber;
+        supplierShippingMethod.textContent = supplier.shippingMethod;
     }
-    // exportToExcel(selectedSupplier)
 }
 
-
 function populateAllSuppliers() {
-    // Assuming `supplierDataContainer` is already defined
-    const supplierDataContainer = document.getElementById("supplier-data-container");
-    // Add the export button once, after all the suppliers are listed
+    supplierDataContainer.innerHTML = ""; // Clear existing supplier data
+
+    // Add the export button once
     const exportButtonDiv = document.createElement("div");
     exportButtonDiv.classList.add("supplier-actions");
-    exportButtonDiv.innerHTML = `<button id="export-supplier" onclick='exportAllSuppliersToExcel()' >Export</button>`;
-
-    // Append the export button div to the supplier data container
+    exportButtonDiv.innerHTML = `<button id="export-supplier" onclick='exportAllSuppliersToExcel()'>Export</button>`;
     supplierDataContainer.appendChild(exportButtonDiv);
 
-
-    // Loop through suppliers and create the supplier details
+    // Loop through all suppliers and create the supplier divs
     suppliers.forEach(supplier => {
         const supplierDiv = document.createElement("div");
-        supplierDiv.classList.add("supplier-two-cols");
-        supplierDiv.classList.add("drop-shadow");
+        supplierDiv.classList.add("supplier-two-cols", "drop-shadow");
 
         supplierDiv.innerHTML = `
             <div>
@@ -138,13 +127,9 @@ function populateAllSuppliers() {
             </div>
         `;
 
-        // Append the supplier div to the supplier data container
         supplierDataContainer.appendChild(supplierDiv);
     });
-
-
 }
-
 
 
 async function exportToExcel(supplierName) {
