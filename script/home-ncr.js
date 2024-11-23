@@ -88,6 +88,7 @@ function initializeButtons() {
     const btnCreate = document.getElementById('createNcr')
     const btnView = document.getElementById('viewNcr')
     const btnManage = document.getElementById('ManageAcc')
+    const btnInsights = document.getElementById('CrossfireInsights')
     const p = document.getElementById('create-ncr-p')
     const header = document.getElementById('create-ncr-header')
 
@@ -146,6 +147,10 @@ function initializeButtons() {
 
     btnManage.addEventListener('click', () => {
         window.location.href = 'account.html'
+    })
+
+    btnInsights.addEventListener('click', ()=>{
+        window.location.href='Company_insights.html'
     })
 }
 

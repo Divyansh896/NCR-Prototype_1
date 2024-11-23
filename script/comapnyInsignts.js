@@ -63,10 +63,13 @@ supplierSelect.addEventListener('change', () => {
 function populateSupplierDetails() {
     let selectedSupplier = supplierSelect.value
     if (selectedSupplier == 'All') {
-        //populateAllSuppliers()
+        supplierDetails.style.display = 'none'
+        supplierDataContainer.style.display = 'block'
+        populateAllSuppliers()
     }
     else {
-
+        supplierDetails.style.display = 'block'
+        supplierDataContainer.style.display = 'none'
         let index = suppliers.findIndex(supplier => supplier.supplierName == selectedSupplier)
         let supplier = suppliers[index]
 
@@ -93,15 +96,7 @@ function populateAllSuppliers() {
     // Append the export button div to the supplier data container
     supplierDataContainer.appendChild(exportButtonDiv);
 
-    const exportButton = document.getElementById("export-supplier");
-    exportButton.addEventListener("click", function() {
-        // Functionality when the export button is clicked
-        console.log("Export button clicked");
-        
-        // Here you can add your export logic (e.g., download data, export to a file, etc.)
-        // Example:
-        alert("Export functionality to be implemented!");
-    });
+
     // Loop through suppliers and create the supplier details
     suppliers.forEach(supplier => {
         const supplierDiv = document.createElement("div");

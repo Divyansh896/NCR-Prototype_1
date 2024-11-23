@@ -175,6 +175,7 @@ details {
     position: relative;
     text-decoration: none;
     font-weight: 800;
+
 }
 
 
@@ -835,6 +836,8 @@ fieldset legend {
     overflow: hidden;
     /* or overflow: auto; */
     box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
 }
 
 #qa-section label {
@@ -2531,7 +2534,7 @@ padding-left: 10px;
 
     .featuresCreateNCR button,
     .featuresViewNCR button,
-    .featuresManageAcc button {
+    .featuresManageAcc button, .featuresCrossfireInsights button {
         width: 62%;
     }
 
@@ -2795,7 +2798,7 @@ padding-left: 10px;
 
     .featuresCreateNCR button,
     .featuresViewNCR button,
-    .featuresManageAcc button {
+    .featuresManageAcc button, .featuresCrossfireInsights button {
         width: 80%;
     }
 
