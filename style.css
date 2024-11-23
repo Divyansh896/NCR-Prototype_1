@@ -94,7 +94,7 @@ h1 {
     font-size: 1.5rem;
 }
 
-.modal-buttons button{
+.modal-buttons button {
     margin: 10px;
 }
 
@@ -263,18 +263,20 @@ label {
     display: none;
     margin-top: 10px;
 }
-.ncr-buttons{
+
+.ncr-buttons {
     background-color: #415f8b;
     border-radius: 25px;
     color: white;
 }
 
 
-.ncr-buttons:hover{
+.ncr-buttons:hover {
     background-color: #d9dce1;
     border-radius: 25px;
     color: #1a3153;
 }
+
 /* Footer for all pages */
 .linksNav,
 .linksFooter {
@@ -324,7 +326,8 @@ nav ul a {
 
 .featuresCreateNCR,
 .featuresViewNCR,
-.featuresManageAcc, .featuresCrossfireInsights {
+.featuresManageAcc,
+.featuresCrossfireInsights {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -351,26 +354,30 @@ nav ul a {
 .featuresManageAcc {
     background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
 }
+
 .featuresCrossfireInsights {
     background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/companyInsights.webp");
 }
 
 .featuresCreateNCR h2,
 .featuresViewNCR h2,
-.featuresManageAcc h2, .featuresCrossfireInsights h2 {
+.featuresManageAcc h2,
+.featuresCrossfireInsights h2 {
     font-size: 1.5em;
 }
 
 .featuresCreateNCR p,
 .featuresViewNCR p,
-.featuresManageAcc p, .featuresCrossfireInsights p {
+.featuresManageAcc p,
+.featuresCrossfireInsights p {
     font-size: 0.99em;
     margin: 20px 0;
 }
 
 .featuresCreateNCR button,
 .featuresViewNCR button,
-.featuresManageAcc button, .featuresCrossfireInsights button {
+.featuresManageAcc button,
+.featuresCrossfireInsights button {
     border-radius: 20px;
     width: 50%;
     height: 35px;
@@ -419,7 +426,8 @@ nav ul a {
     background-color: #e2dfdf;
 }
 
-.report-card .supplier-name, .report-card-saved .supplier-name{
+.report-card .supplier-name,
+.report-card-saved .supplier-name {
     font-weight: bold;
 }
 
@@ -428,7 +436,7 @@ nav ul a {
 .report-card .report-description,
 .report-card-saved .report-date,
 .report-card-saved .report-number,
-.report-card-saved .report-description{
+.report-card-saved .report-description {
     color: #666;
 }
 
@@ -622,8 +630,7 @@ fieldset legend {
 }
 
 .form-section.active button,
-.btns-supplier button
- {
+.btns-supplier button {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -631,13 +638,12 @@ fieldset legend {
     width: 95%;
 }
 
-.form-section.active button:hover, #saveAndLeaveBtn:hover{
+.form-section.active button:hover,
+#saveAndLeaveBtn:hover {
     background-color: #10223d;
 }
 
-#saveAndLeaveBtn
-
-{
+#saveAndLeaveBtn {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -676,8 +682,9 @@ fieldset legend {
 .continue-button-eng:hover {
     background-color: #e0e0e0;
 }
+
 .continue-button-qa,
-.continue-button-eng{
+.continue-button-eng {
     font-size: 14.4px;
 }
 
@@ -946,12 +953,14 @@ label.radio-button {
     width: fit-content;
 }
 
-.qa-info-logged-ncr, .eng-info-logged-ncr {
+.qa-info-logged-ncr,
+.eng-info-logged-ncr {
     display: grid;
     /* grid-template-columns: 1fr 1fr; */
 }
 
-.qa-info-logged-ncr span, .eng-info-logged-ncr span {
+.qa-info-logged-ncr span,
+.eng-info-logged-ncr span {
     font-weight: lighter;
 }
 
@@ -1339,7 +1348,8 @@ input[type="radio"] {
 }
 
 
-.modal, .deletemodal {
+.modal,
+.deletemodal {
     display: none;
     /* Hidden by default */
     position: fixed;
@@ -1407,7 +1417,7 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-#delete-confirm{
+#delete-confirm {
     display: flex;
     justify-content: space-evenly;
     margin-top: 10px;
@@ -1625,7 +1635,8 @@ td button:focus {
 /* tooltip */
 .featuresCreateNCR,
 .featuresViewNCR,
-.featuresManageAcc, .featuresCrossfireInsights {
+.featuresManageAcc,
+.featuresCrossfireInsights {
     position: relative;
 }
 
@@ -1719,6 +1730,125 @@ td button:focus {
     margin-top: 15px;
 }
 
+/* Container styles */
+#supplier-container {
+    width: 378px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+}
+
+/* Heading Styles */
+#supplier-info {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* Supplier Selection */
+.supplier-selection-container {
+    margin-bottom: 20px;
+}
+
+#supplier-select-label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+#supplier-select {
+    width: 100%;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+/* Supplier Details */
+.supplier-details {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.supplier-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.supplier-detail label {
+    font-weight: bold;
+    color: #555;
+}
+
+.supplier-detail span {
+    color: #333;
+    word-wrap: break-word;
+    margin-top: 1rem;
+}
+
+/* Supplier Actions */
+.supplier-actions {
+    display: flex;
+    justify-content: end;
+    margin-top: 15px;
+    gap: 15px;
+}
+
+.action-btn {
+    background-color: #1a3153;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 75px;
+    margin-right: 10px;
+}
+
+.action-btn:hover {
+    background-color: #0056b3;
+}
+
+#export-supplier {
+    background-color: white;
+    color: #1a3153;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 75px;
+}
+
+#export-supplier:hover {
+    background-color: #cad4e3;
+}
+
+/* All Suppliers Section */
+#All-supplier-contanier {
+    margin-top: 30px;
+}
+
+#supplier-data-container h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.drop-shadow{
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+margin-bottom: 20px;
+padding-left: 10px;
+}
+
 /*media*/
 @media screen and (min-width: 320px) {
     header {
@@ -1756,20 +1886,23 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc, .featuresCrossfireInsights {
+    .featuresManageAcc,
+    .featuresCrossfireInsights {
         margin: 40px 0px;
         height: 250px;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
-    .featuresManageAcc h2, .featuresCrossfireInsights h2 {
+    .featuresManageAcc h2,
+    .featuresCrossfireInsights h2 {
         font-size: 2rem;
     }
 
     .featuresCreateNCR p,
     .featuresViewNCR p,
-    .featuresManageAcc p, .featuresCrossfireInsights p {
+    .featuresManageAcc p,
+    .featuresCrossfireInsights p {
         font-size: 1rem;
     }
 
@@ -2068,17 +2201,34 @@ td button:focus {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .qa-info-logged-ncr, .eng-info-logged-ncr {
+    .qa-info-logged-ncr,
+    .eng-info-logged-ncr {
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .two-cols-view .form-group{
+    .two-cols-view .form-group {
         margin-left: 18px;
     }
+
     .two-cols-view {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    #supplier-details-container {
+        display: grid;
+    }
+
+    #supplier-container {
+        width: 100%;
+    }
+
+    .supplier-selection-container {
+        padding: 10px;
+    }
+
 }
+
+
 
 
 
@@ -2235,7 +2385,8 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc, .featuresCrossfireInsights {
+    .featuresManageAcc,
+    .featuresCrossfireInsights {
         padding-top: 315px;
     }
 
@@ -2246,7 +2397,8 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc, .featuresCrossfireInsights {
+    .featuresManageAcc,
+    .featuresCrossfireInsights {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -2266,7 +2418,8 @@ td button:focus {
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
-    .featuresManageAcc h2, .featuresCrossfireInsights h2 {
+    .featuresManageAcc h2,
+    .featuresCrossfireInsights h2 {
         font-size: 2rem;
     }
 
@@ -2395,7 +2548,7 @@ td button:focus {
     .status-bar {
         width: 420px;
         background-image: url("images/background-create.jpg");
-        background-position:bottom;
+        background-position: bottom;
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -2483,10 +2636,25 @@ td button:focus {
         margin-left: 82px;
     }
 
-    .two-cols-view .form-group{
+    .two-cols-view .form-group {
         margin-left: 82px;
     }
 
+    .supplier-two-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .supplier-detail {
+        justify-content: start;
+    }
+
+    .supplier-detail label {
+        width: 35%;
+    }
+    #supplier-select{
+        width: 30%;
+    }
 
 }
 
@@ -2659,15 +2827,16 @@ td button:focus {
         width: 120px;
         text-align: center;
     }
-    .two-cols-view .form-group{
+
+    .two-cols-view .form-group {
         margin-left: 115px;
     }
 
-    .rad-report, .resolved{
+    .rad-report,
+    .resolved {
         margin-left: 0;
     }
-
-
+   
 }
 
 @media screen and (min-width: 1760px) {
@@ -2957,11 +3126,21 @@ td button:focus {
 
 /* Show a focus outline for all focusable elements */
 :focus {
-    outline: 2px solid black; /* Black outline for better visibility */
+    outline: 2px solid black;
+    /* Black outline for better visibility */
 }
 
 /* Specific focus styles for form elements */
-input:focus, button:focus, select:focus, textarea:focus {
-    border: 2px solid black; /* Add a subtle black border */
-}  
+input:focus,
+button:focus,
+select:focus,
+textarea:focus {
+    border: 2px solid black;
+    /* Add a subtle black border */
+}
 
+@media screen and (min-width:2025px) {
+    #supplier-container{
+        width: 85%;
+    }
+}
