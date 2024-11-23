@@ -120,7 +120,7 @@ const enableFieldsForRole = (role) => {
                 showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
-    } else if (role === "Project Manager") {
+    } else if (role === "Admin") {
         document.querySelectorAll('.qa-editable').forEach(field => {
             field.disabled = false // Enable QA editable fields
         })

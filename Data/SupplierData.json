@@ -1,0 +1,57 @@
+[
+    {
+      "supplierName": "Alpha Tech Solutions",
+      "address": "123 Alpha Street",
+      "city": "Metropolis",
+      "country": "USA",
+      "postalCode": "12345",
+      "contactNumber": "+1-555-123-4567",
+      "shippingMethod": "Courier"
+    },
+    {
+      "supplierName": "SteelWorks Ltd",
+      "address": "456 Beta Avenue",
+      "city": "Gotham",
+      "country": "Canada",
+      "postalCode": "A1B 2C3",
+      "contactNumber": "+1-555-234-5678",
+      "shippingMethod": "Courier"
+    },
+    {
+      "supplierName": "Woodcraft Builders",
+      "address": "789 Gamma Road",
+      "city": "Star City",
+      "country": "UK",
+      "postalCode": "WC2N 5DU",
+      "contactNumber": "+44-20-7946-0123",
+      "shippingMethod": "Sea"
+    },
+    {
+      "supplierName": "ConcreteFast",
+      "address": "101 Delta Boulevard",
+      "city": "Central City",
+      "country": "Australia",
+      "postalCode": "2000",
+      "contactNumber": "+61-2-1234-5678",
+      "shippingMethod": "Air"
+    },
+    {
+      "supplierName": "BuildersHub",
+      "address": "202 Epsilon Way",
+      "city": "National City",
+      "country": "India",
+      "postalCode": "110001",
+      "contactNumber": "+91-11-2345-6789",
+      "shippingMethod": "Air"
+    },
+    {
+      "supplierName": "HeavyDuty Works",
+      "address": "202 Epsilon Way",
+      "city": "National City",
+      "country": "India",
+      "postalCode": "110001",
+      "contactNumber": "+91-11-2345-6789",
+      "shippingMethod": "Sea"
+    }
+  ]
+  

@@ -22,15 +22,6 @@ uploadJsonData()
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
-const optionsList = [
-    "SteelWorks Ltd",
-    "Woodcraft Builders",
-    "ConcreteFast",
-    "BuildersHub",
-    "HeavyDuty Works",
-    "Alpha Tech Solutions"
-]
-
 function uploadJsonData() {
     ncr = JSON.parse(localStorage.getItem('AllReports'))
     if (ncr != null || ncr != undefined) {
@@ -847,13 +838,30 @@ function updateToolContent() {
 }
 
 updateToolContent()
-
 // Function to save suppliers to local storage
 function saveSuppliersToLocalStorage() {
-    const suppliers = JSON.parse(localStorage.getItem('suppliers'))
-    if (suppliers == null || suppliers == undefined) {
-
-        localStorage.setItem("suppliers", JSON.stringify(optionsList));
-    } 
+    // Check if suppliers already exist in localStorage
+    if (!localStorage.getItem("suppliers")) {
+        // Fetch supplier data from the JSON file
+        fetch('Data/SupplierData.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Parse JSON from the response
+            })
+            .then(data => {
+                // Save the fetched data to localStorage
+                localStorage.setItem("suppliers", JSON.stringify(data));
+                console.log("Suppliers data saved to localStorage.");
+            })
+            .catch(error => {
+                console.error("Error fetching supplier data:", error);
+            });
+    } else {
+        console.log("Suppliers data already exists in localStorage.");
+    }
 }
+
 saveSuppliersToLocalStorage()
+

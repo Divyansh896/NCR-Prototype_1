@@ -324,7 +324,7 @@ nav ul a {
 
 .featuresCreateNCR,
 .featuresViewNCR,
-.featuresManageAcc {
+.featuresManageAcc, .featuresCrossfireInsights {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -351,23 +351,26 @@ nav ul a {
 .featuresManageAcc {
     background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
 }
+.featuresCrossfireInsights {
+    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/companyInsights.webp");
+}
 
 .featuresCreateNCR h2,
 .featuresViewNCR h2,
-.featuresManageAcc h2 {
+.featuresManageAcc h2, .featuresCrossfireInsights h2 {
     font-size: 1.5em;
 }
 
 .featuresCreateNCR p,
 .featuresViewNCR p,
-.featuresManageAcc p {
+.featuresManageAcc p, .featuresCrossfireInsights p {
     font-size: 0.99em;
     margin: 20px 0;
 }
 
 .featuresCreateNCR button,
 .featuresViewNCR button,
-.featuresManageAcc button {
+.featuresManageAcc button, .featuresCrossfireInsights button {
     border-radius: 20px;
     width: 50%;
     height: 35px;
@@ -1622,7 +1625,7 @@ td button:focus {
 /* tooltip */
 .featuresCreateNCR,
 .featuresViewNCR,
-.featuresManageAcc {
+.featuresManageAcc, .featuresCrossfireInsights {
     position: relative;
 }
 
@@ -1753,20 +1756,20 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc {
+    .featuresManageAcc, .featuresCrossfireInsights {
         margin: 40px 0px;
         height: 250px;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
-    .featuresManageAcc h2 {
+    .featuresManageAcc h2, .featuresCrossfireInsights h2 {
         font-size: 2rem;
     }
 
     .featuresCreateNCR p,
     .featuresViewNCR p,
-    .featuresManageAcc p {
+    .featuresManageAcc p, .featuresCrossfireInsights p {
         font-size: 1rem;
     }
 
@@ -2232,7 +2235,7 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc {
+    .featuresManageAcc, .featuresCrossfireInsights {
         padding-top: 315px;
     }
 
@@ -2243,7 +2246,7 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc {
+    .featuresManageAcc, .featuresCrossfireInsights {
         display: flex;
         flex-direction: column;
         justify-content: flex-end;
@@ -2263,7 +2266,7 @@ td button:focus {
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
-    .featuresManageAcc h2 {
+    .featuresManageAcc h2, .featuresCrossfireInsights h2 {
         font-size: 2rem;
     }
 

@@ -992,10 +992,20 @@ addSupplierButton.addEventListener("click", function () {
 
     const newSupplierName = document.getElementById("newSupplierName").value.trim()
 
-    
+    let newEntry = {
+        
+            supplierName: newSupplierName,
+            address: "101 Delta Boulevard",
+            city: "Central City",
+            country: "Australia",
+            postalCode: "2000",
+            contactNumber: "+61-2-1234-5678",
+            shippingMethod: "Air"
+          
+    }    
 
     if (newSupplierName) {
-        suppliers.push(newSupplierName)
+        suppliers.push(newEntry)
         // Save updated list to local storage
         localStorage.setItem("suppliers", JSON.stringify(suppliers));
 
@@ -1021,10 +1031,10 @@ function populateSuppliers() {
     supplierDropdown.appendChild(addSupplierOption); // Re-add the "Add a Supplier" option
 
     // Dynamically add options from suppliers list
-    suppliers.forEach(optionText => {
+    suppliers.forEach(supplier => {
         const option = document.createElement("option");
-        option.value = optionText;
-        option.textContent = optionText;
+        option.value = supplier.supplierName;
+        option.textContent = supplier.supplierName;
         supplierDropdown.insertBefore(option, addSupplierOption); // Insert before "Add a Supplier"
     });
 
