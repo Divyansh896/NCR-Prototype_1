@@ -22,6 +22,14 @@ uploadJsonData()
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
+const optionsList = [
+    "SteelWorks Ltd",
+    "Woodcraft Builders",
+    "ConcreteFast",
+    "BuildersHub",
+    "HeavyDuty Works",
+    "Alpha Tech Solutions"
+]
 
 function uploadJsonData() {
     ncr = JSON.parse(localStorage.getItem('AllReports'))
@@ -839,3 +847,13 @@ function updateToolContent() {
 }
 
 updateToolContent()
+
+// Function to save suppliers to local storage
+function saveSuppliersToLocalStorage() {
+    const suppliers = JSON.parse(localStorage.getItem('suppliers'))
+    if (suppliers == null || suppliers == undefined) {
+
+        localStorage.setItem("suppliers", JSON.stringify(optionsList));
+    } 
+}
+saveSuppliersToLocalStorage()

@@ -1,6 +1,7 @@
 // Gettting JSON Data from the local storage
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+let suppliers = JSON.parse(localStorage.getItem('suppliers'))
 
 const footer = document.getElementById('footer-scroll')
 const userName = document.getElementById('userName');
@@ -9,7 +10,7 @@ const notificationCount = document.getElementById('notification-count');
 
 
 setNotificationText()
-
+updateToolContent()
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -200,7 +201,6 @@ function loadData() {
         'quantity-received': 'qa.quantity_received',
         'quantity-defective': 'qa.quantity_defective',
         'qa-date': 'qa.date',
-        'supplier-name': 'qa.supplier_name',
         'product-no': 'qa.po_no',
         'description-item': 'qa.item_description',
         'description-defect': 'qa.description_of_defect',
@@ -271,7 +271,7 @@ function loadData() {
     // Checking checkboxes
     const checkboxes = {
         'resolvedQA': 'qa.resolved',
-        'resolvedPurch':'purchasing_decision.resolved',
+        'resolvedPurch': 'purchasing_decision.resolved',
         'resolvedEng': 'engineering.resolved',
         'customer-notification': 'engineering.customer_notification_required',
         'drawing-update-required': 'engineering.drawing_update_required',
@@ -373,7 +373,7 @@ function updateNCRReport() {
         supplier_or_rec_insp: false,
         wip_production_order: false
     };
-    
+
     // Update the process object based on the selected dropdown value
     if (processValue === 'Supplier or Rec-Insp') {
         process.supplier_or_rec_insp = true;
@@ -399,7 +399,7 @@ function updateNCRReport() {
         resolved: resolvedQA,
         process: process
     }
-    
+
 
     AllReports[reportIndex].engineering = {
         disposition: disposition,
@@ -726,4 +726,24 @@ function updateToolContent() {
     }
 }
 
-updateToolContent()
+
+
+function populateSuppliers() {
+    const supplierDropdown = document.getElementById("supplier-name");
+
+    // Clear all existing dynamically added options
+    supplierDropdown.innerHTML = ""; // Clear all options
+
+    // Dynamically add options from suppliers list
+    suppliers.forEach(optionText => {
+        const option = document.createElement("option");
+        option.value = optionText;
+        option.textContent = optionText;
+        supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
+    });
+
+    supplierDropdown.value = retrievedNCRData.qa.supplier_name
+
+
+}
+populateSuppliers()

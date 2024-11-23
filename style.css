@@ -263,7 +263,18 @@ label {
     display: none;
     margin-top: 10px;
 }
+.ncr-buttons{
+    background-color: #415f8b;
+    border-radius: 25px;
+    color: white;
+}
 
+
+.ncr-buttons:hover{
+    background-color: #d9dce1;
+    border-radius: 25px;
+    color: #1a3153;
+}
 /* Footer for all pages */
 .linksNav,
 .linksFooter {
@@ -1702,6 +1713,7 @@ td button:focus {
     justify-content: flex-end;
     gap: 15px;
     margin-right: 15px;
+    margin-top: 15px;
 }
 
 /*media*/

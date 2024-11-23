@@ -1,6 +1,7 @@
 // Gettting JSON Data from the local storage
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+let suppliers = JSON.parse(localStorage.getItem('suppliers'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
@@ -485,3 +486,26 @@ function updateToolContent() {
 }
 
 updateToolContent()
+
+// Function to populate the supplier dropdown
+function populateSuppliers() {
+    const supplierDropdown = document.getElementById("search");
+
+    // Clear all existing dynamically added options
+    supplierDropdown.innerHTML = ""; // Clear all options
+
+    const option = document.createElement("option");
+    option.value = 'All';
+    option.textContent = 'All Suppliers';
+    supplierDropdown.appendChild(option)
+    // Dynamically add options from suppliers list
+    suppliers.forEach(optionText => {
+        const option = document.createElement("option");
+        option.value = optionText;
+        option.textContent = optionText;
+        supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
+    });
+
+    
+}
+populateSuppliers()

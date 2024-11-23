@@ -36,6 +36,8 @@ let existingFiles = []
 let events = ['dragenter', 'dragover', 'dragleave', 'drop']
 
 setNotificationText()
+populateSuppliers()
+
 
 // Generate the next NCR number
 function generateNextNcrNumber(AllReports) {
@@ -203,7 +205,7 @@ function preventLessInput(event) {
 
     if (defectiveValue > receivedValue) {
         // Show the error message
-        quantityDefective.nextElementSibling.textContent = 
+        quantityDefective.nextElementSibling.textContent =
             'Quantity defective cannot be greater than quantity received!';
         quantityDefective.nextElementSibling.style.display = 'inline';
     } else {
@@ -673,7 +675,7 @@ function submitForm() {
         "supplier_name": supplierName,
         "po_no": productNo,
         "sales_order_no": salesOrderNo,
-        'item_name': itemName, 
+        'item_name': itemName,
         "item_description": descriptionItem,
         "quantity_received": Number(quantityReceived),
         "quantity_defective": Number(quantityDefective),
@@ -984,24 +986,52 @@ supplierDropdown.addEventListener("change", function () {
 // Close the modal when the user clicks the "X" button
 closeModalButton.addEventListener("click", closeSupplierPopup)
 
-// Add the new supplier to the dropdown when the user clicks "Add Supplier" in the modal
+// Event listener for adding a new supplier
 addSupplierButton.addEventListener("click", function () {
-    const newSupplierName = document.getElementById("newSupplierName").value
-    if (newSupplierName) {
-        const newOption = document.createElement("option")
-        newOption.value = newSupplierName
-        newOption.textContent = newSupplierName
+    let suppliers = JSON.parse(localStorage.getItem('suppliers'))
 
-        // Insert the new option before the "Add a Supplier" option
-        supplierDropdown.insertBefore(newOption, supplierDropdown.querySelector('option[value="addSupplier"]'))
+    const newSupplierName = document.getElementById("newSupplierName").value.trim()
+
+    
+
+    if (newSupplierName) {
+        suppliers.push(newSupplierName)
+        // Save updated list to local storage
+        localStorage.setItem("suppliers", JSON.stringify(suppliers));
+
+        // Repopulate the dropdown
+        populateSuppliers();
 
         // Clear the input and close the modal
-        document.getElementById("newSupplierName").value = ""
-        closeSupplierPopup()
+        document.getElementById("newSupplierName").value = "";
+        closeSupplierPopup();
     } else {
-        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp")
+        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp");
     }
-})
+});
+
+// Function to populate the supplier dropdown
+function populateSuppliers() {
+    const suppliers = JSON.parse(localStorage.getItem('suppliers')) || [];
+    const supplierDropdown = document.getElementById("supplier-name");
+    const addSupplierOption = supplierDropdown.querySelector('option[value="addSupplier"]');
+
+    // Clear all existing dynamically added options
+    supplierDropdown.innerHTML = ""; // Clear all options
+    supplierDropdown.appendChild(addSupplierOption); // Re-add the "Add a Supplier" option
+
+    // Dynamically add options from suppliers list
+    suppliers.forEach(optionText => {
+        const option = document.createElement("option");
+        option.value = optionText;
+        option.textContent = optionText;
+        supplierDropdown.insertBefore(option, addSupplierOption); // Insert before "Add a Supplier"
+    });
+
+    // Set default value
+    supplierDropdown.value = 'Alpha Tech Solutions';
+}
+
 
 // Close the modal if the user clicks outside of it
 window.addEventListener("click", function (event) {
