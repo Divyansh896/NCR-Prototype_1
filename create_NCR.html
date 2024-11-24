@@ -148,7 +148,7 @@
                 <!-- <span id="closePopup" class="close">&times;</span> -->
                 <div class="header-container">
                     <div class="icon-container">
-                        <div class="icon"><img src="images/1382678.webp" alt="exclamation image"></div> 
+                        <div class="icon"><img src="images/1382678.webp" alt="exclamation image"></div>
                     </div>
                     <h2 id="popup-title"></h2>
                 </div>
@@ -174,7 +174,7 @@
 
 
         <div id="supplierModal">
-            <div class="modal-content">
+            <div class="modal-content-supplier">
                 <span class="close">&times;</span>
                 <div class="header-container">
 
@@ -186,7 +186,61 @@
                     </div>
                     <h2> Add New Supplier</h2>
                 </div>
-                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
+                <div class="supplier-columns">
+                    <div>
+                    <div class="tooltip-container">
+                        <label for="supplierName">Supplier Name (Required)</label>
+                        <input type="text" id="supplierName" name="supplierName" tabindex="6"
+                            placeholder="Enter supplier Name">
+                        <span class="error-message" id="supplier-name-error"></span>
+                        <span class="tooltip">Enter the supplier's name</span>
+                    </div>
+                    <div class="tooltip-container">
+                        <label for="address">Address (Required)</label>
+                        <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
+                        <span class="error-message" id="address-error"></span>
+                        <span class="tooltip">Enter the address of the supplier</span>
+                    </div>
+                    <div class="tooltip-container">
+                        <label for="city">City (Required)</label>
+                        <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
+                        <span class="error-message" id="city-error"></span>
+                        <span class="tooltip">Enter the city where the supplier is located</span>
+                    </div>
+                    <div class="tooltip-container">
+                        <label for="country">Country (Required)</label>
+                        <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
+                        <span class="error-message" id="country-error"></span>
+                        <span class="tooltip">Enter the country of the supplier</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="tooltip-container">
+                        <label for="postalCode">Postal Code (Required)</label>
+                        <input type="text" id="postalCode" name="postalCode" tabindex="10" placeholder="A9A 9A9">
+                        <span class="error-message" id="postal-code-error"></span>
+                        <span class="tooltip">Enter the postal code of the supplier (L3B 4A8)</span>
+                    </div>
+                    <div class="tooltip-container">
+                        <label for="contact">Contact (Required)</label>
+                        <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
+                        <span class="error-message" id="contact-error"></span>
+                        <span class="tooltip">Enter the contact number of the supplier</span>
+                    </div>
+                    <div class="tooltip-container">
+                        <label for="shippingMethod">Shipping Method (Required)</label>
+                        <select id="shippingMethod" name="shippingMethod" tabindex="12">
+                            <option value="">Select a shipping method</option>
+                            <option value="air">Air</option>
+                            <option value="sea">Sea</option>
+                            <option value="courier">Courier</option>
+                        </select>
+                        <span class="error-message" id="shippingMethod-error"></span>
+                        <span class="tooltip">Select the preferred shipping method</span>
+                    </div>
+                </div>
+                </div>
+
                 <button id="addSupplierButton">Add Supplier</button>
             </div>
         </div>
@@ -301,7 +355,7 @@
                                         </div>
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button"  tabindex="14">
+                                                <label class="radio-button" tabindex="14">
                                                     <input type="radio" id="wip" name="process"
                                                         value="WIP (Production order)" class="hidden-checkbox"
                                                         onclick="toggleCheck(this)">
@@ -320,9 +374,9 @@
                             <div class="btn-qa-create">
                                 <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
                                     tabindex="15">Clear</button>
-                                    <button type="button" id="save1" aria-label="Save current progress" tabindex="16">
-                                        Save
-                                    </button>
+                                <button type="button" id="save1" aria-label="Save current progress" tabindex="16">
+                                    Save
+                                </button>
                                 <button type="button" id="next-btn1" aria-label="Move to next step"
                                     tabindex="17">Next</button>
                             </div>
@@ -398,7 +452,8 @@
                                                     class="fa fa-cloud-upload upload-icon" aria-hidden="true"></i>
                                                 <label for="media-input" tabindex="22"
                                                     style="cursor: pointer; color: blue; text-decoration: underline;">Upload
-                                                    files</label></p>
+                                                    files</label>
+                                            </p>
                                             <span class="tooltip">Drag & drop images and videos here of the product, or
                                                 click upload files.</span>
                                             <!-- <i class="fa fa-upload"></i> -->
@@ -441,15 +496,16 @@
                                 <div class="confirm-create-qa">
                                     <p>Description Item: <span id="confirm-description-item"></span></p>
                                     <p>Description Defect: <span id="confirm-description-defect"></span></p>
-                                    <p>Mediafiles: <ul id="confirm-media-list"></ul></p>
+                                    <p>Mediafiles:
+                                    <ul id="confirm-media-list"></ul>
+                                    </p>
                                 </div>
                             </div>
 
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
                                     tabindex="27">Back</button>
-                                <button id="submit-btn" aria-label="Submit the form"
-                                    tabindex="28">Submit</button>
+                                <button id="submit-btn" aria-label="Submit the form" tabindex="28">Submit</button>
                             </div>
                         </fieldset>
                     </form>
