@@ -7,6 +7,14 @@ const span = document.getElementById("closePopup")
 const decision = document.getElementById("decision")
 const subOptions = document.getElementById("sub-options")
 const footer = document.getElementById('footer-scroll')
+const returnOp = document.getElementById("return-options")
+const followType = document.getElementById("follow-type")
+const followDate = document.getElementById("follow-date")
+const newNCR = document.getElementById("new-ncr-number")
+const inspName = document.getElementById("inspector-name")
+const ncrDate = document.getElementById("ncr-date")
+const next1 = document.getElementById("next-btn1")
+const next2 = document.getElementById("next-btn2")
 
 const sections = document.querySelectorAll(".form-section")
 
@@ -27,6 +35,12 @@ function updateStatusBar() {
         step.classList.toggle("completed", index < currentStep)
     })
 }
+
+//To clear the full forms
+document.getElementById("clear-btn1").addEventListener("click", function () {
+    document.querySelector("form").reset();
+});
+
 // Add keyboard navigation functionality
 document.addEventListener('keydown', function (event) {
     // Check if the focused element is a radio button label
@@ -110,12 +124,12 @@ document.getElementById("next-btn1").addEventListener("click", () => {
 
 })
 document.getElementById("next-btn2").addEventListener("click", () => {
-    
-        sections[currentStep].classList.remove("active")
-        currentStep++
-        sections[currentStep].classList.add("active")
-        updateStatusBar()
-        
+
+    sections[currentStep].classList.remove("active")
+    currentStep++
+    sections[currentStep].classList.add("active")
+    updateStatusBar()
+
 })
 document.getElementById("back-btn1").addEventListener("click", () => {
     sections[currentStep].classList.remove("active")
@@ -147,9 +161,9 @@ function loadData(params) {
         'quantity-defective-d', 'qa-date-d', 'supplier-name-d',
         'product-no-d', 'process-d', 'description-item-d',
         'description-defect-d', 'item-marked-nonconforming-d',
-        'review-by-cf-engineer-d','customer-notification-required-d','disposition-details-d',
-        'drawing-update-required-d','original-rev-number-d','updated-rev-number-d','engineer-name-d',
-        'revision-date-d','resolved-d','engineering-review-date-d'
+        'review-by-cf-engineer-d', 'customer-notification-required-d', 'disposition-details-d',
+        'drawing-update-required-d', 'original-rev-number-d', 'updated-rev-number-d', 'engineer-name-d',
+        'revision-date-d', 'resolved-d', 'engineering-review-date-d'
     ];
 
     // Define process values with labels showing 'Yes' or 'No'
@@ -174,14 +188,14 @@ function loadData(params) {
         params.get('disposition'),
         params.get('customer_notification_required') === 'true' ? 'Yes' : 'No',
         params.get('disposition_details'),
-        params.get('drawing_update_required') === 'true'? 'Yes':'No',
+        params.get('drawing_update_required') === 'true' ? 'Yes' : 'No',
         params.get('original_rev_number'),
         params.get('updated_rev_number'),
         params.get('engineer_name'),
         params.get('revision_date'),
         params.get('resolved_engineer') === 'true' ? 'Yes' : 'No',
         params.get('engineering_review_date')
-        
+
     ];
 
     elements.forEach((id, index) => {
@@ -262,3 +276,98 @@ function setNotificationText() {
         notificationList.prepend(li)
     })
 }
+// Show the modal with a title, message, and icon
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content')
+    modalContent.querySelector('h2').innerText = title // Set the title
+    modalContent.querySelector('p').innerText = message // Set the message
+
+    const iconDiv = document.querySelector('.icon')
+    // Clear previous icons
+    iconDiv.innerHTML = ''
+    const isImage = icon.includes('.jpg') || icon.includes('.jpeg') || icon.includes('.png') || icon.includes('.gif') || icon.includes('.svg') || icon.includes('.webp')
+
+    if (isImage) {
+
+        const imgElement = document.createElement('img')
+        imgElement.src = icon // Replace with your image URL
+        iconDiv.appendChild(imgElement)
+    }
+    else {
+        iconDiv.style.fontSize = '45px'
+        iconDiv.innerHTML = icon
+    }
+
+    modal.style.display = "block" // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1" // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Ensure it's centered
+    }, 10) // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0" // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none" // Hide the modal after transition
+            callback() // Execute the callback after closing the modal
+        }, 500) // Wait for the transition to finish before hiding
+    }
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal()
+        }
+    }
+}
+
+next1.addEventListener("click", (e) => {
+    e.preventDefault();
+//validations for all the fields
+if (decision.value == "" || returnOp.value == "" || followType.value == "" || followDate.value == "") {
+    showPopup('Required field missing', 'All the fields are required and can not be empty', 'images/1382678.webp');
+    empID.nextElementSibling.style.display = "block"
+    empID.nextElementSibling.textContent = "Decision is required !"
+
+    empID.nextElementSibling.style.display = "block"
+    empID.nextElementSibling.textContent = "Return option is required !"
+
+    empID.nextElementSibling.style.display = "block"
+    empID.nextElementSibling.textContent = "Follow-up type is required !"
+
+    empID.nextElementSibling.style.display = "block"
+    empID.nextElementSibling.textContent = "Follow-up date is required !"
+}
+
+});
+
+next2.addEventListener("click", (e) => {
+    e.preventDefault();
+    if( newNCR.value == "" || inspName.value == "" || ncrDate.value == ""){
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "New NCR no. is required !"
+    
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "Inspector's Name is required !"
+    
+        empID.nextElementSibling.style.display = "block"
+        empID.nextElementSibling.textContent = "NCR date is required !"
+    }
+    else{
+        showPopup('Confirmation','Form Submitted Successfully','images/confirmationIcon.webp');
+    }
+})
+
+
+document.getElementById('clear-btn1').addEventListener('click', ()=>{
+    const spans = document.querySelectorAll('.error-message')
+    spans.forEach(element => {
+        element.style.display = 'none'
+    });
+})
+
