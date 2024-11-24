@@ -190,17 +190,17 @@ details {
 }
 
 .custom-summary::before {
-    content: '<';
+    content: '🔺';
     position: absolute;
     right: 50px;
     top: 50%;
-    transform: translateY(-50%);
-    font-size: 1.5em;
+    transform: translateY(-50%) rotate(150deg);
+    font-size: 1.55em;
     transition: transform 0.3s ease;
 }
 
 details[open] .custom-summary::before {
-    transform: translateY(-50%) rotate(-90deg);
+    transform: translateY(-52%) rotate(-62deg);
 }
 
 
@@ -828,7 +828,8 @@ fieldset legend {
     flex-direction: column;
 }
 
-#qa-section {
+#qa-section,
+#eng-section {
     display: grid;
     grid-template-rows: 1fr;
     width: 100%;
@@ -840,12 +841,14 @@ fieldset legend {
 
 }
 
-#qa-section label {
+#qa-section label,
+#eng-section label {
     font-weight: 600;
     margin-bottom: 10px;
 }
 
-#qa-section span {
+#qa-section span,
+#eng-section span {
     white-space: normal;
     text-align: left;
     word-break: break-word;
@@ -855,7 +858,9 @@ fieldset legend {
 }
 
 #qa-section label,
-#qa-section span {
+#qa-section span,
+#eng-section label,
+#eng-section span {
     margin-left: 25px;
 }
 
@@ -1734,7 +1739,8 @@ td button:focus {
 }
 
 /* Container styles */
-#supplier-container, #employee-container {
+#supplier-container,
+#employee-container {
     width: 378px;
     padding: 20px;
     background-color: #ffffff;
@@ -1744,7 +1750,8 @@ td button:focus {
 }
 
 /* Heading Styles */
-#supplier-info, #employee-info {
+#supplier-info,
+#employee-info {
     font-size: 24px;
     /* color: #1a3153; */
     margin-bottom: 15px;
@@ -1752,18 +1759,21 @@ td button:focus {
 }
 
 /* Supplier Selection */
-.supplier-selection-container, .employee-selection-container {
+.supplier-selection-container,
+.employee-selection-container {
     margin-bottom: 20px;
 }
 
-#supplier-select-label, #employee-select-label {
+#supplier-select-label,
+#employee-select-label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
     /* color: #1a3153; */
 }
 
-#supplier-select, #employee-select {
+#supplier-select,
+#employee-select {
     width: 100%;
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -1771,37 +1781,42 @@ td button:focus {
 }
 
 /* Supplier Details */
-.supplier-details, .employee-details {
+.supplier-details,
+.employee-details {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
-.supplier-detail, .employee-detail {
+.supplier-detail,
+.employee-detail {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.supplier-detail label, .employee-detail label {
+.supplier-detail label,
+.employee-detail label {
     font-weight: bold;
     /* color: #555; */
 }
 
-.supplier-detail span, .employee-detail span {
+.supplier-detail span,
+.employee-detail span {
     /* color: #333; */
     word-wrap: break-word;
     margin-top: 1rem;
 }
 
 /* Supplier Actions */
-.supplier-actions, .employee-actions {
+.supplier-actions,
+.employee-actions {
     display: flex;
     justify-content: end;
     margin-top: 15px;
     gap: 15px;
-    text-align:center;
+    text-align: center;
 }
 
 .action-btn {
@@ -1820,7 +1835,8 @@ td button:focus {
     background-color: #0056b3;
 }
 
-#export-supplier, #export-employee {
+#export-supplier,
+#export-employee {
     background-color: #e0e0e0;
     color: #1a3153;
     padding: 10px 15px;
@@ -1831,16 +1847,18 @@ td button:focus {
     width: 80px;
 }
 
-#export-supplier:hover, #export-employee:hover {
+#export-supplier:hover,
+#export-employee:hover {
     background-color: #cad4e3;
 }
 
 /* All Suppliers Section */
-#All-supplier-contanier, #All-employee-contanier {
+#All-supplier-contanier,
+#All-employee-contanier {
     margin-top: 30px;
 }
 
-#supplier-data-container h2, 
+#supplier-data-container h2,
 #employee-data-container h2 {
     font-size: 20px;
     color: #333;
@@ -1848,10 +1866,10 @@ td button:focus {
     text-align: center;
 }
 
-.drop-shadow{
+.drop-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-margin-bottom: 20px;
-padding-left: 10px;
+    margin-bottom: 20px;
+    padding-left: 10px;
 }
 
 
@@ -2220,19 +2238,23 @@ padding-left: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    #supplier-details-container, #employee-details-container {
+    #supplier-details-container,
+    #employee-details-container {
         display: grid;
     }
 
-    #supplier-container, #employee-container {
+    #supplier-container,
+    #employee-container {
         width: 100%;
     }
 
-    .supplier-selection-container, .employee-selection-container {
+    .supplier-selection-container,
+    .employee-selection-container {
         padding: 10px;
     }
 
-    .supplier-detail span, .employee-detail span{
+    .supplier-detail span,
+    .employee-detail span {
         margin-right: 30px;
     }
 }
@@ -2540,7 +2562,8 @@ padding-left: 10px;
 
     .featuresCreateNCR button,
     .featuresViewNCR button,
-    .featuresManageAcc button, .featuresCrossfireInsights button {
+    .featuresManageAcc button,
+    .featuresCrossfireInsights button {
         width: 62%;
     }
 
@@ -2649,19 +2672,24 @@ padding-left: 10px;
         margin-left: 82px;
     }
 
-    .supplier-two-cols, .employee-two-cols {
+    .supplier-two-cols,
+    .employee-two-cols {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .supplier-detail, .employee-detail {
+    .supplier-detail,
+    .employee-detail {
         justify-content: start;
     }
 
-    .supplier-detail label, .employee-detail label {
+    .supplier-detail label,
+    .employee-detail label {
         width: 35%;
     }
-    #supplier-select, #employee-select{
+
+    #supplier-select,
+    #employee-select {
         width: 30%;
     }
 
@@ -2804,7 +2832,8 @@ padding-left: 10px;
 
     .featuresCreateNCR button,
     .featuresViewNCR button,
-    .featuresManageAcc button, .featuresCrossfireInsights button {
+    .featuresManageAcc button,
+    .featuresCrossfireInsights button {
         width: 80%;
     }
 
@@ -2845,7 +2874,7 @@ padding-left: 10px;
     .resolved {
         margin-left: 0;
     }
-   
+
 }
 
 @media screen and (min-width: 1760px) {
@@ -3149,7 +3178,7 @@ textarea:focus {
 }
 
 @media screen and (min-width:2025px) {
-    #supplier-container{
+    #supplier-container {
         width: 85%;
     }
 }

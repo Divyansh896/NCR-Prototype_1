@@ -36,10 +36,6 @@ function updateStatusBar() {
     })
 }
 
-//To clear the full forms
-document.getElementById("clear-btn1").addEventListener("click", function () {
-    document.querySelector("form").reset();
-});
 
 // Add keyboard navigation functionality
 document.addEventListener('keydown', function (event) {
@@ -115,20 +111,30 @@ updateStatusBar()
 
 // Add event listeners for navigation buttons
 document.getElementById("next-btn1").addEventListener("click", () => {
+    if (validateFields1()) {
 
+        sections[currentStep].classList.remove("active")
+        currentStep++
+        sections[currentStep].classList.add("active")
+        updateStatusBar()
+    }
+    else {
+        showPopup('Required field missing', 'All the fields are required and cannot be empty', 'images/1382678.webp');
 
-    sections[currentStep].classList.remove("active")
-    currentStep++
-    sections[currentStep].classList.add("active")
-    updateStatusBar()
+    }
 
 })
 document.getElementById("next-btn2").addEventListener("click", () => {
+    if (validateFields2()) {
 
-    sections[currentStep].classList.remove("active")
-    currentStep++
-    sections[currentStep].classList.add("active")
-    updateStatusBar()
+        sections[currentStep].classList.remove("active")
+        currentStep++
+        sections[currentStep].classList.add("active")
+        updateStatusBar()
+    } else {
+        showPopup('Required field missing', 'All the fields are required and cannot be empty', 'images/1382678.webp');
+
+    }
 
 })
 document.getElementById("back-btn1").addEventListener("click", () => {
@@ -145,6 +151,23 @@ document.getElementById("back-btn2").addEventListener("click", () => {
     updateStatusBar()
 })
 
+// Event listener for the submit button
+document.getElementById("submit-btn").addEventListener("click", (e) => {
+    e.preventDefault() // Prevent default form submission
+
+    if (validateFields1() && validateFields2) {
+
+        // Show the popup and wait for it to close
+        showPopup('Form submitted', 'Your Purchasing department form has been submitted', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
+            // This callback will execute after the popup is closed
+            //submitForm(user.role) // Call the form submission
+            //sendMail() // Call the email sending function
+            //window.location.href = "Dashboard.html" // Redirect to home.html
+
+            //sendNotification(ncrNumber)
+        })
+    }
+})
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -326,48 +349,104 @@ function showPopup(title, message, icon, callback) {
     }
 }
 
-next1.addEventListener("click", (e) => {
-    e.preventDefault();
-//validations for all the fields
-if (decision.value == "" || returnOp.value == "" || followType.value == "" || followDate.value == "") {
-    showPopup('Required field missing', 'All the fields are required and can not be empty', 'images/1382678.webp');
-    empID.nextElementSibling.style.display = "block"
-    empID.nextElementSibling.textContent = "Decision is required !"
+function validateFields1() {
+    // Define the fields and their corresponding messages
+    const fieldsToValidate = [
+        { field: decision, message: "Decision is required!" },
+        { field: returnOp, message: "Return option is required!" },
+        { field: followType, message: "Follow-up type is required!" },
+        { field: followDate, message: "Follow-up date is required!" }
+    ];
 
-    empID.nextElementSibling.style.display = "block"
-    empID.nextElementSibling.textContent = "Return option is required !"
+    let isValid = true; // To track if all fields pass validation
 
-    empID.nextElementSibling.style.display = "block"
-    empID.nextElementSibling.textContent = "Follow-up type is required !"
+    fieldsToValidate.forEach(({ field, message }) => {
+        const errorElement = field.nextElementSibling;
+        if (field.value.trim() === "") {
+            isValid = false;
+            errorElement.style.display = "block";
+            // errorElement.textContent = message;
+        } else {
+            errorElement.style.display = "none"; // Hide error if the field is valid
+        }
+    });
 
-    empID.nextElementSibling.style.display = "block"
-    empID.nextElementSibling.textContent = "Follow-up date is required !"
+
+    return isValid;
 }
 
-});
 
-next2.addEventListener("click", (e) => {
-    e.preventDefault();
-    if( newNCR.value == "" || inspName.value == "" || ncrDate.value == ""){
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "New NCR no. is required !"
-    
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "Inspector's Name is required !"
-    
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "NCR date is required !"
-    }
-    else{
-        showPopup('Confirmation','Form Submitted Successfully','images/confirmationIcon.webp');
-    }
-})
+function validateFields2() {
+    const fields = [
+        { field: newNCR, errorMessage: "New NCR no. is required!" },
+        { field: inspName, errorMessage: "Inspector's Name is required!" },
+        { field: ncrDate, errorMessage: "NCR date is required!" }
+    ];
+
+    let isValid = true;
+
+    fields.forEach(({ field, errorMessage }) => {
+        const errorElement = field.nextElementSibling; // Assuming error message is displayed in the next sibling
+        if (field.value.trim() === "") {
+            isValid = false;
+            errorElement.style.display = "block";
+            // errorElement.textContent = errorMessage;
+        } else {
+            errorElement.style.display = "none"; // Hide the error message if the field is valid
+        }
+    });
+
+    return isValid; // Return true if all fields are valid
+}
 
 
-document.getElementById('clear-btn1').addEventListener('click', ()=>{
+
+document.getElementById('clear-btn1').addEventListener('click', () => {
     const spans = document.querySelectorAll('.error-message')
     spans.forEach(element => {
         element.style.display = 'none'
     });
 })
 
+
+function submitForm() {
+
+    let ncrIndex = AllReports.findIndex(report => report.ncr_no === ncrNo);
+    // Assigning form inputs to variables
+    const decisionValue = document.getElementById("decision").value;
+    const returnOptionsValue = document.getElementById("return-options").value;
+    const followUpTypeValue = document.getElementById("follow-type").value;
+    const followUpDateValue = document.getElementById("follow-date").value;
+    const newNcrNumberValue = document.getElementById("new-ncr-number").value;
+    const inspectorNameValue = document.getElementById("inspector-name").value;
+    const ncrDateValue = document.getElementById("ncr-date").value;
+    const qualityClosureDateValue = document.getElementById("quality-date").value;
+
+    // Collecting radio button values into variables
+    const followUpRequiredValue = document.querySelector('input[name="follow-up"]:checked')?.value || null;
+    const reInspectedAcceptableValue = document.querySelector('input[name="re-inspected"]:checked')?.value || null;
+    const ncrClosedValue = document.querySelector('input[name="ncr-closed"]:checked')?.value || null;
+
+    // Update the engineering data for the found NCR record
+    AllReports[ncrIndex].purchasing_decision = {
+        "preliminary_decision": decisionValue,           // decision option selected
+        "options": {
+            "rework_in_house": returnOptionsValue === "rework_in_house",  // checking if option matches
+            "scrap_in_house": returnOptionsValue === "scrap_in_house",
+            "defer_to_engineering": returnOptionsValue === "defer_to_engineering"
+        },
+        "car_raised": followUpRequiredValue === "true",  // interpreting radio button value
+        "car_number": followUpTypeValue || null,         // setting car number or null if not available
+        "follow_up_required": followUpRequiredValue === "true",
+        "operations_manager_name": followUpDateValue || null, // assuming manager name is stored in follow-up date input (update accordingly)
+        "operations_manager_date": followUpDateValue || null,  // date of follow-up
+        "re_inspected_acceptable": reInspectedAcceptableValue === "true", // interpreting radio button value
+        "new_ncr_number": newNcrNumberValue,            // new NCR number
+        "inspector_name": inspectorNameValue,           // inspector name
+        "ncr_closed": ncrClosedValue === "true",        // ncr closed value
+        "resolved": ncrClosedValue === "true"           // resolved status based on NCR closed
+    };
+
+    localStorage.setItem('AllReports', JSON.stringify(AllReports))
+
+}
