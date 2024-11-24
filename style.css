@@ -1734,7 +1734,7 @@ td button:focus {
 }
 
 /* Container styles */
-#supplier-container {
+#supplier-container, #employee-container {
     width: 378px;
     padding: 20px;
     background-color: #ffffff;
@@ -1744,26 +1744,26 @@ td button:focus {
 }
 
 /* Heading Styles */
-#supplier-info {
+#supplier-info, #employee-info {
     font-size: 24px;
-    color: #333;
+    /* color: #1a3153; */
     margin-bottom: 15px;
     text-align: center;
 }
 
 /* Supplier Selection */
-.supplier-selection-container {
+.supplier-selection-container, .employee-selection-container {
     margin-bottom: 20px;
 }
 
-#supplier-select-label {
+#supplier-select-label, #employee-select-label {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #555;
+    /* color: #1a3153; */
 }
 
-#supplier-select {
+#supplier-select, #employee-select {
     width: 100%;
     margin-bottom: 15px;
     border: 1px solid #ddd;
@@ -1771,36 +1771,37 @@ td button:focus {
 }
 
 /* Supplier Details */
-.supplier-details {
+.supplier-details, .employee-details {
     background-color: #f9f9f9;
     padding: 15px;
     border-radius: 8px;
     margin-bottom: 20px;
 }
 
-.supplier-detail {
+.supplier-detail, .employee-detail {
     display: flex;
     justify-content: space-between;
     margin-bottom: 10px;
 }
 
-.supplier-detail label {
+.supplier-detail label, .employee-detail label {
     font-weight: bold;
-    color: #555;
+    /* color: #555; */
 }
 
-.supplier-detail span {
-    color: #333;
+.supplier-detail span, .employee-detail span {
+    /* color: #333; */
     word-wrap: break-word;
     margin-top: 1rem;
 }
 
 /* Supplier Actions */
-.supplier-actions {
+.supplier-actions, .employee-actions {
     display: flex;
     justify-content: end;
     margin-top: 15px;
     gap: 15px;
+    text-align:center;
 }
 
 .action-btn {
@@ -1819,27 +1820,28 @@ td button:focus {
     background-color: #0056b3;
 }
 
-#export-supplier {
-    background-color: white;
+#export-supplier, #export-employee {
+    background-color: #e0e0e0;
     color: #1a3153;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 75px;
+    width: 80px;
 }
 
-#export-supplier:hover {
+#export-supplier:hover, #export-employee:hover {
     background-color: #cad4e3;
 }
 
 /* All Suppliers Section */
-#All-supplier-contanier {
+#All-supplier-contanier, #All-employee-contanier {
     margin-top: 30px;
 }
 
-#supplier-data-container h2 {
+#supplier-data-container h2, 
+#employee-data-container h2 {
     font-size: 20px;
     color: #333;
     margin-bottom: 10px;
@@ -1851,6 +1853,7 @@ td button:focus {
 margin-bottom: 20px;
 padding-left: 10px;
 }
+
 
 /*media*/
 @media screen and (min-width: 320px) {
@@ -2217,18 +2220,21 @@ padding-left: 10px;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    #supplier-details-container {
+    #supplier-details-container, #employee-details-container {
         display: grid;
     }
 
-    #supplier-container {
+    #supplier-container, #employee-container {
         width: 100%;
     }
 
-    .supplier-selection-container {
+    .supplier-selection-container, .employee-selection-container {
         padding: 10px;
     }
 
+    .supplier-detail span, .employee-detail span{
+        margin-right: 30px;
+    }
 }
 
 
@@ -2643,19 +2649,19 @@ padding-left: 10px;
         margin-left: 82px;
     }
 
-    .supplier-two-cols {
+    .supplier-two-cols, .employee-two-cols {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .supplier-detail {
+    .supplier-detail, .employee-detail {
         justify-content: start;
     }
 
-    .supplier-detail label {
+    .supplier-detail label, .employee-detail label {
         width: 35%;
     }
-    #supplier-select{
+    #supplier-select, #employee-select{
         width: 30%;
     }
 

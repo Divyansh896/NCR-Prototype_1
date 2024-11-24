@@ -132,10 +132,10 @@
             <section>
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
-                    <button id="btn-supplier" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
+                    <button id="btn-supplier" class="tab-button active" tabindex="9"><i class="fa fa-truck"
                             aria-hidden="true"></i>
                         Suppliers</button>
-                    <button id="btn-employee" class="tab-button" tabindex="10"><i class="fa fa-thumb-tack"
+                    <button id="btn-employee" class="tab-button" tabindex="10"><i class="fa fa-user"
                             aria-hidden="true"></i>
                         Employees</button>
                 </div>
@@ -207,8 +207,74 @@
                     </div>
 
                     <div id="employee-container" class="tab-panel">
-                        <h2>All employees</h2>
+                        <h2 id="employee-info">Employee Information</h2>
+                        <div class="employee-selection-container">
+                            <label for="employee-select" id="employee-select-label">Select an Employee</label>
+                            <select id="employee-select" name="employee-select" tabindex="15" aria-labelledby="employee-select-label"
+                                aria-describedby="employee-info">
+                                <option value="">Select an Employee</option>
+                                <!-- Dynamically populated options will go here -->
+                            </select>
+                    
+                            <div id="employee-details-container">
+                                <div class="employee-two-cols">
+                                    <div>
+                                        <div class="employee-detail">
+                                            <label for="employee-firstname">First Name:</label>
+                                            <span id="employee-firstname"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-lastname">Last Name:</label>
+                                            <span id="employee-lastname"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-username">Username:</label>
+                                            <span id="employee-username"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-department">Department:</label>
+                                            <span id="employee-department"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-role">Role:</label>
+                                            <span id="employee-role"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="employee-detail">
+                                            <label for="employee-email">Email ID:</label>
+                                            <span id="employee-email"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-phone">Phone:</label>
+                                            <span id="employee-phone"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-dob">Date of Birth:</label>
+                                            <span id="employee-dob"></span>
+                                        </div>
+                                        <div class="employee-detail">
+                                            <label for="employee-gender">Gender:</label>
+                                            <span id="employee-gender"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                    
+                                <div class="employee-actions">
+                                    <button id="export-employee">Export</button>
+                                    <button id="edit-employee" class="action-btn">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                    
+                        <!-- pinned reports -->
+                        <div id="employee-details-container">
+                            <div id="employee-data-container">
+                                <h2>All Employees</h2>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </section>
         </div>

@@ -9,26 +9,57 @@ const supplierPostalCode = document.getElementById("supplier-postalCode");
 const supplierContact = document.getElementById("supplier-contact");
 const supplierShippingMethod = document.getElementById("supplier-shippingMethod");
 const supplierDataContainer = document.getElementById("supplier-data-container");
-const btnExport = document.getElementById('export-supplier');
+const btnExportSupplier = document.getElementById('export-supplier');
 const panels = document.querySelectorAll('.tab-panel');
 const btnsupplier = document.getElementById('btn-supplier');
 const btnemployee = document.getElementById('btn-employee');
-let suppliers = JSON.parse(localStorage.getItem('suppliers'));
+const employeeSelect = document.getElementById("employee-select");
+const employeeInfo = document.getElementById("employee-info");
+const employeeDetails = document.getElementById("employee-details-container");
+const employeeFirstName = document.getElementById("employee-firstname");
+const employeeLastName = document.getElementById("employee-lastname");
+const employeeUsername = document.getElementById("employee-username");
+const employeeDepartment = document.getElementById("employee-department");
+const employeeRole = document.getElementById("employee-role");
+const employeeEmail = document.getElementById("employee-email");
+const employeePhone = document.getElementById("employee-phone");
+const employeeDob = document.getElementById("employee-dob");
+const employeeGender = document.getElementById("employee-gender");
+const employeeDataContainer = document.getElementById("employee-data-container");
+const btnExportEmp = document.getElementById('export-employee');
+const btnEmployee = document.getElementById('btn-employee');
+const btnSupplier = document.getElementById('btn-supplier');
 
-btnExport.addEventListener('click', () => {
+let suppliers = JSON.parse(localStorage.getItem('suppliers'));
+let employees = JSON.parse(localStorage.getItem('employees'));
+
+btnExportSupplier.addEventListener('click', () => {
     if (supplierSelect.value == 'All') {
         exportAllSuppliersToExcel();
     } else {
         exportToExcel(supplierSelect.value);
     }
 });
+btnExportEmp.addEventListener('click', () => {
+    if (employeeSelect.value === 'All') {
+        exportAllEmployeesToExcel();
+    } else {
+        exportToExcel(employeeSelect.value);
+    }
+});
 
 // Populate the dropdown on page load
 populateSuppliers();
+populateEmployees()
 populateAllSuppliers()
+populateAllEmployees()
+
 // Initially, hide supplier details and show supplier list
 supplierDetails.style.display = 'none';
 supplierDataContainer.style.display = 'block';
+// Initially, hide employee details and show employee list
+employeeDetails.style.display = 'none';
+employeeDataContainer.style.display = 'block';
 
 function populateSuppliers() {
     supplierSelect.innerHTML = ""; // Clear all options
@@ -49,6 +80,25 @@ function populateSuppliers() {
 
     supplierSelect.value = 'All'; // Set "All" as the default selection
 }
+function populateEmployees() {
+    employeeSelect.innerHTML = ""; // Clear all options
+
+    // Default "All Employees" option
+    const option = document.createElement("option");
+    option.value = "All";
+    option.textContent = "All Employees";
+    employeeSelect.appendChild(option);
+
+    // Add options for each employee
+    employees.forEach(employee => {
+        const option = document.createElement("option");
+        option.value = employee.username; // Using username as a unique identifier
+        option.textContent = `${employee.firstname} ${employee.lastname}`; // Displaying full name
+        employeeSelect.appendChild(option);
+    });
+
+    employeeSelect.value = 'All'; // Set "All" as the default selection
+}
 
 // Event listener for supplier selection change
 supplierSelect.addEventListener('change', () => {
@@ -63,6 +113,19 @@ supplierSelect.addEventListener('change', () => {
     }
 });
 
+employeeSelect.addEventListener('change', () => {
+    if (employeeSelect.value === "All") {
+        employeeDetails.style.display = 'none';
+        employeeDataContainer.style.display = 'block';
+        populateAllEmployees(); // Populate all employees list
+    } else {
+        employeeDetails.style.display = 'block';
+        employeeDataContainer.style.display = 'none';
+        populateEmployeeDetails(); // Populate selected employee details
+    }
+});
+
+
 function populateSupplierDetails() {
     let selectedSupplier = supplierSelect.value;
     let supplier = suppliers.find(supplier => supplier.supplierName === selectedSupplier);
@@ -75,6 +138,22 @@ function populateSupplierDetails() {
         supplierPostalCode.textContent = supplier.postalCode;
         supplierContact.textContent = supplier.contactNumber;
         supplierShippingMethod.textContent = supplier.shippingMethod;
+    }
+}
+function populateEmployeeDetails() {
+    let selectedEmployee = employeeSelect.value;
+    let employee = employees.find(employee => employee.username === selectedEmployee);
+
+    if (employee) {
+        employeeFirstName.textContent = employee.firstname;
+        employeeLastName.textContent = employee.lastname;
+        employeeUsername.textContent = employee.username;
+        employeeDepartment.textContent = employee.department;
+        employeeRole.textContent = employee.role;
+        employeeEmail.textContent = employee.emailID;
+        employeePhone.textContent = employee.phone;
+        employeeDob.textContent = employee.dob;
+        employeeGender.textContent = employee.gender;
     }
 }
 
@@ -131,6 +210,67 @@ function populateAllSuppliers() {
     });
 }
 
+function populateAllEmployees() {
+    employeeDataContainer.innerHTML = ""; // Clear existing employee data
+
+    // Add the export button once
+    const exportButtonDiv = document.createElement("div");
+    exportButtonDiv.classList.add("employee-actions");
+    exportButtonDiv.innerHTML = `<button id="export-employee" onclick='exportAllEmployeesToExcel()'>Export</button>`;
+    exportButtonDiv.style.marginRight = '30px'
+    employeeDataContainer.appendChild(exportButtonDiv);
+
+    // Loop through all employees and create the employee divs
+    employees.forEach(employee => {
+        const employeeDiv = document.createElement("div");
+        employeeDiv.classList.add("employee-two-cols", "drop-shadow");
+
+        employeeDiv.innerHTML = `
+            <div>
+                <div class="employee-detail">
+                    <label>First Name:</label>
+                    <span>${employee.firstname}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Last Name:</label>
+                    <span>${employee.lastname}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Username:</label>
+                    <span>${employee.username}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Department:</label>
+                    <span>${employee.department}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Role:</label>
+                    <span>${employee.role}</span>
+                </div>
+            </div>
+            <div>
+                <div class="employee-detail">
+                    <label>Email ID:</label>
+                    <span>${employee.emailID}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Phone:</label>
+                    <span>${employee.phone}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Date of Birth:</label>
+                    <span>${employee.dob}</span>
+                </div>
+                <div class="employee-detail">
+                    <label>Gender:</label>
+                    <span>${employee.gender}</span>
+                </div>
+            </div>
+        `;
+
+        employeeDataContainer.appendChild(employeeDiv);
+    });
+}
 
 async function exportToExcel(supplierName) {
     console.log(supplierName)
@@ -190,6 +330,68 @@ async function exportToExcel(supplierName) {
     const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     saveAs(blob, `${supplier.supplierName}.xlsx`);
 }
+async function exportToExcel(employeeUsername) {
+    console.log(employeeUsername);
+    let index = employees.findIndex(employee => employee.username == employeeUsername);
+    let employee = employees[index];
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('sheet1');
+
+    // Title and date header
+    worksheet.mergeCells('A1:E1');
+    worksheet.getCell('A1').value = 'Employee Data Report';
+    worksheet.getCell('A1').alignment = { horizontal: 'center' };
+    worksheet.getCell('A1').font = { bold: true, size: 20 };
+
+    worksheet.mergeCells('A2:E2');
+    worksheet.getCell('A2').value = `Date of Report: ${new Date().toLocaleDateString()}`;
+    worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true };
+
+    // Employee details
+    worksheet.getCell('A4').value = 'First Name';
+    worksheet.getCell('A4').font = { bold: true };
+    worksheet.getCell('B4').value = employee.firstname;
+
+    worksheet.getCell('A5').value = 'Last Name';
+    worksheet.getCell('A5').font = { bold: true };
+    worksheet.getCell('B5').value = employee.lastname;
+
+    worksheet.getCell('A6').value = 'Username';
+    worksheet.getCell('A6').font = { bold: true };
+    worksheet.getCell('B6').value = employee.username;
+
+    worksheet.getCell('A7').value = 'Employee ID';
+    worksheet.getCell('A7').font = { bold: true };
+    worksheet.getCell('B7').value = employee.employeeID;
+
+    worksheet.getCell('A8').value = 'Department';
+    worksheet.getCell('A8').font = { bold: true };
+    worksheet.getCell('B8').value = employee.department;
+
+    worksheet.getCell('A9').value = 'Role';
+    worksheet.getCell('A9').font = { bold: true };
+    worksheet.getCell('B9').value = employee.role;
+
+    worksheet.getCell('A10').value = 'Email ID';
+    worksheet.getCell('A10').font = { bold: true };
+    worksheet.getCell('B10').value = employee.emailID;
+
+    worksheet.getCell('A11').value = 'Phone';
+    worksheet.getCell('A11').font = { bold: true };
+    worksheet.getCell('B11').value = employee.phone;
+
+    worksheet.getCell('A12').value = 'Date of Birth';
+    worksheet.getCell('A12').font = { bold: true };
+    worksheet.getCell('B12').value = employee.dob;
+
+    worksheet.getCell('A13').value = 'Gender';
+    worksheet.getCell('A13').font = { bold: true };
+    worksheet.getCell('B13').value = employee.gender;
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, `${employee.firstname} ${employee.lastname}.xlsx`);
+}
 
 async function exportAllSuppliersToExcel() {
     const workbook = new ExcelJS.Workbook();
@@ -246,6 +448,68 @@ async function exportAllSuppliersToExcel() {
     const buffer = await workbook.xlsx.writeBuffer();
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(blob, `All-Suppliers-Data-${new Date().toISOString().slice(0, 10)}.xlsx`);
+}
+async function exportAllEmployeesToExcel() {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('All Employees');
+
+    // Title and date header
+    worksheet.mergeCells('A1:E1');
+    worksheet.getCell('A1').value = 'All Employees Data Report';
+    worksheet.getCell('A1').alignment = { horizontal: 'center' };
+    worksheet.getCell('A1').font = { bold: true, size: 20 };
+
+    worksheet.mergeCells('A2:E2');
+    worksheet.getCell('A2').value = `Date of Report: ${new Date().toLocaleDateString()}`;
+    worksheet.getCell('A2').alignment = { horizontal: 'center' };
+
+    // Header row
+    const headers = [
+        'First Name', 'Last Name', 'Username', 'Employee ID',
+        'Department', 'Role', 'Email ID', 'Phone', 'Date of Birth', 'Gender'
+    ];
+    worksheet.addRow(headers).font = { bold: true };
+
+    // Add employee data with spacing
+    employees.forEach((employee, index) => {
+        worksheet.addRow([
+            employee.firstname,
+            employee.lastname,
+            employee.username,
+            employee.employeeID,
+            employee.department,
+            employee.role,
+            employee.emailID,
+            employee.phone,
+            employee.dob,
+            employee.gender
+        ]);
+
+        // Add two empty rows between employees
+        if (index < employees.length - 1) {
+            worksheet.addRow([]);
+            worksheet.addRow([]);
+        }
+    });
+
+    // Adjust column widths
+    worksheet.columns = [
+        { width: 20 }, // First Name
+        { width: 20 }, // Last Name
+        { width: 20 }, // Username
+        { width: 15 }, // Employee ID
+        { width: 15 }, // Department
+        { width: 15 }, // Role
+        { width: 30 }, // Email ID
+        { width: 20 }, // Phone
+        { width: 15 }, // Date of Birth
+        { width: 15 }  // Gender
+    ];
+
+    // Save the workbook
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    saveAs(blob, `All-Employees-Data-${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
 
 // Initialize tab buttons
