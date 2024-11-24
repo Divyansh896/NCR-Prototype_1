@@ -933,13 +933,24 @@ label.radio-button {
     margin: auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 300px;
+
     text-align: center;
+}
+.modal-content{
+    width: 300px;
 }
 
 .modal-content-supplier{
-    height: 500px;
+    height: 400px;
     width: 600px;
+    text-align: center;
+}
+
+.supplier-columns-popup{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    width: 100%;
 }
 
 .close {
@@ -983,7 +994,7 @@ label.radio-button {
 /* Filter Section */
 .filter-section,
 .supplier-columns,
-.employee-columns {
+.employee-columns{
     margin: 0 auto;
     /* Center align and prevent overflow */
     display: flex;
@@ -1396,7 +1407,7 @@ input[type="radio"] {
     /* Center horizontally */
     top: 50%;
     /* Center vertically */
-    transform: translate(-50%, -50%);
+    /*transform: translate(-50%, -50%);*/
     /* Adjust to center */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     /* Shadow effect */
@@ -1983,7 +1994,7 @@ padding-left: 10px;
 
     .filter-section,
     .supplier-columns,
-    .employee-columns {
+    .employee-columns{
         margin: 0 auto;
         display: grid;
         grid-template-columns: repeat(2, 1fr);

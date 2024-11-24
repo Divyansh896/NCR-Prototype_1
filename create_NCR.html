@@ -186,59 +186,59 @@
                     </div>
                     <h2> Add New Supplier</h2>
                 </div>
-                <div class="supplier-columns">
+                <div class="supplier-columns-popup">
                     <div>
-                    <div class="tooltip-container">
-                        <label for="supplierName">Supplier Name (Required)</label>
-                        <input type="text" id="supplierName" name="supplierName" tabindex="6"
-                            placeholder="Enter supplier Name">
-                        <span class="error-message" id="supplier-name-error"></span>
-                        <span class="tooltip">Enter the supplier's name</span>
+                        <div class="tooltip-container">
+                            <label for="supplierName">Supplier Name (Required)</label>
+                            <input type="text" id="supplierName" name="supplierName" tabindex="6"
+                                placeholder="Enter supplier Name">
+                            <span class="error-message" id="supplier-name-error"></span>
+                            <span class="tooltip">Enter the supplier's name</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="address">Address (Required)</label>
+                            <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
+                            <span class="error-message" id="address-error"></span>
+                            <span class="tooltip">Enter the address of the supplier</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="city">City (Required)</label>
+                            <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
+                            <span class="error-message" id="city-error"></span>
+                            <span class="tooltip">Enter the city where the supplier is located</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="country">Country (Required)</label>
+                            <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
+                            <span class="error-message" id="country-error"></span>
+                            <span class="tooltip">Enter the country of the supplier</span>
+                        </div>
                     </div>
-                    <div class="tooltip-container">
-                        <label for="address">Address (Required)</label>
-                        <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
-                        <span class="error-message" id="address-error"></span>
-                        <span class="tooltip">Enter the address of the supplier</span>
+                    <div>
+                        <div class="tooltip-container">
+                            <label for="postalCode">Postal Code (Required)</label>
+                            <input type="text" id="postalCode" name="postalCode" tabindex="10" placeholder="A9A 9A9">
+                            <span class="error-message" id="postal-code-error"></span>
+                            <span class="tooltip">Enter the postal code of the supplier (L3B 4A8)</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="contact">Contact (Required)</label>
+                            <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
+                            <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the contact number of the supplier</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="shippingMethod">Shipping Method (Required)</label>
+                            <select id="shippingMethod" name="shippingMethod" tabindex="12">
+                                <option value="">Select a shipping method</option>
+                                <option value="air">Air</option>
+                                <option value="sea">Sea</option>
+                                <option value="courier">Courier</option>
+                            </select>
+                            <span class="error-message" id="shippingMethod-error"></span>
+                            <span class="tooltip">Select the preferred shipping method</span>
+                        </div>
                     </div>
-                    <div class="tooltip-container">
-                        <label for="city">City (Required)</label>
-                        <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
-                        <span class="error-message" id="city-error"></span>
-                        <span class="tooltip">Enter the city where the supplier is located</span>
-                    </div>
-                    <div class="tooltip-container">
-                        <label for="country">Country (Required)</label>
-                        <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
-                        <span class="error-message" id="country-error"></span>
-                        <span class="tooltip">Enter the country of the supplier</span>
-                    </div>
-                </div>
-                <div>
-                    <div class="tooltip-container">
-                        <label for="postalCode">Postal Code (Required)</label>
-                        <input type="text" id="postalCode" name="postalCode" tabindex="10" placeholder="A9A 9A9">
-                        <span class="error-message" id="postal-code-error"></span>
-                        <span class="tooltip">Enter the postal code of the supplier (L3B 4A8)</span>
-                    </div>
-                    <div class="tooltip-container">
-                        <label for="contact">Contact (Required)</label>
-                        <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
-                        <span class="error-message" id="contact-error"></span>
-                        <span class="tooltip">Enter the contact number of the supplier</span>
-                    </div>
-                    <div class="tooltip-container">
-                        <label for="shippingMethod">Shipping Method (Required)</label>
-                        <select id="shippingMethod" name="shippingMethod" tabindex="12">
-                            <option value="">Select a shipping method</option>
-                            <option value="air">Air</option>
-                            <option value="sea">Sea</option>
-                            <option value="courier">Courier</option>
-                        </select>
-                        <span class="error-message" id="shippingMethod-error"></span>
-                        <span class="tooltip">Select the preferred shipping method</span>
-                    </div>
-                </div>
                 </div>
 
                 <button id="addSupplierButton">Add Supplier</button>
@@ -283,23 +283,6 @@
                                             edited.</span>
                                     </div>
                                     <div class="tooltip-container">
-                                        <label for="item-name">Select Item:</label>
-                                        <select name="items" id="item-name">
-                                            <option value="Hex Bolts">Hex Bolts</option>
-                                            <option value="Lock Nut">Lock Nut</option>
-                                            <option value="Screws">Screws</option>
-                                            <option value="Carriage Bolts">Carriage Bolts</option>
-                                            <option value="Concrete Screws">Concrete Screws</option>
-                                            <option value="Machine Screws">Machine Screws</option>
-                                            <option value="Deck Screws">Deck Screws</option>
-                                            <option value="Eye Bolt">Eye Bolt</option>
-                                            <option value="Bolts">Bolts</option>
-                                            <option value="Nuts">Nuts</option>
-                                        </select>
-                                        <span class="error-message" id="item-name-error"></span>
-                                        <span class="tooltip">Select the product from dropdown list.</span>
-                                    </div>
-                                    <div class="tooltip-container">
                                         <label for="sales-order-no">Sales Order No (Required):</label>
                                         <input type="text" id="sales-order-no" name="sales_order_no"
                                             placeholder="Enter Sales Order No" tabindex="8">
@@ -332,11 +315,11 @@
                                     <div class="tooltip-container">
                                         <label for="supplier-name">Supplier Name (Required):</label>
                                         <select name="supplier_name" id="supplier-name" required tabindex="11">
-                                            <!-- <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
+                                            <option value="Alpha Tech Solutions">Alpha Tech Solutions</option>
                                             <option value="Beta Manufacturing Inc.">Beta Manufacturing Inc.</option>
                                             <option value="Gamma Electronics">Gamma Electronics</option>
                                             <option value="Delta Logistics">Delta Logistics</option>
-                                            <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option> -->
+                                            <option value="Epsilon Energy Solutions">Epsilon Energy Solutions</option>
                                             <option value="addSupplier">Add a Supplier</option>
                                         </select>
                                         <span class="error-message" id="supplier-name-error"></span>
@@ -501,7 +484,6 @@
                                 <div class="confirm-create-qa">
                                     <p>QA Name: <span id="confirm-qa-name"></span></p>
                                     <p>Date: <span id="confirm-date"></span></p>
-                                    <p>Item Name: <span id="confirm-item-name"></span></p>
                                     <p>Sales Order No: <span id="confirm-sales-order-no"></span></p>
                                     <p>Quantity Received: <span id="confirm-quantity-received"></span></p>
                                     <p>Quantity Defective: <span id="confirm-quantity-defective"></span></p>
