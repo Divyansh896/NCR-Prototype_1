@@ -21,7 +21,8 @@ uploadJsonData()
 
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
-
+let archivedReports = []
+localStorage.setItem('archived', JSON.stringify(archivedReports))
 function uploadJsonData() {
     ncr = JSON.parse(localStorage.getItem('AllReports'))
     if (ncr != null || ncr != undefined) {

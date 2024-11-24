@@ -108,7 +108,7 @@ function populateTable(data, matchedStatus) {
             <td>${ncr.qa.supplier_name || 'N/A'}</td>
             <td>${ncr.qa.item_description ? ncr.qa.item_description.substring(0, 15) + '...' : 'N/A'}</td>
             <td>${statusDisplay} ${reportStage}</td>
-            <td>
+            <td class='control-btns'>
                 <div class="tooltip-container controls-container">
                     <button class="view-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-file"></i> View</button>
                     <span class="tooltip ttip-control">Click to view NCR</span>
@@ -116,6 +116,10 @@ function populateTable(data, matchedStatus) {
                 <div class="tooltip-container controls-container">
                     <button class="edit-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Edit</button>
                     <span class="tooltip ttip-control">Click to edit NCR</span>
+                </div>
+                <div class="tooltip-container controls-container">
+                    <button class="archive-btn" data-ncr="${ncr.ncr_no}"><i class="fa fa-pencil"></i> Archive</button>
+                    <span class="tooltip ttip-control">Click to archive NCR</span>
                 </div>
             </td>
         `;
@@ -127,7 +131,9 @@ function populateTable(data, matchedStatus) {
         row.querySelector('.edit-btn').addEventListener('click', () => {
             editNCR(ncr);
         });
-
+        row.querySelector('.archive-btn').addEventListener('click', ()=>{
+            ArchiveNCR(ncr)
+        })
        // tBody.appendChild(row); // Append the row to the table body
        tBody.prepend(row)
     });
@@ -146,7 +152,13 @@ function populateTable(data, matchedStatus) {
 //     }
 // }
 
-
+function ArchiveNCR(ncr){
+    let reportIndex = AllReports.findIndex(report => report.ncr_no == ncr.ncr_no)
+    let report = AllReports[reportIndex]
+    report.status = 'archived'
+    localStorage.setItem('AllReports', JSON.stringify(AllReports))
+    populateTable(AllReports, 'incomplete')
+}
 
 function viewNCR(ncr) {
     const data = extractData(ncr)

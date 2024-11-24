@@ -1688,7 +1688,7 @@ td button:focus {
 
 
 .ttip-control {
-    bottom: 45px;
+    bottom: 65px;
 }
 
 .tooltip-container:hover .tooltip {
@@ -2524,7 +2524,7 @@ td button:focus {
 
     td button {
         display: inline-block;
-        width: auto;
+        width: 125px;
     }
 
     /*create ncr*/
@@ -2693,6 +2693,11 @@ td button:focus {
         width: 30%;
     }
 
+    .ncr-table tbody td:nth-child(6){
+        display: flex;
+        flex-direction: column;
+    }
+    
 }
 
 @media screen and (min-width: 1440px) {
@@ -2859,6 +2864,7 @@ td button:focus {
 
     td button {
         margin: 10px 5px;
+        width: 115px;
     }
 
     .chkboxes-logged-ncr .radio-button {
@@ -2874,7 +2880,9 @@ td button:focus {
     .resolved {
         margin-left: 0;
     }
-
+    .ncr-table tbody td:nth-child(6){
+        flex-direction: row;
+    }
 }
 
 @media screen and (min-width: 1760px) {
@@ -3177,7 +3185,7 @@ textarea:focus {
     /* Add a subtle black border */
 }
 
-@media screen and (min-width:2025px) {
+@media screen and (min-width:2560px) {
     #supplier-container {
         width: 85%;
     }
