@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Non-Conformance Report Form for QA, Engineering, and Purchasing Departments">
+    <meta name="keywords" content="NCR, Non-Conformance Reports">
+    <meta name="author" content="Mark">
+    <title>Insights - Crossfire</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="breadcrumb.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+
+    <!-- Header with Logo and Navigation -->
+    <header>
+        <div class="logo-container">
+            <img src="images/logo.webp" alt="Crossfire Company Logo">
+        </div>
+
+        <nav aria-label="Primary Navigation">
+            <a href="#" id="menu-icon" aria-label="Menu icon"></a>
+            <ul>
+                <li>
+                    <a href="Dashboard.html" class="linksNav" tabindex="1" aria-label="Go to home page">
+                        <i class="fa fa-fw fa-home"></i> Dashboard
+                    </a>
+                </li>
+
+                <li>
+                    <a href="create_NCR.html" class="linksNav" tabindex="2"
+                        aria-label="Create a new Non-Conformance Report">
+                        <i class="fa fa-fw fa-pencil"></i> Create NCR
+                    </a>
+                </li>
+
+                <li>
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
+                        aria-label="View existing Non-Conformance Reports">
+                        <i class="fa fa-fw fa-search"></i>NCR log
+                    </a>
+                </li>
+
+
+                <li>
+                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                            class="icon-text">Notifications</span>
+                        <span><i class="fa fa-bell"></i></span>
+                        <span id="notification-count" class="badge">3</span>
+                    </button>
+                    <div id="notification-box" class="notification-box">
+                        <ul id="notification-list">
+                        </ul>
+                    </div>
+                </li>
+                <li>
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                        <span class="icon-text">Settings</span>
+                        <span><i class="fa fa-cog"></i></span>
+                    </button>
+                    <div id="settings-box" class="settings-box" aria-labelledby="settings" role="region">
+                        <ul>
+                            <!-- User Profile Section -->
+                            <li>
+                                <i class="fa fa-user-circle-o"></i>
+                                <span id="userName">User Name</span> <!-- User Name should be dynamically filled -->
+                            </li>
+
+                            <!-- Edit Profile Link -->
+                            <li>
+                                <a href="account.html" aria-label="Edit your profile">
+                                    <i class="fa fa-user"></i>
+                                    <span>Edit Profile</span>
+                                </a>
+                            </li>
+
+                            <!-- Tools Section -->
+                            <li class="tools">
+                                <div>
+                                    <!-- Tools Trigger -->
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
+                                        <i class="fa fa-wrench"></i> Tools
+                                    </span>
+                                    <!-- Tools Container (hidden initially) -->
+                                    <div class="tools-container" id="tools-container">
+                                        <!-- Add Employee -->
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
+                                            <i class="fa fa-user-plus"></i> Add Employee
+                                        </a>
+                                        <!-- Add Supplier -->
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
+                                            <i class="fa fa-truck"></i> Add Supplier
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+
+                            <!-- Logout Link -->
+                            <li>
+                                <a href="#" onclick="logout()" aria-label="Logout from your account">
+                                    <i class="fa fa-sign-out"></i> Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="brdcontainer" id="brdcrmb">
+        <!-- nav element add an attribute "aria-label="breadcrumb""-->
+        <nav aria-label="breadcrumb">
+            <!-- create ol or ul list and add class="breadcrumb" -->
+            <ul class="breadcrumb" id="brdcrb">
+                <!-- create li and add class="breadcrumb-item","active" and also add attribute aria-current="page"-->
+                <li class="breadcrumb-item active" aria-current="page">Non Conformance Report</li>
+            </ul>
+        </nav>
+    </div>
+
+    <main>
+        <h1>Crossfire Insights</h1>
+        <div class="main-container">
+            <section>
+                <!-- Tab Navigation -->
+                <div class="tab-navigation">
+                    <button id="btn-supplier" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
+                            aria-hidden="true"></i>
+                        Suppliers</button>
+                    <button id="btn-employee" class="tab-button" tabindex="10"><i class="fa fa-thumb-tack"
+                            aria-hidden="true"></i>
+                        Employees</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- recent reports -->
+                    <div id="supplier-container" class="tab-panel active">
+                        <h2 id="supplier-info">Supplier Information</h2>
+                        <div class="supplier-selection-container">
+                            <label for="supplier-select" id="supplier-select-label">Select a Supplier</label>
+                            <select id="supplier-select" name="supplier-select" tabindex="15" aria-labelledby="supplier-select-label"
+                                aria-describedby="supplier-info">
+                                <option value="">Select a Supplier</option>
+                                <!-- Dynamically populated options will go here -->
+                            </select>
+                
+                            <div id="supplier-details-container" >
+                                <div class="supplier-two-cols">
+                                    <div>
+
+                                        <div class="supplier-detail">
+                                            <label for="supplier-name">Supplier Name:</label>
+                                            <span id="supplier-name"></span>
+                                        </div>
+                                        <div class="supplier-detail">
+                                            <label for="supplier-address">Address:</label>
+                                            <span id="supplier-address"></span>
+                                        </div>
+                                        <div class="supplier-detail">
+                                            <label for="supplier-city">City:</label>
+                                            <span id="supplier-city"></span>
+                                        </div>
+                                        <div class="supplier-detail">
+                                            <label for="supplier-country">Country:</label>
+                                            <span id="supplier-country"></span>
+                                        </div>
+                                    </div>
+                                    <div>
+    
+                                        <div class="supplier-detail">
+                                            <label for="supplier-postalCode">Postal Code:</label>
+                                            <span id="supplier-postalCode"></span>
+                                        </div>
+                                        <div class="supplier-detail">
+                                            <label for="supplier-contact">Contact:</label>
+                                            <span id="supplier-contact"></span>
+                                        </div>
+                                        <div class="supplier-detail">
+                                            <label for="supplier-shippingMethod">Shipping Method:</label>
+                                            <span id="supplier-shippingMethod"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="supplier-actions">
+                                    <button id="export-supplier" >Export</button>
+                                    <button id="edit-supplier" class="action-btn">Edit</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- pinned reports  -->
+                        <div id="supplier-details-container" >
+                            <div id="supplier-data-container">
+                                <h2>All Suppliers</h2>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div id="employee-container" class="tab-panel">
+                        <h2>All employees</h2>
+                    </div>
+                </div>
+            </section>
+        </div>
+        
+
+       
+
+    </main>
+
+    <footer aria-label="Footer" id="footer-scroll">
+        <p>&copy; 2024 Crossfire. All rights reserved.</p>
+        <p>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="15">Privacy
+                Policy</a>
+        </p>
+    </footer>
+    <script src="script/comapnyInsignts.js"></script>
+    <script src="script/breadcrumb.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</body>

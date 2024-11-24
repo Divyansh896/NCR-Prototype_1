@@ -1,18 +1,39 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
+const btnExport = document.getElementById('btnExportExcel')
 loadImages()
-
+updateToolContent()
 const btnEdit = document.querySelectorAll('.edit');
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
-        editNCR(retrievedNCRData);
-    });
-});
+        // Retrieve the department from a data attribute in the button
+        const department = button.getAttribute('data-department');
 
+        // Check if the user is an admin
+        if (user.role === "Admin") {
+            // Admins can edit any department
+            editNCR(retrievedNCRData);
+        } else if (user.role === department) {
+            // Allow the action for the correct department
+            editNCR(retrievedNCRData);
+        } else {
+            // Show an alert if the button belongs to another department
+            showPopup('Access denied!', `You can only edit NCRs for your department (${user.role}).`, 'images/1382678.webp');
+        }
+    })
+})
+function editNCR(ncr) {
+    //const data = extractData(ncr)
+    sessionStorage.setItem('data', JSON.stringify(ncr))
+    window.location.href = 'edit_Report.html' // Adjust the URL as needed
+}
 const ncrNo = localStorage.getItem('ncrNo')
 
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
@@ -55,85 +76,80 @@ document.querySelectorAll('details').forEach(details => {
     details.setAttribute('open', '') // Expand if not on Create NCR page
 })
 
-const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
-function editNCR(retrievedNCRData) {
-    // const data = extractData(ncr)
-    sessionStorage.setItem('data', JSON.stringify(retrievedNCRData))
-    window.location.href = 'edit_Report.html' // Adjust the URL as needed
-}
-function setSpanContentFromSession() {
-    // Retrieve values from session storage for each department
 
+const retrievedNCRData = JSON.parse(sessionStorage.getItem('data')) || {};
+console.log(retrievedNCRData)
+function setSpanContentFromSession() {
+    // Retrieve data from session storage
 
     // Set QA data to spans and inputs
-    document.getElementById('supplier-name').textContent = retrievedNCRData['supplier_name'] || ''
-    document.getElementById('product-no').textContent = retrievedNCRData['product_no'] || ''
-    document.getElementById('sales-order-no').textContent = retrievedNCRData['sales_order_no'] || ''
-    document.getElementById('description-item').textContent = retrievedNCRData['item_description'] || ''
-    document.getElementById('quantity-received').textContent = retrievedNCRData['quantity_received'] || ''
-    document.getElementById('quantity-defective').textContent = retrievedNCRData['quantity_defective'] || ''
-    document.getElementById('description-defect').textContent = retrievedNCRData['description_of_defect'] || ''
+    document.getElementById('supplier-name').textContent = retrievedNCRData.qa?.supplier_name || '';
+    document.getElementById('item-name').textContent = retrievedNCRData.qa?.item_name || '';
+    document.getElementById('product-no').textContent = retrievedNCRData['qa']?.po_no || '';
+    document.getElementById('sales-order-no').textContent = retrievedNCRData['qa']?.sales_order_no || '';
+    document.getElementById('description-item').textContent = retrievedNCRData['qa']?.item_description || '';
+    document.getElementById('quantity-received').textContent = retrievedNCRData['qa']?.quantity_received || 0;
+    document.getElementById('quantity-defective').textContent = retrievedNCRData['qa']?.quantity_defective || 0;
+    document.getElementById('description-defect').textContent = retrievedNCRData['qa']?.description_of_defect || '';
 
     // Handle Non-Conforming Item marked spans
-    if (retrievedNCRData['item_marked_nonconforming'] === true) {
-        document.getElementById('item-marked-yes').textContent = 'Yes'
-        document.getElementById('item-marked-no').textContent = '' // Clear 'No'
-    } else if (retrievedNCRData['item_marked_nonconforming'] === false) {
-        document.getElementById('item-marked-no').textContent = 'No'
-        document.getElementById('item-marked-yes').textContent = '' // Clear 'Yes'
+    if (retrievedNCRData['qa']?.item_marked_nonconforming === true) {
+        document.getElementById('item-marked-yes').textContent = 'Yes';
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
+    } else if (retrievedNCRData['qa']?.item_marked_nonconforming === false) {
+        document.getElementById('item-marked-no').textContent = 'No';
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
     } else {
-        document.getElementById('item-marked-yes').textContent = '' // Clear 'Yes'
-        document.getElementById('item-marked-no').textContent = '' // Clear 'No'
+        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
+        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
     }
 
-    document.getElementById('qa-name').textContent = retrievedNCRData['quality_representative_name'] || ''
-    document.getElementById('qa-date').textContent = retrievedNCRData['date'] || ''
-    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || ''
+    document.getElementById('qa-name').textContent = retrievedNCRData['qa']?.quality_representative_name || '';
+    document.getElementById('qa-date').textContent = retrievedNCRData['qa']?.date || '';
+    document.getElementById('qa-resolved').textContent = retrievedNCRData['qa']?.resolved === true ? 'Yes' : 'No';
+    document.getElementById('ncr-no').textContent = retrievedNCRData['ncr_no'] || '';
 
-    if (retrievedNCRData['supplier_or_rec_insp'] == true) {
-
-        document.getElementById('qa-process').textContent = 'Supplier or rec insp' // Ensure correct value
+    if (retrievedNCRData['qa']?.process?.supplier_or_rec_insp == true) {
+        document.getElementById('qa-process').textContent = 'Supplier or rec insp'; // Ensure correct value
     } else {
-
-        document.getElementById('qa-process').textContent = 'Wip production order' // Check if this is intended
+        document.getElementById('qa-process').textContent = 'Wip production order'; // Check if this is intended
     }
 
     // Set Engineering data to spans and inputs
-    document.getElementById('engineer-name').textContent = retrievedNCRData['engineer_name'] || ''
-    document.getElementById('disposition').textContent = retrievedNCRData['disposition'] || '' // Set select value
-    document.getElementById('disposition-details').textContent = retrievedNCRData['disposition_details'] || ''
-    document.getElementById('original-rev-number').textContent = retrievedNCRData['original_rev_number'] || ''
-    document.getElementById('updated-rev-number').textContent = retrievedNCRData['updated_rev_number'] || ''
-    document.getElementById('revision-date').textContent = retrievedNCRData['revision_date'] || '' // Set date input value
-    document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering_review_date'] || '' // Set date input value
-    document.getElementById('eng-resolved').textContent = retrievedNCRData['eng_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('customer-notification').textContent = retrievedNCRData['customer_notification_required'] === true ? 'Yes' : 'No'
-    document.getElementById('drawing-update-required').textContent = retrievedNCRData['drawing_update_required'] === true ? 'Yes' : 'No'
+    document.getElementById('engineer-name').textContent = retrievedNCRData['engineering']?.engineer_name || '';
+    document.getElementById('disposition').textContent = retrievedNCRData['engineering']?.disposition || ''; // Set select value
+    document.getElementById('disposition-details').textContent = retrievedNCRData['engineering']?.disposition_details || '';
+    document.getElementById('original-rev-number').textContent = retrievedNCRData['engineering']?.original_rev_number || '';
+    document.getElementById('updated-rev-number').textContent = retrievedNCRData['engineering']?.updated_rev_number || '';
+    document.getElementById('revision-date').textContent = retrievedNCRData['engineering']?.revision_date || ''; // Set date input value
+    document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering']?.engineering_review_date || ''; // Set date input value
+    document.getElementById('eng-resolved').textContent = retrievedNCRData['engineering']?.eng_resolved === true ? 'Yes' : 'No';
+    document.getElementById('customer-notification').textContent = retrievedNCRData['engineering']?.customer_notification_required === true ? 'Yes' : 'No';
+    document.getElementById('drawing-update-required').textContent = retrievedNCRData['engineering']?.drawing_update_required === true ? 'Yes' : 'No';
 
     // Set Purchasing data to spans and inputs
-    document.getElementById('preliminary-decision').textContent = retrievedNCRData['preliminary_decision'] || ''
-    const dispositionOptions = retrievedNCRData['options'] || {}
+    document.getElementById('preliminary-decision').textContent = retrievedNCRData['purchasing_decision']?.preliminary_decision || '';
+
+    const dispositionOptions = retrievedNCRData['purchasing_decision']?.options || {};
     for (const [key, value] of Object.entries(dispositionOptions)) {
         if (value === true) {
-            document.getElementById('options').textContent = key.replace(/_/g, ' ') // Replace underscores with spaces for readability
-            break // Stop after the first true value
+            document.getElementById('options').textContent = key.replace(/_/g, ' '); // Replace underscores with spaces for readability
+            break; // Stop after the first true value
         }
     }
 
-    // document.getElementById('options').textContent = retrievedNCRData['options'] || '' // Set select value
-    document.getElementById('car-raised').textContent = retrievedNCRData['car_raised'] === true ? 'Yes' : 'No'
-    document.getElementById('car-number').textContent = retrievedNCRData['car_number'] || ''
-    document.getElementById('follow-up-required').textContent = retrievedNCRData['follow_up_required'] === true ? 'Yes' : 'No'
-    document.getElementById('operations-manager-name').textContent = retrievedNCRData['operations_manager_name'] || ''
-    document.getElementById('operations-manager-date').textContent = retrievedNCRData['operations_manager_date'] || '' // Set date input value
-    document.getElementById('inspector-name').textContent = retrievedNCRData['inspector_name'] || ''
-    document.getElementById('ncr-closed').textContent = retrievedNCRData['ncr_closed'] === true ? 'Yes' : 'No'
-    document.getElementById('pu-resolved').textContent = retrievedNCRData['pu_resolved'] === true ? 'Yes' : 'No'
-    document.getElementById('new-ncr-number').textContent = retrievedNCRData['new_ncr_number'] || ''
-    // console.log('review date:', retrievedNCRData['engineering_review_date'])
-    // console.log('Product No:', qaData.productNo)
+    document.getElementById('car-raised').textContent = retrievedNCRData['purchasing_decision']?.car_raised === true ? 'Yes' : 'No';
+    document.getElementById('car-number').textContent = retrievedNCRData['purchasing_decision']?.car_number || '';
+    document.getElementById('follow-up-required').textContent = retrievedNCRData['purchasing_decision']?.follow_up_required === true ? 'Yes' : 'No';
+    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || '';
+    document.getElementById('operations-manager-date').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_date || ''; // Set date input value
+    document.getElementById('inspector-name').textContent = retrievedNCRData['purchasing_decision']?.inspector_name || '';
+    document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
+    document.getElementById('pu-resolved').textContent = retrievedNCRData['purchasing_decision']?.pu_resolved === true ? 'Yes' : 'No';
+    document.getElementById('new-ncr-number').textContent = retrievedNCRData['purchasing_decision']?.new_ncr_number || '';
+    document.getElementById('re-inspected-acceptable').textContent = retrievedNCRData['purchasing_decision']?.re_inspected_acceptable === true ? 'Yes' : 'No';
 }
+
 
 // Call the function on page load
 document.addEventListener('DOMContentLoaded', setSpanContentFromSession)
@@ -183,7 +199,7 @@ document.getElementById('downloadPdf').addEventListener('click', async function 
     for (let element of elements) {
         const originalFontSize = window.getComputedStyle(element).fontSize; // Store the original font size
         element.style.fontSize = '25px'; // Temporarily increase font size (e.g., 20px)
-        
+
         const canvas = await html2canvas(element, options);
         const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
 
@@ -373,4 +389,232 @@ function updateToolContent() {
     }
 }
 
-updateToolContent()
+btnExport.addEventListener('click', () => {
+    exportToExcel(retrievedNCRData['ncr_no'])
+
+})
+async function exportToExcel(ncrNum) {
+
+    let index = AllReports.findIndex(report => report.ncr_no == ncrNum)
+    let report = AllReports[index]
+    const workbook = new ExcelJS.Workbook()
+    const worksheet = workbook.addWorksheet('sheet1')
+
+    // Title and date header
+    worksheet.mergeCells('A1:E1')
+    worksheet.getCell('A1').value = 'Non Conformance Report'
+    worksheet.getCell('A1').alignment = { horizontal: 'center' }
+    worksheet.getCell('A1').font = { bold: true, size: 20 }
+
+    worksheet.mergeCells('A2:E2')
+    worksheet.getCell('A2').value = `Date of Report: ${report.qa.date}`
+    worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true }
+
+
+    // Create headers for QA, Engineering, and Purchasing
+    worksheet.mergeCells('A3:B3')
+    worksheet.getCell('A3').value = 'QA Information'
+    worksheet.getCell('A3').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A3').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A4').value = 'Supplier Name'
+    worksheet.getCell('A4').font = { bold: true }
+    worksheet.getCell('B4').value = report.qa.supplier_name
+
+    worksheet.getCell('A5').value = 'Product Number'
+    worksheet.getCell('A5').font = { bold: true }
+    worksheet.getCell('B5').value = report.qa.po_no
+
+    worksheet.getCell('A6').value = 'Item Name'
+    worksheet.getCell('A6').font = { bold: true }
+    worksheet.getCell('B6').value = report.qa.item_name
+
+    worksheet.getCell('A7').value = 'Item Description'
+    worksheet.getCell('A7').font = { bold: true }
+    worksheet.getCell('B7').value = report.qa.item_description
+
+
+    worksheet.getCell('A8').value = 'Sales Order Number'
+    worksheet.getCell('A8').font = { bold: true }
+    worksheet.getCell('B8').value = report.qa.sales_order_no
+
+    worksheet.getCell('A9').value = 'Quantity Received'
+    worksheet.getCell('A9').font = { bold: true }
+    worksheet.getCell('B9').value = report.qa.quantity_received
+    worksheet.getCell('B9').alignment = { horizontal: 'left' }
+
+    worksheet.getCell('A10').value = 'Quantity Defective'
+    worksheet.getCell('A10').font = { bold: true }
+    worksheet.getCell('B10').value = report.qa.quantity_defective
+    worksheet.getCell('B10').alignment = { horizontal: 'left' }
+
+    worksheet.getCell('D4').value = 'Description Of Defect'
+    worksheet.getCell('D4').font = { bold: true }
+    worksheet.getCell('E4').value = report.qa.description_of_defect
+
+    worksheet.getCell('D5').value = 'Item Marked Non-Conforming'
+    worksheet.getCell('D5').font = { bold: true }
+    worksheet.getCell('E5').value = report.qa.item_marked_nonconforming === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D6').value = 'Quality Representative name'
+    worksheet.getCell('D6').font = { bold: true }
+    worksheet.getCell('E6').value = report.qa.quality_representative_name
+
+    worksheet.getCell('D7').value = 'Resolved'
+    worksheet.getCell('D7').font = { bold: true }
+    worksheet.getCell('E7').value = report.qa.resolved === true ? 'Yes' : 'No'
+
+    // Engineering Department
+    worksheet.mergeCells('A13:B13')
+    worksheet.getCell('A13').value = 'Engineering'
+    worksheet.getCell('A13').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A13').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A14').value = 'Disposition'
+    worksheet.getCell('A14').font = { bold: true }
+    worksheet.getCell('B14').value = report.engineering.disposition
+
+    worksheet.getCell('A15').value = 'Original Version Number'
+    worksheet.getCell('A15').font = { bold: true }
+    worksheet.getCell('B15').value = report.engineering.original_rev_number
+
+    worksheet.getCell('A16').value = 'Updated Revision Number'
+    worksheet.getCell('A16').font = { bold: true }
+    worksheet.getCell('B16').value = report.engineering.updated_rev_number
+
+    worksheet.getCell('A17').value = 'Engineer Name'
+    worksheet.getCell('A17').font = { bold: true }
+    worksheet.getCell('B17').value = report.engineering.engineer_name
+
+
+    worksheet.getCell('A18').value = 'Revision Date'
+    worksheet.getCell('A18').font = { bold: true }
+    worksheet.getCell('B18').value = report.engineering.revision_date
+
+    worksheet.getCell('A19').value = 'Engineer Review Date'
+    worksheet.getCell('A19').font = { bold: true }
+    worksheet.getCell('B19').value = report.engineering.engineering_review_date
+
+
+    worksheet.getCell('D14').value = 'Disposition Details'
+    worksheet.getCell('D14').font = { bold: true }
+    worksheet.getCell('E14').value = report.engineering.disposition_details
+
+    worksheet.getCell('D15').value = 'Drawing Update Required'
+    worksheet.getCell('D15').font = { bold: true }
+    worksheet.getCell('E15').value = report.engineering.drawing_update_required === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D16').value = 'Quality Representative name'
+    worksheet.getCell('D16').font = { bold: true }
+    worksheet.getCell('E16').value = report.qa.quality_representative_name
+
+    worksheet.getCell('D17').value = 'Resolved'
+    worksheet.getCell('D17').font = { bold: true }
+    worksheet.getCell('E17').value = report.qa.resolved === true ? 'Yes' : 'No'
+
+    // Purchasing Department
+    worksheet.mergeCells('A22:B22')
+    worksheet.getCell('A22').value = 'Purchasing'
+    worksheet.getCell('A22').alignment = { horizontal: 'Left' }
+    worksheet.getCell('A22').font = { bold: true, underline: true, size: 18 }
+
+    worksheet.getCell('A23').value = 'Preliminary Decision'
+    worksheet.getCell('A23').font = { bold: true }
+    worksheet.getCell('B23').value = report.purchasing_decision.preliminary_decision
+
+    worksheet.getCell('A24').value = 'Rework In-House'
+    worksheet.getCell('A24').font = { bold: true }
+    worksheet.getCell('B24').value = report.purchasing_decision.options.rework_in_house === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A25').value = 'Scrap In-House'
+    worksheet.getCell('A25').font = { bold: true }
+    worksheet.getCell('B25').value = report.purchasing_decision.options.scrap_in_house === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A26').value = 'Defer to Engineering'
+    worksheet.getCell('A26').font = { bold: true }
+    worksheet.getCell('B26').value = report.purchasing_decision.options.defer_to_engineering === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A27').value = 'CAR Raised'
+    worksheet.getCell('A27').font = { bold: true }
+    worksheet.getCell('B27').value = report.purchasing_decision.car_raised === true ? 'Yes' : 'No'
+
+    worksheet.getCell('A28').value = 'CAR Number'
+    worksheet.getCell('A28').font = { bold: true }
+    worksheet.getCell('B28').value = report.purchasing_decision.car_number
+
+    worksheet.getCell('A29').value = 'Follow-Up Required'
+    worksheet.getCell('A29').font = { bold: true }
+    worksheet.getCell('B29').value = report.purchasing_decision.follow_up_required === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D23').value = 'Operations Manager Name'
+    worksheet.getCell('D23').font = { bold: true }
+    worksheet.getCell('E23').value = report.purchasing_decision.operations_manager_name
+
+    worksheet.getCell('D24').value = 'Operations Manager Date'
+    worksheet.getCell('D24').font = { bold: true }
+    worksheet.getCell('E24').value = report.purchasing_decision.operations_manager_date
+
+    worksheet.getCell('D25').value = 'Re-Inspected Acceptable'
+    worksheet.getCell('D25').font = { bold: true }
+    worksheet.getCell('E25').value = report.purchasing_decision.re_inspected_acceptable === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D26').value = 'New NCR Number'
+    worksheet.getCell('D26').font = { bold: true }
+    worksheet.getCell('E26').value = report.purchasing_decision.new_ncr_number
+
+    worksheet.getCell('D27').value = 'Inspector Name'
+    worksheet.getCell('D27').font = { bold: true }
+    worksheet.getCell('E27').value = report.purchasing_decision.inspector_name
+
+    worksheet.getCell('D28').value = 'NCR Closed'
+    worksheet.getCell('D28').font = { bold: true }
+    worksheet.getCell('E28').value = report.purchasing_decision.ncr_closed === true ? 'Yes' : 'No'
+
+    worksheet.getCell('D29').value = 'Resolved'
+    worksheet.getCell('D29').font = { bold: true }
+    worksheet.getCell('E29').value = report.purchasing_decision.resolved === true ? 'Yes' : 'No'
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
+    saveAs(blob, `NCR-${report.ncr_no}.xlsx`);
+}
+
+function showPopup(title, message, icon, callback) {
+    const modalContent = modal.querySelector('.modal-content')
+    modalContent.querySelector('h2').innerText = title // Set the title
+    modalContent.querySelector('p').innerHTML = message // Set the message as HTML
+
+    const iconDiv = document.querySelector('.icon')
+    // Clear previous icons
+    iconDiv.innerHTML = ''
+    const imgElement = document.createElement('img')
+    imgElement.src = icon // Replace with your image URL
+    iconDiv.appendChild(imgElement)
+
+    modal.style.display = "block" // Show the modal
+
+    setTimeout(() => {
+        modalContent.style.opacity = "1" // Fade in effect
+        modalContent.style.transform = "translate(-50%, -50%)" // Ensure it's centered
+    }, 10) // Short timeout to ensure the transition applies
+
+    // Define the close function
+    const closeModal = () => {
+        modalContent.style.opacity = "0" // Fade out effect
+        modalContent.style.transform = "translate(-50%, -60%)" // Adjust position for effect
+        setTimeout(() => {
+            modal.style.display = "none" // Hide the modal after transition
+            callback() // Execute the callback after closing the modal
+        }, 500) // Wait for the transition to finish before hiding
+    }
+
+    // Close modal when <span> (x) is clicked
+    span.onclick = closeModal
+
+    // Close modal when clicking outside of it
+    window.onclick = function (event) {
+        if (event.target === modal) {
+            closeModal()
+        }
+    }
+}

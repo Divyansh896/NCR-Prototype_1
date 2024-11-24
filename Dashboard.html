@@ -8,7 +8,7 @@
         content="Crossfire homepage to manage, create, and view NCRs (Non-Conformance Reports), ensuring smooth operations.">
     <meta name="keywords" content="NCR, Crossfire, manage NCR, create NCR, view NCR, Non-Conformance Reports">
     <meta name="author" content="Mark">
-    <title>Home - Crossfire</title>
+    <title>Dashboard - Crossfire</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -90,11 +90,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -163,7 +165,7 @@
                 <!-- Section 2: View NCR -->
                 <section class="featuresViewNCR" aria-labelledby="view-ncr-header">
                     <div>
-                        <h2 id="view-ncr-header">View NCR</h2>
+                        <h2 id="view-ncr-header">NCR Log</h2>
                         <p>Browse and review reports to gain insights and drive quality.</p>
                         <div class="tooltip-container">
                             <button id="viewNcr" aria-label="Go to View NCR page" tabindex="7"><i
@@ -190,20 +192,38 @@
                         </div>
                     </div>
                 </section>
+            
+                
             </div>
-
         </div>
-
-
+        <div class="main-container">
+            <section class="featuresCrossfireInsights" aria-labelledby="manage-account-header">
+                <div>
+                    <h2 id="manage-account-header">Crossfire Insights</h2>
+                    <p>Manage and export supplier and employee data.</p>
+                    <div class="tooltip-container">
+                        <button id="CrossfireInsights" aria-label="Go to Crossfire Insights page" tabindex="8">
+                            <i class="fa fa-fw fa-user-circle"></i> Crossfire Insights
+                        </button>
+                        <span class="tooltip">
+                            Click here to go to Crossfire Insights page.
+                        </span>
+                    </div>
+                </div>
+            </section>
+        </div>
         <div class="main-container">
             <section>
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
-                    <button id="btn-recent" class="tab-button active" tabindex="9"><i class="fa fa-clock-o" aria-hidden="true" ></i>
+                    <button id="btn-recent" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
+                            aria-hidden="true"></i>
                         Recent NCRs</button>
-                    <button id="btn-pinned" class="tab-button" tabindex="10"><i class="fa fa-thumb-tack" aria-hidden="true" ></i>
+                    <button id="btn-pinned" class="tab-button" tabindex="10"><i class="fa fa-thumb-tack"
+                            aria-hidden="true"></i>
                         Pinned NCRs</button>
-                    <button id="btn-saved" class="tab-button" tabindex="11"><i class="fa fa-save" aria-hidden="true" ></i>
+                    <button id="btn-saved" class="tab-button" tabindex="11"><i class="fa fa-save"
+                            aria-hidden="true"></i>
                         Saved NCRs</button>
                 </div>
 
@@ -212,7 +232,7 @@
                     <!-- recent reports -->
                     <div id="recent-reports" class="tab-panel active">
                         <h2>Recent NCRs</h2>
-                        <div id="recentReportsContainer" ></div>
+                        <div id="recentReportsContainer"></div>
                     </div>
                     <!-- pinned reports  -->
                     <div id="pinned-reports" class="tab-panel">
@@ -224,7 +244,7 @@
                         <h2>Saved NCRs</h2>
                         <div id="savedReportsContainer"></div>
                     </div>
-                    
+
                 </div>
             </section>
         </div>

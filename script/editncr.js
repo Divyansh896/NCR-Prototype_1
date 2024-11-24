@@ -1,10 +1,16 @@
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
+// Gettting JSON Data from the local storage
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+let suppliers = JSON.parse(localStorage.getItem('suppliers'))
+
 const footer = document.getElementById('footer-scroll')
 const userName = document.getElementById('userName');
-const ncrNo = localStorage.getItem('ncrNo')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+
+
 setNotificationText()
+updateToolContent()
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -29,10 +35,7 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
-if (ncrLink && user.role == "QA Inspector") {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
-}
+
 
 footer.addEventListener('click', () => {
     window.scrollTo({
@@ -69,6 +72,7 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
+                updateNCRReport()
                 // Implement your save logic here, like sending the data to the server
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
                 // disableFields()
@@ -89,7 +93,7 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#eng-save').addEventListener('click', function () {
             if (validateEngSection()) {
-
+                updateNCRReport()
                 // Implement your save logic here, like sending the data to the server
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
@@ -107,6 +111,7 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
+                updateNCRReport()
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // disableFields()
@@ -115,13 +120,14 @@ const enableFieldsForRole = (role) => {
                 showPopup("Required Fields Missing", "Please fill in all the required fields before submitting.", "images/1382678.webp")
             }
         })
-    } else if (role === "Project Manager") {
+    } else if (role === "Admin") {
         document.querySelectorAll('.qa-editable').forEach(field => {
             field.disabled = false // Enable QA editable fields
         })
         // Save changes when "Save" button is clicked
         document.querySelector('#qa-save').addEventListener('click', function () {
             if (validateQaSection()) {
+                updateNCRReport()
                 // Implement your save logic here, like sending the data to the server
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
                 // disableFields()
@@ -185,125 +191,259 @@ document.querySelectorAll('details').forEach(details => {
 
 // Load data into input fields from the retrieved NCR data
 loadData()
-
+console.log(retrievedNCRData)
 function loadData() {
     // Map input field IDs to their respective property names in the data object
     const fieldsMap = {
-        'qa-name': 'quality_representative_name',
+        'qa-name': 'qa.quality_representative_name',
         'ncr-no': 'ncr_no',
-        'sales-order-no': 'sales_order_no',
-        'quantity-received': 'quantity_received',
-        'quantity-defective': 'quantity_defective',
-        'qa-date': 'date',
-        'supplier-name': 'supplier_name',
-        'product-no': 'product_no',
-        'description-item': 'item_description',
-        'description-defect': 'description_of_defect',
-        'item-marked-yes': 'item_marked_nonconforming',
-        'disposition-details': 'disposition_details',
-        'customer-notification': 'customer_notification_required',
-        'disposition-details': 'disposition_details',
-        'original-rev-number': 'original_rev_number',
-        'updated-rev-number': 'updated_rev_number',
-        'engineer-name': 'engineer_name',
-        'revision-date': 'revision_date',
-        'preliminary-decision': 'preliminary_decision',
-        'car-number': 'car_number',
-        'operations-manager-name': 'operations_manager_name',
-        'operations-manager-date': 'operations_manager_date',
-        'new-ncr-number': 'new_ncr_number',
-        'inspector-name': 'inspector_name'
-    }
+        'sales-order-no': 'qa.sales_order_no',
+        'quantity-received': 'qa.quantity_received',
+        'quantity-defective': 'qa.quantity_defective',
+        'qa-date': 'qa.date',
+        'product-no': 'qa.po_no',
+        'description-item': 'qa.item_description',
+        'description-defect': 'qa.description_of_defect',
+        'item-marked-yes': 'qa.item_marked_nonconforming',
+        'resolvedQA': 'qa.resolved',
+        'disposition-details': 'engineering.disposition_details',
+        'customer-notification': 'engineering.customer_notification_required',
+        'original-rev-number': 'engineering.original_rev_number',
+        'updated-rev-number': 'engineering.updated_rev_number',
+        'engineer-name': 'engineering.engineer_name',
+        'revision-date': 'engineering.revision_date',
+        'engineering-review-date': 'engineering.engineering_review_date',
+        'preliminary-decision': 'purchasing_decision.preliminary_decision',
+        'resolvedEng': 'engineering.resolved',
+        'car-number': 'purchasing_decision.car_number',
+        'operations-manager-name': 'purchasing_decision.operations_manager_name',
+        'operations-manager-date': 'purchasing_decision.operations_manager_date',
+        'new-ncr-number': 'purchasing_decision.new_ncr_number',
+        'inspector-name': 'purchasing_decision.inspector_name',
+        'resolvedPurch': 'purchasing_decision.resolved'
+    };
 
     // Populate input fields from the retrieved NCR data
     for (const [fieldId, paramName] of Object.entries(fieldsMap)) {
         const field = document.getElementById(fieldId);
         if (field && retrievedNCRData) {
-            const value = retrievedNCRData[paramName];
-    
+            // Dynamically access the nested property from retrievedNCRData
+            const value = paramName.split('.').reduce((obj, prop) => obj ? obj[prop] : undefined, retrievedNCRData);
+
             // Only update fields if data is available and the field is empty
             if (value !== null && value !== undefined && field.value === '') {
-                // Set the value of the field from retrievedNCRData
                 field.value = value || ''; // Fallback to an empty string if no value
             }
         }
     }
-    
 
-    // Assuming 'process' is a select element
+    // Handle the process select dropdown
     const processSelect = document.getElementById('process');
-    const dispositionOptions = document.getElementById('disposition');
-    const options = document.getElementById('options');
-
-    if (retrievedNCRData['supplier_or_rec_insp']) {
-        processSelect.value = 'supplier'; // Set to 'supplier' if true
-    } else if (retrievedNCRData['wip_production_order']) {
-        processSelect.value = 'wip'; // Set to 'wip' if true
-    } else {
-        processSelect.value = 'Not applicable'; // Default to empty if both are false (or set to a specific option if needed)
-    }
-
-    if (retrievedNCRData.disposition_options) {
-        if (retrievedNCRData.disposition_options.use_as_is) {
-            dispositionOptions.value = 'use_as_is';
-        } else if (retrievedNCRData.disposition_options.repair) {
-            dispositionOptions.value = 'repair';
-        } else if (retrievedNCRData.disposition_options.rework) {
-            dispositionOptions.value = 'rework';
-        } else if (retrievedNCRData.disposition_options.scrap) {
-            dispositionOptions.value = 'scrap';
+    if (retrievedNCRData.qa.process) {
+        if (retrievedNCRData.qa.process.supplier_or_rec_insp) {
+            processSelect.value = 'Supplier or Rec-Insp';
+        } else if (retrievedNCRData.qa.process.wip_production_order) {
+            processSelect.value = 'WIP (Production order)';
+        } else {
+            processSelect.value = 'Not applicable'; // Default to empty if both are false
         }
     }
 
-    if (retrievedNCRData.options) {
-        if (retrievedNCRData.options.rework_in_house) {
+    // Handle the disposition options (same fix as above)
+    const dispositionOptions = document.getElementById('disposition');
+    dispositionOptions.value = retrievedNCRData.engineering.disposition.toLowerCase()
+    // Handle options select field
+    const options = document.getElementById('options');
+    if (retrievedNCRData.purchasing_decision) {
+        const purchasingOptions = retrievedNCRData.purchasing_decision.options || {};
+        if (purchasingOptions.rework_in_house) {
             options.value = 'rework_in_house';
-        } else if (retrievedNCRData.options.scrap_in_house) {
+        } else if (purchasingOptions.scrap_in_house) {
             options.value = 'scrap_in_house';
-        } else if (retrievedNCRData.options.defer_to_engineering) {
+        } else if (purchasingOptions.defer_to_engineering) {
             options.value = 'defer_to_engineering';
         }
     }
 
-    // Checking checkboxes
-    const engResolvedChk = document.getElementById('resolved');
-    const CustNotif = document.getElementById('customer-notification');
-    const drawingUpdate = document.getElementById('drawing-update-required');
-    const carRaised = document.getElementById('car-raised');
-    const followUp = document.getElementById('follow-up-required');
-    const reInspect = document.getElementById('re-inspected-acceptable');
-    const ncrClosed = document.getElementById('ncr-closed');
-    const puResolved = document.getElementById('resolved');
-    const itemNonConforming = document.querySelector('input[name="item_marked_nonconforming"]')
+    const itemOptions = document.getElementById('item-name')
+    itemOptions.value = retrievedNCRData.qa.item_name
 
-    // Use the same null/undefined check for checkboxes, only update if the checkbox is not already checked
-    if (retrievedNCRData['eng_resolved'] !== null && retrievedNCRData['eng_resolved'] !== undefined && !engResolvedChk.checked) {
-        engResolvedChk.checked = retrievedNCRData['eng_resolved'];
+    // Checking checkboxes
+    const checkboxes = {
+        'resolvedQA': 'qa.resolved',
+        'resolvedPurch': 'purchasing_decision.resolved',
+        'resolvedEng': 'engineering.resolved',
+        'customer-notification': 'engineering.customer_notification_required',
+        'drawing-update-required': 'engineering.drawing_update_required',
+        'car-raised': 'purchasing_decision.car_raised',
+        'follow-up-required': 'purchasing_decision.follow_up_required',
+        're-inspected-acceptable': 'purchasing_decision.re_inspected_acceptable',
+        'ncr-closed': 'purchasing_decision.ncr_closed',
+        'resolvedPurch': 'purchasing_decision.resolved',
+        'item-marked-nonconforming': 'qa.item_marked_nonconforming'
+    };
+
+    for (const [checkboxId, paramName] of Object.entries(checkboxes)) {
+        const checkbox = document.getElementById(checkboxId);
+        if (checkbox && retrievedNCRData) {
+            const value = paramName.split('.').reduce((obj, prop) => obj ? obj[prop] : undefined, retrievedNCRData);
+
+            if (value !== null && value !== undefined) {
+                checkbox.checked = value;
+            }
+        }
     }
-    if (retrievedNCRData['customer_notification_required'] !== null && retrievedNCRData['customer_notification_required'] !== undefined && !CustNotif.checked) {
-        CustNotif.checked = retrievedNCRData['customer_notification_required'];
+    // Correcting the item marked nonconforming radio button logic for 'Yes' and 'No'
+    const itemMarkedYes = document.getElementById('item-marked-yes'); // Radio button for Yes
+    const itemMarkedNo = document.getElementById('item-marked-no');   // Radio button for No
+
+    // Checking the 'item_marked_nonconforming' value from 'qa' object
+    if (retrievedNCRData.qa && retrievedNCRData.qa.item_marked_nonconforming !== undefined) {
+        // If 'item_marked_nonconforming' is true, select the 'Yes' radio button
+        if (retrievedNCRData.qa.item_marked_nonconforming === true) {
+            itemMarkedYes.checked = true; // Mark 'Yes' as checked
+            itemMarkedNo.checked = false; // Unmark 'No'
+        } else {
+            itemMarkedYes.checked = false; // Unmark 'Yes'
+            itemMarkedNo.checked = true;  // Mark 'No' as checked
+        }
     }
-    if (retrievedNCRData['drawing_update_required'] !== null && retrievedNCRData['drawing_update_required'] !== undefined && !drawingUpdate.checked) {
-        drawingUpdate.checked = retrievedNCRData['drawing_update_required'];
+
+
+
+}
+
+
+
+// Function to update an NCR report
+function updateNCRReport() {
+
+    // Get the values from the input fields based on the provided IDs
+    let ncrNo = document.getElementById('ncr-no').value; // NCR No.
+
+    let reportIndex = AllReports.findIndex(report => report.ncr_no === ncrNo);
+
+    let data = AllReports[reportIndex]
+
+    let qaName = document.getElementById('qa-name').value; // QA Name
+    let salesOrderNo = document.getElementById('sales-order-no').value; // Sales Order No.
+    let quantityReceived = document.getElementById('quantity-received').value; // Quantity Received
+    let quantityDefective = document.getElementById('quantity-defective').value; // Quantity Defective
+    let qaDate = document.getElementById('qa-date').value; // QA Date
+    let supplierName = document.getElementById('supplier-name').value; // Supplier Name
+    let productNo = document.getElementById('product-no').value; // Product No.
+    let processValue = document.getElementById('process').value; // Process
+    let descriptionItem = document.getElementById('description-item').value; // Description of Item
+    let descriptionDefect = document.getElementById('description-defect').value; // Description of Defect
+    const itemNonconforming = document.querySelector('input[name="item_marked_nonconforming"]:checked')?.value === 'yes' ? true : false;
+    let itemMarkedYes = document.getElementById('item-marked-yes').checked; // Item Marked Yes (Checkbox)
+    let itemMarkedNo = document.getElementById('item-marked-no').checked; // Item Marked No (Checkbox)
+    let resolvedQA = document.getElementById('resolvedQA').checked; // Resolved (Checkbox)
+    let itemName = document.getElementById('item-name').value
+
+    let engineerName = document.getElementById('engineer-name').value; // Engineer Name
+    let disposition = document.getElementById('disposition').value; // Disposition
+    let originalRevNumber = document.getElementById('original-rev-number').value; // Original Revision Number
+    let updatedRevNumber = document.getElementById('updated-rev-number').value; // Updated Revision Number
+    let revisionDate = document.getElementById('revision-date').value; // Revision Date
+    let engineeringReviewDate = document.getElementById('engineering-review-date').value; // Engineering Review Date
+    let dispositionDetails = document.getElementById('disposition-details').value; // Disposition Details
+    let customerNotification = document.getElementById('customer-notification').checked; // Customer Notification Required (Checkbox)
+    let drawingUpdateRequired = document.getElementById('drawing-update-required').checked; // Drawing Update Required (Checkbox)
+    let resolvedEng = document.getElementById('resolvedEng').checked
+
+    let preliminaryDecision = document.getElementById('preliminary-decision').value;
+    let option = document.getElementById('options').value;
+    let carNumber = document.getElementById('car-number').value;
+    let operationsManagerName = document.getElementById('operations-manager-name').value;
+    let operationsManagerDate = document.getElementById('operations-manager-date').value;
+    let newNCRNumber = document.getElementById('new-ncr-number').value;
+    let inspectorName = document.getElementById('inspector-name').value;
+
+    // Checkbox values (true if checked, false if not)
+    let carRaised = document.getElementById('car-raised').checked;
+    let reInspectedAcceptable = document.getElementById('re-inspected-acceptable').checked;
+    let followUpRequired = document.getElementById('follow-up-required').checked;
+    let ncrClosed = document.getElementById('ncr-closed').checked;
+    let resolvedpurch = document.getElementById('resolvedPurch').checked;
+
+
+    // Update process object based on the selection
+    let process = {
+        supplier_or_rec_insp: false,
+        wip_production_order: false
+    };
+
+    // Update the process object based on the selected dropdown value
+    if (processValue === 'Supplier or Rec-Insp') {
+        process.supplier_or_rec_insp = true;
+    } else if (processValue === 'WIP (Production order)') {
+        process.wip_production_order = true;
+    } else if (processValue === 'Not applicable') {
+        process.supplier_or_rec_insp = false;
+        process.wip_production_order = false;
     }
-    if (retrievedNCRData['pu_resolved'] !== null && retrievedNCRData['pu_resolved'] !== undefined && !puResolved.checked) {
-        puResolved.checked = retrievedNCRData['pu_resolved'];
+    AllReports[reportIndex].ncr_no = ncrNo;
+    AllReports[reportIndex].qa = {
+        supplier_name: supplierName,
+        po_no: productNo,
+        item_name: itemName,
+        sales_order_no: salesOrderNo,
+        item_description: descriptionItem,
+        quantity_received: quantityReceived,
+        quantity_defective: quantityDefective,
+        description_of_defect: descriptionDefect,
+        item_marked_nonconforming: itemNonconforming,
+        quality_representative_name: qaName,
+        date: qaDate,
+        resolved: resolvedQA,
+        process: process
     }
-    if (retrievedNCRData['car_raised'] !== null && retrievedNCRData['car_raised'] !== undefined && !carRaised.checked) {
-        carRaised.checked = retrievedNCRData['car_raised'];
-    }
-    if (retrievedNCRData['follow_up_required'] !== null && retrievedNCRData['follow_up_required'] !== undefined && !followUp.checked) {
-        followUp.checked = retrievedNCRData['follow_up_required'];
-    }
-    if (retrievedNCRData['re_inspected_acceptable'] !== null && retrievedNCRData['re_inspected_acceptable'] !== undefined && !reInspect.checked) {
-        reInspect.checked = retrievedNCRData['re_inspected_acceptable'];
-    }
-    if (retrievedNCRData['ncr_closed'] !== null && retrievedNCRData['ncr_closed'] !== undefined && !ncrClosed.checked) {
-        ncrClosed.checked = retrievedNCRData['ncr_closed'];
-    }
-    if (retrievedNCRData['item_marked_nonconforming'] !==null && retrievedNCRData['item_marked_nonconforming'] !== undefined && !itemNonConforming.checked){
-        itemNonConforming.checked = retrievedNCRData['item_marked_nonconforming']
-    }
+
+
+    AllReports[reportIndex].engineering = {
+        disposition: disposition,
+        disposition_options: {
+            use_as_is: disposition === 'use_as_is',
+            repair: disposition === 'repair',
+            rework: disposition === 'rework',
+            scrap: disposition === 'scrap'
+        },
+        customer_notification_required: customerNotification,
+        disposition_details: dispositionDetails,
+        drawing_update_required: drawingUpdateRequired,
+        original_rev_number: originalRevNumber,
+        updated_rev_number: updatedRevNumber,
+        engineer_name: engineerName,
+        revision_date: revisionDate,
+        engineering_review_date: engineeringReviewDate,
+        resolved: resolvedEng
+    };
+
+
+    AllReports[reportIndex].purchasing_decision = {
+        preliminary_decision: preliminaryDecision,
+        options: {
+            rework_in_house: option === 'rework_in_house',
+            scrap_in_house: option === 'scrap_in_house',
+            defer_to_engineering: option === 'defer_to_engineering'
+        },
+        car_raised: carRaised,
+        car_number: carNumber,
+        follow_up_required: followUpRequired,
+        operations_manager_name: operationsManagerName,
+        operations_manager_date: operationsManagerDate,
+        re_inspected_acceptable: reInspectedAcceptable,
+        new_ncr_number: newNCRNumber,
+        inspector_name: inspectorName,
+        ncr_closed: ncrClosed,
+        resolved: resolvedpurch // resolved flag from the purchasing decision
+    };
+
+    sessionStorage.setItem('data', JSON.stringify(data))
+
+    localStorage.setItem('AllReports', JSON.stringify(AllReports))
+
 }
 
 
@@ -329,7 +469,7 @@ const validateQaSection = () => {
     const formElements = [
         'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
         'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
-        'process', 'description-item', 'description-defect'
+        'process', 'description-item', 'description-defect', 'item-name'
     ]
 
 
@@ -448,11 +588,6 @@ const validateEngSection = () => {
 }
 // Get the modal
 const modal = document.getElementById("popup")
-
-// Get the button that opens the modal
-// const btn = document.getElementById("openPopup")
-
-// Get the <span> element that closes the modal
 const span = document.getElementById("closePopup")
 
 
@@ -519,7 +654,7 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
@@ -528,7 +663,7 @@ document.addEventListener("click", function(event) {
     if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
         notificationBox.style.display = "none"
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -559,7 +694,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        if(user.role == 'Lead Engineer'){
+        if (user.role == 'Lead Engineer') {
 
             if (notificationText.includes('Engineering')) {
                 // engineering department person get the mail from qa (will show review and begin work)
@@ -569,26 +704,46 @@ function setNotificationText() {
                 li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
             }
         }
-        else{
+        else {
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
         }
-        
+
 
         notificationList.prepend(li);
     });
 }
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
 
-updateToolContent()
+
+
+function populateSuppliers() {
+    const supplierDropdown = document.getElementById("supplier-name");
+
+    // Clear all existing dynamically added options
+    supplierDropdown.innerHTML = ""; // Clear all options
+
+    // Dynamically add options from suppliers list
+    suppliers.forEach(supplier => {
+        const option = document.createElement("option");
+        option.value = supplier.supplierName;
+        option.textContent = supplier.supplierName;
+        supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
+    });
+
+    supplierDropdown.value = retrievedNCRData.qa.supplier_name
+
+
+}
+populateSuppliers()

@@ -1,18 +1,24 @@
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
+// Gettting JSON Data from the local storage
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+let suppliers = JSON.parse(localStorage.getItem('suppliers'))
+
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
-setNotificationText()
 const userName = document.getElementById('userName');
+const footer = document.getElementById('footer-scroll')
+const ncrInput = document.getElementById('ncrInput')
+const autocompleteList = document.getElementById('autocomplete-list')
+const records = document.getElementById('record-count')
+const btnSort = document.getElementById('sortNcr')
+const table = document.getElementById('ncr-table')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
-const ncrNo = localStorage.getItem('ncrNo')
+let currentFocus = -1
 
-// Retrieve NCR data from localStorage
-function getNCRDataFromLocalStorage() {
-    const data = localStorage.getItem('nextReport');
-    return data ? JSON.parse(data) : [];
-}
+populateTable(AllReports, 'incomplete') // Populate table initially
+document.getElementById('status-no').checked = true
+setNotificationText()
 
-const nextReport = getNCRDataFromLocalStorage(); // Function to get data from localStorage
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role
@@ -35,11 +41,6 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
-let ncrData = [] // Define a variable to hold the data
-const footer = document.getElementById('footer-scroll')
-const ncrInput = document.getElementById('ncrInput')
-const autocompleteList = document.getElementById('autocomplete-list')
-const records = document.getElementById('record-count')
 
 // Smooth scroll to the top on footer click
 footer.addEventListener('click', () => {
@@ -49,19 +50,6 @@ footer.addEventListener('click', () => {
     })
 })
 
-// Load data after DOM is ready
-document.addEventListener('DOMContentLoaded', () => {
-    fetch('Data/ncr_reports.json')
-        .then(response => response.json())
-        .then(data => {
-            ncrData = data
-            ncrData = ncrData.concat(nextReport)
-            localStorage.setItem('AllReports', JSON.stringify(ncrData))
-            populateTable(ncrData, 'incomplete') // Populate table initially
-            document.getElementById('status-no').checked = true
-        })
-        .catch(error => console.error("An error occurred while retrieving data: ", error))
-})
 
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {
@@ -109,8 +97,8 @@ function populateTable(data, matchedStatus) {
         const reportStage = getReportStage(ncr);
 
         // Determine the status display for incomplete NCRs
-        const statusDisplay = ncr.status === 'incomplete' 
-            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>` 
+        const statusDisplay = ncr.status === 'incomplete'
+            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>`
             : `<span style="color: gray"><i class="fa fa-check"></i> Closed</span>`; // Status for completed/archived
 
         // Set the inner HTML of the row
@@ -140,16 +128,26 @@ function populateTable(data, matchedStatus) {
             editNCR(ncr);
         });
 
-        tBody.appendChild(row); // Append the row to the table body
+       // tBody.appendChild(row); // Append the row to the table body
+       tBody.prepend(row)
     });
 
-    
+
 }
 
+// btnSort.addEventListener('click', ()=>{
+//     reverseTableRows('ncr-table')
+// })
+// function reverseTableRows(tableId) {
+//     const table = document.getElementById(tableId);
+//     const rows = Array.from(table.rows); // Convert rows to an array
+//     for (let i = rows.length - 1; i > 0; i--) { // Skip the header row (index 0)
+//         table.appendChild(rows[i]); // Move rows in reverse order
+//     }
+// }
 
-function getallReports(){
-    return JSON.parse(localStorage.getItem('AllReports'))
-}
+
+
 function viewNCR(ncr) {
     const data = extractData(ncr)
     sessionStorage.setItem('data', JSON.stringify(data))
@@ -164,46 +162,66 @@ function editNCR(ncr) {
 }
 
 function extractData(ncr) {
+
+
     return {
-        supplier_name: ncr.qa.supplier_name,
-        product_no: ncr.qa.po_no,
-        sales_order_no: ncr.qa.sales_order_no,
-        item_description: ncr.qa.item_description,
-        quantity_received: ncr.qa.quantity_received,
-        quantity_defective: ncr.qa.quantity_defective,
-        description_of_defect: ncr.qa.description_of_defect,
-        item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
-        quality_representative_name: ncr.qa.quality_representative_name,
-        date: ncr.qa.date,
-        qa_resolved: ncr.qa.resolved,
         ncr_no: ncr.ncr_no,
-        supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
-        wip_production_order: ncr.qa.process.wip_production_order,
-        disposition: ncr.engineering.disposition,
-        disposition_options: ncr.engineering.disposition_options,
-        customer_notification_required: ncr.engineering.customer_notification_required,
-        disposition_details: ncr.engineering.disposition_details,
-        drawing_update_required: ncr.engineering.drawing_update_required,
-        original_rev_number: ncr.engineering.original_rev_number,
-        updated_rev_number: ncr.engineering.updated_rev_number,
-        engineer_name: ncr.engineering.engineer_name,
-        revision_date: ncr.engineering.revision_date,
-        engineering_review_date: ncr.engineering.engineering_review_date,
-        eng_resolved: ncr.engineering.resolved,
-        preliminary_decision: ncr.purchasing_decision.preliminary_decision,
-        options: ncr.purchasing_decision.options,
-        car_raised: ncr.purchasing_decision.car_raised,
-        car_number: ncr.purchasing_decision.car_number,
-        follow_up_required: ncr.purchasing_decision.follow_up_required,
-        operations_manager_name: ncr.purchasing_decision.operations_manager_name,
-        operations_manager_date: ncr.purchasing_decision.operations_manager_date,
-        re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable,
-        new_ncr_number: ncr.purchasing_decision.new_ncr_number,
-        inspector_name: ncr.purchasing_decision.inspector_name,
-        ncr_closed: ncr.purchasing_decision.ncr_closed,
-        pu_resolved: ncr.purchasing_decision.resolved,
-    }
+        status: ncr.status || "incomplete", // Status defaults to "incomplete" if not present
+
+        qa: {
+            supplier_name: ncr.qa.supplier_name,
+            po_no: ncr.qa.po_no, // Changed from po_no to product_no as per your comment
+            sales_order_no: ncr.qa.sales_order_no,
+            item_name: ncr.qa.item_name, // Using item_description as item_name
+            item_description: ncr.qa.item_description,
+            quantity_received: ncr.qa.quantity_received,
+            quantity_defective: ncr.qa.quantity_defective,
+            description_of_defect: ncr.qa.description_of_defect,
+            item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
+            quality_representative_name: ncr.qa.quality_representative_name,
+            date: ncr.qa.date,
+            resolved: ncr.qa.resolved,
+            process: {
+                supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
+                wip_production_order: ncr.qa.process.wip_production_order
+            }
+
+        },
+
+        engineering: {
+            disposition: ncr.engineering.disposition || "", // Default to empty string if not available
+            customer_notification_required: ncr.engineering.customer_notification_required || false, // Default to false
+            disposition_details: ncr.engineering.disposition_details || "", // Default to empty string if not available
+            drawing_update_required: ncr.engineering.drawing_update_required || false, // Default to false
+            original_rev_number: ncr.engineering.original_rev_number || "", // Default to empty string if not available
+            updated_rev_number: ncr.engineering.updated_rev_number || "", // Default to empty string if not available
+            engineer_name: ncr.engineering.engineer_name || "", // Default to empty string if not available
+            revision_date: ncr.engineering.revision_date || "", // Default to empty string if not available
+            engineering_review_date: ncr.engineering.engineering_review_date || "", // Default to empty string if not available
+            resolved: ncr.engineering.resolved || false // Default to false if not available
+        },
+
+        purchasing_decision: {
+            preliminary_decision: ncr.purchasing_decision.preliminary_decision || "", // Default to empty string
+            options: {
+                rework_in_house: ncr.purchasing_decision.options?.rework_in_house || false, // Default to false
+                scrap_in_house: ncr.purchasing_decision.options?.scrap_in_house || false, // Default to false
+                defer_to_engineering: ncr.purchasing_decision.options?.defer_to_engineering || false // Default to false
+            },
+            car_raised: ncr.purchasing_decision.car_raised || false, // Default to false
+            car_number: ncr.purchasing_decision.car_number || "", // Default to empty string
+            follow_up_required: ncr.purchasing_decision.follow_up_required || false, // Default to false
+            operations_manager_name: ncr.purchasing_decision.operations_manager_name || "", // Default to empty string
+            operations_manager_date: ncr.purchasing_decision.operations_manager_date || "", // Default to empty string
+            re_inspected_acceptable: ncr.purchasing_decision.re_inspected_acceptable || false, // Default to false
+            new_ncr_number: ncr.purchasing_decision.new_ncr_number || "", // Default to empty string
+            inspector_name: ncr.purchasing_decision.inspector_name || "", // Default to empty string
+            ncr_closed: ncr.purchasing_decision.ncr_closed || false, // Default to false
+            resolved: ncr.purchasing_decision.resolved || false // Default to false
+        }
+    };
 }
+
 
 function filterNcr(ncrData) {
     const search = document.getElementById('search');
@@ -237,13 +255,13 @@ function filterNcr(ncrData) {
 
 
 // Attach filter events
-document.getElementById('search').addEventListener('change', () => filterNcr(getallReports()))
-document.getElementById('Departments').addEventListener('change', () => filterNcr(getallReports()))
+document.getElementById('search').addEventListener('change', () => filterNcr(AllReports))
+document.getElementById('Departments').addEventListener('change', () => filterNcr(AllReports))
 document.querySelectorAll('input[name="status"]').forEach(input => {
-    input.addEventListener('change', () => filterNcr(getallReports()))
+    input.addEventListener('change', () => filterNcr(AllReports))
 })
-document.getElementById('dateFrom').addEventListener('change', () => filterNcr(getallReports()));
-document.getElementById('dateTo').addEventListener('change', () => filterNcr(getallReports()));
+document.getElementById('dateFrom').addEventListener('change', () => filterNcr(AllReports));
+document.getElementById('dateTo').addEventListener('change', () => filterNcr(AllReports));
 
 // Reset filter inputs and update table
 document.getElementById('btn-reset').addEventListener('click', () => {
@@ -257,15 +275,14 @@ document.getElementById('btn-reset').addEventListener('click', () => {
     // Clear autocomplete suggestions
     autocompleteList.innerHTML = ''
 
-    filterNcr(getallReports()) // Update the table after resetting filters
+    filterNcr(AllReports) // Update the table after resetting filters
 })
 
+
+
 // Autocomplete functionality
-
-let currentFocus = -1
-
 ncrInput.addEventListener('input', function () {
-    const ncrData = getallReports()
+    const ncrData = AllReports
     const input = this.value.toUpperCase();
     const hasLetters = /[a-zA-Z]/; // Pattern to check for any letters
 
@@ -310,17 +327,29 @@ ncrInput.addEventListener('keydown', function (e) {
         e.preventDefault() // Prevent default behavior
         currentFocus++
         addActive(items)
+        const selectedItem = items[currentFocus].innerText // Get selected item's text
+        ncrInput.value = selectedItem
+        const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(selectedItem))
+        records.textContent = `Records found: ${filteredRecords.length}`
+
+        populateTable(filteredRecords, status)
     } else if (e.key === 'ArrowUp') {
         e.preventDefault() // Prevent default behavior
         currentFocus--
         addActive(items)
+        const selectedItem = items[currentFocus].innerText // Get selected item's text
+        ncrInput.value = selectedItem
+        const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(selectedItem))
+        records.textContent = `Records found: ${filteredRecords.length}`
+
+        populateTable(filteredRecords, status)
     } else if (e.key === 'Enter') {
         e.preventDefault() // Prevent default behavior
         if (currentFocus > -1 && items.length > 0) {
             const selectedItem = items[currentFocus].innerText // Get selected item's text
             ncrInput.value = selectedItem // Populate input with selected item
             autocompleteList.innerHTML = '' // Clear suggestions
-            const filteredRecords = ncrData.filter(ncr => ncr.ncr_no.includes(selectedItem))
+            const filteredRecords = AllReports.filter(ncr => ncr.ncr_no.includes(selectedItem))
 
             // Trigger filtering of NCR data based on the selected item
             records.textContent = `Records found: ${filteredRecords.length}`
@@ -424,7 +453,7 @@ function setNotificationText() {
     // Append each notification as an <li> element
     notifications.forEach(notificationText => {
         const li = document.createElement('li');
-        if(user.role == 'Lead Engineer'){
+        if (user.role == 'Lead Engineer') {
 
             if (notificationText.includes('Engineering')) {
                 // engineering department person get the mail from qa (will show review and begin work)
@@ -434,31 +463,47 @@ function setNotificationText() {
                 li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
             }
         }
-        else{
+        else {
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`;
 
         }
-        
+
 
         notificationList.prepend(li);
     });
 }
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
 
 updateToolContent()
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
-if (ncrLink && user.role == "QA Inspector") {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+// Function to populate the supplier dropdown
+function populateSuppliers() {
+    const supplierDropdown = document.getElementById("search");
+
+    // Clear all existing dynamically added options
+    supplierDropdown.innerHTML = ""; // Clear all options
+
+    const option = document.createElement("option");
+    option.value = 'All';
+    option.textContent = 'All Suppliers';
+    supplierDropdown.appendChild(option)
+    // Dynamically add options from suppliers list
+    suppliers.forEach(supplier => {
+        const option = document.createElement("option");
+        option.value = supplier.supplierName;
+        option.textContent = supplier.supplierName;
+        supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
+    });   
 }
+populateSuppliers()

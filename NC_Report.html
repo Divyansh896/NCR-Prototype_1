@@ -130,16 +130,30 @@
         </nav>
     </div>
     <main>
-
+        <div id="popup" class="modal">
+            <div class="modal-content">
+                <span id="closePopup" class="close">&times;</span>
+                <div class="header-container">
+                    <div class="icon-container">
+                        <div class="icon"></div> <!-- Exclamation mark inside a circle -->
+                    </div>
+                    <h2 id="popup-title">Validation Error</h2>
+                </div>
+                <p>This is a simple popup!</p>
+                <div id="error-message" class="error-message"></div> <!-- Error message area -->
+            </div>
+        </div>
         <div id="contentToDownload">
             <!-- Main Content -->
             <h1>Non-Conformance Report</h1>
             <!---Download File Button-->
             <div class="button-container">
                 <button id="print" class="ncr-buttons" onclick="window.print()"><i class="fa fa-print"
-                        aria-hidden="true"></i>Print</button>
-                <button id="downloadPdf" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i>Download
+                        aria-hidden="true"></i> Print Report</button>
+                <button id="downloadPdf" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i> Download
                     PDF</button>
+
+                <button id="btnExportExcel" class="ncr-buttons"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel</button>
             </div>
 
 
@@ -159,6 +173,12 @@
                             <label for="ncr-no">NCR No.:</label>
                             <span class="qa-editable" id="ncr-no" name="ncr_no" readonly placeholder="Enter NCR number"
                                 tabindex="8"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="item-name">Item Name</label>
+                            <span class="qa-editable" id="item-name" name="item_name" readonly
+                                placeholder="Item Name"></span>
                         </div>
                         <div class="form-group">
                             <label for="qa-date">QA Date:</label>
@@ -247,7 +267,7 @@
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="QA Inspector" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -277,7 +297,7 @@
                             <span class="eng-editable" id="original-rev-number" name="original_rev_number"
                                 aria-label="Original Revision Number" tabindex="26" placeholder="e.g., Rev-001"></span>
                         </div>
-                        
+
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -303,10 +323,10 @@
                                     aria-label="Drawing Update Required" tabindex="32"></span>
                             </div>
                         </div>
-                        
+
                     </div>
                     <div class="form-row">
-                        
+
 
                         <div class="form-group">
                             <label for="updated-rev-number">Updated Revision Number:</label>
@@ -332,12 +352,12 @@
                                 placeholder="Enter details about the disposition..."></span>
                         </div>
                     </div>
-                    
+
 
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Lead Engineer" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -441,7 +461,7 @@
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Purchasing" tabindex="22">Edit</button>
                 </div>
 
             </details>
@@ -470,6 +490,9 @@
     <script src="script/breadcrumb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+
 
 
 </body>
