@@ -984,27 +984,33 @@ supplierDropdown.addEventListener("change", function () {
 })
 
 // Close the modal when the user clicks the "X" button
-closeModalButton.addEventListener("click", closeSupplierPopup)
+closeModalButton.addEventListener("click", () => {
+    closeSupplierPopup
+    populateSuppliers()
+})
 
 // Event listener for adding a new supplier
 addSupplierButton.addEventListener("click", function () {
     let suppliers = JSON.parse(localStorage.getItem('suppliers'))
 
-    const newSupplierName = document.getElementById("newSupplierName").value.trim()
+    if (validateSupplierInputs()) {
+        const newSupplierName = document.getElementById("newSupplierName").value.trim()
+        let country = document.getElementById("country").value.trim()
+        let address = document.getElementById("address").value.trim()
+        let city = document.getElementById("city").value.trim()
+        let postalcode = document.getElementById("postalCode").value.trim()
+        let contact = document.getElementById("contact").value.trim()
+        let shippingmethod = document.getElementById("shippingMethod").value
+        let newEntry = {
 
-    let newEntry = {
-        
             supplierName: newSupplierName,
-            address: "101 Delta Boulevard",
-            city: "Central City",
-            country: "Australia",
-            postalCode: "2000",
-            contactNumber: "+61-2-1234-5678",
-            shippingMethod: "Air"
-          
-    }    
-
-    if (newSupplierName) {
+            address: address,
+            city: city,
+            country: country,
+            postalCode: postalcode,
+            contactNumber: contact,
+            shippingMethod: shippingmethod
+        }
         suppliers.push(newEntry)
         // Save updated list to local storage
         localStorage.setItem("suppliers", JSON.stringify(suppliers));
@@ -1013,12 +1019,91 @@ addSupplierButton.addEventListener("click", function () {
         populateSuppliers();
 
         // Clear the input and close the modal
-        document.getElementById("newSupplierName").value = "";
         closeSupplierPopup();
-    } else {
-        showPopup("Required field missing!", "Please enter the supplier name", "images/1382678.webp");
+
+    }
+    else {
+        showPopup("Required field missing!", "Please enter all the data before procedding.", "images/1382678.webp");
     }
 });
+
+function validateSupplierInputs() {
+    const fields = [
+        { id: "newSupplierName", errorId: "supplier-name-error" },
+        { id: "country", errorId: "country-error" },
+        { id: "address", errorId: "address-error" },
+        { id: "city", errorId: "city-error" },
+        { id: "postalCode", errorId: "postal-code-error" },
+        { id: "contact", errorId: "contact-error" },
+        { id: "shippingMethod", errorId: "shippingMethod-error" }
+    ];
+
+    let isValid = true;
+
+    fields.forEach(({ id, errorId }) => {
+        const field = document.getElementById(id);
+        const errorElement = document.getElementById(errorId);
+
+        // Validate on form submission
+        if (!field.value.trim()) {
+            isValid = false;
+            errorElement.style.display = "block"; // Show the error message
+        } else {
+            errorElement.style.display = "none"; // Hide the error message
+        }
+
+        // Add event listener to hide error message on input
+        field.addEventListener("input", () => {
+            if (field.value.trim()) {
+                errorElement.style.display = "none";
+            }
+        });
+
+        // Handle `change` event for dropdown/select fields
+        if (field.tagName.toLowerCase() === "select") {
+            field.addEventListener("change", () => {
+                if (field.value.trim()) {
+                    errorElement.style.display = "none";
+                }
+            });
+        }
+    });
+
+    return isValid;
+}
+function clearForm() {
+    const fields = [
+        { id: "newSupplierName", errorId: "supplier-name-error" },
+        { id: "country", errorId: "country-error" },
+        { id: "address", errorId: "address-error" },
+        { id: "city", errorId: "city-error" },
+        { id: "postalCode", errorId: "postal-code-error" },
+        { id: "contact", errorId: "contact-error" },
+        { id: "shippingMethod", errorId: "shippingMethod-error" }
+    ];
+
+    fields.forEach(({ id, errorId }) => {
+        const field = document.getElementById(id);
+        const errorElement = document.getElementById(errorId);
+
+        // Clear the field value
+        if (field.tagName.toLowerCase() === "select") {
+            field.value = ""; // Reset dropdown to default
+        } else {
+            field.value = ""; // Clear text input
+        }
+
+        // Hide the error message
+        errorElement.style.display = "none";
+    });
+}
+
+// Attach the clearForm function to the Clear button
+document.getElementById("btn-clear").addEventListener("click", (event) => {
+    event.preventDefault(); // Prevent any default button behavior
+    clearForm();
+});
+
 
 // Function to populate the supplier dropdown
 function populateSuppliers() {
@@ -1047,6 +1132,7 @@ function populateSuppliers() {
 window.addEventListener("click", function (event) {
     if (event.target === supplierModal) {
         closeSupplierPopup()
+        populateSuppliers()
     }
 })
 
