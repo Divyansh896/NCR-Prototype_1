@@ -174,7 +174,7 @@
 
 
         <div id="supplierModal">
-            <div class="modal-content">
+            <div class="modal-content modal-content-supplier">
                 <span class="close">&times;</span>
                 <div class="header-container">
 
@@ -186,8 +186,63 @@
                     </div>
                     <h2> Add New Supplier</h2>
                 </div>
-                <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
-                <button id="addSupplierButton">Add Supplier</button>
+                <div class="supplier-columns">
+                    <div class="two-cols">
+                        <div class="tooltip-container">
+                            <label for="newSupplierName">Supplier Name (Required)</label>
+                            <input type="text" id="newSupplierName" placeholder="Enter supplier name" required />
+                            <span class="error-message" id="supplier-name-error"></span>
+                            <span class="tooltip">Enter the supplier's name</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="address">Address (Required)</label>
+                            <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
+                            <span class="error-message" id="address-error"></span>
+                            <span class="tooltip">Enter the address of the supplier</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="city">City (Required)</label>
+                            <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
+                            <span class="error-message" id="city-error"></span>
+                            <span class="tooltip">Enter the city where the supplier is located</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="country">Country (Required)</label>
+                            <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
+                            <span class="error-message" id="country-error"></span>
+                            <span class="tooltip">Enter the country of the supplier</span>
+                        </div>
+                    </div>
+                    <div class="two-cols">
+                        <div class="tooltip-container">
+                            <label for="postalCode">Postal Code (Required)</label>
+                            <input type="text" id="postalCode" name="postalCode" tabindex="10" placeholder="A9A 9A9">
+                            <span class="error-message" id="postal-code-error"></span>
+                            <span class="tooltip">Enter the postal code of the supplier (L3B 4A8)</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="contact">Contact (Required)</label>
+                            <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
+                            <span class="error-message" id="contact-error"></span>
+                            <span class="tooltip">Enter the contact number of the supplier</span>
+                        </div>
+                        <div class="tooltip-container">
+                            <label for="shippingMethod">Shipping Method (Required)</label>
+                            <select id="shippingMethod" name="shippingMethod" tabindex="12">
+                                <option value="">Select a shipping method</option>
+                                <option value="air">Air</option>
+                                <option value="sea">Sea</option>
+                                <option value="courier">Courier</option>
+                            </select>
+                            <span class="error-message" id="shippingMethod-error"></span>
+                            <span class="tooltip">Select the preferred shipping method</span>
+                        </div>
+                        <div class="btns-supplier">
+                            <button id="btn-clear" tabindex="13">Clear</button>
+                            <button class="active" id="addSupplierButton">Add Supplier</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 

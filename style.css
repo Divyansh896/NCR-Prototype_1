@@ -1006,6 +1006,7 @@ label.radio-button {
 .supplier-columns #postalCode,
 .supplier-columns #contact,
 .supplier-columns #shippingMethod,
+.supplier-columns #newSupplierName,
 .supplier-columns .btns-supplier,
 .employee-columns #firstName,
 .employee-columns #lastName,
@@ -1405,7 +1406,10 @@ input[type="radio"] {
     transition: opacity 0.5s ease, transform 0.5s ease;
     /* Transition for opacity and transform */
 }
-
+.modal-content-supplier{
+    height: 85vh;
+    overflow-y: scroll;
+}
 .modal-content p {
     margin-left: 55px;
     text-align: left;
@@ -2257,6 +2261,11 @@ td button:focus {
     .employee-detail span {
         margin-right: 30px;
     }
+
+    .modal-content-supplier{
+        height: 60vh;
+        width: 670px;
+    }
 }
 
 
@@ -2697,7 +2706,13 @@ td button:focus {
         display: flex;
         flex-direction: column;
     }
-    
+    .modal-content-supplier{
+        height: 40vh;
+        width: 670px;
+    }
+    .modal-content-supplier .supplier-columns{
+        width: 100%;
+    }
 }
 
 @media screen and (min-width: 1440px) {
@@ -2882,6 +2897,21 @@ td button:focus {
     }
     .ncr-table tbody td:nth-child(6){
         flex-direction: row;
+    }
+
+    .modal-content-supplier{
+        height: 65vh;
+        width: 760px;
+    }
+    .modal-content-supplier .btns-supplier{
+        align-items: flex-start;
+        justify-content: flex-start;
+    }
+    .modal-content-supplier .btns-supplier button{
+        margin: 10px;
+        margin-left: 0;
+        margin-right: 10px;
+        width: 43%;
     }
 }
 
@@ -3168,6 +3198,12 @@ td button:focus {
     .fieldset-contact #email {
         height: 60px;
     }
+    .modal-content-supplier{
+        height: 41vh;
+        width: 1000px;
+    }
+    
+    
 }
 
 /* Show a focus outline for all focusable elements */
@@ -3189,4 +3225,9 @@ textarea:focus {
     #supplier-container {
         width: 85%;
     }
+    .modal-content-supplier {
+        height: 29vh;
+        width: 1061px;
+    }
+
 }
