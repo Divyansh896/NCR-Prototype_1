@@ -328,7 +328,7 @@ function openTools() {
 function showPopup(title, message, icon, callback) {
     const modalContent = modal.querySelector('.modal-content')
     modalContent.querySelector('h2').innerText = title // Set the title
-    modalContent.querySelector('p').innerText = message // Set the message
+    modalContent.querySelector('p').innerHTML = message // Set the message
 
     const iconDiv = document.querySelector('.icon')
     // Clear previous icons
@@ -769,4 +769,48 @@ function sendNotification(ncrNum) {
 
     // Update the notification display
     setNotificationText()
+}
+
+// Create a query string from the NCR data
+function createQueryStringFromNotification(ncrNo) {
+    let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+    let index = AllReports.findIndex(report => report.ncr_no == ncrNo)
+    let ncrData = AllReports[index]
+
+    const { qa, engineering, purchasing_decision } = ncrData; // Destructure the NCR object
+    return new URLSearchParams({
+        ncr_no: ncrData.ncr_no,
+        supplier_name: qa.supplier_name,
+        po_no: qa.po_no,
+        item_name: qa.item_name,
+        sales_order_no: qa.sales_order_no,
+        item_description: qa.item_description,
+        quantity_received: qa.quantity_received,
+        quantity_defective: qa.quantity_defective,
+        description_of_defect: qa.description_of_defect,
+        item_marked_nonconforming: qa.item_marked_nonconforming,
+        quality_representative_name: qa.quality_representative_name,
+        date: qa.date,
+        resolved: qa.resolved,
+        supplier_or_rec_insp: qa.process.supplier_or_rec_insp, // Add process data
+        wip_production_order: qa.process.wip_production_order, // Add process data
+        disposition: engineering.disposition,
+        customer_notification_required: engineering.customer_notification_required,
+        disposition_details: engineering.disposition_details,
+        drawing_update_required: engineering.drawing_update_required,
+        original_rev_number: engineering.original_rev_number,
+        updated_rev_number: engineering.updated_rev_number,
+        engineer_name: engineering.engineer_name,
+        revision_date: engineering.revision_date,
+        resolved_engineer: engineering.resolved,
+        engineering_review_date: engineering.engineering_review_date,
+        purchasing_decision: purchasing_decision.preliminary_decision,
+        follow_up_required: purchasing_decision.follow_up_required,
+        operations_manager_name: purchasing_decision.operations_manager_name,
+        operations_manager_date: purchasing_decision.operations_manager_date,
+        inspector_name: purchasing_decision.inspector_name,
+        ncr_closed: purchasing_decision.ncr_closed,
+        resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
+        new_ncr_number: purchasing_decision.new_ncr_number
+    }).toString();
 }
