@@ -32,19 +32,24 @@ const btnSupplier = document.getElementById('btn-supplier');
 
 let suppliers = JSON.parse(localStorage.getItem('suppliers'));
 let employees = JSON.parse(localStorage.getItem('employees'));
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
+
+
+const userName = document.getElementById('userName')
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
 btnExportSupplier.addEventListener('click', () => {
     if (supplierSelect.value == 'All') {
         exportAllSuppliersToExcel();
     } else {
-        exportToExcel(supplierSelect.value);
+        exportToExcelSupplier(supplierSelect.value);
     }
 });
 btnExportEmp.addEventListener('click', () => {
     if (employeeSelect.value === 'All') {
         exportAllEmployeesToExcel();
     } else {
-        exportToExcel(employeeSelect.value);
+        exportToExcelEmployee(employeeSelect.value);
     }
 });
 
@@ -53,7 +58,7 @@ populateSuppliers();
 populateEmployees()
 populateAllSuppliers()
 populateAllEmployees()
-
+setNotificationText()
 // Initially, hide supplier details and show supplier list
 supplierDetails.style.display = 'none';
 supplierDataContainer.style.display = 'block';
@@ -272,7 +277,7 @@ function populateAllEmployees() {
     });
 }
 
-async function exportToExcel(supplierName) {
+async function exportToExcelSupplier(supplierName) {
     console.log(supplierName)
     let index = suppliers.findIndex(supplier => supplier.supplierName == supplierName)
     let supplier = suppliers[index]
@@ -330,7 +335,7 @@ async function exportToExcel(supplierName) {
     const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     saveAs(blob, `${supplier.supplierName}.xlsx`);
 }
-async function exportToExcel(employeeUsername) {
+async function exportToExcelEmployee(employeeUsername) {
     console.log(employeeUsername);
     let index = employees.findIndex(employee => employee.username == employeeUsername);
     let employee = employees[index];
@@ -540,3 +545,143 @@ function showTab(tab) {
         btnemployee.classList.add('active') // Activate pinned button
     }
 }
+
+
+function setNotificationText() {
+    // Retrieve and parse notifications from localStorage
+    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
+    // Set the notification count
+    const count = document.getElementById('notification-count')
+    count.innerHTML = notifications.length
+
+    // Clear any existing notifications in the list to avoid duplicates
+    const notificationList = document.getElementById('notification-list') // Ensure this element exists in your HTML
+    notificationList.innerHTML = '' // Clear existing list items
+
+    // Append each notification as an <li> element
+    notifications.forEach(notificationText => {
+        const li = document.createElement('li')
+        if (user.role == 'Lead Engineer') {
+
+            if (notificationText.includes('Engineering')) {
+                let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let report = AllReports[index]
+                if (Object.keys(report.engineering).length == 0) {
+
+                    // engineering department person get the mail from qa (will show review and begin work)
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        window.location.href = `logged_NCR.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                    })
+                } else {
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and sent to purchasing department.`, 'images/confirmationIcon.webp')
+                    })
+                }
+
+            } else {
+                // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.addEventListener('click', () => {
+                    // will show popup
+                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                })
+            }
+        } else if (user.role == 'Purchasing') {
+            if (notificationText.includes('Purchasing')) {
+                let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let report = AllReports[index]
+                if (Object.keys(report.purchasing_decision).length == 0) {
+
+                    // purchasing department person get the mail from qa (will show review and begin work)
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        window.location.href = `purchasing_decision.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                    })
+                } else {
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and notified to other departments.`, 'images/confirmationIcon.webp')
+                    })
+                }
+
+            } else {
+                // purchasing department person completes the form that's it.
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.addEventListener('click', () => {
+                    // will show popup
+                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                })
+            }
+        }
+        else {
+            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+            li.addEventListener('click', () => {
+                // will show popup
+                showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+            })
+        }
+
+
+        notificationList.prepend(li)
+    })
+}
+function openTools() {
+    document.querySelector(".tools-container").classList.toggle("show-tools")
+
+}
+
+function logout() {
+    localStorage.removeItem('isLoggedIn')
+    sessionStorage.removeItem('currentUser')
+    sessionStorage.removeItem('breadcrumbTrail')
+    location.replace('index.html')
+}
+
+function toggleSettings() {
+    var settingsBox = document.getElementById("settings-box")
+    if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
+        settingsBox.style.display = "block"
+    } else {
+        settingsBox.style.display = "none"
+    }
+}
+
+
+
+
+function toggleNotifications() {
+    var notificationBox = document.getElementById("notification-box")
+    if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
+        notificationBox.style.display = "block"
+    } else {
+        notificationBox.style.display = "none"
+    }
+}
+
+document.addEventListener("click", function (event) {
+    var notificationBox = document.getElementById("notification-box")
+    var iconBadge = document.querySelector(".icon-badge")
+    var settingsBox = document.getElementById("settings-box")
+    var settingsButton = document.getElementById("settings")
+
+    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+        notificationBox.style.display = "none"
+    }
+
+
+    if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
+        settingsBox.style.display = "none"
+    }
+})

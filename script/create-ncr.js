@@ -826,7 +826,7 @@ dropArea.addEventListener('drop', e => {
 function showPopup(title, message, icon, callback) {
     const modalContent = modal.querySelector('.modal-content')
     modalContent.querySelector('h2').innerText = title // Set the title
-    modalContent.querySelector('p').innerText = message // Set the message
+    modalContent.querySelector('p').innerHTML = message // Set the message
 
     const iconDiv = document.querySelector('.icon')
     // Clear previous icons
@@ -871,6 +871,7 @@ function showPopup(title, message, icon, callback) {
         }
     }
 }
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -952,6 +953,10 @@ function setNotificationText() {
         const li = document.createElement('li')
         li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17,)}`
         notificationList.prepend(li)
+        li.addEventListener('click', ()=>{
+            // will show popup
+            showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp' )
+        })
     })
 }
 

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <style>
-        
+
     </style>
 </head>
 
@@ -195,7 +195,8 @@
 
                     <!-- QA Rep Dropdown -->
                     <details id="qa-section" tabindex="6">
-                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Quality assurance department details" >Quality Assurance
+                        <summary class="custom-summary custom-summary-loggedNcr"
+                            aria-label="Quality assurance department details">Quality Assurance
                         </summary>
                         <div class="qa-info-logged-ncr">
                             <!-- First Column -->
@@ -207,6 +208,9 @@
                                 <div class="form-group">
                                     <label>NCR No:</label><span id="ncr-no-d">[NCR No]</span>
 
+                                </div>
+                                <div class="form-group">
+                                    <label>Item Name:</label><span id="item-name-d">[Item name]</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Sales Order No:</label><span id="sales-order-no-d">[Sales Order No]</span>
@@ -250,7 +254,7 @@
                                 <!-- Radio Buttons for Non-Conforming -->
                                 <div class="form-group">
                                     <label>Item Marked Non-Conforming?:</label><span
-                                    id="item-marked-nonconforming-d">[Yes/No]</span>
+                                        id="item-marked-nonconforming-d">[Yes/No]</span>
 
                                 </div>
                                 <div class="form-group">
@@ -264,7 +268,8 @@
                     </details>
 
                     <details id="eng-section" tabindex="7">
-                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Engineering department details">Engineering
+                        <summary class="custom-summary custom-summary-loggedNcr"
+                            aria-label="Engineering department details">Engineering
                         </summary>
                         <div class="eng-info-logged-ncr">
                             <!-- First Column -->
@@ -273,19 +278,23 @@
                                     <label>Engineer Name:</label><span id="engineer-name-d">[Engineer Name]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Drawing Update Required:</label><span id="drawing-update-required-d">[Yes/No]</span>
+                                    <label>Drawing Update Required:</label><span
+                                        id="drawing-update-required-d">[Yes/No]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Original Revision Number:</label><span id="original-rev-number-d">[Original Revision Number]</span>
+                                    <label>Original Revision Number:</label><span id="original-rev-number-d">[Original
+                                        Revision Number]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Updated Revision Number:</label><span id="updated-rev-number-d">[Updated Revision Number]</span>
+                                    <label>Updated Revision Number:</label><span id="updated-rev-number-d">[Updated
+                                        Revision Number]</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Revision Date:</label><span id="revision-date-d">[Revision Date]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Engineering Review Date:</label><span id="engineering-review-date-d">[Engineering Review Date]</span>
+                                    <label>Engineering Review Date:</label><span
+                                        id="engineering-review-date-d">[Engineering Review Date]</span>
                                 </div>
                                 <div class="form-group">
                                     <label>Resolved:</label><span id="resolved-d">[Yes/No]</span>
@@ -294,13 +303,16 @@
                             <!-- Second Column -->
                             <div class="form-row">
                                 <div class="form-group">
-                                    <label>Review by CF Engineer:</label><span id="review-by-cf-engineer-d">[CF Engineer Review]</span>
+                                    <label>Review by CF Engineer:</label><span id="review-by-cf-engineer-d">[CF Engineer
+                                        Review]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Disposition Details:</label><span id="disposition-details-d">[Disposition Details]</span>
+                                    <label>Disposition Details:</label><span id="disposition-details-d">[Disposition
+                                        Details]</span>
                                 </div>
                                 <div class="form-group">
-                                    <label>Customer Notification Required:</label><span id="customer-notification-required-d">[Yes/No]</span>
+                                    <label>Customer Notification Required:</label><span
+                                        id="customer-notification-required-d">[Yes/No]</span>
                                 </div>
                                 <!-- <div class="form-group">
                                     <label>Notification for Customer:</label><span id="customer-message-d">[Customer Notification Message]</span>
@@ -308,12 +320,12 @@
                             </div>
                         </div>
                     </details>
-                    
+
                     <!-- Multi-Step Form -->
                     <form id="ncr-form" method="post" action="https://webdevbasics.net/scripts/demo.php"
                         aria-label="Quality assurance department form">
                         <!-- Product Info Section -->
-                        <fieldset class="form-section active" aria-labelledby="product-info">
+                        <fieldset class="form-section active" aria-labelledby="purchasing-decision-info">
 
                             <div class="qa-info-section">
                                 <div class="qa-info">
@@ -321,7 +333,8 @@
                                     <div class="tooltip-container">
                                         <label for="decision">Select Primary Decision:</label>
                                         <select id="decision" aria-label="Select the primary decision">
-                                            <option value="return" selected>Return to Supplier</option>
+                                            <option value="" selected disabled>Select preliminary decision</option>
+                                            <option value="return">Return to Supplier</option>
                                             <option value="rework">Rework "In-House"</option>
                                             <option value="scrap">Scrap In-House</option>
                                             <option value="defer">Defer for HBC Engineering Review</option>
@@ -333,12 +346,14 @@
                                     </div>
 
                                     <!-- Sub-options for "Return to Supplier" -->
-                                    <div id="sub-options" aria-label="Options for Return to Supplier">
+                                    <div id="sub-options" aria-label="Options for Return to Supplier"
+                                        class="conditional-field">
                                         <div class="tooltip-container">
 
                                             <label for="return-options">Return Options:</label>
                                             <select id="return-options" aria-label="Select return option">
-                                                <option value="rework" selected>Rework</option>
+                                                <option value="" selected disabled>Select return option</option>
+                                                <option value="rework">Rework</option>
                                                 <option value="replacement">Replacement</option>
                                             </select>
                                             <span class="error-message" aria-live="polite">Please select an option for
@@ -351,7 +366,8 @@
 
                                     <!-- Follow-up Required -->
                                     <label>Follow-up Required?</label>
-                                    <span class="error-message" aria-live="polite">Please indicate if follow-up is
+                                    <span class="error-message" id="followUp-error" aria-live="polite">Please select if
+                                        follow-up is
                                         required.</span>
                                     <div class="rad-create-ncr" aria-label="Follow-up required options">
                                         <div>
@@ -414,19 +430,19 @@
 
                         </fieldset>
 
-                        <fieldset class="form-section" aria-labelledby="product-desc" aria-label="Product description">
+                        <fieldset class="form-section" aria-labelledby="purchasing-decision-info-step2"
+                            aria-label="Product description">
                             <div class="qa-info-section">
-                                <!-- Re-Inspected Acceptable -->
                                 <div>
-                                    <label>Re-Inspected Acceptable?</label>
-                                    <span class="error-message" aria-live="polite">Please select whether re-inspection
-                                        is acceptable.</span>
+                                    <label>CAR Raised?</label>
+                                    <span class="error-message" id="car-error" aria-live="polite">Please select whether CAR is raised
+                                    </span>
 
                                     <div class="rad-create-ncr">
                                         <div class="tooltip-container">
                                             <label class="radio-button">
-                                                <input type="radio" name="re-inspected" value="yes"
-                                                    class="hidden-radio" onclick="toggleCheck(this)">
+                                                <input type="radio" name="car" value="yes" class="hidden-radio"
+                                                    onclick="toggleCheck(this)">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to select yes.</span>
@@ -434,13 +450,54 @@
                                         </div>
                                         <div class="tooltip-container">
                                             <label class="radio-button">
-                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio" onclick="toggleCheck(this)">
+                                                <input type="radio" name="car" value="no" class="hidden-radio"
+                                                    onclick="toggleCheck(this)">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to select no.</span>
 
                                         </div>
                                     </div>
+                                </div>
+                                <!-- Re-Inspected Acceptable -->
+                                <div>
+                                    <label>Re-Inspected Acceptable?</label>
+                                    <span class="error-message" id="reInspect-error" aria-live="polite">Please select whether re-inspection
+                                        is acceptable.</span>
+
+                                    <div class="rad-create-ncr">
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" name="re-inspected" value="yes" class="hidden-radio"
+                                                    onclick="toggleCheck(this)">
+                                                Yes
+                                            </label>
+                                            <span class="tooltip">Click to select yes.</span>
+
+                                        </div>
+                                        <div class="tooltip-container">
+                                            <label class="radio-button">
+                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio"
+                                                    onclick="toggleCheck(this)">
+                                                No
+                                            </label>
+                                            <span class="tooltip">Click to select no.</span>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+
+                                <div>
+                                    <div class="tooltip-container">
+
+                                        <label for="car#">Indiacte Car #</label>
+                                        <input type="text" id="car-details" placeholder="Indicate car#">
+                                        <span class="error-message">Please enter the car #</span>
+                                        <span class="tooltip">Indicate car #</span>
+                                    </div>
+
                                 </div>
 
                                 <div>
@@ -480,7 +537,7 @@
                                 <!-- NCR Closed -->
                                 <div>
                                     <label>NCR Closed?</label>
-                                    <span class="error-message" aria-live="polite">Please indicate if the NCR is
+                                    <span class="error-message" id="ncrClosedError" aria-live="polite">Please indicate if the NCR is
                                         closed.</span>
                                     <div class="rad-create-ncr">
                                         <div>
@@ -510,8 +567,40 @@
                                         </div>
                                     </div>
 
+                                    <div>
+                                        <label>NCR Resolved?</label>
+                                        <span class="error-message" id="ncrResolvedError" aria-live="polite">Please indicate if the NCR is
+                                            resolved.</span>
+                                        <div class="rad-create-ncr">
+                                            <div>
+                                                <div class="tooltip-container">
+    
+                                                    <label class="radio-button">
+                                                        <input type="radio" name="ncr-resolved" value="yes"
+                                                            class="hidden-radio" onclick="toggleCheck(this)">
+                                                        Yes
+                                                    </label>
+                                                    <span class="tooltip">Choose "Yes" if the NCR is resolved.</span>
+                                                </div>
+    
+                                            </div>
+                                            <div>
+                                                <div class="tooltip-container">
+    
+                                                    <label class="radio-button">
+                                                        <input type="radio" name="ncr-resolved" value="no"
+                                                            class="hidden-radio" onclick="toggleCheck(this)">
+                                                        No
+                                                    </label>
+                                                    <span class="tooltip">Choose "No" if the NCR is not resolved.</span>
+                                                </div>
+    
+    
+                                            </div>
+                                        </div>
+
                                     <!-- Quality Department Closure Details -->
-                                    <div id="ncr-closure-details" class="conditional-field">
+                                    <div id="ncr-closure-details"> <!--class="conditional-field"-->
                                         <label for="quality-date">Quality Department Closure Date:</label>
                                         <input type="date" id="quality-date">
                                         <span class="error-message" aria-live="polite">Please provide the closure date
@@ -520,20 +609,19 @@
                                             NCR.</span>
                                     </div>
                                 </div>
+                                <!-- Buttons -->
+                                <div class="btn-qa-create">
+                                    <button type="button" id="back-btn1" tabindex="23">Back</button>
+                                    <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                    <button type="button" id="save2" aria-label="Save current progress"
+                                        tabindex="25">Save</button>
+                                    <button type="button" id="next-btn2" tabindex="26">Next</button>
+                                </div>
                             </div>
 
-                            <!-- Buttons -->
-                            <div class="btn-qa-create">
-                                <button type="button" id="back-btn1" tabindex="23">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
-                                <button type="button" id="save2" aria-label="Save current progress"
-                                    tabindex="25">Save</button>
-                                <button type="button" id="next-btn2" tabindex="26">Next</button>
-                            </div>
                         </fieldset>
 
 
-                        <!-- Confirmation section -->
                         <!-- Confirmation section -->
                         <fieldset class="form-section confirmation" aria-labelledby="confirmation-details"
                             aria-label="Confirm entered details">

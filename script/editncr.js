@@ -231,10 +231,12 @@ function loadData() {
             const value = paramName.split('.').reduce((obj, prop) => obj ? obj[prop] : undefined, retrievedNCRData);
 
             // Only update fields if data is available and the field is empty
-            if (value !== null && value !== undefined && field.value === '') {
+            if (fieldId === 'quantity-received' || fieldId === 'quantity-defective') {
+                // Ensure that quantity fields are set to 0 if the value is undefined or null
+                field.value = (typeof value === 'number' && !isNaN(value)) ? value : 0;
+            } else {
                 field.value = value || ''; // Fallback to an empty string if no value
-            }
-        }
+            }}
     }
 
     // Handle the process select dropdown
@@ -467,7 +469,7 @@ quantityDefectiveInput.addEventListener('input', preventNegativeInput)
 const validateQaSection = () => {
     let isValid = true
     const formElements = [
-        'qa-name', 'ncr-no', 'sales-order-no', 'quantity-received',
+        'qa-name', 'sales-order-no', 'quantity-received',
         'quantity-defective', 'qa-date', 'supplier-name', 'product-no',
         'process', 'description-item', 'description-defect', 'item-name'
     ]
@@ -476,32 +478,47 @@ const validateQaSection = () => {
 
     formElements.forEach(field => {
         const inputElement = document.getElementById(field)
-        const labelElement = document.querySelector(`label[for="${field}"]`)
-        const invalid = labelElement.querySelector('.required')
+        const errorMessage = inputElement.nextElementSibling
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
-            invalid.style.display = 'inline' // Show star if empty
+            errorMessage.style.display = 'inline' // Show star if empty
             isValid = false
         } else {
-            invalid.style.display = 'none' // Hide star if filled
+            errorMessage.style.display = 'none' // Hide star if filled
         }
 
         // Custom validation for number input
         if (inputElement.type === 'number' && isNaN(Number(inputElement.value))) {
-            invalid.style.display = 'inline' // Show star if invalid number
+            errorMessage.style.display = 'inline' // Show star if invalid number
             isValid = false
         }
 
         // Custom validation for date input
         if (inputElement.type === 'date' && !inputElement.value) {
-            invalid.style.display = 'inline' // Show star if empty date
+            errorMessage.style.display = 'inline' // Show star if empty date
             isValid = false
         }
     })
     const quantityReceived = parseInt(quantityReceivedInput.value, 10)
     const quantityDefective = parseInt(quantityDefectiveInput.value, 10)
 
+    // Select the span for displaying error
+    const radioErrorSpan = document.getElementById('process-applicable-error');
+
+    // Get the selected radio button
+    const checkedRadio = document.querySelector('input[name="item_marked_nonconforming"]:checked');
+
+    // Check if any radio button is checked
+    if (!checkedRadio) {
+        // No radio button is checked
+        radioErrorSpan.style.display = 'inline'; // Show error
+        radioErrorSpan.textContent = 'Please select an option for item marked non-conforming.'; // Set error message
+        isValid = false;
+    } else {
+        // At least one radio button is checked
+        radioErrorSpan.style.display = 'none'; // Hide error
+    }
 
     // Check if quantities are valid numbers
     if (!isNaN(quantityReceived) && !isNaN(quantityDefective) && quantityDefective > quantityReceived) {

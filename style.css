@@ -261,7 +261,6 @@ label {
 }
 
 .conditional-field {
-    display: none;
     margin-top: 10px;
 }
 
@@ -1592,7 +1591,9 @@ td button:focus {
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
-
+.notification-box ul li:hover{
+    background-color: rgba(128, 128, 128, 0.095);
+}
 .notification-box ul li:last-child,
 .settings-box ul li:last-child {
     border-bottom: none;

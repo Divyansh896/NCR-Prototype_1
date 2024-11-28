@@ -150,8 +150,8 @@ function initializeButtons() {
         window.location.href = 'account.html'
     })
 
-    btnInsights.addEventListener('click', ()=>{
-        window.location.href='Company_insights.html'
+    btnInsights.addEventListener('click', () => {
+        window.location.href = 'Company_insights.html'
     })
 }
 
@@ -197,11 +197,11 @@ function createQueryString(ncrData) {
 
 function extractData(ncr) {
 
-    
+
     return {
         ncr_no: ncr.ncr_no,
         status: ncr.status || "incomplete", // Status defaults to "incomplete" if not present
-        
+
         qa: {
             supplier_name: ncr.qa.supplier_name,
             po_no: ncr.qa.po_no, // Changed from po_no to product_no as per your comment
@@ -219,9 +219,9 @@ function extractData(ncr) {
                 supplier_or_rec_insp: ncr.qa.process.supplier_or_rec_insp,
                 wip_production_order: ncr.qa.process.wip_production_order
             }
-            
+
         },
-        
+
         engineering: {
             disposition: ncr.engineering.disposition || "", // Default to empty string if not available
             customer_notification_required: ncr.engineering.customer_notification_required || false, // Default to false
@@ -813,16 +813,73 @@ function setNotificationText() {
         if (user.role == 'Lead Engineer') {
 
             if (notificationText.includes('Engineering')) {
-                // engineering department person get the mail from qa (will show review and begin work)
-                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let report = AllReports[index]
+                if (Object.keys(report.engineering).length == 0) {
+
+                    // engineering department person get the mail from qa (will show review and begin work)
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        window.location.href = `logged_NCR.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                    })
+                } else {
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and sent to purchasing department.`, 'images/confirmationIcon.webp')
+                    })
+                }
+
             } else {
                 // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
                 li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.addEventListener('click', () => {
+                    // will show popup
+                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                })
+            }
+        } else if (user.role == 'Purchasing') {
+            if (notificationText.includes('Purchasing')) {
+                let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let report = AllReports[index]
+                if (Object.keys(report.purchasing_decision).length == 0) {
+
+                    // purchasing department person get the mail from qa (will show review and begin work)
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        window.location.href = `purchasing_decision.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                    })
+                } else {
+                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+
+                    li.addEventListener('click', () => {
+                        // console.log()
+                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and notified to other departments.`, 'images/confirmationIcon.webp')
+                    })
+                }
+
+            } else {
+                // purchasing department person completes the form that's it.
+                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.addEventListener('click', () => {
+                    // will show popup
+                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                })
             }
         }
         else {
             li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
-
+            li.addEventListener('click', () => {
+                // will show popup
+                showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+            })
         }
 
 
@@ -869,5 +926,71 @@ function saveSuppliersToLocalStorage() {
     }
 }
 
+function saveEmployeesToLocalStorage() {
+    // Check if suppliers already exist in localStorage
+    if (!localStorage.getItem("employees")) {
+        // Fetch supplier data from the JSON file
+        fetch('Data/user.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json(); // Parse JSON from the response
+            })
+            .then(data => {
+                // Save the fetched data to localStorage
+                localStorage.setItem("employees", JSON.stringify(data));
+                console.log("Employee data saved to localStorage.");
+            })
+            .catch(error => {
+                console.error("Error fetching employee data:", error);
+            });
+    } else {
+        console.log("Employee data already exists in localStorage.");
+    }
+}
 saveSuppliersToLocalStorage()
+saveEmployeesToLocalStorage()
+// Create a query string from the NCR data
+function createQueryStringFromNotification(ncrNo) {
+    let AllReports = JSON.parse(localStorage.getItem('AllReports'))
+    let index = AllReports.findIndex(report => report.ncr_no == ncrNo)
+    let ncrData = AllReports[index]
 
+    const { qa, engineering, purchasing_decision } = ncrData; // Destructure the NCR object
+    return new URLSearchParams({
+        ncr_no: ncrData.ncr_no,
+        supplier_name: qa.supplier_name,
+        po_no: qa.po_no,
+        item_name: qa.item_name,
+        sales_order_no: qa.sales_order_no,
+        item_description: qa.item_description,
+        quantity_received: qa.quantity_received,
+        quantity_defective: qa.quantity_defective,
+        description_of_defect: qa.description_of_defect,
+        item_marked_nonconforming: qa.item_marked_nonconforming,
+        quality_representative_name: qa.quality_representative_name,
+        date: qa.date,
+        resolved: qa.resolved,
+        supplier_or_rec_insp: qa.process.supplier_or_rec_insp, // Add process data
+        wip_production_order: qa.process.wip_production_order, // Add process data
+        disposition: engineering.disposition,
+        customer_notification_required: engineering.customer_notification_required,
+        disposition_details: engineering.disposition_details,
+        drawing_update_required: engineering.drawing_update_required,
+        original_rev_number: engineering.original_rev_number,
+        updated_rev_number: engineering.updated_rev_number,
+        engineer_name: engineering.engineer_name,
+        revision_date: engineering.revision_date,
+        resolved_engineer: engineering.resolved,
+        engineering_review_date: engineering.engineering_review_date,
+        purchasing_decision: purchasing_decision.preliminary_decision,
+        follow_up_required: purchasing_decision.follow_up_required,
+        operations_manager_name: purchasing_decision.operations_manager_name,
+        operations_manager_date: purchasing_decision.operations_manager_date,
+        inspector_name: purchasing_decision.inspector_name,
+        ncr_closed: purchasing_decision.ncr_closed,
+        resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
+        new_ncr_number: purchasing_decision.new_ncr_number
+    }).toString();
+}

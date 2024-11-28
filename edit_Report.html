@@ -145,22 +145,27 @@
             <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
                 representative</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
-            <div class="two-cols-edit two-cols-view">
+            <div class="two-cols-edit two-cols-view tooltip-edit-page">
                 <!-- First Column -->
                 <div class="form-row">
-                    <div class="form-group">
-                        <label for="qa-name">QA Name <span class="required">*</span></label>
-                        <input type="text" class="qa-editable" id="qa-name" name="qa_name"
-                            placeholder="Enter QA representative name" required tabindex="7">
+                    <div class="tooltip-container">
+
+                        <div class="form-group">
+                            <label for="qa-name">QA Name</label>
+                            <input type="text" class="qa-editable" id="qa-name" name="qa_name"
+                                placeholder="Enter QA representative name" required tabindex="7">
+                                <span class="error-message">QA representative name is required.</span>
+                                <span class="tooltip">Enter Quality representative name.</span>
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="ncr-no">NCR No. <span class="required">*</span></label>
+                        <label for="ncr-no">NCR No.</label>
                         <input type="text" readonly class="qa-editable" id="ncr-no" name="ncr_no"
                             placeholder="Enter NCR number" required tabindex="8">
                     </div>
 
                     <div class="form-group">
-                        <label for="item-name">Select Item:<span class="required">*</span></label>
+                        <label for="item-name">Select Item:</label>
                         <select class="qa-editable" name="items" id="item-name" required>
                             <option value="Hex Bolts">Hex Bolts</option>
                             <option value="Lock Nut">Lock Nut</option>
@@ -173,48 +178,56 @@
                             <option value="Bolts">Bolts</option>
                             <option value="Nuts">Nuts</option>
                         </select>
+                        <span class="error-message">Select item for the report.</span>
                     </div>
                     <div class="form-group">
                         <label for="sales-order-no">Sales Order No. <span class="required">*</span></label>
                         <input type="text" class="qa-editable" id="sales-order-no" name="sales_order_no"
                             placeholder="Enter sales order number" required tabindex="9">
+                            <span class="error-message">Sales order number is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="quantity-received">Quantity Received <span class="required">*</span></label>
+                        <label for="quantity-received">Quantity Received</label>
                         <input type="number" class="qa-editable" id="quantity-received" name="quantity_received"
                             placeholder="Enter quantity received" required tabindex="10">
+                            <span class="error-message">Quantity of item received is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="quantity-defective">Quantity Defective <span class="required">*</span></label>
+                        <label for="quantity-defective">Quantity Defective</label>
                         <input type="number" class="qa-editable" id="quantity-defective" name="quantity_defective"
                             placeholder="Enter quantity defective" required tabindex="11">
+                            <span class="error-message">Quantity of item defective is required.</span>
                     </div>
                 </div>
                 <!-- Second Column -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="qa-date">QA Date <span class="required">*</span></label>
+                        <label for="qa-date">QA Date</label>
                         <input type="date" class="qa-editable" id="qa-date" name="qa_date" required tabindex="12">
+                        <span class="error-message">QA date is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="supplier-name">Supplier Name <span class="required">*</span></label>
+                        <label for="supplier-name">Supplier Name</label>
                         <select class="qa-editable" id="supplier-name" name="supplier_name"
                             placeholder="Enter supplier name" required tabindex="13"></select>
+                            <span class="error-message">Supplier name is required.</span>
                     </div>
                     <div class="form-group">
-                        <label for="product-no">Product No. <span class="required">*</span></label>
+                        <label for="product-no">Product No.</label>
                         <input type="text" class="qa-editable" id="product-no" name="product_no"
                             placeholder="Enter product number" required tabindex="14">
+                            <span class="error-message">Product number is required.</span>
                     </div>
 
                     <div class="form-group">
-                        <label for="process">Identify Process Applicable <span class="required">*</span></label>
+                        <label for="process">Identify Process Applicable</label>
                         <select class="qa-editable" id="process" name="process" required tabindex="16">
                             <option value="">Select a Process</option>
                             <option value="Supplier or Rec-Insp">Supplier</option>
                             <option value="WIP (Production order)">WIP</option>
                             <option value="Not applicable">Not Applicable</option>
                         </select>
+                        <span class="error-message">Select process applicable for this report.</span>
                     </div>
                 </div>
             </div>
@@ -225,22 +238,25 @@
                     <!-- Textarea Section -->
 
                     <div class="form-group description">
-                        <label for="description-item">Description of Item (Including SAP No.) <span
-                                class="required">*</span></label>
+                        <label for="description-item">Description of Item (Including SAP No.)</label>
                         <textarea class="qa-editable" id="description-item" name="description_item"
                             placeholder="Enter description of item" required tabindex="17"></textarea>
+                            <span class="error-message">Description of the item is required.</span>
                     </div>
 
                     <div class="form-group description">
-                        <label for="description-defect">Description of Defect <span class="required">*</span></label>
+                        <label for="description-defect">Description of Defect</label>
                         <textarea class="qa-editable" id="description-defect" name="description_defect"
                             placeholder="Enter description of defect" required tabindex="18"></textarea>
+                            <span class="error-message">Description of the item defect is required.</span>
                     </div>
 
 
                     <div class="form-group description">
                         <!-- Radio Buttons for Non-Conforming -->
-                        <label>Item Marked Non-Conforming? <span class="required">*</span></label>
+                        <label>Item Marked Non-Conforming?</label>
+                        <span class="required" id="process-applicable-error">Item marked non-conforming
+                            required </span>
                         <div class="rad-report description">
                             <div>
 
@@ -274,9 +290,13 @@
                 <div class="form-row">
                     <div class="confirm-create-qa">
                         <div class="form-group">
-                            <label for="engineer-name">Engineer Name: <span class="required">*</span></label>
-                            <input type="text" class="eng-editable" id="engineer-name" name="engineer_name"
-                                aria-label="Engineer Name" tabindex="23" placeholder="Enter engineer's name...">
+                            <div class="tooltip-container">
+
+                                <label for="engineer-name">Engineer Name: <span class="required">*</span></label>
+                                <input type="text" class="eng-editable" id="engineer-name" name="engineer_name"
+                                    aria-label="Engineer Name" tabindex="23" placeholder="Enter engineer's name...">
+                                    <span class="tooltip">Enter Engineer name is empty.</span>
+                            </div>
                         </div>
                     </div>
 
@@ -375,10 +395,10 @@
                     <div class="form-group">
                         <label for="options">Select Disposition Option: <span class="required">*</span></label>
                         <select id="options" class="purch-editable" name="option" tabindex="36">
-                            <option value="" disabled selected>Select an option</option>
-                            <option value="rework_in_house">Rework In-House</option>
-                            <option value="scrap_in_house">Scrap In-House</option>
-                            <option value="defer_to_engineering">Defer to Engineering</option>
+                                <option value="return" selected>Return to Supplier</option>
+                                <option value="rework">Rework "In-House"</option>
+                                <option value="scrap">Scrap In-House</option>
+                                <option value="defer">Defer for HBC Engineering Review</option>
                         </select>
                     </div>
 

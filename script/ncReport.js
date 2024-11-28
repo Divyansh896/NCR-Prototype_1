@@ -123,7 +123,7 @@ function setSpanContentFromSession() {
     document.getElementById('updated-rev-number').textContent = retrievedNCRData['engineering']?.updated_rev_number || '';
     document.getElementById('revision-date').textContent = retrievedNCRData['engineering']?.revision_date || ''; // Set date input value
     document.getElementById('engineering-review-date').textContent = retrievedNCRData['engineering']?.engineering_review_date || ''; // Set date input value
-    document.getElementById('eng-resolved').textContent = retrievedNCRData['engineering']?.eng_resolved === true ? 'Yes' : 'No';
+    document.getElementById('eng-resolved').textContent = retrievedNCRData['engineering']?.resolved === true ? 'Yes' : 'No';
     document.getElementById('customer-notification').textContent = retrievedNCRData['engineering']?.customer_notification_required === true ? 'Yes' : 'No';
     document.getElementById('drawing-update-required').textContent = retrievedNCRData['engineering']?.drawing_update_required === true ? 'Yes' : 'No';
 
@@ -145,7 +145,7 @@ function setSpanContentFromSession() {
     document.getElementById('operations-manager-date').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_date || ''; // Set date input value
     document.getElementById('inspector-name').textContent = retrievedNCRData['purchasing_decision']?.inspector_name || '';
     document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
-    document.getElementById('pu-resolved').textContent = retrievedNCRData['purchasing_decision']?.pu_resolved === true ? 'Yes' : 'No';
+    document.getElementById('pu-resolved').textContent = retrievedNCRData['purchasing_decision']?.resolved === true ? 'Yes' : 'No';
     document.getElementById('new-ncr-number').textContent = retrievedNCRData['purchasing_decision']?.new_ncr_number || '';
     document.getElementById('re-inspected-acceptable').textContent = retrievedNCRData['purchasing_decision']?.re_inspected_acceptable === true ? 'Yes' : 'No';
 }

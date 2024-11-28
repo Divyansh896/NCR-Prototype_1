@@ -928,6 +928,7 @@ function saveFormData() {
         quality_representative_name: document.getElementById('qa-name-d').textContent,
         date: document.getElementById('qa-date-d').textContent,
         identify_process: document.getElementById('process-d').textContent,
+        item_name: document.getElementById('item-name-d').textContent,
         date_of_saved: new Date().toLocaleDateString()
 
     };

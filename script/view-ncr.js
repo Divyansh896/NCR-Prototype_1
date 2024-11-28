@@ -186,8 +186,8 @@ function extractData(ncr) {
             sales_order_no: ncr.qa.sales_order_no,
             item_name: ncr.qa.item_name, // Using item_description as item_name
             item_description: ncr.qa.item_description,
-            quantity_received: ncr.qa.quantity_received,
-            quantity_defective: ncr.qa.quantity_defective,
+            quantity_received: ncr.qa.quantity_received || 0,
+            quantity_defective: ncr.qa.quantity_defective || 0,
             description_of_defect: ncr.qa.description_of_defect,
             item_marked_nonconforming: ncr.qa.item_marked_nonconforming,
             quality_representative_name: ncr.qa.quality_representative_name,
