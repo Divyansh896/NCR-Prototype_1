@@ -470,7 +470,7 @@ function displaySavedReportsEng() {
         reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
-        const continueButton = document.createElement('button-eng')
+        const continueButton = document.createElement('button')
         continueButton.classList.add('continue-button-eng')
         continueButton.textContent = "Continue Editing"
 

@@ -60,8 +60,11 @@ input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
-select:focus textarea:focus {
+select:focus textarea:focus,
+textarea:focus,
+select:focus {
     border: 3px solid black;
+    background-color: #e9eff4;
 }
 
 .form-section textarea {
@@ -2086,6 +2089,10 @@ td button:focus {
         width: 100%;
     }
 
+    .ncr-buttons{
+        padding: 10px 20px;
+    }
+
     /* account */
 
     .acc-two-cols {
@@ -2602,13 +2609,13 @@ td button:focus {
         background-repeat: no-repeat;
     }
 
-    .status-steps {
-        flex-direction: column;
-    }
-
     .step-icon {
         display: block;
     }
+
+.radio-btn {
+    font-size: 1rem;
+}
 
     .status-steps {
         list-style: none;
@@ -2618,6 +2625,7 @@ td button:focus {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
+        gap: 15px
     }
 
     .status-step {
