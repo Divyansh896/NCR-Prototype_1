@@ -95,7 +95,7 @@ function initializeButtons() {
 
     if (user.role === 'QA Inspector' || user.role == 'Admin') {
         // const nextNcrNumber = generateNextNcrNumber(ncr) // Calculate only once
-
+        
         // Update the 'Create NCR' button's action
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html`
@@ -129,8 +129,11 @@ function initializeButtons() {
         })
     }
 
-    if (user.role === 'Lead Engineer') {
+ 
 
+    if (user.role === 'Lead Engineer') {
+        document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for engineer and change the layout
+        document.getElementById("secetionsDashboard").style.gridTemplateColumns = "1fr 1fr 1fr"
         //listing different saved NCRs for each role
         btnSaved.addEventListener('click', () => {
             showTab('saved')
@@ -140,6 +143,11 @@ function initializeButtons() {
         })
 
 
+    }
+
+    if(user.role === 'Purchasing'){
+        document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for Purchasing and change the layout
+        document.getElementById("secetionsDashboard").style.gridTemplateColumns = "1fr 1fr 1fr"
     }
 
     btnView.addEventListener('click', () => {
