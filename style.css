@@ -1678,7 +1678,7 @@ td button:focus {
 }
 
 .ttip-descr {
-    bottom: 280px;
+    bottom: 217px;
 }
 
 .ttip-btn-reset {
@@ -2266,6 +2266,10 @@ td button:focus {
     .modal-content-supplier{
         height: 60vh;
         width: 670px;
+    }
+
+    .ttip-descr {
+        bottom: 265px;
     }
 }
 

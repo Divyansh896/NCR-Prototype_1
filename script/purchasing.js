@@ -163,7 +163,7 @@ updateStatusBar()
 // Add event listeners for navigation buttons
 document.getElementById("next-btn1").addEventListener("click", () => {
     // remember to delet the not in validation it is just for checking
-    if (!validateFields1()) {
+    if (validateFields1()) {
 
         sections[currentStep].classList.remove("active")
         currentStep++
@@ -380,13 +380,15 @@ function validateFields1() {
 
     let isValid = true; // To track if all fields pass validation
 
-    const errorElement = decision.nextElementSibling;
+    // const errorElement = decision.nextElementSibling;
+    const errorElement = decision.closest('.tooltip-container')?.nextElementSibling;
+
     if (decision.value.trim() === "") {
         isValid = false;
         errorElement.style.display = "block";  // Show error message for the decision field
     } else {
         // If the decision is 'return', check if returnOp is filled
-        let returnOpError = returnOp.nextElementSibling;  // Get the error message for the returnOp field
+        let returnOpError = returnOp.closest('.tooltip-container')?.nextElementSibling;  // Get the error message for the returnOp field
     
         if (decision.value === 'return') {
             if (returnOp.value.trim() === '') {
@@ -418,7 +420,8 @@ function validateFields1() {
                 if (field.disabled === false) {  // Check if field is enabled
                     if (field.value.trim() === '') {
                         // If the field is enabled and empty, show an error
-                        const errorElement = field.nextElementSibling;
+                        const errorElement = field.closest('.tooltip-container')?.nextElementSibling;
+                        
                         if (errorElement && errorElement.classList.contains('error-message')) {
                             errorElement.style.display = 'block'; // Show error message
                         }
@@ -448,7 +451,7 @@ function validateFields2() {
     let isValid = true;
 
     fields.forEach(({ field, errorMessage }) => {
-        const errorElement = field.nextElementSibling; // Assuming error message is displayed in the next sibling
+        const errorElement = field.closest('.tooltip-container')?.nextElementSibling;; // Assuming error message is displayed in the next sibling
         if (field.value.trim() === "") {
             isValid = false;
             errorElement.style.display = "block";
@@ -471,12 +474,12 @@ function validateFields2() {
                 if (newNCR.disabled === false) {  // Check if field is enabled
                     if (newNCR.value.trim() === '') {
                         // If the field is enabled and empty, show an error
-                        const errorElement = newNCR.nextElementSibling;
+                        const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
                         errorElement.style.display = 'block'; // Show error message
                         isValid = false
                     } else {
                         // If the field is filled, hide the error
-                        const errorElement = newNCR.nextElementSibling;
+                        const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
                         errorElement.style.display = 'none'; // Hide error message
                     
                     }
@@ -498,12 +501,12 @@ function validateFields2() {
                 if (carDetails.disabled === false) {  // Check if field is enabled
                     if (carDetails.value.trim() === '') {
                         // If the field is enabled and empty, show an error
-                        const errorElement = carDetails.nextElementSibling;
+                        const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
                         errorElement.style.display = 'block'; // Show error message
                         isValid = false
                     } else {
                         // If the field is filled, hide the error
-                        const errorElement = newNCR.nextElementSibling;
+                        const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
                         errorElement.style.display = 'none'; // Hide error message
                     
                     }

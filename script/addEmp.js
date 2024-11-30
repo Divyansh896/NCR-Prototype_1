@@ -17,6 +17,17 @@ if (ncrLink && user.role == "QA Inspector") {
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 setNotificationText()
+const requiredFields = [
+    { fieldId: 'empId', errorId: 'empID-error' },
+    { fieldId: 'email', errorId: 'eMail-error' },
+    { fieldId: 'firstName', errorId: 'fName-error' },
+    { fieldId: 'lastName', errorId: 'lName-error' },
+    { fieldId: 'dob', errorId: 'DOB-error' },
+    { fieldId: 'password', errorId: 'password-error' },
+    { fieldId: 'department', errorId: 'dept-error' }
+];
+
+clearErrorMessage()
 document.getElementById("clear").addEventListener("click", function () {
     document.querySelector("form").reset();
 });
@@ -25,73 +36,83 @@ document.getElementById("clear").addEventListener("click", function () {
 
 addEmp.addEventListener("click", (e) => {
     e.preventDefault();
-
-    // Get the current value of empID inside the event listener
-
-    if (empID.value == "" || email.value == "" || fName.value == "" || lName.value == "" || dob.value == "" || pass.value =="" || dept.value == ""  ) {
-        showPopup('Required field missing','All the fields are required and can not be empty', 'images/1382678.webp');
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "Employee ID is required !"
-
-        email.nextElementSibling.style.display = "block"
-        email.nextElementSibling.textContent = "Email Address is required !"
-
-        fName.nextElementSibling.style.display = "block"
-        fName.nextElementSibling.textContent = "First Name is required !"
-
-        lName.nextElementSibling.style.display = "block"
-        lName.nextElementSibling.textContent = "Last Name is required !"
-
-        dob.nextElementSibling.style.display = "block"
-        dob.nextElementSibling.textContent = "Date Of Birth is required !"
-
-        pass.nextElementSibling.style.display = "block"
-        pass.nextElementSibling.textContent = "Password is required !"
-
-        dept.nextElementSibling.style.display = "block"
-        dept.nextElementSibling.textContent = "Department is required please select one !"
-
-    } else if (empID.value.length > 4) {
-        showPopup('Required field missing','Employee ID cannot be greater than 4 digits', 'images/1382678.webp');
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "Employee ID cannot be greater than 4 digits"
-
-    }else if (empID.value.length < 4) {
-        showPopup('Required field missing','Employee ID cannot be less than 4', 'images/1382678.webp');
-        empID.nextElementSibling.style.display = "block"
-        empID.nextElementSibling.textContent = "Employee ID cannot be less than 4 digits"
-
-    }else if(!email.value.includes("@crossfire.ca" )){
-        showPopup('Required field missing','Email is not valid','images/1382678.webp');
-        email.nextElementSibling.style.display = "block"
-        email.nextElementSibling.textContent = "Email Address must follow the same pattern"
-
-    }else{
-        showPopup('Confirmation','Employee Added successfully','images/confirmationIcon.webp');
-
+    if(showRequiredFields()){
+        
+        showPopup('Confirmation', 'Employee Added successfully', 'images/confirmationIcon.webp');
     }
+    //else if(empID.value.length > 4){
+    //     const errorMessage = document.getElementById('empID-error');
+    //     errorMessage.style.display='inline'
+    //     errorMessage.textContent = "Employee ID cannot be greater than 4 digits"
+    //     showPopup('Invalid Employee ID', 'Employee ID cannot be less than 4', 'images/1382678.webp');
     
-});
-function clearErrorMessage(inputField) {
-    const errorMessage = inputField.nextElementSibling; // Select the corresponding error message
-    if (inputField.value.trim() !== "") { // Check if the input is not empty
-        errorMessage.style.display = "none"; // Hide the error message
-        errorMessage.textContent = ""; // Clear the error message content
+    // }else if(empID.value.length < 4){
+    //     const errorMessage = document.getElementById('empID-error');
+    //     errorMessage.style.display='inline'
+    //     errorMessage.textContent = "Employee ID cannot be less than 4 digits"
+    //     showPopup('Invalid Employee ID', 'Employee ID cannot be less than 4', 'images/1382678.webp');
+    
+    // }else if (!email.value.includes("@crossfire.ca")) {
+    //     showPopup('Invalid Email ID', 'Email is not valid', 'images/1382678.webp');
+    //     const errorMessage = document.getElementById('eMail-error');
+    //     errorMessage.style.display='inline'
+    //     errorMessage.textContent = "Email Address must follow the same pattern"
+    
+    // } 
+    else {
+        
+        showPopup('Required field missing', 'Please fill in the required fields before procedding.', 'images/1382678.webp');
     }
+
+    
+
+});
+function showRequiredFields() {
+    let isvalid = true;
+
+    requiredFields.forEach(({ fieldId, errorId }) => {
+        const inputElement = document.getElementById(fieldId);
+        const errorMessage = document.getElementById(errorId);
+
+        
+
+        // Check if the input is empty
+        if (inputElement.value.trim() === '') {
+            errorMessage.style.display = 'inline'; // Show error if empty
+            isvalid = false;
+        } else {
+            errorMessage.style.display = 'none'; // Hide error if filled
+        }
+    });
+
+    return isvalid; // Return the final validation result
+}
+function clearErrorMessage() {
+    
+
+    requiredFields.forEach(({ fieldId, errorId }) => {
+        const inputElement = document.getElementById(fieldId);
+        const errorMessage = document.getElementById(errorId);
+
+
+        const eventType = inputElement.tagName === 'SELECT' || inputElement.type === 'date' ? 'change' : 'input';
+
+        inputElement.addEventListener(eventType, () => {
+            if (inputElement.value.trim() !== '') {
+                errorMessage.style.display = 'none'; // Hide error message when input is valid
+            }
+        });
+    });
 }
 
-// Attach input event listeners to all fields
-[empID, email, fName, lName, dob, pass, dept].forEach((field) => {
-    field.addEventListener("input", () => clearErrorMessage(field));
-});
 
 
-document.getElementById('clear').addEventListener('click', ()=>{
+document.getElementById('clear').addEventListener('click', () => {
     const spans = document.querySelectorAll('.error-message')
     spans.forEach(element => {
         element.style.display = 'none'
     });
-    
+
 })
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
@@ -218,14 +239,14 @@ function logout() {
     location.replace('index.html')
 }
 
-function updateToolContent(){
+function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
     const supplier = document.getElementById('add-sup')
-    if(user.role == "QA Inspector"){
-        emp.style.display= 'none'
+    if (user.role == "QA Inspector") {
+        emp.style.display = 'none'
     }
-    else if(user.role == "Lead Engineer" || user.role == "Purchasing"){
+    else if (user.role == "Lead Engineer" || user.role == "Purchasing") {
         toolsContainer.style.display = 'none'
     }
 }
@@ -234,7 +255,7 @@ updateToolContent()
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
-        settingsBox.style.display = "block"
+        settingsBox.style.display = "inline"
     } else {
         settingsBox.style.display = "none"
     }
@@ -243,7 +264,7 @@ function toggleSettings() {
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
     if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
-        notificationBox.style.display = "block"
+        notificationBox.style.display = "inline"
     } else {
         notificationBox.style.display = "none"
     }
@@ -291,7 +312,7 @@ function showPopup(title, message, icon, callback) {
         iconDiv.innerHTML = icon
     }
 
-    modal.style.display = "block" // Show the modal
+    modal.style.display = "inline" // Show the modal
 
     setTimeout(() => {
         modalContent.style.opacity = "1" // Fade in effect
