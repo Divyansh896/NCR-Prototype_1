@@ -17,48 +17,59 @@ setNotificationText()
 //All the validation of the add supplier page
 document.getElementById("submit-btn").addEventListener('click', function (e) {
     e.preventDefault()
+    let isvalid=true
     if (suppliername.value == "") {
         showPopup('Required fields missing', 'Please enter the supplier name.', 'images/1382678.webp')
         suppliername.nextElementSibling.style.display = "block"
         suppliername.nextElementSibling.textContent = "Supplier name is required !"
+        isvalid=false
     }
     if (address.value == "") {
         showPopup('Required fields missing', 'Please enter the address.', 'images/1382678.webp')
         address.nextElementSibling.style.display = "block"
         address.nextElementSibling.textContent = "Address name is required !"
+        isvalid=false
     }
     if (city.value == "") {
         showPopup('Required fields missing', 'Please enter the city.', 'images/1382678.webp')
         city.nextElementSibling.style.display = "block"
         city.nextElementSibling.textContent = "City name is required !"
+        isvalid=false
     }
     if (country.value == "") {
         showPopup('Required fields missing', 'Please enter the country.', 'images/1382678.webp')
         country.nextElementSibling.style.display = "block"
         country.nextElementSibling.textContent = "Country name is required !"
+        isvalid=false
     }
     if (postalcode == "" || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(postalcode.value)) {
         showPopup('Required fields missing', 'Please enter the valid postal code.', 'images/1382678.webp')
         postalcode.nextElementSibling.style.display = "block"
         postalcode.nextElementSibling.textContent = "Postalcode name is required !"
+        isvalid=false
     }
     if (contact.value.length !== 10 || !/^\d+$/.test(contact.value)) {
         showPopup('Required fields missing', 'Please enter the valid phone number.', 'images/1382678.webp')
         contact.nextElementSibling.style.display = "block"
         contact.nextElementSibling.textContent = "Contact name is required !"
+        isvalid=false
     }
     if (shippingmethod.value == "") {
         showPopup('Required fields missing', 'Please select the valid shipping method.', 'images/1382678.webp')
         shippingmethod.nextElementSibling.style.display = "block"
         shippingmethod.nextElementSibling.textContent = "Shipping method name is required !"
+        isvalid=false
     }
-    if (suppliername.value !== "" && address.value !== "" && city.value !== "" && country.value !== "" && postalcode.value !== "" && contact.value !== "" && shippingmethod.value !== "") {
-        // All fields have a value, proceed with further logic
-        showPopup('Confirmation', 'All fields are filled correctly.', 'images/confirmationIcon.webp');
-    } else {
-        // At least one field is empty, show an error or prompt
-        showPopup('Required fields missing', 'Please fill in all the required fields.', 'images/1382678.webp');
+    if(isvalid){
+        showPopup('Confirmation', 'All fields are filled correctly. Information submited.', 'images/confirmationIcon.webp');
     }
+    // if (suppliername.value !== "" && address.value !== "" && city.value !== "" && country.value !== "" && postalcode.value !== "" && contact.value !== "" && shippingmethod.value !== "") {
+    //     // All fields have a value, proceed with further logic
+    //     showPopup('Confirmation', 'All fields are filled correctly.', 'images/confirmationIcon.webp');
+    // } else {
+    //     // At least one field is empty, show an error or prompt
+    //     showPopup('Required fields missing', 'Please fill in all the required fields.', 'images/1382678.webp');
+    // }
 })
 //event for clear button
 document.getElementById("btn-clear").addEventListener('click', function () {
