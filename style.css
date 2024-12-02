@@ -4,6 +4,9 @@
     box-sizing: border-box;
 }
 
+.img-details{
+    margin-bottom: 30px;
+}
 .required {
     color: red;
     margin: 5px;
@@ -249,6 +252,13 @@ details[open] .custom-summary::before {
     margin: 15px 0;
 }
 
+.report-fieldsets{
+    margin: 20px;
+}
+
+.report-fieldsets legend{
+    margin-left: 20px;
+}
 /* Header styles */
 
 
@@ -817,7 +827,8 @@ fieldset legend {
 
 
 /* Dropdown for qa-section  */
-.form-group {
+.form-group,
+.resolved {
     display: grid;
     flex-direction: column;
     /* Ensures label and span stack vertically */
@@ -2752,7 +2763,7 @@ td button:focus {
 
     label,
     p {
-        font-size: 1.2rem;
+        font-size: 1rem;
     }
 
     #footer-scroll p {
