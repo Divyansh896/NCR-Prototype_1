@@ -1,5 +1,6 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
-const ncrNo = localStorage.getItem('ncrNo')
+let suppliers = JSON.parse(localStorage.getItem('suppliers'));
+
 //geting all the inputs from html
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
@@ -14,6 +15,7 @@ let shippingmethod = document.getElementById("shippingMethod")
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 setNotificationText()
+fillSupplierDetailsFromURL()
 //All the validation of the add supplier page
 document.getElementById("submit-btn").addEventListener('click', function (e) {
     e.preventDefault()
@@ -42,10 +44,11 @@ document.getElementById("submit-btn").addEventListener('click', function (e) {
         postalcode.nextElementSibling.style.display = "block"
         postalcode.nextElementSibling.textContent = "Postalcode name is required !"
     }
-    if (contact.value.length !== 10 || !/^\d+$/.test(contact.value)) {
+    const regex = /^\+1-\d{3}-\d{3}-\d{4}$/;
+    if (!regex.test(phoneNumber)) {
         showPopup('Required fields missing', 'Please enter the valid phone number.', 'images/1382678.webp')
         contact.nextElementSibling.style.display = "block"
-        contact.nextElementSibling.textContent = "Contact name is required !"
+        contact.nextElementSibling.textContent = "Contact number is required !"
     }
     if (shippingmethod.value == "") {
         showPopup('Required fields missing', 'Please select the valid shipping method.', 'images/1382678.webp')
@@ -292,10 +295,10 @@ document.addEventListener("click", function (event) {
     }
 })
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
-if (ncrLink && user.role == "QA Inspector") {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
-}
+// const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+// if (ncrLink && user.role == "QA Inspector") {
+//     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+// }
 
 // Create a query string from the NCR data
 function createQueryStringFromNotification(ncrNo) {
@@ -339,4 +342,32 @@ function createQueryStringFromNotification(ncrNo) {
         resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
+}
+
+function fillSupplierDetailsFromURL() {
+    // Extract the supplier name from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const supplierName = urlParams.get('SupplierName');
+    const heading = document.getElementById('heading')
+
+    if (supplierName) {
+        // Find the supplier from your data (assuming 'suppliers' is an array)
+        const supplier = suppliers.find(s => s.supplierName === supplierName);
+        heading.textContent = `Edit Supplier - ${supplier.supplierName}`
+
+        if (supplier) {
+            // Fill out the form with supplier details
+            suppliername.value = supplier.supplierName
+            address.value = supplier.address || '';
+            city.value = supplier.city || '';
+            country.value = supplier.country || '';
+            postalcode.value = supplier.postalCode || '';
+            contact.value = supplier.contactNumber || '';
+            shippingmethod.value = supplier.shippingMethod.toLowerCase() || '';
+        } else {
+            console.log("Supplier not found.");
+        }
+    } else {
+        console.log("Supplier name not provided in the URL.");
+    }
 }

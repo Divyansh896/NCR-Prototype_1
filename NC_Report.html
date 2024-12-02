@@ -146,6 +146,9 @@
         <div id="contentToDownload">
             <!-- Main Content -->
             <h1>Non-Conformance Report</h1>
+            <div id="qrcode">
+                <img id="qrImage" alt="">
+            </div>
             <!---Download File Button-->
             <div class="button-container">
                 <button id="print" class="ncr-buttons" onclick="window.print()"><i class="fa fa-print"
@@ -492,9 +495,35 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <!-- <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>
 
+    <script>
+        // Function to generate the QR code from the current HTML content
+        function generateQRCodeFromPageContent() {
+            // Retrieve the HTML content of the page (or a specific section)
+            const htmlContent = document.documentElement.outerHTML; // You can change this to target specific sections like document.body.innerHTML
 
+            const encodedHtml = encodeURIComponent(htmlContent); // Encode HTML content
+            const dataUrl = "data:text/html," + encodedHtml; // Create Data URL
 
+            // Generate QR code using the toDataURL method
+            QRCode.toDataURL(dataUrl, { errorCorrectionLevel: 'H' }, function (error, url) {
+                if (error) {
+                    console.error(error);
+                } else {
+                    // Set the generated QR code as the source of the img tag
+                    const qrImage = document.getElementById("qrImage");
+                    qrImage.src = url;
+                }
+            });
+        }
+
+        // On window load, generate QR code from the current page content
+        window.onload = function () {
+            generateQRCodeFromPageContent(); // Generate QR Code with the page content
+        };
+    </script> -->
 </body>
 
 </html>

@@ -1,4 +1,6 @@
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+let employees = JSON.parse(localStorage.getItem('employees'));
+
 const ncrNo = localStorage.getItem('ncrNo')
 const addEmp = document.getElementById("add");
 const empID = document.getElementById("empId");
@@ -17,6 +19,7 @@ if (ncrLink && user.role == "QA Inspector") {
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 setNotificationText()
+fillEmployeeDetailsFromURL()
 const requiredFields = [
     { fieldId: 'empId', errorId: 'empID-error' },
     { fieldId: 'email', errorId: 'eMail-error' },
@@ -36,8 +39,8 @@ document.getElementById("clear").addEventListener("click", function () {
 
 addEmp.addEventListener("click", (e) => {
     e.preventDefault();
-    if(showRequiredFields()){
-        
+    if (showRequiredFields()) {
+
         showPopup('Confirmation', 'Employee Added successfully', 'images/confirmationIcon.webp');
     }
     //else if(empID.value.length > 4){
@@ -45,26 +48,26 @@ addEmp.addEventListener("click", (e) => {
     //     errorMessage.style.display='inline'
     //     errorMessage.textContent = "Employee ID cannot be greater than 4 digits"
     //     showPopup('Invalid Employee ID', 'Employee ID cannot be less than 4', 'images/1382678.webp');
-    
+
     // }else if(empID.value.length < 4){
     //     const errorMessage = document.getElementById('empID-error');
     //     errorMessage.style.display='inline'
     //     errorMessage.textContent = "Employee ID cannot be less than 4 digits"
     //     showPopup('Invalid Employee ID', 'Employee ID cannot be less than 4', 'images/1382678.webp');
-    
+
     // }else if (!email.value.includes("@crossfire.ca")) {
     //     showPopup('Invalid Email ID', 'Email is not valid', 'images/1382678.webp');
     //     const errorMessage = document.getElementById('eMail-error');
     //     errorMessage.style.display='inline'
     //     errorMessage.textContent = "Email Address must follow the same pattern"
-    
+
     // } 
     else {
-        
+
         showPopup('Required field missing', 'Please fill in the required fields before procedding.', 'images/1382678.webp');
     }
 
-    
+
 
 });
 function showRequiredFields() {
@@ -74,7 +77,7 @@ function showRequiredFields() {
         const inputElement = document.getElementById(fieldId);
         const errorMessage = document.getElementById(errorId);
 
-        
+
 
         // Check if the input is empty
         if (inputElement.value.trim() === '') {
@@ -88,7 +91,7 @@ function showRequiredFields() {
     return isvalid; // Return the final validation result
 }
 function clearErrorMessage() {
-    
+
 
     requiredFields.forEach(({ fieldId, errorId }) => {
         const inputElement = document.getElementById(fieldId);
@@ -382,4 +385,34 @@ function createQueryStringFromNotification(ncrNo) {
         resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
+}
+
+function fillEmployeeDetailsFromURL() {
+    // Extract the supplier name from the URL query parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const employeeName = urlParams.get('EmployeeuserName');
+    const heading = document.getElementById('heading')
+    document.getElementById('add').textContent = 'Save'
+
+    if (employeeName) {
+        // Find the supplier from your data (assuming 'suppliers' is an array)
+        const employee = employees.find(s => s.username === employeeName);
+        heading.textContent = `Edit Employee - ${employee.username}`
+
+        if (employee) {
+            fName.value = employee.firstname || '';
+            lName.value = employee.lastname || '';
+            empID.value = employee.employeeID || '';
+            dept.value = employee.department || '';
+            email.value = employee.emailID || '';
+            pass.value = employee.password || '';
+            //phone.value = employee.phone || '';
+            dob.value = employee.dob || '';
+            //gender.value = employee.gender || '';
+        } else {
+            console.log("employee not found.");
+        }
+    } else {
+        console.log("employee name not provided in the URL.");
+    }
 }
