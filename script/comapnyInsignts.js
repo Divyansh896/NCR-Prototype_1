@@ -58,6 +58,12 @@ btnExportEmp.addEventListener('click', () => {
     }
 });
 
+
+//hide the employees list from everyone who is not an admin
+if (user.role !== 'Admin'){
+    document.getElementById("btn-employee").style.display = "none"
+}
+
 // Populate the dropdown on page load
 populateSuppliers();
 populateEmployees()

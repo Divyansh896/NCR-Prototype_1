@@ -46,7 +46,7 @@ input[type="email"],
 input[type="number"],
 input[type="tel"],
 select {
-    padding: 0px 10px;
+    padding: 0px 5px;
     height: 40px;
     border-radius: 4px;
     border: 2px solid #163650;
@@ -195,7 +195,7 @@ details {
 .custom-summary::before {
     content: '🔺';
     position: absolute;
-    right: 50px;
+    right: 0px;
     top: 50%;
     transform: translateY(-50%) rotate(150deg);
     font-size: 1.55em;
@@ -321,7 +321,8 @@ nav ul a {
 /* Home page */
 .main-container,
 .main-tab-nav,
-.main-container-graphs {
+.main-container-graphs,
+.main-container-dashboard {
     display: inline-flex;
     flex-direction: column;
     gap: 40px;
@@ -532,7 +533,7 @@ nav ul a {
     /* Align items to the start (top) */
     text-align: left;
     /* Align text to the left */
-    padding: 20px;
+    padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -620,7 +621,6 @@ fieldset legend {
 
 .form-section.active {
     display: flex;
-    padding: 20px;
     margin: 0 0 10px 0;
     border-radius: 5px;
     border: none;
@@ -1153,13 +1153,13 @@ input[type="radio"] {
 .ncr-table thead th {
     background-color: #1a3153;
     color: #f4f4f4;
-    padding: 18px;
+    padding: 5px;
     border-bottom: 2px solid #ccc;
     font-weight: bold;
 }
 
 .ncr-table tbody td {
-    padding: 12px;
+    padding: 5px;
     border-bottom: 1px solid #e0e0e0;
 }
 
@@ -1752,7 +1752,7 @@ td button:focus {
 /* Container styles */
 #supplier-container,
 #employee-container {
-    width: 378px;
+    width: 100%;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -1855,7 +1855,6 @@ td button:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 80px;
 }
 
 #export-supplier:hover,
@@ -1880,7 +1879,7 @@ td button:focus {
 .drop-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    padding-left: 10px;
+    padding: 10px;
 }
 
 
@@ -1910,7 +1909,8 @@ td button:focus {
     /*home*/
     .main-container,
     .main-tab-nav,
-    .main-container-graphs {
+    .main-container-graphs,
+    .main-container-dashboard {
         display: block;
         text-align: center;
         margin: 10px 100px;
@@ -2081,11 +2081,13 @@ td button:focus {
         width: 100%;
     }
 
-    .ncr-table tbody td {
-        padding: 5px 15px;
+    .ncr-table tbody td,
+    .ncr-table thead th {
+        padding: 20px 15px;
     }
 
-    .main-container section {
+    .main-container section,
+    .main-container-dashboard section {
         width: 100%;
     }
 
@@ -2329,7 +2331,8 @@ td button:focus {
     /*home page*/
     .main-container,
     .main-tab-nav,
-    .main-container-graphs {
+    .main-container-graphs,
+    .main-container-dashboard {
         padding: 40px;
     }
 
@@ -2432,7 +2435,8 @@ td button:focus {
     .main-container,
     .main-tab-nav,
     .left-align,
-    .main-container-graphs
+    .main-container-graphs,
+    .main-container-dashboard
      {
         max-width: 1200px;
         margin: 0 auto;
@@ -2441,7 +2445,7 @@ td button:focus {
     }
 
 
-    .main-container{
+    .main-container-dashboard{
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
@@ -2460,7 +2464,8 @@ td button:focus {
         padding-top: 315px;
     }
 
-    .main-container section {
+    .main-container section,
+    .main-container-dashboard section {
         width: 100%;
 
     }
@@ -2687,6 +2692,10 @@ td button:focus {
         background-color: #1a3153;
     }
 
+    .custom-summary::before {
+        right: 50px;
+    }
+
     .controls-container {
         display: inline;
         /* flex-direction: row; */
@@ -2899,7 +2908,8 @@ td button:focus {
 
     td button {
         margin: 10px 5px;
-        width: 115px;
+        width: 140px;
+        padding: 5px;
     }
 
     .chkboxes-logged-ncr .radio-button {
@@ -3018,7 +3028,8 @@ td button:focus {
     /*home page */
     .main-container,
     .main-tab-nav,
-    .main-container-graphs {
+    .main-container-graphs,
+    .main-container-dashboard {
         padding: 20px;
         max-width: 1800px;
     }
@@ -3040,6 +3051,7 @@ td button:focus {
     select {
         height: 60px;
         font-size: 1.7rem;
+        width: 90%;
     }
 
     .form-section textarea {
@@ -3110,11 +3122,7 @@ td button:focus {
     }
 
     /*create cncr*/
-    .qa-info-section input[type="text"],
-    .qa-info-section input[type="number"],
-    .qa-info-section select {
-        width: 90%;
-    }
+
 
     .form-section.active label {
         font-size: 2rem;
