@@ -441,8 +441,8 @@ nav ul a {
     background-color: #e2dfdf;
 }
 
-.report-card .supplier-name,
-.report-card-saved .supplier-name {
+.report-card .ReportNcrNo,
+.report-card-saved .ReportNcrNo {
     font-weight: bold;
 }
 
@@ -1891,6 +1891,15 @@ td button:focus {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
     padding: 10px;
+}
+
+.info-icon{
+    border-radius: 50%;
+    color: rgb(77 149 233);
+    margin-left: 6px;
+}
+.info-description{
+    margin: 10px 0;
 }
 
 
