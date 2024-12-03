@@ -204,16 +204,17 @@ function preventLessInput(event) {
     const defectiveValue = parseInt(quantityDefective.value, 10) || 0; // Default to 0 if invalid
     const receivedValue = parseInt(quantityReceived.value, 10) || 0; // Default to 0 if invalid
 
+    const errorSpan = document.getElementById('quantity-defective-error')
     if (defectiveValue > receivedValue) {
         // Show the error message
-        quantityDefective.nextElementSibling.textContent =
-            'Quantity defective cannot be greater than quantity received!';
-        quantityDefective.nextElementSibling.style.display = 'inline';
+        
+        errorSpan.textContent = 'Quantity defective cannot be greater than quantity received!';
     } else {
         // Hide the error message if input is valid
-        quantityDefective.nextElementSibling.style.display = 'none';
+        errorSpan.style.display = 'inline'
     }
 }
+
 
 
 function handleInput(event) {

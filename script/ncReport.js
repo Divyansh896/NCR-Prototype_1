@@ -94,16 +94,7 @@ function setSpanContentFromSession() {
     document.getElementById('description-defect').textContent = retrievedNCRData['qa']?.description_of_defect || 'Not filled';
 
     // Handle Non-Conforming Item marked spans
-    if (retrievedNCRData['qa']?.item_marked_nonconforming === true) {
-        document.getElementById('item-marked-yes').textContent = 'Yes';
-        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
-    } else if (retrievedNCRData['qa']?.item_marked_nonconforming === false) {
-        document.getElementById('item-marked-no').textContent = 'No';
-        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
-    } else {
-        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
-        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
-    }
+    document.getElementById('item-marked').textContent = retrievedNCRData['qa']?.resolved === true ? 'Yes' : 'No';
 
     document.getElementById('qa-name').textContent = retrievedNCRData['qa']?.quality_representative_name || 'Not filled';
     document.getElementById('qa-date').textContent = retrievedNCRData['qa']?.date || 'Not filled';
@@ -158,80 +149,359 @@ function setSpanContentFromSession() {
 document.addEventListener('DOMContentLoaded', setSpanContentFromSession)
 
 
-
+//event for downloading a pdf
 document.getElementById('downloadPdf').addEventListener('click', async function () {
     const { jsPDF } = window.jspdf;
-    const pdf = new jsPDF('p', 'mm', 'a4'); // A4 paper size in mm
-    const elements = document.querySelectorAll('details'); // Select all details elements
+    const pdf = new jsPDF('p', 'mm', 'a4'); 
+    const elements = document.querySelectorAll('details'); 
 
-    // Function to hide buttons
     const hideButtons = () => {
         const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.display = 'none'); // Hide all buttons
+        buttons.forEach(button => button.style.display = 'none'); 
     };
 
-    // Function to restore buttons
+
     const restoreButtons = () => {
         const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.display = ''); // Restore all buttons
+        buttons.forEach(button => button.style.display = '');
     };
 
-    const imgWidth = 210; // A4 width in mm
-    const pageHeight = 297; // A4 height in mm
+    const imgWidth = 210; 
+    const pageHeight = 297; 
     const options = {
-        scale: 1, // Slightly lower scale for smaller file size
-        useCORS: true, // Enable CORS for external resources
-        background: '#fff' // Ensure background is solid white
+        scale: 1, 
+        useCORS: true, 
+        background: '#fff' 
     };
 
     const images = [];
-    const spacing = 10; // Add 10mm spacing between elements
+    const spacing = 10;
 
-    // Add the title at the top of the PDF
-    pdf.setFontSize(25);
-    const title = 'Non-Conformance Report';
-    const titleWidth = pdf.getTextWidth(title);
-    const pageWidth = pdf.internal.pageSize.width; // Page width in mm
-    pdf.text(title, (pageWidth - titleWidth) / 2, 20); // Center the title, adjusted to ensure it doesn't take up the whole width
+    //header layout
+    const addHeader = async (pageNum, totalPages) => {
+        pdf.setFontSize(12);
+        pdf.setTextColor(0);
+        pdf.setDrawColor(0);
 
-    const position = 30; // Starting position for the images/content
 
-    hideButtons(); // Hide buttons before generating PDF
+        const logoBase64 = await convertWebPToBase64('images/logo.webp');
+        pdf.addImage(logoBase64, "PNG", 0, 0, 65, 15);
+        pdf.setFontSize(8);
+        pdf.setTextColor(0);
 
-    // Capture each element's canvas
+
+        pdf.text('Document No.:', 10, 20);
+        pdf.text('OPS-00011', 30, 20);
+        pdf.text('Document Title:', 70, 20)
+        pdf.text('Non-Conformance Report', 90, 20); 
+        pdf.text(`Page: ${pageNum} of ${totalPages}`, 170, 20);
+
+        pdf.setFontSize(14);
+        pdf.text('Internal Process Document', 140, 10);
+
+
+        pdf.setDrawColor(0);
+        pdf.line(0, 15, imgWidth, 15);
+        pdf.line(60, 15, 60, 25);
+        pdf.line(160, 15, 160, 25);
+        pdf.line(0, 25, imgWidth, 25); 
+    };
+
+    //footer layout
+    const addFooter = () => {
+        pdf.setFontSize(8);
+        pdf.setTextColor(0);
+        pdf.setDrawColor(0);
+
+        const footerY = pageHeight - 5; 
+
+
+        pdf.text('Document Author:', 2, footerY-3);
+
+        pdf.text('Document Date:', 62, footerY-3);
+        pdf.text(new Date().toLocaleDateString(), 62, footerY+1);
+
+        pdf.text('Approved By:', 102, footerY-3);
+
+        pdf.text('Revision Date:', 160, footerY-3);
+        pdf.text('07.14.2020', 160, footerY+1); 
+
+        pdf.text('Revision No:', 190, footerY-3);
+        pdf.text('013', 190, footerY+1); 
+
+
+        pdf.setDrawColor(0); 
+        pdf.line(60, footerY - 7, 60, pageHeight);  
+        pdf.line(100, footerY - 7, 100, pageHeight);
+        pdf.line(157, footerY - 7, 157, pageHeight); 
+        pdf.line(187, footerY - 7, 187, pageHeight); 
+
+        pdf.line(0, footerY - 7, imgWidth, footerY - 7); 
+    };
+
+    const position = 30; 
+    //overall report info
+    hideButtons(); 
+
+
     for (let element of elements) {
-        const originalFontSize = window.getComputedStyle(element).fontSize; // Store the original font size
-        element.style.fontSize = '25px'; // Temporarily increase font size (e.g., 20px)
+        const originalFontSize = window.getComputedStyle(element).fontSize; 
+        element.style.fontSize = '20px'; 
 
         const canvas = await html2canvas(element, options);
-        const imgHeight = (canvas.height * imgWidth) / canvas.width; // Maintain aspect ratio
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; 
 
         // Convert canvas to JPEG for smaller size
-        const imgData = canvas.toDataURL('image/jpeg', 0.8); // Use JPEG with 80% quality
+        const imgData = canvas.toDataURL('image/jpeg', 0.8); 
         images.push({ imgData, imgHeight });
 
-        element.style.fontSize = originalFontSize; // Restore the original font size
+        element.style.fontSize = originalFontSize; 
     }
 
-    restoreButtons(); // Restore buttons after capturing the canvas
+    restoreButtons();
 
-    // Adjust the image to fit A4 and add spacing
-    let currentHeight = position; // Start from the title's position
+
+    let totalPages = 1;
+    let currentHeight = position;
 
     images.forEach((image, index) => {
         if (currentHeight + image.imgHeight + spacing > pageHeight) {
-            pdf.addPage(); // Add a new page if the content exceeds the page height
-            currentHeight = 20; // Reset vertical position after adding a new page
+            totalPages++; 
+            currentHeight = position; 
         }
-
-        // Add the image to the PDF, adjusting the position and size
-        pdf.addImage(image.imgData, 'JPEG', 0, currentHeight, imgWidth, image.imgHeight);
-        currentHeight += image.imgHeight + spacing; // Update the current height after adding the image and spacing
+        currentHeight += image.imgHeight + spacing;
     });
 
-    // Save the generated PDF
-    pdf.save('Quality_Assurance_Report.pdf');
+
+    currentHeight = position; 
+    let pageNum = 1;
+
+    for (let image of images) {
+        if (currentHeight + image.imgHeight + spacing > pageHeight) {
+            pageNum++;
+            pdf.addPage(); 
+            currentHeight = 30; 
+        }
+
+
+        await addHeader(pageNum, totalPages);
+        addFooter();
+
+
+        pdf.addImage(image.imgData, 'JPEG', 0, currentHeight, imgWidth, image.imgHeight);
+        currentHeight += image.imgHeight + spacing; 
+    }
+
+    //function for logo to display properly
+    async function convertWebPToBase64(imagePath) {
+        const image = new Image();
+        image.src = imagePath;
+        image.crossOrigin = "Anonymous"; 
+
+        return new Promise((resolve, reject) => {
+            image.onload = function () {
+                const canvas = document.createElement("canvas");
+                canvas.width = image.width;
+                canvas.height = image.height;
+                const ctx = canvas.getContext("2d");
+
+
+                ctx.drawImage(image, 0, 0);
+
+               
+                const base64 = canvas.toDataURL("image/png"); 
+                resolve(base64);
+            };
+
+            image.onerror = function () {
+                reject("Failed to load the image.");
+            };
+        });
+    }
+
+
+    pdf.save('Non_Conformance_Report.pdf');
 });
+
+//event for printing(same format and layout as pdf)
+document.getElementById('print').addEventListener('click', async function () {
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4'); 
+    const elements = document.querySelectorAll('details'); 
+
+    const hideButtons = () => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.style.display = 'none'); 
+    };
+
+
+    const restoreButtons = () => {
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.style.display = '');
+    };
+
+    const imgWidth = 210; 
+    const pageHeight = 297; 
+    const options = {
+        scale: 1, 
+        useCORS: true, 
+        background: '#fff' 
+    };
+
+    const images = [];
+    const spacing = 10;
+
+
+    const addHeader = async (pageNum, totalPages) => {
+        pdf.setFontSize(12);
+        pdf.setTextColor(0);
+        pdf.setDrawColor(0);
+
+
+        const logoBase64 = await convertWebPToBase64('images/logo.webp');
+        pdf.addImage(logoBase64, "PNG", 0, 0, 65, 15);
+        pdf.setFontSize(8);
+        pdf.setTextColor(0);
+
+
+        pdf.text('Document No.:', 10, 20);
+        pdf.text('OPS-00011', 30, 20);
+        pdf.text('Document Title:', 70, 20)
+        pdf.text('Non-Conformance Report', 90, 20); 
+        pdf.text(`Page: ${pageNum} of ${totalPages}`, 170, 20);
+
+        pdf.setFontSize(14);
+        pdf.text('Internal Process Document', 140, 10);
+
+
+        pdf.setDrawColor(0);
+        pdf.line(0, 15, imgWidth, 15);
+        pdf.line(60, 15, 60, 25);
+        pdf.line(160, 15, 160, 25);
+        pdf.line(0, 25, imgWidth, 25); 
+    };
+
+
+    const addFooter = () => {
+        pdf.setFontSize(8);
+        pdf.setTextColor(0);
+        pdf.setDrawColor(0);
+
+        const footerY = pageHeight - 5; 
+
+
+        pdf.text('Document Author:', 2, footerY-3);
+
+        pdf.text('Document Date:', 62, footerY-3);
+        pdf.text(new Date().toLocaleDateString(), 62, footerY+1);
+
+        pdf.text('Approved By:', 102, footerY-3);
+
+        pdf.text('Revision Date:', 160, footerY-3);
+        pdf.text('07.14.2020', 160, footerY+1); 
+
+        pdf.text('Revision No:', 190, footerY-3);
+        pdf.text('013', 190, footerY+1); 
+
+
+        pdf.setDrawColor(0); 
+        pdf.line(60, footerY - 7, 60, pageHeight);  
+        pdf.line(100, footerY - 7, 100, pageHeight);
+        pdf.line(157, footerY - 7, 157, pageHeight); 
+        pdf.line(187, footerY - 7, 187, pageHeight); 
+
+        pdf.line(0, footerY - 7, imgWidth, footerY - 7); 
+    };
+
+    const position = 30; 
+
+    hideButtons(); 
+
+
+    for (let element of elements) {
+        const originalFontSize = window.getComputedStyle(element).fontSize; 
+        element.style.fontSize = '20px'; 
+
+        const canvas = await html2canvas(element, options);
+        const imgHeight = (canvas.height * imgWidth) / canvas.width; 
+
+        // Convert canvas to JPEG for smaller size
+        const imgData = canvas.toDataURL('image/jpeg', 0.8); 
+        images.push({ imgData, imgHeight });
+
+        element.style.fontSize = originalFontSize; 
+    }
+
+    restoreButtons();
+
+
+    let totalPages = 1;
+    let currentHeight = position;
+
+    images.forEach((image, index) => {
+        if (currentHeight + image.imgHeight + spacing > pageHeight) {
+            totalPages++; 
+            currentHeight = position; 
+        }
+        currentHeight += image.imgHeight + spacing;
+    });
+
+
+    currentHeight = position; 
+    let pageNum = 1;
+
+    for (let image of images) {
+        if (currentHeight + image.imgHeight + spacing > pageHeight) {
+            pageNum++;
+            pdf.addPage(); 
+            currentHeight = 30; 
+        }
+
+
+        await addHeader(pageNum, totalPages);
+        addFooter();
+
+
+        pdf.addImage(image.imgData, 'JPEG', 0, currentHeight, imgWidth, image.imgHeight);
+        currentHeight += image.imgHeight + spacing; 
+    }
+
+    async function convertWebPToBase64(imagePath) {
+        const image = new Image();
+        image.src = imagePath;
+        image.crossOrigin = "Anonymous"; 
+
+        return new Promise((resolve, reject) => {
+            image.onload = function () {
+                const canvas = document.createElement("canvas");
+                canvas.width = image.width;
+                canvas.height = image.height;
+                const ctx = canvas.getContext("2d");
+
+
+                ctx.drawImage(image, 0, 0);
+
+               
+                const base64 = canvas.toDataURL("image/png"); 
+                resolve(base64);
+            };
+
+            image.onerror = function () {
+                reject("Failed to load the image.");
+            };
+        });
+    }
+
+    // Open the PDF in a new tab for print preview
+    const pdfBlob = pdf.output('blob');
+    const pdfUrl = URL.createObjectURL(pdfBlob);
+    const printWindow = window.open(pdfUrl);
+
+    printWindow.addEventListener('load', function () {
+        printWindow.print(); 
+    });
+});
+
 
 
 

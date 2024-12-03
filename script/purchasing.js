@@ -31,6 +31,10 @@ const carDetails = document.getElementById("car-details")
 const yesRadioButton = document.querySelector('input[name="follow-up"][value="yes"]:checked');
 let fields = followUpDetails.querySelectorAll('label, input, span, date'); // You can add other elements you want to disable here
 
+
+
+document.getElementById("save2").addEventListener("click", saveDataToLocalStorage)
+
 if (decision.value != 'return') {
     let fields = subOptions.querySelectorAll('label, select, input, span')
     fields.forEach(field => {
@@ -80,7 +84,31 @@ document.addEventListener('keydown', function (event) {
         }
     }
 })
+function toggleCheck(radio) {
+    // Remove 'checked' class from all sibling radio buttons' parent elements
+    const radios = document.querySelectorAll(`input[name="${radio.name}"]`)
+    radios.forEach(r => r.parentElement.classList.remove('checked'))
 
+    // Add 'checked' class to the selected radio button's parent element
+    if (radio.checked) {
+        radio.parentElement.classList.add('checked')
+    }
+}
+window.onload = function () {
+    // Get the index of the selected report from session storage
+    const index = sessionStorage.getItem('editReportIndex');
+
+    // Retrieve all the saved NCRs from session storage
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRspurch')) || [];
+
+    // Find the NCR using the index
+    const selectedNCR = savedNCRs[index];
+
+    // If a valid NCR is found, populate the inputs with its values
+    if (selectedNCR) {
+        populateFormFromJson(selectedNCR);
+    }
+}
 decision.addEventListener("change", () => {
     // Check if the selected value is "return"
     let fields = subOptions.querySelectorAll('label, select, input, span')
@@ -449,7 +477,7 @@ function validateFields1() {
     } else {
         // If the decision is 'return', check if returnOp is filled
         let returnOpError = returnOp.closest('.tooltip-container')?.nextElementSibling;  // Get the error message for the returnOp field
-    
+
         if (decision.value === 'return') {
             if (returnOp.value.trim() === '') {
                 returnOpError.style.display = 'block';  // Show error if returnOp is empty when decision is 'return'
@@ -461,7 +489,7 @@ function validateFields1() {
             returnOpError.style.display = 'none';  // Ensure returnOp error is hidden if decision is not 'return'
         }
     }
-    
+
 
     const radioErrorSpan = document.getElementById('followUp-error')
 
@@ -471,17 +499,17 @@ function validateFields1() {
         isValid = false
     } else {
         radioErrorSpan.style.display = 'none'  // Hide error if any radio button is selected
-        
+
         // Only validate if the "Yes" option is selected
         if ([...followUpRadioButtons].some(radio => radio.checked && radio.value === "yes")) {
             let fields = followUpDetails.querySelectorAll('input, date') // Skip <span> elements here
-    
+
             fields.forEach(field => {
                 if (field.disabled === false) {  // Check if field is enabled
                     if (field.value.trim() === '') {
                         // If the field is enabled and empty, show an error
                         const errorElement = field.closest('.tooltip-container')?.nextElementSibling;
-                        
+
                         if (errorElement && errorElement.classList.contains('error-message')) {
                             errorElement.style.display = 'block'; // Show error message
                         }
@@ -497,7 +525,7 @@ function validateFields1() {
             })
         }
     }
-    
+
     return isValid;
 }
 
@@ -528,23 +556,23 @@ function validateFields2() {
         isValid = false
     } else {
         radioErrorSpan.style.display = 'none'  // Hide error if any radio button is selected
-        
+
         // Only validate if the "Yes" option is selected
-        if ([...reInspectRadioButtons].some(radio => radio.checked && radio.value === "yes")) {    
-                if (newNCR.disabled === false) {  // Check if field is enabled
-                    if (newNCR.value.trim() === '') {
-                        // If the field is enabled and empty, show an error
-                        const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
-                        errorElement.style.display = 'block'; // Show error message
-                        isValid = false
-                    } else {
-                        // If the field is filled, hide the error
-                        const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
-                        errorElement.style.display = 'none'; // Hide error message
-                    
-                    }
+        if ([...reInspectRadioButtons].some(radio => radio.checked && radio.value === "yes")) {
+            if (newNCR.disabled === false) {  // Check if field is enabled
+                if (newNCR.value.trim() === '') {
+                    // If the field is enabled and empty, show an error
+                    const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
+                    errorElement.style.display = 'block'; // Show error message
+                    isValid = false
+                } else {
+                    // If the field is filled, hide the error
+                    const errorElement = newNCR.closest('.tooltip-container')?.nextElementSibling;;
+                    errorElement.style.display = 'none'; // Hide error message
+
                 }
-            
+            }
+
         }
     }
 
@@ -555,23 +583,23 @@ function validateFields2() {
         isValid = false
     } else {
         carradioErrorSpan.style.display = 'none'  // Hide error if any radio button is selected
-        
+
         // Only validate if the "Yes" option is selected
-        if ([...carRadioButtons].some(radio => radio.checked && radio.value === "yes")) {    
-                if (carDetails.disabled === false) {  // Check if field is enabled
-                    if (carDetails.value.trim() === '') {
-                        // If the field is enabled and empty, show an error
-                        const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
-                        errorElement.style.display = 'block'; // Show error message
-                        isValid = false
-                    } else {
-                        // If the field is filled, hide the error
-                        const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
-                        errorElement.style.display = 'none'; // Hide error message
-                    
-                    }
+        if ([...carRadioButtons].some(radio => radio.checked && radio.value === "yes")) {
+            if (carDetails.disabled === false) {  // Check if field is enabled
+                if (carDetails.value.trim() === '') {
+                    // If the field is enabled and empty, show an error
+                    const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
+                    errorElement.style.display = 'block'; // Show error message
+                    isValid = false
+                } else {
+                    // If the field is filled, hide the error
+                    const errorElement = carDetails.closest('.tooltip-container')?.nextElementSibling;;
+                    errorElement.style.display = 'none'; // Hide error message
+
                 }
-            
+            }
+
         }
     }
 
@@ -581,7 +609,7 @@ function validateFields2() {
         ncrClosedError.style.display = 'block'  // Show error message
         isValid = false
     }
-    else{
+    else {
         ncrClosedError.style.display = 'none'  // Show error message
 
     }
@@ -591,7 +619,7 @@ function validateFields2() {
         ncrResolvedError.style.display = 'block'  // Show error message
         isValid = false
     }
-    else{
+    else {
         ncrResolvedError.style.display = 'none'  // Show error message
 
     }
@@ -909,6 +937,202 @@ function createQueryStringFromNotification(ncrNo) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+// Function to save data to localStorage
+function saveDataToLocalStorage() {
+    const reportData = {
+        "decision": document.getElementById("decision")?.value || "", // If not found, set empty string
+        "return_options": document.getElementById("return-options")?.value || "",
+        "follow_up_required": document.querySelector('input[name="follow-up"]:checked')?.value || "", // For radio buttons
+        "follow_type": document.getElementById("follow-type")?.value || "",
+        "follow_date": document.getElementById("follow-date")?.value || "",
+        "car_raised": document.querySelector('input[name="car"]:checked')?.value || "", // For radio buttons
+        "re_inspected_acceptable": document.querySelector('input[name="re-inspected"]:checked')?.value || "", // For radio buttons
+        "car_number": document.getElementById("car-details")?.value || "",
+        "new_ncr_number": document.getElementById("new-ncr-number")?.value || "",
+        "inspector_name": document.getElementById("inspector-name")?.value || "",
+        "ncr_date": document.getElementById("ncr-date")?.value || "",
+        "quality_closure_date": document.getElementById("quality-date")?.value || "",
+        "ncr_closed": document.querySelector('input[name="ncr-closed"]:checked')?.value || "", // For radio buttons
+        "ncr_resolved": document.querySelector('input[name="ncr-resolved"]:checked')?.value || "" // For radio buttons
+
+    };
+    // Retrieve existing saved reports from localStorage
+    let savedNCRspurch = JSON.parse(localStorage.getItem("savedNCRspurch")) || []
+
+    // Check if a report with the same NCR No. already exists
+    const existingReportIndex = savedNCRspurch.findIndex(report => report.ncr_no === reportData.ncr_no)
+
+    if (existingReportIndex !== -1) {
+        // If it exists, update the existing report
+        savedNCRspurch[existingReportIndex] = reportData
+    } else {
+        // If it doesn't exist, add as a new report
+        savedNCRspurch.push(reportData)
+    }
+
+    // Save the updated reports array back to localStorage
+    localStorage.setItem("savedNCRspurch", JSON.stringify(savedNCRspurch))
+
+    alert("Report saved successfully!")
+}
+
+document.getElementById("save1").addEventListener("click", (e) => {
+    e.preventDefault()
+    saveDataToLocalStorage()
+})
+document.getElementById("save2").addEventListener("click", (e) => {
+    e.preventDefault()
+    saveDataToLocalStorage()
+})
+
+function populateFormFromJson(data) {
+    console.log(data);  // Log the data to check the structure
+
+    // Set Preliminary Decision
+
+    // Set the options if available
+    // if (data.options) {
+    //     document.querySelector("input[name='follow-up'][value='yes']").checked = !!data.options.rework_in_house;
+    //     document.querySelector("input[name='follow-up'][value='no']").checked = !!data.options.scrap_in_house;
+    //     document.querySelector("input[name='car'][value='yes']").checked = !!data.options.defer_to_engineering;
+    //     toggleRadio(document.querySelector("input[name='follow-up'][value='yes']"));
+    //     toggleRadio(document.querySelector("input[name='follow-up'][value='no']"));
+    //     toggleRadio(document.querySelector("input[name='car'][value='yes']"));
+    // }
+
+    // Set Primary Decision
+    document.getElementById("decision").value = data.decision || "";
+
+    // Set Return Options (only shown if "Return to Supplier" is selected as Primary Decision)
+    document.getElementById("return-options").value = data.return_options || "";
+
+    // Set Follow-up Required
+    const followUpRadioYes = document.querySelector("input[name='follow-up'][value='yes']");
+    const followUpRadioNo = document.querySelector("input[name='follow-up'][value='no']");
+
+    // Check if data.follow_up_required is "yes", set the "yes" radio button to checked, and the "no" radio button to unchecked.
+    if (data.follow_up_required === "yes") {
+        followUpRadioYes.checked = true;
+        followUpRadioNo.checked = false;
+        toggleCheck(followUpRadioYes);
+
+    } else {
+        // Otherwise, set the "no" radio button to checked, and "yes" radio button to unchecked.
+        followUpRadioYes.checked = false;
+        followUpRadioNo.checked = true;
+        toggleCheck(followUpRadioNo);
+    }
+
+    // Apply the toggle effect (if needed)
+
+    // Set Follow-up Type
+    document.getElementById("follow-type").value = data.follow_type || "";
+
+    // Set Follow-up Date
+    document.getElementById("follow-date").value = data.follow_date || "";
+
+    // Set CAR Raised
+    // Get the radio buttons
+const carYesRadio = document.querySelector("input[name='car'][value='yes']");
+const carNoRadio = document.querySelector("input[name='car'][value='no']");
+
+// Use an if statement to check the condition and set the correct radio button
+if (data.car_raised === "yes") {
+    carYesRadio.checked = true;
+    carNoRadio.checked = false;
+    toggleCheck(carYesRadio);
+} else if (data.car_raised === "no") {
+    carYesRadio.checked = false;
+    carNoRadio.checked = true;
+    toggleCheck(carNoRadio);
+} else {
+    // Handle any other case, if needed (e.g., default behavior)
+    carYesRadio.checked = false;
+    carNoRadio.checked = false;
+}
+
+
+
+    // Set CAR Number
+    document.getElementById("car-details").value = data.car_number || "";
+
+    // Set Re-Inspected Acceptable
+    // Get the radio buttons
+    const reInspectedYesRadio = document.querySelector("input[name='re-inspected'][value='yes']");
+    const reInspectedNoRadio = document.querySelector("input[name='re-inspected'][value='no']");
+
+    // Use an if statement to check the condition and set the correct radio button
+    if (data.re_inspected_acceptable === "yes") {
+        reInspectedYesRadio.checked = true;
+        reInspectedNoRadio.checked = false;
+        toggleCheck(reInspectedYesRadio);
+    } else if (data.re_inspected_acceptable === "no") {
+        reInspectedYesRadio.checked = false;
+        reInspectedNoRadio.checked = true;
+        toggleCheck(reInspectedNoRadio);
+    } else {
+        // Handle any other case, if needed (e.g., default behavior)
+        reInspectedYesRadio.checked = false;
+        reInspectedNoRadio.checked = false;
+    }
+
+    // Set New NCR Number
+    document.getElementById("new-ncr-number").value = data.new_ncr_number || "";
+
+    // Set Inspector Name
+    document.getElementById("inspector-name").value = data.inspector_name || "";
+
+    // Set NCR Date
+    document.getElementById("ncr-date").value = data.ncr_date || "";
+
+    // Set Quality Department Closure Date
+    document.getElementById("quality-date").value = data.quality_closure_date || "";
+
+    // Set NCR Closed
+    // Get the radio buttons
+    const ncrClosedYesRadio = document.querySelector("input[name='ncr-closed'][value='yes']");
+    const ncrClosedNoRadio = document.querySelector("input[name='ncr-closed'][value='no']");
+
+    // Use an if statement to check the condition and set the correct radio button
+    if (data.ncr_closed === "yes") {
+        ncrClosedYesRadio.checked = true;
+        ncrClosedNoRadio.checked = false;
+        toggleCheck(ncrClosedYesRadio);
+    } else if (data.ncr_closed === "no") {
+        ncrClosedYesRadio.checked = false;
+        ncrClosedNoRadio.checked = true;
+        toggleCheck(ncrClosedNoRadio);
+    } else {
+        // Handle any other case, if needed (e.g., default behavior)
+        ncrClosedYesRadio.checked = false;
+        ncrClosedNoRadio.checked = false;
+    }
+
+
+    // Set NCR Resolved
+    // Get the radio buttons
+    const ncrResolvedYesRadio = document.querySelector("input[name='ncr-resolved'][value='yes']");
+    const ncrResolvedNoRadio = document.querySelector("input[name='ncr-resolved'][value='no']");
+
+    // Use an if statement to check the condition and set the correct radio button
+    if (data.ncr_resolved === "yes") {
+        ncrResolvedYesRadio.checked = true;
+        ncrResolvedNoRadio.checked = false;
+        toggleCheck(ncrResolvedYesRadio);
+    } else if (data.ncr_resolved === "no") {
+        ncrResolvedYesRadio.checked = false;
+        ncrResolvedNoRadio.checked = true;
+        toggleCheck(ncrResolvedNoRadio);
+    } else {
+        // Handle any other case, if needed (e.g., default behavior)
+        ncrResolvedYesRadio.checked = false;
+        ncrResolvedNoRadio.checked = false;
+    }
+
+
+}
+
 clearNotification.addEventListener("click", () => {
     if(user.role == "QA Inspector"){
         localStorage.setItem('QANotification', JSON.stringify([]));
