@@ -479,6 +479,7 @@ const validateQaSection = () => {
     formElements.forEach(field => {
         const inputElement = document.getElementById(field)
         const errorMessage = inputElement.nextElementSibling
+       // const errorMessage = inputElement.closest('.tooltip-container')?.nextElementSibling;
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {

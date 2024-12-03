@@ -95,7 +95,7 @@ function initializeButtons() {
 
     if (user.role === 'QA Inspector' || user.role == 'Admin') {
         // const nextNcrNumber = generateNextNcrNumber(ncr) // Calculate only once
-
+        
         // Update the 'Create NCR' button's action
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html`
@@ -129,8 +129,11 @@ function initializeButtons() {
         })
     }
 
-    if (user.role === 'Lead Engineer') {
+ 
 
+    if (user.role === 'Lead Engineer') {
+        document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for engineer and change the layout
+        document.getElementById("secetionsDashboard").style.gridTemplateColumns = "1fr 1fr 1fr"
         //listing different saved NCRs for each role
         btnSaved.addEventListener('click', () => {
             showTab('saved')
@@ -140,6 +143,11 @@ function initializeButtons() {
         })
 
 
+    }
+
+    if(user.role === 'Purchasing'){
+        document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for Purchasing and change the layout
+        document.getElementById("secetionsDashboard").style.gridTemplateColumns = "1fr 1fr 1fr"
     }
 
     btnView.addEventListener('click', () => {
@@ -277,14 +285,13 @@ function displayRecentReports(data) {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        // Supplier and report information
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
+        const reportNcrNo = document.createElement('span')
+        reportNcrNo.classList.add('ReportNcrNo')
+        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         // Tooltip container and tooltip
         const tooltipContainer = document.createElement('div')
@@ -342,7 +349,8 @@ function displayRecentReports(data) {
         })
 
         // Append elements to the report card
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(reportNcrNo)
+        // reportCard.appendChild(supplierName)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(pinIcon)
 
@@ -373,13 +381,13 @@ function displayPinnedReports() {
         reportCard.classList.add('report-card')
 
         // Assuming ncr is an individual object representing a report
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
+        const reportNcrNo = document.createElement('span')
+        reportNcrNo.classList.add('ReportNcrNo')
+        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
 
-        const reportinfo = document.createElement('span')
-        reportinfo.classList.add('reportInfo')
-        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        const reportInfo = document.createElement('span')
+        reportInfo.classList.add('reportInfo')
+        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         const tooltipContainer = document.createElement('div')
         tooltipContainer.classList.add('tooltip-container')
@@ -434,8 +442,8 @@ function displayPinnedReports() {
         })
 
         // Append the unpin icon to the report card
-        reportCard.appendChild(supplierName)
-        reportCard.appendChild(reportinfo)
+        reportCard.appendChild(reportNcrNo)
+        reportCard.appendChild(reportInfo)
         reportCard.appendChild(unpinIcon)
 
         tooltipContainer.appendChild(reportCard)
@@ -461,16 +469,16 @@ function displaySavedReportsEng() {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
+        const reportNcrNo = document.createElement('span')
+        reportNcrNo.classList.add('ReportNcrNo')
+        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
-        const continueButton = document.createElement('button-eng')
+        const continueButton = document.createElement('button')
         continueButton.classList.add('continue-button-eng')
         continueButton.textContent = "Continue Editing"
 
@@ -484,7 +492,7 @@ function displaySavedReportsEng() {
             }
         })
 
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(reportNcrNo)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(continueButton) // Append the button to the card
 
@@ -507,20 +515,20 @@ function displaySavedReportsQa() {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
+        const reportNcrNo = document.createElement('span')
+        reportNcrNo.classList.add('ReportNcrNo')
+        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.description_item.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
         const continueButton = document.createElement('button')
         continueButton.classList.add('continue-button-qa')
         continueButton.textContent = "Continue Editing"
 
-        // Attach click event to each button with the correct index
+        // Attasavedct index
         continueButton.addEventListener('click', () => {
             // Set the editReportIndex in sessionStorage
             sessionStorage.setItem("editReportIndex", index)
@@ -536,7 +544,7 @@ function displaySavedReportsQa() {
             }, 100) // Short delay to ensure sessionStorage writes
         })
 
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(reportNcrNo)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(continueButton)
 
@@ -675,9 +683,6 @@ function initializeItemBarChart() {
         }
     })
 }
-
-
-
 
 function initializeDateLineChart(ncrData) {
     // Initialize an object to hold the count of reports per date

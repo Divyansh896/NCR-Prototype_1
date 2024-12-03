@@ -10,6 +10,7 @@ const supplierContact = document.getElementById("supplier-contact");
 const supplierShippingMethod = document.getElementById("supplier-shippingMethod");
 const supplierDataContainer = document.getElementById("supplier-data-container");
 const btnExportSupplier = document.getElementById('export-supplier');
+const btnEditSupplier = document.getElementById('edit-supplier');
 const panels = document.querySelectorAll('.tab-panel');
 const btnsupplier = document.getElementById('btn-supplier');
 const btnemployee = document.getElementById('btn-employee');
@@ -25,6 +26,8 @@ const employeeEmail = document.getElementById("employee-email");
 const employeePhone = document.getElementById("employee-phone");
 const employeeDob = document.getElementById("employee-dob");
 const employeeGender = document.getElementById("employee-gender");
+const btnEditEmployee = document.getElementById('edit-employee');
+
 const employeeDataContainer = document.getElementById("employee-data-container");
 const btnExportEmp = document.getElementById('export-employee');
 const btnEmployee = document.getElementById('btn-employee');
@@ -54,6 +57,12 @@ btnExportEmp.addEventListener('click', () => {
         exportToExcelEmployee(employeeSelect.value);
     }
 });
+
+
+//hide the employees list from everyone who is not an admin
+if (user.role !== 'Admin'){
+    document.getElementById("btn-employee").style.display = "none"
+}
 
 // Populate the dropdown on page load
 populateSuppliers();
@@ -210,9 +219,16 @@ function populateAllSuppliers() {
                     <label>Shipping Method:</label>
                     <span>${supplier.shippingMethod}</span>
                 </div>
+                <div>
+                    <button id="edit-supplier" class="edit-supplier-btn">Edit</button>
+                </div>
             </div>
         `;
-
+        const editButton = supplierDiv.querySelector(`#edit-supplier`);
+        editButton.addEventListener('click', () => {
+            // Redirect to the Edit Supplier page with the supplier name in the URL
+            EditSupplier(supplier.supplierName)
+        });
         supplierDataContainer.appendChild(supplierDiv);
     });
 }
@@ -272,8 +288,14 @@ function populateAllEmployees() {
                     <label>Gender:</label>
                     <span>${employee.gender}</span>
                 </div>
-            </div>
+            <div>
+            <button id="edit-employee" class="edit-supplier-btn">Edit</button>
         `;
+        const editButton = employeeDiv.querySelector(`#edit-employee`);
+        editButton.addEventListener('click', () => {
+            // Redirect to the Edit Supplier page with the supplier name in the URL
+            EditEmployee(employee.username)
+        });
 
         employeeDataContainer.appendChild(employeeDiv);
     });
@@ -529,6 +551,22 @@ btnemployee.addEventListener('click', () => {
 
 })
 
+// Button event to edit the selected supplier
+btnEditSupplier.addEventListener('click', ()=>{
+    EditSupplier(supplierName.textContent)
+})
+
+function EditSupplier(name){
+    window.location.href=`Add_supplier.html?SupplierName=${name}`
+}
+
+btnEditEmployee.addEventListener('click', ()=>{
+    EditEmployee(employeeUsername.textContent)
+})
+
+function EditEmployee(name){
+    window.location.href=`add_employee.html?EmployeeuserName=${name}`
+}
 
 function showTab(tab) {
     // Hide all panels

@@ -81,18 +81,20 @@
                             <li class="tools">
                                 <div>
                                     <!-- Tools Trigger -->
-                                 <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
-                                        aria-controls="tools-container">  
+                                    <span onclick="openTools()" aria-expanded="false" id="tools-toggle"
+                                        aria-controls="tools-container">
                                         <i class="fa fa-wrench"></i> Tools
                                     </span>
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -123,7 +125,7 @@
         </nav>
     </div>
     <main>
-        <h1>Add New Employee</h1>
+        <h1 id="heading">Add New Employee</h1>
 
         <div id="popup" class="modal">
             <div class="modal-content">
@@ -144,64 +146,64 @@
                     <div class="two-cols">
                         <div class="tooltip-container">
                             <label for="firstName">First Name:</label>
-                            <input type="text" id="firstName" name="firstName" placeholder="Enter first name"
-                                aria-label="Enter employee's first name here" tabindex="6">
-                                <span class="error-message" id="fName-error"></span>
                             <span class="tooltip">Enter the employee's first name</span>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter first name"
+                            aria-label="Enter employee's first name here" tabindex="6">
                         </div>
+                        <span class="error-message" id="fName-error">First Name is required !</span>
 
                         <div class="tooltip-container">
                             <label for="lastName">Last Name:</label>
-                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name"
-                                aria-label="Enter employee's last name" tabindex="7">
-                                <span class="error-message" id="lName-error"></span>
                             <span class="tooltip">Enter the employee's last name</span>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name"
+                            aria-label="Enter employee's last name" tabindex="7">
                         </div>
+                        <span class="error-message" id="lName-error">Last Name is required !</span>
 
                         <div class="tooltip-container">
                             <label for="empId">Employee Id:</label>
-                            <input type="number" id="empId" name="empId" placeholder="0000"
-                                aria-label="Enter employee ID here" tabindex="8">
-                                <span class="error-message" id="empID-error"></span>
                             <span class="tooltip">Enter the employee's unique ID</span>
+                            <input type="number" id="empId" name="empId" placeholder="0000"
+                            aria-label="Enter employee ID here" tabindex="8">
                         </div>
+                        <span class="error-message" id="empID-error">Employee ID is required !</span>
 
                         <div class="tooltip-container">
                             <label for="dob">Date of Birth:</label>
-                            <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="9">
-                            <span class="error-message" id="DOB-error"></span>
                             <span class="tooltip">Select the employee's date of birth</span>
+                            <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="9">
                         </div>
+                        <span class="error-message" id="DOB-error">Date of birth is required !</span>
                     </div>
                     <div class="two-cols">
 
                         <div class="tooltip-container">
                             <label for="email">Email ID:</label>
+                            <span class="tooltip">Enter the employee's email address</span>
                             <input type="email" id="email" name="email" placeholder="abc@crossfire.ca"
                                 aria-label="Enter email ID" tabindex="10">
-                                <span class="error-message" id="eMail-error"></span>
-                            <span class="tooltip">Enter the employee's email address</span>
                         </div>
+                        <span class="error-message" id="eMail-error">Email Address is required !</span>
 
                         <div class="tooltip-container">
                             <label for="password">Password:</label>
+                            <span class="tooltip">Enter a password for the employee</span>
                             <input type="password" id="password" name="password" placeholder="password"
                                 aria-label="Enter password" tabindex="11">
-                                <span class="error-message" id="password-error"></span>
-                            <span class="tooltip">Enter a password for the employee</span>
-                        </div>
+                            </div>
+                            <span class="error-message" id="password-error">Password is required !</span>
 
                         <div class="tooltip-container">
                             <label for="department">Departments:</label>
+                            <span class="tooltip">Select the employee's department</span>
                             <select id="department" name="department" aria-label="Select department" tabindex="12">
                                 <option value="" disabled selected hidden>Select a department</option>
                                 <option value="QA">QA</option>
                                 <option value="engineer">Engineer</option>
                                 <option value="Purchasing">Purchasing</option>
                             </select>
-                            <span class="error-message" id="dept-error"></span>
-                            <span class="tooltip">Select the employee's department</span>
                         </div>
+                        <span class="error-message" id="dept-error">Selection of department is required !</span>
 
                         <div class="tooltip-container">
                             <div class="btns-employee">

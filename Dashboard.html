@@ -146,7 +146,7 @@
             <div class="left-align">
                 <h1>Dashboard</h1>
             </div>
-            <div class="main-container">
+            <div class="main-container-dashboard" id="secetionsDashboard">
                 <!-- Section 1: Create NCR -->
                 <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
                     <div>
@@ -192,27 +192,27 @@
                         </div>
                     </div>
                 </section>
-            
-                
+                <!-- Section 4: Manage Account -->
+                <section class="featuresCrossfireInsights" aria-labelledby="manage-account-header" id="crossfireInsightsSection">
+                    <div>
+                        <h2 id="manage-account-header">Crossfire Insights</h2>
+                        <p>Manage and export supplier and employee data.</p>
+                        <div class="tooltip-container">
+                            <button id="CrossfireInsights" aria-label="Go to Crossfire Insights page" tabindex="8">
+                                <i class="fa fa-fw fa-user-circle"></i> Crossfire Insights
+                            </button>
+                            <span class="tooltip">
+                                Click here to go to Crossfire Insights page.
+                            </span>
+                        </div>
+                    </div>
+                </section>
             </div>
         </div>
         <div class="main-container">
-            <section class="featuresCrossfireInsights" aria-labelledby="manage-account-header">
-                <div>
-                    <h2 id="manage-account-header">Crossfire Insights</h2>
-                    <p>Manage and export supplier and employee data.</p>
-                    <div class="tooltip-container">
-                        <button id="CrossfireInsights" aria-label="Go to Crossfire Insights page" tabindex="8">
-                            <i class="fa fa-fw fa-user-circle"></i> Crossfire Insights
-                        </button>
-                        <span class="tooltip">
-                            Click here to go to Crossfire Insights page.
-                        </span>
-                    </div>
-                </div>
-            </section>
+            
         </div>
-        <div class="main-container">
+        <div class="main-tab-nav">
             <section>
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
@@ -248,18 +248,18 @@
                 </div>
             </section>
         </div>
-        <div class="main-container">
+        <div class="main-container-graphs">
             <section id="graphs">
                 <div class="linegraph">
                     <h2>NCR Reports Trend Over Time <span class="info-icon"
                         data-description="The 'NCR Reports Trend Over Time' provides a visual representation of the NCR reports that have been created or deleted over time.">ℹ️</span> </h2>
-                        <div class="description"></div>
+                        <div class="info-description"></div>
                     <canvas id="dateLineChart" tabindex="12"></canvas>
                 </div>
                 <div class="bargraph">
                     <h2>Item Occurrence in NCR Reports<span class="info-icon"
                         data-description="The 'Item Occurrence in NCR Reports' offers a clear visual analysis of recurring defective items, helping identify patterns and prioritize corrective actions.">ℹ️</span></h2>
-                        <div class="description"></div>
+                        <div class="info-description"></div>
                     <canvas id="itemBarChart" tabindex="13"></canvas>
                 </div>
             </section>

@@ -6,7 +6,17 @@ const notificationCount = document.getElementById('notification-count');
 setNotificationText()
 
 const ncrNo = localStorage.getItem('ncrNo')
-
+const requiredFields = [
+    { fieldId: 'fname', errorId: 'firstname-error' },
+    { fieldId: 'lname', errorId: 'lastname-error' },
+    { fieldId: 'Uname', errorId: 'username-error' },
+    { fieldId: 'employeeId', errorId: 'empId-error' },
+    { fieldId: 'emailId', errorId: 'email-error' },
+    { fieldId: 'phone', errorId: 'phone-error' },
+    { fieldId: 'bday', errorId: 'dob-error' },
+    { fieldId: 'gender', errorId: 'gender-error' },
+    { fieldId: 'password', errorId: 'password-error' }
+];
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
@@ -67,27 +77,59 @@ function populateUserData(data) {
 // Function to update required fields dynamically
 function showRequiredFields() {
     let isvalid = true;
-    const requiredFields = [
-        'fname', 'lname', 'Uname', 'employeeId', // Changed 'UserId' to 'employeeId'
-        'emailId', 'phone', 'bday', 'gender'
-    ];
 
-    requiredFields.forEach(field => {
-        const inputElement = document.getElementById(field);
-        const labelElement = document.querySelector(`label[for="${field}"]`);
-        const starElement = labelElement.querySelector('.required');
+    
+    
+
+    requiredFields.forEach(({ fieldId, errorId }) => {
+        const inputElement = document.getElementById(fieldId);
+        const errorMessage = document.getElementById(errorId);
+
+        if (!inputElement) {
+            console.warn(`Input element with id "${fieldId}" not found.`);
+            isvalid = false;
+            return;
+        }
+
+        if (!errorMessage) {
+            console.warn(`Error message element with id "${errorId}" not found.`);
+            isvalid = false;
+            return;
+        }
 
         // Check if the input is empty
         if (inputElement.value.trim() === '') {
-            starElement.style.display = 'inline'; // Show star if empty
+            errorMessage.style.display = 'inline'; // Show error if empty
             isvalid = false;
         } else {
-            starElement.style.display = 'none'; // Hide star if filled
+            errorMessage.style.display = 'none'; // Hide error if filled
         }
     });
 
     return isvalid; // Return the final validation result
 }
+
+function attachInputEvents() {
+    
+
+    requiredFields.forEach(({ fieldId, errorId }) => {
+        const inputElement = document.getElementById(fieldId);
+        const errorMessage = document.getElementById(errorId);
+
+
+        const eventType = inputElement.tagName === 'SELECT' || inputElement.type === 'date' ? 'change' : 'input';
+
+        inputElement.addEventListener(eventType, () => {
+            if (inputElement.value.trim() !== '') {
+                errorMessage.style.display = 'none'; // Hide error message when input is valid
+            }
+        });
+    });
+}
+
+// Call this function after the DOM is loaded
+attachInputEvents();
+
 
 // Submit button event listener
 document.getElementById('submit-btn').addEventListener('click', (e) => {
@@ -283,9 +325,9 @@ updateToolContent()
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 setNotificationText()
-document.getElementById("clear").addEventListener("click", function () {
-    document.querySelector("form").reset();
-});
+// document.getElementById("clear").addEventListener("click", function () {
+//     document.querySelector("form").reset();
+// });
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {

@@ -196,7 +196,7 @@
                     <!-- QA Rep Dropdown -->
                     <details id="qa-section" tabindex="6">
                         <summary class="custom-summary custom-summary-loggedNcr"
-                            aria-label="Quality assurance department details">Quality Assurance
+                            aria-label="Quality assurance department details">Quality Information
                         </summary>
                         <div class="qa-info-logged-ncr">
                             <!-- First Column -->
@@ -269,7 +269,7 @@
 
                     <details id="eng-section" tabindex="7">
                         <summary class="custom-summary custom-summary-loggedNcr"
-                            aria-label="Engineering department details">Engineering
+                            aria-label="Engineering department details">Engineering Information
                         </summary>
                         <div class="eng-info-logged-ncr">
                             <!-- First Column -->
@@ -332,6 +332,8 @@
                                     <!-- Primary Decision -->
                                     <div class="tooltip-container">
                                         <label for="decision">Select Primary Decision:</label>
+                                        <span class="tooltip">Choose the action to take for the NCR item, such as return
+                                            or rework.</span>
                                         <select id="decision" aria-label="Select the primary decision">
                                             <option value="" selected disabled>Select preliminary decision</option>
                                             <option value="return">Return to Supplier</option>
@@ -339,11 +341,10 @@
                                             <option value="scrap">Scrap In-House</option>
                                             <option value="defer">Defer for HBC Engineering Review</option>
                                         </select>
-                                        <span class="error-message" aria-live="polite">Please select a primary
-                                            decision.</span>
-                                        <span class="tooltip">Choose the action to take for the NCR item, such as return
-                                            or rework.</span>
                                     </div>
+                                    <span class="error-message" id="decision-error" aria-live="polite">Please select a
+                                        primary
+                                        decision.</span>
 
                                     <!-- Sub-options for "Return to Supplier" -->
                                     <div id="sub-options" aria-label="Options for Return to Supplier"
@@ -356,11 +357,12 @@
                                                 <option value="rework">Rework</option>
                                                 <option value="replacement">Replacement</option>
                                             </select>
-                                            <span class="error-message" aria-live="polite">Please select an option for
-                                                return.</span>
                                             <span class="tooltip">Specify whether the item will be reworked or
                                                 replaced.</span>
                                         </div>
+                                        <span class="error-message" id="return-options-error" aria-live="polite">Please
+                                            select an option for
+                                            return.</span>
                                     </div>
 
 
@@ -400,20 +402,24 @@
                                         <label for="follow-type">Follow-up Type:</label>
                                         <input type="text" id="follow-type" placeholder="Enter follow-up type"
                                             aria-label="Enter follow-up type">
-                                        <span class="error-message" aria-live="polite">Follow-up type is required if
-                                            follow-up is selected.</span>
+
                                         <span class="tooltip">Provide a description of the follow-up action (e.g.,
                                             inspection).</span>
                                     </div>
+                                    <span class="error-message" id="follow-type-error" aria-live="polite">Follow-up type
+                                        is required if
+                                        follow-up is selected.</span>
                                     <div class="tooltip-container">
                                         <label for="follow-date">Expected Date:</label>
                                         <input type="date" id="follow-date"
                                             aria-label="Select the expected follow-up date">
-                                        <span class="error-message" aria-live="polite">Please provide a valid date for
-                                            the follow-up.</span>
+
                                         <span class="tooltip">Select the date by which the follow-up should be
                                             completed.</span>
                                     </div>
+                                    <span class="error-message" id="follow-date-error" aria-live="polite">Please provide
+                                        a valid date for
+                                        the follow-up.</span>
                                 </div>
                             </div>
 
@@ -435,7 +441,8 @@
                             <div class="qa-info-section">
                                 <div>
                                     <label>CAR Raised?</label>
-                                    <span class="error-message" id="car-error" aria-live="polite">Please select whether CAR is raised
+                                    <span class="error-message" id="car-error" aria-live="polite">Please select whether
+                                        CAR is raised
                                     </span>
 
                                     <div class="rad-create-ncr">
@@ -458,60 +465,64 @@
 
                                         </div>
                                     </div>
-                                </div>
-                                <!-- Re-Inspected Acceptable -->
-                                <div>
-                                    <label>Re-Inspected Acceptable?</label>
-                                    <span class="error-message" id="reInspect-error" aria-live="polite">Please select whether re-inspection
-                                        is acceptable.</span>
-
-                                    <div class="rad-create-ncr">
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" name="re-inspected" value="yes" class="hidden-radio"
-                                                    onclick="toggleCheck(this)">
-                                                Yes
-                                            </label>
-                                            <span class="tooltip">Click to select yes.</span>
-
-                                        </div>
-                                        <div class="tooltip-container">
-                                            <label class="radio-button">
-                                                <input type="radio" name="re-inspected" value="no" class="hidden-radio"
-                                                    onclick="toggleCheck(this)">
-                                                No
-                                            </label>
-                                            <span class="tooltip">Click to select no.</span>
-
+                                    <div>
+                                        <label>Re-Inspected Acceptable?</label>
+                                        <span class="error-message" id="reInspect-error" aria-live="polite">Please select
+                                            whether re-inspection
+                                            is acceptable.</span>
+    
+                                        <div class="rad-create-ncr">
+                                            <div class="tooltip-container">
+                                                <label class="radio-button">
+                                                    <input type="radio" name="re-inspected" value="yes" class="hidden-radio"
+                                                        onclick="toggleCheck(this)">
+                                                    Yes
+                                                </label>
+                                                <span class="tooltip">Click to select yes.</span>
+    
+                                            </div>
+                                            <div class="tooltip-container">
+                                                <label class="radio-button">
+                                                    <input type="radio" name="re-inspected" value="no" class="hidden-radio"
+                                                        onclick="toggleCheck(this)">
+                                                    No
+                                                </label>
+                                                <span class="tooltip">Click to select no.</span>
+    
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                <!-- Re-Inspected Acceptable -->
                                 
+
+
 
                                 <div>
                                     <div class="tooltip-container">
 
                                         <label for="car#">Indiacte Car #</label>
                                         <input type="text" id="car-details" placeholder="Indicate car#">
-                                        <span class="error-message">Please enter the car #</span>
                                         <span class="tooltip">Indicate car #</span>
                                     </div>
+                                    <span class="error-message" id="car-details-error">Please enter the car #</span>
+                                    <div>
 
-                                </div>
-
-                                <div>
-
-                                    <!-- New NCR Number -->
-                                    <div class="tooltip-container">
-                                        <label for="new-ncr-number">New NCR Number:</label>
-                                        <input type="text" id="new-ncr-number" placeholder="Enter new NCR number">
-                                        <span class="error-message" aria-live="polite">New NCR number is required if
+                                        <!-- New NCR Number -->
+                                        <div class="tooltip-container">
+                                            <label for="new-ncr-number">New NCR Number:</label>
+                                            <input type="text" id="new-ncr-number" placeholder="Enter new NCR number">
+    
+                                            <span class="tooltip">Enter the NCR number for the new report, if
+                                                required.</span>
+                                        </div>
+                                        <span class="error-message" id="new-ncr-number-error" aria-live="polite">New NCR
+                                            number is required if
                                             applicable.</span>
-                                        <span class="tooltip">Enter the NCR number for the new report, if
-                                            required.</span>
                                     </div>
                                 </div>
+
+                                
 
                                 <!-- New NCR Details -->
                                 <div id="new-ncr-details"> <!--class="conditional-field"-->
@@ -519,25 +530,38 @@
                                     <div class="tooltip-container">
                                         <label for="inspector-name">Inspector's Name:</label>
                                         <input type="text" id="inspector-name" placeholder="Enter inspector's name">
-                                        <span class="error-message" aria-live="polite">Please provide the inspector's
-                                            name.</span>
                                         <span class="tooltip">Enter the full name of the inspector responsible.</span>
                                     </div>
+                                    <span class="error-message" id="inspector-name-error" aria-live="polite">Please
+                                        provide the inspector's
+                                        name.</span>
 
                                     <!-- NCR Date -->
                                     <div class="tooltip-container">
                                         <label for="ncr-date">Date:</label>
                                         <input type="date" id="ncr-date">
-                                        <span class="error-message" aria-live="polite">Please provide the date for the
-                                            NCR.</span>
                                         <span class="tooltip">Select the date when the NCR was issued.</span>
                                     </div>
+                                    <span class="error-message" id="ncr-date-error" aria-live="polite">Please provide
+                                        the date for the
+                                        NCR.</span>
+                                        <!-- Quality Department Closure Details -->
+                                        <div id="ncr-closure-details"> <!--class="conditional-field"-->
+                                            <label for="quality-date">Quality Department Closure Date:</label>
+                                            <input type="date" id="quality-date">
+                                            <span class="tooltip">Select the date the Quality Department closed the
+                                                NCR.</span>
+                                        </div>
+                                        <span class="error-message" id="quality-date-error" aria-live="polite">Please
+                                            provide the closure date
+                                            if the NCR is closed.</span>
                                 </div>
 
                                 <!-- NCR Closed -->
                                 <div>
                                     <label>NCR Closed?</label>
-                                    <span class="error-message" id="ncrClosedError" aria-live="polite">Please indicate if the NCR is
+                                    <span class="error-message" id="ncrClosedError" aria-live="polite">Please indicate
+                                        if the NCR is
                                         closed.</span>
                                     <div class="rad-create-ncr">
                                         <div>
@@ -569,12 +593,13 @@
 
                                     <div>
                                         <label>NCR Resolved?</label>
-                                        <span class="error-message" id="ncrResolvedError" aria-live="polite">Please indicate if the NCR is
+                                        <span class="error-message" id="ncrResolvedError" aria-live="polite">Please
+                                            indicate if the NCR is
                                             resolved.</span>
                                         <div class="rad-create-ncr">
                                             <div>
                                                 <div class="tooltip-container">
-    
+
                                                     <label class="radio-button">
                                                         <input type="radio" name="ncr-resolved" value="yes"
                                                             class="hidden-radio" onclick="toggleCheck(this)">
@@ -582,11 +607,11 @@
                                                     </label>
                                                     <span class="tooltip">Choose "Yes" if the NCR is resolved.</span>
                                                 </div>
-    
+
                                             </div>
                                             <div>
                                                 <div class="tooltip-container">
-    
+
                                                     <label class="radio-button">
                                                         <input type="radio" name="ncr-resolved" value="no"
                                                             class="hidden-radio" onclick="toggleCheck(this)">
@@ -594,29 +619,22 @@
                                                     </label>
                                                     <span class="tooltip">Choose "No" if the NCR is not resolved.</span>
                                                 </div>
-    
-    
+
+
                                             </div>
                                         </div>
 
-                                    <!-- Quality Department Closure Details -->
-                                    <div id="ncr-closure-details"> <!--class="conditional-field"-->
-                                        <label for="quality-date">Quality Department Closure Date:</label>
-                                        <input type="date" id="quality-date">
-                                        <span class="error-message" aria-live="polite">Please provide the closure date
-                                            if the NCR is closed.</span>
-                                        <span class="tooltip">Select the date the Quality Department closed the
-                                            NCR.</span>
+                                        
                                     </div>
                                 </div>
-                                <!-- Buttons -->
-                                <div class="btn-qa-create">
-                                    <button type="button" id="back-btn1" tabindex="23">Back</button>
-                                    <button type="button" id="clear-btn2" tabindex="24">Clear</button>
-                                    <button type="button" id="save2" aria-label="Save current progress"
-                                        tabindex="25">Save</button>
-                                    <button type="button" id="next-btn2" tabindex="26">Next</button>
-                                </div>
+                            </div>
+                            <!-- Buttons -->
+                            <div class="btn-qa-create">
+                                <button type="button" id="back-btn1" tabindex="23">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                <button type="button" id="save2" aria-label="Save current progress"
+                                    tabindex="25">Save</button>
+                                <button type="button" id="next-btn2" tabindex="26">Next</button>
                             </div>
 
                         </fieldset>
@@ -656,7 +674,7 @@
                         </fieldset>
 
                     </form>
-                </div>
+                
             </div>
 
     </main>

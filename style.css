@@ -46,7 +46,7 @@ input[type="email"],
 input[type="number"],
 input[type="tel"],
 select {
-    padding: 0px 10px;
+    padding: 0px 5px;
     height: 40px;
     border-radius: 4px;
     border: 2px solid #163650;
@@ -60,8 +60,11 @@ input[type="date"]:focus,
 input[type="email"]:focus,
 input[type="number"]:focus,
 input[type="tel"]:focus,
-select:focus textarea:focus {
+select:focus textarea:focus,
+textarea:focus,
+select:focus {
     border: 3px solid black;
+    background-color: #e9eff4;
 }
 
 .form-section textarea {
@@ -192,7 +195,7 @@ details {
 .custom-summary::before {
     content: '🔺';
     position: absolute;
-    right: 50px;
+    right: 0px;
     top: 50%;
     transform: translateY(-50%) rotate(150deg);
     font-size: 1.55em;
@@ -316,12 +319,15 @@ nav ul a {
 }
 
 /* Home page */
-.main-container {
+.main-container,
+.main-tab-nav,
+.main-container-graphs,
+.main-container-dashboard {
     display: inline-flex;
     flex-direction: column;
     gap: 40px;
     padding: 15px;
-    margin: 25px auto;
+    width: 100%;
 }
 
 .featuresCreateNCR,
@@ -344,19 +350,19 @@ nav ul a {
 }
 
 .featuresCreateNCR {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/CreateNCR.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("images/CreateNCR.webp");
 }
 
 .featuresViewNCR {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ViewNCR.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("images/ViewNCR.webp");
 }
 
 .featuresManageAcc {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/ManagaeAccount.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("images/ManagaeAccount.webp");
 }
 
 .featuresCrossfireInsights {
-    background-image: linear-gradient(rgba(255, 255, 255, 0.066), rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 1)), url("images/companyInsights.webp");
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.8)), url("images/companyInsights.webp");
 }
 
 .featuresCreateNCR h2,
@@ -403,7 +409,7 @@ nav ul a {
 .report-card,
 .report-card-saved {
     display: flex;
-    gap: 1em;
+    justify-content: space-around;
     padding: 0.5em;
     border: 1px solid #ddd;
     border-radius: 8px;
@@ -412,7 +418,6 @@ nav ul a {
     color: #333;
     transition: all 0.2s ease;
     margin-bottom: 3px;
-    justify-content: left;
     align-items: flex-start;
     align-items: center;
 }
@@ -426,8 +431,8 @@ nav ul a {
     background-color: #e2dfdf;
 }
 
-.report-card .supplier-name,
-.report-card-saved .supplier-name {
+.report-card .ReportNcrNo,
+.report-card-saved .ReportNcrNo {
     font-weight: bold;
 }
 
@@ -465,7 +470,7 @@ nav ul a {
     background-color: #ddd;
     transition: background-color 0.3s ease, color 0.3s ease;
     margin-right: 12px;
-    font-size: 14px;
+    font-size: 12px;
     padding: 8px 16px;
 }
 
@@ -528,7 +533,7 @@ nav ul a {
     /* Align items to the start (top) */
     text-align: left;
     /* Align text to the left */
-    padding: 20px;
+    padding: 10px;
     background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
@@ -616,7 +621,6 @@ fieldset legend {
 
 .form-section.active {
     display: flex;
-    padding: 20px;
     margin: 0 0 10px 0;
     border-radius: 5px;
     border: none;
@@ -630,7 +634,8 @@ fieldset legend {
 }
 
 .form-section.active button,
-.btns-supplier button {
+.btns-supplier button
+ {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -639,11 +644,15 @@ fieldset legend {
 }
 
 .form-section.active button:hover,
-#saveAndLeaveBtn:hover {
+#saveAndLeaveBtn:hover,
+.continue-button-qa:hover, 
+.continue-button-eng:hover {
     background-color: #10223d;
 }
 
-#saveAndLeaveBtn {
+#saveAndLeaveBtn,
+.continue-button-qa,
+.continue-button-eng {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -660,9 +669,8 @@ fieldset legend {
 #save1,
 #save2,
 #leaveWithoutSavingBtn,
-#cancelBtn,
-.continue-button-qa,
-.continue-button-eng {
+#cancelBtn
+ {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -677,9 +685,7 @@ fieldset legend {
 #save1:hover,
 #save2:hover,
 #leaveWithoutSavingBtn:hover,
-#cancelBtn:hover,
-.continue-button-qa:hover,
-.continue-button-eng:hover {
+#cancelBtn:hover{
     background-color: #e0e0e0;
 }
 
@@ -1147,13 +1153,13 @@ input[type="radio"] {
 .ncr-table thead th {
     background-color: #1a3153;
     color: #f4f4f4;
-    padding: 18px;
+    padding: 5px;
     border-bottom: 2px solid #ccc;
     font-weight: bold;
 }
 
 .ncr-table tbody td {
-    padding: 12px;
+    padding: 5px;
     border-bottom: 1px solid #e0e0e0;
 }
 
@@ -1678,7 +1684,7 @@ td button:focus {
 }
 
 .ttip-descr {
-    bottom: 280px;
+    bottom: 217px;
 }
 
 .ttip-btn-reset {
@@ -1746,7 +1752,7 @@ td button:focus {
 /* Container styles */
 #supplier-container,
 #employee-container {
-    width: 378px;
+    width: 100%;
     padding: 20px;
     background-color: #ffffff;
     border-radius: 8px;
@@ -1849,7 +1855,6 @@ td button:focus {
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    width: 80px;
 }
 
 #export-supplier:hover,
@@ -1874,7 +1879,10 @@ td button:focus {
 .drop-shadow {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-bottom: 20px;
-    padding-left: 10px;
+    padding: 10px;
+}
+.info-description{
+    margin: 10px 0;
 }
 
 
@@ -1902,10 +1910,14 @@ td button:focus {
     }
 
     /*home*/
-    .main-container {
+    .main-container,
+    .main-tab-nav,
+    .main-container-graphs,
+    .main-container-dashboard {
         display: block;
         text-align: center;
         margin: 10px 100px;
+        width: auto;
     }
 
 
@@ -1917,7 +1929,7 @@ td button:focus {
     .featuresViewNCR,
     .featuresManageAcc,
     .featuresCrossfireInsights {
-        margin: 40px 0px;
+        margin: 20px 0px;
         height: 250px;
     }
 
@@ -2072,12 +2084,18 @@ td button:focus {
         width: 100%;
     }
 
-    .ncr-table tbody td {
-        padding: 5px 15px;
+    .ncr-table tbody td,
+    .ncr-table thead th {
+        padding: 20px 15px;
     }
 
-    .main-container section {
+    .main-container section,
+    .main-container-dashboard section {
         width: 100%;
+    }
+
+    .ncr-buttons{
+        padding: 10px 20px;
     }
 
     /* account */
@@ -2267,6 +2285,10 @@ td button:focus {
         height: 60vh;
         width: 670px;
     }
+
+    .ttip-descr {
+        bottom: 265px;
+    }
 }
 
 
@@ -2301,6 +2323,7 @@ td button:focus {
     /*general*/
     h1 {
         font-size: 2rem;
+        margin-bottom: 20px;
     }
 
     label,
@@ -2309,7 +2332,10 @@ td button:focus {
     }
 
     /*home page*/
-    .main-container {
+    .main-container,
+    .main-tab-nav,
+    .main-container-graphs,
+    .main-container-dashboard {
         padding: 40px;
     }
 
@@ -2410,15 +2436,24 @@ td button:focus {
     /*home*/
 
     .main-container,
-    .left-align {
-        display: flex;
-        flex-direction: row;
+    .main-tab-nav,
+    .left-align,
+    .main-container-graphs,
+    .main-container-dashboard
+     {
         max-width: 1200px;
         margin: 0 auto;
         justify-content: space-between;
         padding: 0 40px 40px;
-
     }
+
+
+    .main-container-dashboard{
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    
 
     .left-align {
         padding-bottom: 0;
@@ -2428,10 +2463,12 @@ td button:focus {
     .featuresViewNCR,
     .featuresManageAcc,
     .featuresCrossfireInsights {
+        margin: 0px 0px;
         padding-top: 315px;
     }
 
-    .main-container section {
+    .main-container section,
+    .main-container-dashboard section {
         width: 100%;
 
     }
@@ -2440,28 +2477,15 @@ td button:focus {
     .featuresViewNCR,
     .featuresManageAcc,
     .featuresCrossfireInsights {
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        color: #fff;
-        flex: 0 1 30%;
         height: 200px;
         padding: 20px;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        transition: transform 0.3s ease;
-        position: relative;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
     .featuresManageAcc h2,
     .featuresCrossfireInsights h2 {
-        font-size: 2rem;
+        font-size: 1.7rem;
     }
 
     .reportInfo {
@@ -2516,14 +2540,16 @@ td button:focus {
 
     .featuresCreateNCR p,
     .featuresViewNCR p,
-    .featuresManageAcc p {
-        font-size: 1.25em;
+    .featuresManageAcc p,
+    .featuresCrossfireInsights p {
+        font-size: 0.9em;
         margin: 25px 0 20px;
     }
 
     .featuresCreateNCR:hover,
     .featuresViewNCR:hover,
-    .featuresManageAcc:hover {
+    .featuresManageAcc:hover,
+    .featuresCrossfireInsights:hover {
         transform: scale(1.05);
     }
 
@@ -2595,13 +2621,13 @@ td button:focus {
         background-repeat: no-repeat;
     }
 
-    .status-steps {
-        flex-direction: column;
-    }
-
     .step-icon {
         display: block;
     }
+
+.radio-btn {
+    font-size: 1rem;
+}
 
     .status-steps {
         list-style: none;
@@ -2611,6 +2637,7 @@ td button:focus {
         flex-direction: column;
         align-items: flex-start;
         width: 100%;
+        gap: 15px
     }
 
     .status-step {
@@ -2666,6 +2693,10 @@ td button:focus {
 
     .status-step.completed .step-icon {
         background-color: #1a3153;
+    }
+
+    .custom-summary::before {
+        right: 50px;
     }
 
     .controls-container {
@@ -2880,7 +2911,8 @@ td button:focus {
 
     td button {
         margin: 10px 5px;
-        width: 115px;
+        width: 140px;
+        padding: 5px;
     }
 
     .chkboxes-logged-ncr .radio-button {
@@ -2948,13 +2980,20 @@ td button:focus {
     }
 
     h1 {
-        font-size: 3.5rem;
+        font-size: 3rem;
+    }
+    
+    h2{
+        font-size: 2.3rem;
     }
 
     label,
+    p,
     .featuresCreateNCR p,
     .featuresViewNCR p,
-    .featuresManageAcc p {
+    .featuresManageAcc p,
+    .featuresCrossfireInsights p
+    {
         font-size: 1.7rem;
     }
 
@@ -2990,16 +3029,19 @@ td button:focus {
     }
 
     /*home page */
-    .main-container {
-        gap: 200px;
+    .main-container,
+    .main-tab-nav,
+    .main-container-graphs,
+    .main-container-dashboard {
         padding: 20px;
         max-width: 1800px;
     }
 
     .featuresCreateNCR h2,
     .featuresViewNCR h2,
-    .featuresManageAcc h2 {
-        font-size: 2.5rem;
+    .featuresManageAcc h2,
+    .featuresCrossfireInsights h2 {
+        font-size: 2.3rem;
     }
 
     button,
@@ -3012,6 +3054,7 @@ td button:focus {
     select {
         height: 60px;
         font-size: 1.7rem;
+        width: 90%;
     }
 
     .form-section textarea {
@@ -3020,16 +3063,33 @@ td button:focus {
 
     .featuresCreateNCR,
     .featuresViewNCR,
-    .featuresManageAcc {
-        height: 600px;
+    .featuresManageAcc,
+    .featuresCrossfireInsights {
+        height: 300px;
     }
 
     .featuresCreateNCR button,
     .featuresViewNCR button,
-    .featuresManageAcc button {
-        border-radius: 20px;
+    .featuresManageAcc button,
+    .featuresCrossfireInsights button {
         width: 50%;
-        height: 75px;
+        height: 50px;
+    }
+
+    .report-card{
+        height: 70px;
+        font-size: 1.5rem
+
+    }
+
+    .report-card button{
+        height: 50px;
+        font-size: 1.5rem
+    }
+
+    .tab-button.active,
+    .tab-button{
+        font-size: 1.5rem 
     }
 
     /* view ncr */
@@ -3065,11 +3125,7 @@ td button:focus {
     }
 
     /*create cncr*/
-    .qa-info-section input[type="text"],
-    .qa-info-section input[type="number"],
-    .qa-info-section select {
-        width: 90%;
-    }
+
 
     .form-section.active label {
         font-size: 2rem;
