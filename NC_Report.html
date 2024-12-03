@@ -151,14 +151,14 @@
             </div>
             <!---Download File Button-->
             <div class="button-container">
-                <button id="print" class="ncr-buttons" onclick="window.print()"><i class="fa fa-print"
+                <button id="print" class="ncr-buttons"><i class="fa fa-print"
                         aria-hidden="true"></i> Print NCR</button>
                 <button id="downloadPdf" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i> Download
                     NCR</button>
 
-                <button id="btnExportExcel" class="ncr-buttons"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel</button>
+                <button id="btnExportExcel" class="ncr-buttons"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                    Export To Excel</button>
             </div>
-
 
             <details>
                 <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
@@ -166,108 +166,107 @@
                 <div class="two-cols-view">
                     <!-- First Column -->
                     <div class="form-row">
-                        <div class="form-group">
-                            <label for="qa-name">QA Name:</label>
-                            <span class="qa-editable" id="qa-name" name="qa_name"
-                                placeholder="Enter QA representative name" tabindex="7"></span>
-                        </div>
+                        <fieldset class="report-fieldsets">
+                            <legend>Quality Representative Information</legend>
+                            <div class="form-group">
+                                <label for="qa-name">Quality Representative's Name:</label>
+                                <span class="qa-editable" id="qa-name" name="qa_name"
+                                    placeholder="Enter QA representative name" tabindex="7"></span>
+                            </div>
+                        </fieldset>
+                        <fieldset class="report-fieldsets">
+                            <legend>Product Inforamtion</legend>
+                            <div class="form-group">
+                                <label for="ncr-no">NCR No.:</label>
+                                <span class="qa-editable" id="ncr-no" name="ncr_no" readonly
+                                    placeholder="Enter NCR number" tabindex="8"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="ncr-no">NCR No.:</label>
-                            <span class="qa-editable" id="ncr-no" name="ncr_no" readonly placeholder="Enter NCR number"
-                                tabindex="8"></span>
-                        </div>
+                            <div class="form-group">
+                                <label for="item-name">Item Name</label>
+                                <span class="qa-editable" id="item-name" name="item_name" readonly
+                                    placeholder="Item Name"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="qa-date">QA Date:</label>
+                                <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="item-name">Item Name</label>
-                            <span class="qa-editable" id="item-name" name="item_name" readonly
-                                placeholder="Item Name"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="qa-date">QA Date:</label>
-                            <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
-                        </div>
+                            <div class="form-group">
+                                <label for="supplier-name">Supplier Name:</label>
+                                <span class="qa-editable" id="supplier-name" name="supplier_name"
+                                    placeholder="Enter supplier name" required tabindex="13"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="supplier-name">Supplier Name:</label>
-                            <span class="qa-editable" id="supplier-name" name="supplier_name"
-                                placeholder="Enter supplier name" required tabindex="13"></span>
-                        </div>
+                            <div class="form-group">
+                                <label for="product-no">Product No.:</label>
+                                <span class="qa-editable" id="product-no" name="product_no"
+                                    placeholder="Enter product number" required tabindex="14"></span>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="product-no">Product No.:</label>
-                            <span class="qa-editable" id="product-no" name="product_no"
-                                placeholder="Enter product number" required tabindex="14"></span>
-                        </div>
+                            <div class="form-group">
+                                <label for="sales-order-no">Sales Order No.:</label>
+                                <span class="qa-editable" id="sales-order-no" name="sales_order_no"
+                                    placeholder="Enter sales order number" tabindex="9"></span>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="quantity-received">Quantity Received:</label>
+                                <span class="qa-editable" id="quantity-received" name="quantity_received"
+                                    placeholder="Enter quantity received" tabindex="10"></span>
+                            </div>
 
+                            <div class="form-group">
+                                <label for="quantity-defective">Quantity Defective:</label>
+                                <span class="qa-editable" id="quantity-defective" name="quantity_defective"
+                                    placeholder="Enter quantity defective" tabindex="11"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="process">Identify Process Applicable:</label>
+                                <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
+                                </span>
+                            </div>
+                        </fieldset>
                     </div>
+                    <div>
+                        <fieldset class="report-fieldsets">
+                            <legend>Product Description</legend>
+                            <div class="form-row span-two-cols">
+                                <div class="form-group">
+                                    <label for="description-item">Description of Item (Including SAP No):</label>
+                                    <span class="qa-editable" id="description-item" name="description_item"
+                                        placeholder="Enter description of item" required tabindex="17"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="description-defect">Description of Defect:</label>
+                                    <span class="qa-editable" id="description-defect" name="description_defect"
+                                        placeholder="Enter description of defect" required tabindex="18"></span>
+                                </div>
 
 
-                    <div class="two-cols-view">
-                        <div class="form-row span-two-cols">
-                            <!-- Textarea Section -->
-                            <div class="form-group description">
-                                <label for="description-item">Description of Item (Including SAP No):</label>
-                                <span class="qa-editable" id="description-item" name="description_item"
-                                    placeholder="Enter description of item" required tabindex="17"></span>
-                            </div>
+                                    <!-- Radio Buttons for Non-Conforming -->
+                                    
+                                    <div class="form-group">
+                                            <label>Item Marked Non-Conforming?:</label>
+                                            <span class="qa-editable" id="item-marked-yes"
+                                                name="item_marked_nonconforming" value="yes" tabindex="19"></span>
 
-                            <div class="form-group description">
-                                <label for="description-defect">Description of Defect:</label>
-                                <span class="qa-editable" id="description-defect" name="description_defect"
-                                    placeholder="Enter description of defect" required tabindex="18"></span>
-                            </div>
-
-
-                            <div class="form-group description">
-                                <!-- Radio Buttons for Non-Conforming -->
-                                <label>Item Marked Non-Conforming?:</label>
-                                <div class="rad-report">
-                                    <div>
-                                        <span class="qa-editable" id="item-marked-yes" name="item_marked_nonconforming"
-                                            value="yes" tabindex="19"></span>
-
-                                        <span class="qa-editable" id="item-marked-no" name="item_marked_nonconforming"
-                                            value="no" tabindex="20"></span>
+                                            <span class="qa-editable" id="item-marked-no"
+                                                name="item_marked_nonconforming" value="no" tabindex="20"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="resolved">Resolved:</label>
+                                        <span class="qa-editable" id="qa-resolved" name="resolved" aria-label="Resolved"
+                                            tabindex="15"></span>
                                     </div>
                                 </div>
-                                <div class="resolved">
-                                    <label for="resolved">Resolved:</label>
-                                    <span class="qa-editable" id="qa-resolved" name="resolved" aria-label="Resolved"
-                                        tabindex="15"></span>
-                                </div>
                             </div>
-                        </div>
+                        </fieldset>
                     </div>
-                    <!-- Second Column -->
-                    <div class="form-row">
-
-                        <div class="form-group">
-                            <label for="sales-order-no">Sales Order No.:</label>
-                            <span class="qa-editable" id="sales-order-no" name="sales_order_no"
-                                placeholder="Enter sales order number" tabindex="9"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantity-received">Quantity Received:</label>
-                            <span class="qa-editable" id="quantity-received" name="quantity_received"
-                                placeholder="Enter quantity received" tabindex="10"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="quantity-defective">Quantity Defective:</label>
-                            <span class="qa-editable" id="quantity-defective" name="quantity_defective"
-                                placeholder="Enter quantity defective" tabindex="11"></span>
-                        </div>
-                        <div class="form-group">
-                            <label for="process">Identify Process Applicable:</label>
-                            <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
-                            </span>
-                        </div>
-                    </div>
-
                 </div>
+                <!-- Second Column -->
+
                 <!---Buttons-->
                 <div class="btn-report">
                     <button class="edit" data-department="QA Inspector" tabindex="22">Edit</button>
@@ -275,95 +274,100 @@
 
             </details>
 
+
             <!-- Engineering department -->
+
             <details>
                 <summary class="custom-summary" aria-label="Engineering department details">Engineering</summary>
                 <div class="two-cols-view">
+                    <!-- First Column -->
                     <div class="form-row">
-                        <div class="confirm-create-qa">
+                        <fieldset class="report-fieldsets">
+                            <legend>Engineer Details</legend>
+                            <div class="confirm-create-qa">
+                                <div class="form-group">
+                                    <label for="engineer-name">Engineer Name:</label>
+                                    <span class="eng-editable" id="engineer-name" name="engineer_name"
+                                        aria-label="Engineer Name" tabindex="23"
+                                        placeholder="Enter engineer's name..."></span>
+                                </div>
+                            </div>
+                        </fieldset>
+                        <fieldset class="report-fieldsets">
+                            <legend>Revision Information</legend>
                             <div class="form-group">
-                                <label for="engineer-name">Engineer Name:</label>
-                                <span class="eng-editable" id="engineer-name" name="engineer_name"
-                                    aria-label="Engineer Name" tabindex="23"
-                                    placeholder="Enter engineer's name..."></span>
+                                <label for="original-rev-number">Original Revision Number:</label>
+                                <span class="eng-editable" id="original-rev-number" name="original_rev_number"
+                                    aria-label="Original Revision Number" tabindex="26"
+                                    placeholder="e.g., Rev-001"></span>
                             </div>
-                        </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="resolved">Resolved:</label>
+                                    <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
+                                        tabindex="30"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label for="customer-notification">Customer Notification:</label>
+                                    <span class="eng-editable" id="customer-notification" name="customer_notification"
+                                        aria-label="Customer Notification Required" tabindex="31"></span>
+                                </div>
 
-                        <div class="form-group">
-                            <label for="disposition">Disposition:</label>
-                            <span class="eng-editable" id="disposition" name="disposition" aria-label="Disposition"
-                                tabindex="24">
-                            </span>
-                        </div>
-                        <div class="form-group">
-                            <label for="original-rev-number">Original Revision Number:</label>
-                            <span class="eng-editable" id="original-rev-number" name="original_rev_number"
-                                aria-label="Original Revision Number" tabindex="26" placeholder="e.g., Rev-001"></span>
-                        </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="updated-rev-number">Updated Revision Number:</label>
+                                    <span class="eng-editable" id="updated-rev-number" name="updated_rev_number"
+                                        aria-label="Updated Revision Number" tabindex="27"
+                                        placeholder="e.g., Rev-002"></span>
+                                </div>
 
+                                <div class="form-group">
+                                    <label for="revision-date">Revision Date:</label>
+                                    <span class="eng-editable" id="revision-date" name="revision_date"
+                                        aria-label="Revision Date" tabindex="28"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="engineering-review-date">Engineering Review Date:</label>
+                                    <span class="eng-editable" id="engineering-review-date"
+                                        name="engineering_review_date" aria-label="Engineering Review Date"
+                                        tabindex="29"></span>
+                                </div>
+                            </div>
+                        </fieldset>
                     </div>
-                    <div class="form-row">
-                        <div class="form-group">
-                            <div class="rad-report">
-                                <label for="resolved">Resolved:</label>
-                                <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
-                                    tabindex="30"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
+                    <div>
 
-                            <div class="rad-report">
-                                <label for="customer-notification">Customer Notification:</label>
-                                <span class="eng-editable" id="customer-notification" name="customer_notification"
-                                    aria-label="Customer Notification Required" tabindex="31"></span>
+                        <fieldset class="report-fieldsets">
+                            <legend>Disposition Details</legend>
+                            <div class="form-group">
+                                <label for="disposition">Disposition:</label>
+                                <span class="eng-editable" id="disposition" name="disposition" aria-label="Disposition"
+                                    tabindex="24">
+                                </span>
                             </div>
-                        </div>
-                        <div class="form-group">
-
-                            <div class="rad-report">
-                                <label for="drawing-update-required">Drawing Update:</label>
-                                <span class="eng-editable" id="drawing-update-required" name="drawing_update_required"
-                                    aria-label="Drawing Update Required" tabindex="32"></span>
+                                <div class="form-group">
+                                    <label for="disposition-details">Disposition Details:</label>
+                                    <span class="eng-editable" id="disposition-details" name="disposition_details"
+                                        aria-label="Disposition Details" rows="4" tabindex="25"
+                                        placeholder="Enter details about the disposition..."></span>
+                                </div>
+                            <div class="form-group">
+                                    <label for="drawing-update-required">Drawing Update:</label>
+                                    <span class="eng-editable" id="drawing-update-required"
+                                        name="drawing_update_required" aria-label="Drawing Update Required"
+                                        tabindex="32"></span>
                             </div>
-                        </div>
-
+                        </fieldset>
                     </div>
-                    <div class="form-row">
-
-
-                        <div class="form-group">
-                            <label for="updated-rev-number">Updated Revision Number:</label>
-                            <span class="eng-editable" id="updated-rev-number" name="updated_rev_number"
-                                aria-label="Updated Revision Number" tabindex="27" placeholder="e.g., Rev-002"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="revision-date">Revision Date:</label>
-                            <span class="eng-editable" id="revision-date" name="revision_date"
-                                aria-label="Revision Date" tabindex="28"></span>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="engineering-review-date">Engineering Review Date:</label>
-                            <span class="eng-editable" id="engineering-review-date" name="engineering_review_date"
-                                aria-label="Engineering Review Date" tabindex="29"></span>
-                        </div>
-                        <div style="display: flex;" class="desc-engineer form-group">
-                            <label for="disposition-details">Disposition Details:</label>
-                            <span class="eng-editable" id="disposition-details" name="disposition_details"
-                                aria-label="Disposition Details" rows="4" tabindex="25"
-                                placeholder="Enter details about the disposition..."></span>
-                        </div>
-                    </div>
-
-
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
                     <button class="edit" data-department="Lead Engineer" tabindex="22">Edit</button>
                 </div>
-
             </details>
+
 
 
             <!-- purchasing department -->
@@ -468,7 +472,7 @@
                 </div>
 
             </details>
-            <details>
+            <details class="img-details">
                 <summary class="custom-summary" aria-label="Defected product images">Defected product images</summary>
                 <div class="form-row">
                     <div class="form-group">
