@@ -330,8 +330,11 @@
                             <div class="qa-info-section">
                                 <div class="qa-info">
                                     <!-- Primary Decision -->
+                                    <label for="decision">Select Primary Decision:<span class="info-icon"
+                                            data-description="Select Primary Decision in an NCR report involves choosing the main course of action to address the non-conformance. This could include options like rework, repair, accept as-is, or scrap, ensuring a clear resolution path aligned with project requirements."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="decision">Select Primary Decision:</label>
                                         <span class="tooltip">Choose the action to take for the NCR item, such as return
                                             or rework.</span>
                                         <select id="decision" aria-label="Select the primary decision">
@@ -349,9 +352,11 @@
                                     <!-- Sub-options for "Return to Supplier" -->
                                     <div id="sub-options" aria-label="Options for Return to Supplier"
                                         class="conditional-field">
+                                        <label for="return-options">Return Options:<span class="info-icon"
+                                                data-description="Return Options in an NCR report outline the possible actions for non-conforming items, such as returning them to the supplier, reworking them on-site, or scrapping them. These options help determine the appropriate resolution while minimizing project delays and costs."><i
+                                                    class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
                                         <div class="tooltip-container">
-
-                                            <label for="return-options">Return Options:</label>
                                             <select id="return-options" aria-label="Select return option">
                                                 <option value="" selected disabled>Select return option</option>
                                                 <option value="rework">Rework</option>
@@ -367,7 +372,10 @@
 
 
                                     <!-- Follow-up Required -->
-                                    <label>Follow-up Required?</label>
+                                    <label>Follow-up Required? <span class="info-icon"
+                                            data-description="'Follow-up Required?' in an NCR report indicates whether additional actions or checks are needed after implementing corrective measures. This ensures the issue is fully resolved and prevents recurrence, maintaining compliance with quality standards."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <span class="error-message" id="followUp-error" aria-live="polite">Please select if
                                         follow-up is
                                         required.</span>
@@ -398,8 +406,11 @@
 
                                 <!-- Follow-up Type and Date -->
                                 <div id="follow-up-details" aria-hidden="true" aria-label="Follow-up details section">
+                                    <label for="follow-type">Follow-up Type:<span class="info-icon"
+                                            data-description="The Follow-up Type in an NCR report specifies the nature of additional actions needed, such as inspections, testing, or verification of corrective actions. This helps ensure the resolution is effective and aligned with quality requirements."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="follow-type">Follow-up Type:</label>
                                         <input type="text" id="follow-type" placeholder="Enter follow-up type"
                                             aria-label="Enter follow-up type">
 
@@ -409,8 +420,11 @@
                                     <span class="error-message" id="follow-type-error" aria-live="polite">Follow-up type
                                         is required if
                                         follow-up is selected.</span>
+                                    <label for="follow-date">Expected Date:<span class="info-icon"
+                                            data-description="The Expected Date in an NCR report indicates the projected timeline for completing corrective actions or resolving the non-conformance. This date helps ensure timely resolution and effective tracking of the issue's progress."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="follow-date">Expected Date:</label>
                                         <input type="date" id="follow-date"
                                             aria-label="Select the expected follow-up date">
 
@@ -440,7 +454,10 @@
                             aria-label="Product description">
                             <div class="qa-info-section">
                                 <div>
-                                    <label>CAR Raised?</label>
+                                    <label>CAR Raised?<span class="info-icon"
+                                            data-description="'CAR Raised?' in an NCR report indicates whether a Corrective Action Report (CAR) has been initiated to address the root cause of the non-conformance. This ensures a formal process is in place to prevent the recurrence of the issue and improve overall quality."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <span class="error-message" id="car-error" aria-live="polite">Please select whether
                                         CAR is raised
                                     </span>
@@ -466,42 +483,48 @@
                                         </div>
                                     </div>
                                     <div>
-                                        <label>Re-Inspected Acceptable?</label>
-                                        <span class="error-message" id="reInspect-error" aria-live="polite">Please select
+                                        <label>Re-Inspected Acceptable?<span class="info-icon"
+                                                data-description="'Re-Inspected Acceptable?' in an NCR report confirms whether the non-conforming item, after corrective actions or rework, has passed the re-inspection. This ensures that the issue has been properly resolved and meets the required quality standards before final acceptance."><i
+                                                    class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
+                                        <span class="error-message" id="reInspect-error" aria-live="polite">Please
+                                            select
                                             whether re-inspection
                                             is acceptable.</span>
-    
+
                                         <div class="rad-create-ncr">
                                             <div class="tooltip-container">
                                                 <label class="radio-button">
-                                                    <input type="radio" name="re-inspected" value="yes" class="hidden-radio"
-                                                        onclick="toggleCheck(this)">
+                                                    <input type="radio" name="re-inspected" value="yes"
+                                                        class="hidden-radio" onclick="toggleCheck(this)">
                                                     Yes
                                                 </label>
                                                 <span class="tooltip">Click to select yes.</span>
-    
+
                                             </div>
                                             <div class="tooltip-container">
                                                 <label class="radio-button">
-                                                    <input type="radio" name="re-inspected" value="no" class="hidden-radio"
-                                                        onclick="toggleCheck(this)">
+                                                    <input type="radio" name="re-inspected" value="no"
+                                                        class="hidden-radio" onclick="toggleCheck(this)">
                                                     No
                                                 </label>
                                                 <span class="tooltip">Click to select no.</span>
-    
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <!-- Re-Inspected Acceptable -->
-                                
+
 
 
 
                                 <div>
-                                    <div class="tooltip-container">
-
-                                        <label for="car#">Indiacte Car #</label>
+                                    
+                                    <label for="car#">Indiacte Car #<span class="info-icon"
+                                        data-description="'Indicate CAR #' in an NCR report refers to the specific reference number of the Corrective Action Report (CAR) associated with the non-conformance. This helps track the issue through the corrective action process and ensures proper documentation and follow-up."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
+                                        <div class="tooltip-container">
                                         <input type="text" id="car-details" placeholder="Indicate car#">
                                         <span class="tooltip">Indicate car #</span>
                                     </div>
@@ -509,10 +532,12 @@
                                     <div>
 
                                         <!-- New NCR Number -->
-                                        <div class="tooltip-container">
-                                            <label for="new-ncr-number">New NCR Number:</label>
+                                        <label for="new-ncr-number">New NCR Number:<span class="info-icon"
+                                            data-description="The New NCR Number in an NCR report is a unique identifier assigned to a newly raised non-conformance. It helps in tracking the issue, ensuring proper documentation, and maintaining a clear record for resolution and follow-up actions."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                            <div class="info-description"></div>
+                                            <div class="tooltip-container">
                                             <input type="text" id="new-ncr-number" placeholder="Enter new NCR number">
-    
+
                                             <span class="tooltip">Enter the NCR number for the new report, if
                                                 required.</span>
                                         </div>
@@ -522,13 +547,16 @@
                                     </div>
                                 </div>
 
-                                
+
 
                                 <!-- New NCR Details -->
                                 <div id="new-ncr-details"> <!--class="conditional-field"-->
                                     <!-- Inspector's Name -->
+                                    <label for="inspector-name">Inspector's Name:<span class="info-icon"
+                                            data-description="The Inspector's Name in an NCR report identifies the individual responsible for inspecting the non-conformance. This ensures accountability and provides a point of reference for the review and resolution process."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="inspector-name">Inspector's Name:</label>
                                         <input type="text" id="inspector-name" placeholder="Enter inspector's name">
                                         <span class="tooltip">Enter the full name of the inspector responsible.</span>
                                     </div>
@@ -537,29 +565,42 @@
                                         name.</span>
 
                                     <!-- NCR Date -->
+                                    <label for="ncr-date">Date:<span class="info-icon"
+                                            data-description="
+                                        The Date in an NCR report refers to the specific day when the non-conformance was identified or reported. It helps track the timeline of the issue, ensuring timely resolution and proper documentation of actions taken."><i
+                                                class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                    <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="ncr-date">Date:</label>
                                         <input type="date" id="ncr-date">
                                         <span class="tooltip">Select the date when the NCR was issued.</span>
                                     </div>
                                     <span class="error-message" id="ncr-date-error" aria-live="polite">Please provide
                                         the date for the
                                         NCR.</span>
-                                        <!-- Quality Department Closure Details -->
-                                        <div id="ncr-closure-details"> <!--class="conditional-field"-->
-                                            <label for="quality-date">Quality Department Closure Date:</label>
+                                    <!-- Quality Department Closure Details -->
+                                    <div id="ncr-closure-details"> <!--class="conditional-field"-->
+                                        <label for="quality-date">Quality Department Closure Date:<span
+                                                class="info-icon"
+                                                data-description="The Quality Department Closure Date in an NCR report marks the date when the quality team formally closed the non-conformance after verifying that corrective actions were effective. This ensures that all necessary steps were completed and the issue is resolved in accordance with quality standards."><i
+                                                    class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
+                                        <div class="tooltip-container">
                                             <input type="date" id="quality-date">
-                                            <span class="tooltip">Select the date the Quality Department closed the
-                                                NCR.</span>
+                                            <span class="tooltip">Select Quality Department Closure Date.</span>
                                         </div>
-                                        <span class="error-message" id="quality-date-error" aria-live="polite">Please
-                                            provide the closure date
-                                            if the NCR is closed.</span>
+                                        <span class="tooltip">Select the date the Quality Department closed the
+                                            NCR.</span>
+                                    </div>
+                                    <span class="error-message" id="quality-date-error" aria-live="polite">Please
+                                        provide the closure date
+                                        if the NCR is closed.</span>
                                 </div>
 
                                 <!-- NCR Closed -->
                                 <div>
-                                    <label>NCR Closed?</label>
+                                    <label>NCR Closed?<span class="info-icon"
+                                        data-description="'NCR Closed?' in an NCR report indicates whether the non-conformance has been resolved and all corrective actions have been completed. This status confirms that the issue has been addressed, verified, and officially closed by the relevant parties."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
                                     <span class="error-message" id="ncrClosedError" aria-live="polite">Please indicate
                                         if the NCR is
                                         closed.</span>
@@ -592,7 +633,9 @@
                                     </div>
 
                                     <div>
-                                        <label>NCR Resolved?</label>
+                                        <label>NCR Resolved?<span class="info-icon"
+                                            data-description="'NCR Resolved?' in an NCR report confirms whether the non-conformance has been adequately addressed and corrective actions have been implemented. This status indicates that the issue is considered resolved and no further action is required, ensuring compliance with project standards."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                            <div class="info-description"></div>
                                         <span class="error-message" id="ncrResolvedError" aria-live="polite">Please
                                             indicate if the NCR is
                                             resolved.</span>
@@ -624,7 +667,7 @@
                                             </div>
                                         </div>
 
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -674,8 +717,8 @@
                         </fieldset>
 
                     </form>
-                
-            </div>
+
+                </div>
 
     </main>
 
@@ -689,6 +732,7 @@
 
     <script src="script/breadcrumb.js"></script>
     <script src="script/purchasing.js"></script>
+    <script src="script/info_icon.js"></script>
 
 </body>
 

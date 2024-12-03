@@ -90,11 +90,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -179,7 +181,8 @@
 
                     <!-- QA Rep Dropdown -->
                     <details id="qa-section" tabindex="6">
-                        <summary class="custom-summary custom-summary-loggedNcr" aria-label="Quality assurance department details" >Quality Inforamtion
+                        <summary class="custom-summary custom-summary-loggedNcr"
+                            aria-label="Quality assurance department details">Quality Inforamtion
                         </summary>
                         <div class="qa-info-logged-ncr">
                             <!-- First Column -->
@@ -237,7 +240,7 @@
                                 <!-- Radio Buttons for Non-Conforming -->
                                 <div class="form-group">
                                     <label>Item Marked Non-Conforming?:</label><span
-                                    id="item-marked-nonconforming-d">[Yes/No]</span>
+                                        id="item-marked-nonconforming-d">[Yes/No]</span>
 
                                 </div>
                                 <div class="form-group">
@@ -261,14 +264,17 @@
 
                     <form id="ncr-form" aria-labelledby="form-title">
                         <fieldset class="form-section active" role="group" aria-labelledby="step1-legend">
-                            <label id="disposition-options">Review by CF Engineer (Required):</label>
+                            <label id="disposition-options">Review by CF Engineer (Required):<span class="info-icon"
+                                    data-description="A review by a CF (Control Framework) Engineer for an NCR (Non-Conformance Report) assesses compliance with technical and quality standards. It involves identifying deviations, analyzing root causes, and providing recommendations for corrective actions to ensure project alignment with specifications and safety requirements."><i
+                                        class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                            <div class="info-description"></div>
                             <span class="required" id="disposition-options-error"></span>
                             <div class="chkboxes-logged-ncr" onchange="showDescriptionMessage()">
                                 <div class="tooltip-container">
                                     <label class="radio-button" tabindex="7">
                                         <input type="radio" id="use_as_is" name="disposition-options"
                                             aria-label="Use as is option" class="hidden-radio"
-                                            onclick="toggleRadio(this)" value="Use as is" >
+                                            onclick="toggleRadio(this)" value="Use as is">
                                         Use as is
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -292,7 +298,7 @@
                                     <span class="tooltip">Click to check this option</span>
                                 </div>
                                 <div class="tooltip-container">
-                                    <label class="radio-button" tabindex="10"   >
+                                    <label class="radio-button" tabindex="10">
                                         <input type="radio" id="scrap" name="disposition-options"
                                             aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)"
                                             value="Scrap">
@@ -304,15 +310,18 @@
                             </div>
                             <div>
 
+                                <label for="disposition-details">Disposition (Required):<span class="info-icon"
+                                        data-description="The disposition for an NCR (Non-Conformance Report) outlines the resolution strategy for the identified issue. It specifies whether the non-conformance will be reworked, repaired, accepted as-is, or scrapped, along with any necessary corrective actions to prevent recurrence."><i
+                                            class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                <div class="info-description"></div>
                                 <div class="tooltip-container">
-                                    <label for="disposition-details">Disposition (Required):</label>
                                     <span class="error-message" id="disposition-details-error"></span>
                                     <p id="descriptionMessage" style="display: none">
                                         Write the sequence of work steps as well.
                                     </p>
                                     <textarea id="disposition-details" rows="3"
-                                        aria-describedby="disposition-details-desc"
-                                        placeholder="Disposition details" tabindex="11"></textarea>
+                                        aria-describedby="disposition-details-desc" placeholder="Disposition details"
+                                        tabindex="11"></textarea>
                                     <span class="tooltip ttip-descr">Type in disposition details</span>
                                 </div>
 
@@ -321,14 +330,17 @@
 
 
                             <label for="drawing-required">
-                                Drawing Update Needed:
+                                Drawing Update Needed:<span class="info-icon"
+                                    data-description="A drawing update needed for an NCR report highlights the requirement to revise engineering or design documents to reflect corrective actions or modifications. This ensures the drawings align with approved changes, maintaining accuracy and compliance with project standards."><i
+                                        class="fa fa-info-circle" aria-hidden="true"></i></span>
                             </label>
+                            <div class="info-description"></div>
                             <span class="error-message" id="drawing-required-error"></span>
                             <div class="rad-create-ncr">
                                 <div class="tooltip-container">
                                     <label class="radio-button" tabindex="12">
                                         <input type="radio" id="drawing-required-yes" name="drawing-required"
-                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)" >
+                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)">
                                         Yes
                                     </label>
                                     <span class="tooltip">Click to check yes</span>
@@ -336,7 +348,7 @@
                                 <div class="tooltip-container">
                                     <label class="radio-button" tabindex="13">
                                         <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
-                                            class="hidden-radio" onclick="toggleRadio(this)" >
+                                            class="hidden-radio" onclick="toggleRadio(this)">
                                         No
                                     </label>
                                     <span class="tooltip">Click to check no</span>
@@ -350,13 +362,13 @@
 
 
                             <div class="btn-eng-create">
-                                <button type="button" id="clear-btn1" aria-label="Clear all the input fields" tabindex="14"
-                                    >Clear</button>
-                                    <button type="button" id="save1" aria-label="Save current progress" tabindex="15">
-                                        Save
-                                    </button>
-                                <button type="button" id="next-btn1" aria-label="Move to next step" tabindex="16"
-                                    >Next</button>
+                                <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
+                                    tabindex="14">Clear</button>
+                                <button type="button" id="save1" aria-label="Save current progress" tabindex="15">
+                                    Save
+                                </button>
+                                <button type="button" id="next-btn1" aria-label="Move to next step"
+                                    tabindex="16">Next</button>
                             </div>
                         </fieldset>
 
@@ -365,24 +377,31 @@
                             <div class="qa-info-section">
 
                                 <div>
+                                    <label for="original_rev_number">Original Version Number:<span class="info-icon"
+                                        data-description="The Original Version Number in an NCR report refers to the initial revision or issue number of the document or drawing before any updates or changes were made. It serves as a reference point for tracking modifications and maintaining version control."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <label for="original_rev_number">Original Version Number:</label>
                                         <input type="number" id="original_rev_number"
-                                        aria-label="Original Version Number"
-                                        placeholder="Original Version Number" tabindex="17">
+                                            aria-label="Original Version Number" placeholder="Original Version Number"
+                                            tabindex="17">
                                         <span class="tooltip">Enter original version number</span>
                                         <span class="required" id="original_rev_number-error"></span>
                                     </div>
                                     <div class="tooltip-container">
-                                        <label for="updated_rev_number">Updated Revision Number:</label>
-                                        <input type="number" id="updated_rev_number" aria-label="Updated Revision Number"
-                                        placeholder="Updated Revision Number" tabindex="18">
+                                    <label for="updated_rev_number">Updated Revision Number:<span class="info-icon"
+                                        data-description="The Updated Revision Number in an NCR report indicates the latest version of a document or drawing after incorporating corrective actions or changes. It ensures accurate tracking of modifications and alignment with project standards."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
+                                        <input type="number" id="updated_rev_number"
+                                            aria-label="Updated Revision Number" placeholder="Updated Revision Number"
+                                            tabindex="18">
                                         <span class="required" id="updated_rev_number-error"></span>
                                         <span class="tooltip">Enter updated revision number</span>
                                     </div>
                                     <label for="customer-notif">
-                                        Customer Notification Needed:
+                                        Customer Notification Needed:<span class="info-icon"
+                                        data-description="The Updated Revision Number in an NCR report indicates the latest version of a document or drawing after incorporating corrective actions or changes. It ensures accurate tracking of modifications and alignment with project standards."><i class="fa fa-info-circle" aria-hidden="true"></i></span>
                                     </label>
+                                    <div class="info-description"></div>
                                     <span class="required" id="notification-required-error"></span>
                                     <div class="rad-create-ncr">
 
@@ -406,27 +425,34 @@
                                 </div>
                                 <div>
                                     <div class="tooltip-container">
-                                        <label for="revision_date">Revision Date:</label>
+                                    <label for="revision_date">Revision Date:<span class="info-icon"
+                                        data-description="The Revision Date in an NCR report specifies the date when the document or drawing was last updated. It ensures clear tracking of changes and helps maintain accurate records for version control and compliance."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
                                         <input type="date" id="revision_date" aria-label="Revision Date"
-                                        name="revision_date" tabindex="21">
+                                            name="revision_date" tabindex="21">
                                         <span class="required" id="revision_date-error"></span>
                                         <span class="tooltip">Enter revision date of NCR</span>
                                     </div>
-                                    <div class="tooltip-container">
-                                        <label for="engineering_review_date">Engineering Review Date:</label>
+                                    <label for="engineering_review_date">Engineering Review Date:<span class="info-icon"
+                                        data-description="The Engineering Review Date in an NCR report marks when the engineering team reviewed the non-conformance. This date ensures proper documentation of the review process and confirms timely evaluation of the issue for corrective actions."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
+                                        <div class="tooltip-container">
                                         <input type="date" id="engineering_review_date"
-                                        aria-label="Engineering Review Date" name="engineering_review_date" tabindex="22">
+                                            aria-label="Engineering Review Date" name="engineering_review_date"
+                                            tabindex="22">
                                         <span class="required" id="engineering_review_date-error"></span>
                                         <span class="tooltip">Select engineering review date</span>
                                     </div>
-                                    <label for="resolved">Resolved (Required):</label>
+                                    <label for="resolved">Resolved (Required):<span class="info-icon"
+                                        data-description="'Resolved' in an NCR report indicates that the non-conformance has been addressed and corrective actions have been implemented. This status confirms closure of the issue, ensuring compliance with quality and project standards."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
+                                        <div class="info-description"></div>
                                     <span class="required" id="resolved-error"></span>
                                     <div class="rad-create-ncr">
 
                                         <div class="tooltip-container">
                                             <label class="radio-button" tabindex="23">
                                                 <input type="radio" id="resolved-yes" name="resolved" value="yes"
-                                                    class="hidden-radio" onclick="toggleRadio(this)" >
+                                                    class="hidden-radio" onclick="toggleRadio(this)">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to check yes</span>
@@ -448,7 +474,7 @@
                                 <button type="button" id="save2" aria-label="Save current progress" tabindex="27">
                                     Save
                                 </button>
-                                <button type="button" id="next-btn2" tabindex="28" >Next</button>
+                                <button type="button" id="next-btn2" tabindex="28">Next</button>
                             </div>
                         </fieldset>
 
@@ -483,7 +509,7 @@
                                             aria-live="polite"></span>
                                     <p>Customer Notification Required: <span id="confirm-customer-notification"
                                             aria-live="polite"></span></p>
-                                    
+
                                 </div>
                             </div>
                             <div class="btn-qa-create">
@@ -510,6 +536,8 @@
 
     <script src="script/loggedncr.js"></script>
     <script src="script/breadcrumb.js"></script>
+    <script src="script/info_icon.js"></script>
+
 
 </body>
 
