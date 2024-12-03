@@ -291,13 +291,14 @@ function displayRecentReports(data) {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const reportNcrNo = document.createElement('span')
-        reportNcrNo.classList.add('ReportNcrNo')
-        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
+        // Supplier and report information
+        const supplierName = document.createElement('span')
+        supplierName.classList.add('supplier-name')
+        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         // Tooltip container and tooltip
         const tooltipContainer = document.createElement('div')
@@ -355,8 +356,7 @@ function displayRecentReports(data) {
         })
 
         // Append elements to the report card
-        reportCard.appendChild(reportNcrNo)
-        // reportCard.appendChild(supplierName)
+        reportCard.appendChild(supplierName)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(pinIcon)
 
@@ -387,13 +387,13 @@ function displayPinnedReports() {
         reportCard.classList.add('report-card')
 
         // Assuming ncr is an individual object representing a report
-        const reportNcrNo = document.createElement('span')
-        reportNcrNo.classList.add('ReportNcrNo')
-        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
+        const supplierName = document.createElement('span')
+        supplierName.classList.add('supplier-name')
+        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
 
-        const reportInfo = document.createElement('span')
-        reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        const reportinfo = document.createElement('span')
+        reportinfo.classList.add('reportInfo')
+        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         const tooltipContainer = document.createElement('div')
         tooltipContainer.classList.add('tooltip-container')
@@ -448,8 +448,8 @@ function displayPinnedReports() {
         })
 
         // Append the unpin icon to the report card
-        reportCard.appendChild(reportNcrNo)
-        reportCard.appendChild(reportInfo)
+        reportCard.appendChild(supplierName)
+        reportCard.appendChild(reportinfo)
         reportCard.appendChild(unpinIcon)
 
         tooltipContainer.appendChild(reportCard)
@@ -512,18 +512,18 @@ function displaySavedReportsQa() {
     })
 }
 
-function displaySavedReportsQa() {
+function displaySavedReportsEng() {
     const container = document.getElementById("savedReportsContainer")
     container.innerHTML = '' // Clear previous content
 
-    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRsQa')) || []
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRs')) || []
 
     if (savedNCRs.length === 0) {
         container.innerHTML = '<p>No saved reports available.</p>'
         return
     }
 
-    savedNCRs.forEach((ncr, index) => {
+    savedNCRs.forEach(ncr => {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
@@ -550,7 +550,7 @@ function displaySavedReportsQa() {
             }
         })
 
-        reportCard.appendChild(reportNcrNo)
+        reportCard.appendChild(supplierName)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(continueButton) // Append the button to the card
 
@@ -599,7 +599,7 @@ function displaySavedReportsPurch() {
         continueButton.classList.add('continue-button-purch')
         continueButton.textContent = "Continue Editing"
 
-        // Attasavedct index
+        // Attach click event to each button with the correct index
         continueButton.addEventListener('click', () => {
             // Set the editReportIndex in sessionStorage
             sessionStorage.setItem("editReportIndex", index)
@@ -757,6 +757,9 @@ function initializeItemBarChart() {
         }
     })
 }
+
+
+
 
 function initializeDateLineChart(ncrData) {
     // Initialize an object to hold the count of reports per date
