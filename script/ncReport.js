@@ -93,16 +93,7 @@ function setSpanContentFromSession() {
     document.getElementById('description-defect').textContent = retrievedNCRData['qa']?.description_of_defect || 'Not filled';
 
     // Handle Non-Conforming Item marked spans
-    if (retrievedNCRData['qa']?.item_marked_nonconforming === true) {
-        document.getElementById('item-marked-yes').textContent = 'Yes';
-        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
-    } else if (retrievedNCRData['qa']?.item_marked_nonconforming === false) {
-        document.getElementById('item-marked-no').textContent = 'No';
-        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
-    } else {
-        document.getElementById('item-marked-yes').textContent = ''; // Clear 'Yes'
-        document.getElementById('item-marked-no').textContent = ''; // Clear 'No'
-    }
+    document.getElementById('item-marked').textContent = retrievedNCRData['qa']?.resolved === true ? 'Yes' : 'No';
 
     document.getElementById('qa-name').textContent = retrievedNCRData['qa']?.quality_representative_name || 'Not filled';
     document.getElementById('qa-date').textContent = retrievedNCRData['qa']?.date || 'Not filled';
