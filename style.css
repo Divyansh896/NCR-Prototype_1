@@ -1892,6 +1892,12 @@ td button:focus {
     margin-bottom: 20px;
     padding: 10px;
 }
+
+.info-icon{
+    border-radius: 50%;
+    color: rgb(77 149 233);
+    margin-left: 6px;
+}
 .info-description{
     margin: 10px 0;
 }
