@@ -95,7 +95,7 @@ function initializeButtons() {
 
     if (user.role === 'QA Inspector' || user.role == 'Admin') {
         // const nextNcrNumber = generateNextNcrNumber(ncr) // Calculate only once
-        
+
         // Update the 'Create NCR' button's action
         btnCreate.addEventListener('click', () => {
             window.location.href = `create_NCR.html`
@@ -129,7 +129,7 @@ function initializeButtons() {
         })
     }
 
- 
+
 
     if (user.role === 'Lead Engineer') {
         document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for engineer and change the layout
@@ -145,9 +145,15 @@ function initializeButtons() {
 
     }
 
-    if(user.role === 'Purchasing'){
+    if (user.role === 'Purchasing') {
         document.getElementById("crossfireInsightsSection").style.display = "none" //hide the company insights for Purchasing and change the layout
         document.getElementById("secetionsDashboard").style.gridTemplateColumns = "1fr 1fr 1fr"
+        btnSaved.addEventListener('click', () => {
+            showTab('saved')
+
+            displaySavedReportsPurch()
+            console.log(JSON.parse(localStorage.getItem("savedNCRspurch")))
+        })
     }
 
     btnView.addEventListener('click', () => {
@@ -454,28 +460,80 @@ function displayPinnedReports() {
     })
 }
 
-function displaySavedReportsEng() {
+function displaySavedReportsQa() {
     const container = document.getElementById("savedReportsContainer")
     container.innerHTML = '' // Clear previous content
 
-    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRs')) || []
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRsQa')) || []
 
     if (savedNCRs.length === 0) {
         container.innerHTML = '<p>No saved reports available.</p>'
         return
     }
 
-    savedNCRs.forEach(ncr => {
+    savedNCRs.forEach((ncr, index) => {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const reportNcrNo = document.createElement('span')
-        reportNcrNo.classList.add('ReportNcrNo')
-        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
+        const supplierName = document.createElement('span')
+        supplierName.classList.add('supplier-name')
+        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.description_item.substring(0, 80) || 'No Description Available'}...`
+
+        // "Continue Editing" Button
+        const continueButton = document.createElement('button')
+        continueButton.classList.add('continue-button-qa')
+        continueButton.textContent = "Continue Editing"
+
+        // Attach click event to each button with the correct index
+        continueButton.addEventListener('click', () => {
+            // Set the editReportIndex in sessionStorage
+            sessionStorage.setItem("editReportIndex", index)
+            console.log("Set editReportIndex to:", index) // Check that index is set
+
+            // Verify the value immediately after setting
+            const checkIndex = sessionStorage.getItem("editReportIndex")
+            console.log("Check editReportIndex immediately after setting:", checkIndex)
+
+            // Delay to ensure the value is set in sessionStorage
+            setTimeout(() => {
+                window.location.href = "create_NCR.html" // Redirect to Create NCR page
+            }, 100) // Short delay to ensure sessionStorage writes
+        })
+
+        reportCard.appendChild(supplierName)
+        reportCard.appendChild(reportInfo)
+        reportCard.appendChild(continueButton)
+
+        container.appendChild(reportCard)
+    })
+}
+
+function displaySavedReportsQa() {
+    const container = document.getElementById("savedReportsContainer")
+    container.innerHTML = '' // Clear previous content
+
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRsQa')) || []
+
+    if (savedNCRs.length === 0) {
+        container.innerHTML = '<p>No saved reports available.</p>'
+        return
+    }
+
+    savedNCRs.forEach((ncr, index) => {
+        const reportCard = document.createElement('div')
+        reportCard.classList.add('report-card')
+
+        const supplierName = document.createElement('span')
+        supplierName.classList.add('supplier-name')
+        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
+
+        const reportInfo = document.createElement('span')
+        reportInfo.classList.add('reportInfo')
+        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
         const continueButton = document.createElement('button')
@@ -500,32 +558,45 @@ function displaySavedReportsEng() {
     })
 }
 
-function displaySavedReportsQa() {
+
+function displaySavedReportsPurch() {
     const container = document.getElementById("savedReportsContainer")
     container.innerHTML = '' // Clear previous content
 
-    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRsQa')) || []
-
+    const savedNCRs = JSON.parse(localStorage.getItem('savedNCRspurch')) || []
     if (savedNCRs.length === 0) {
         container.innerHTML = '<p>No saved reports available.</p>'
         return
     }
 
-    savedNCRs.forEach((ncr, index) => {
-        const reportCard = document.createElement('div')
-        reportCard.classList.add('report-card')
+    savedNCRs.forEach((purchasingData, index) => {
+        // Create the report card container
+        const reportCard = document.createElement('div');
+        reportCard.classList.add('report-card');
 
-        const reportNcrNo = document.createElement('span')
-        reportNcrNo.classList.add('ReportNcrNo')
-        reportNcrNo.textContent = `NCR No: ${ncr.ncr_no || 'N/A'} `
+        // Preliminary Decision
+        const decisionInfo = document.createElement('span');
+        decisionInfo.classList.add('decision-info');
+        decisionInfo.textContent = `Decision: ${purchasingData.preliminary_decision || 'N/A'}`;
 
-        const reportInfo = document.createElement('span')
-        reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.supplier_name || 'Unknown Supplier'} - ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        // CAR Raised
+        const carRaisedInfo = document.createElement('span');
+        carRaisedInfo.classList.add('car-raised-info');
+        carRaisedInfo.textContent = `CAR Raised: ${purchasingData.car_raised ? 'Yes' : 'No'}`;
+
+        // CAR Number
+        const carNumberInfo = document.createElement('span');
+        carNumberInfo.classList.add('car-number-info');
+        carNumberInfo.textContent = `CAR No: ${purchasingData.car_number || 'N/A'}`;
+
+        // Follow-up Required
+        const followUpInfo = document.createElement('span');
+        followUpInfo.classList.add('follow-up-info');
+        followUpInfo.textContent = `Follow-up Required: ${purchasingData.follow_up_required ? 'Yes' : 'No'}`;
 
         // "Continue Editing" Button
         const continueButton = document.createElement('button')
-        continueButton.classList.add('continue-button-qa')
+        continueButton.classList.add('continue-button-purch')
         continueButton.textContent = "Continue Editing"
 
         // Attasavedct index
@@ -540,12 +611,15 @@ function displaySavedReportsQa() {
 
             // Delay to ensure the value is set in sessionStorage
             setTimeout(() => {
-                window.location.href = "create_NCR.html" // Redirect to Create NCR page
+                window.location.href = "purchasing_decision.html" // Redirect to Create NCR page
             }, 100) // Short delay to ensure sessionStorage writes
         })
 
-        reportCard.appendChild(reportNcrNo)
-        reportCard.appendChild(reportInfo)
+        reportCard.appendChild(decisionInfo);
+        reportCard.appendChild(carRaisedInfo);
+        reportCard.appendChild(carNumberInfo);
+        reportCard.appendChild(followUpInfo);
+
         reportCard.appendChild(continueButton)
 
         container.appendChild(reportCard)
