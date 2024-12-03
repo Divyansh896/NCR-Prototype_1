@@ -537,6 +537,7 @@ nav ul a {
 }
 
 .status-bar {
+    background-color: #A0C6EE;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -544,7 +545,6 @@ nav ul a {
     text-align: left;
     /* Align text to the left */
     padding: 10px;
-    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
