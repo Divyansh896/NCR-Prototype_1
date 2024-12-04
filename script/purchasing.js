@@ -760,25 +760,25 @@ function sendMail() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const count = document.getElementById('notification-count');
-    let notifications 
-    if(user.role == "QA Inspector"){
-         notifications = JSON.parse(localStorage.getItem('QANotification')) || []
-        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked);
+    let notifications
+    if (user.role == "QA Inspector") {
+        notifications = JSON.parse(localStorage.getItem('QANotification')) || []
+        const qauncheckedNotifications = notifications.filter(notification => !notification.qachecked);
         count.innerHTML = qauncheckedNotifications.length;
     }
-    else if(user.role == "Lead Engineer"){
-         notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
-        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked);
+    else if (user.role == "Lead Engineer") {
+        notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
+        const eruncheckedNotifications = notifications.filter(notification => !notification.engineerchecked);
         count.innerHTML = eruncheckedNotifications.length;
     }
-    else if(user.role == "Purchasing"){
-         notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
-        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked);
+    else if (user.role == "Purchasing") {
+        notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
+        const pruncheckedNotifications = notifications.filter(notification => !notification.purchasingchecked);
         count.innerHTML = pruncheckedNotifications.length;
     }
-    else if(user.role == "Admin"){
-         notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
-        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked);
+    else if (user.role == "Admin") {
+        notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
+        const aduncheckedNotifications = notifications.filter(notification => !notification.adminchecked);
         count.innerHTML = aduncheckedNotifications.length;
     }
     // Clear any existing notifications in the list to avoid duplicates
@@ -790,7 +790,7 @@ function setNotificationText() {
         const li = document.createElement('li')
         if (user.role == 'Lead Engineer') {
 
-            
+
             if (notificationText.text.includes('Engineering')) {
                 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
@@ -941,6 +941,29 @@ function createQueryStringFromNotification(ncrNo) {
 // Function to save data to localStorage
 function saveDataToLocalStorage() {
     const reportData = {
+        "dispositionOptions": document.getElementById('disposition-details-d')?.value || "",
+        "dispositionDetails": document.getElementById("disposition-details-d").value,
+        "drawingRequired": document.getElementById('drawing-update-required-d')?.value || "",
+        "originalRevNumber": document.getElementById("original-rev-number-d").value,
+        "updatedRevNumber": document.getElementById("updated-rev-number-d").value,
+        "customerNotification": document.getElementById('customer-notification-required-d')?.value || "",
+        "revisionDate": document.getElementById("revision-date-d").value,
+        "engineeringReviewDate": document.getElementById("engineering-review-date-d").value,
+        'resolved': document.getElementById('resolved-d')?.value || "",
+        "ncr_no": document.getElementById('ncr-no-d').textContent,
+        "supplier_name": document.getElementById('supplier-name-d').textContent,
+        "po_no": document.getElementById('product-no-d').textContent,
+        "sales_order_no": document.getElementById('sales-order-no-d').textContent,
+        "item_description": document.getElementById('description-item-d').textContent,
+        "quantity_received": document.getElementById('quantity-received-d').textContent,
+        "quantity_defective": document.getElementById('quantity-defective-d').textContent,
+        "description_of_defect": document.getElementById('description-defect-d').textContent,
+        "item_marked_nonconforming": document.getElementById('item-marked-nonconforming-d').textContent,
+        "quality_representative_name": document.getElementById('qa-name-d').textContent,
+        "date": document.getElementById('qa-date-d').textContent,
+        "identify_process": document.getElementById('process-d').textContent,
+        "item_name": document.getElementById('item-name-d').textContent,
+        "date_of_saved": new Date().toLocaleDateString(),
         "decision": document.getElementById("decision")?.value || "", // If not found, set empty string
         "return_options": document.getElementById("return-options")?.value || "",
         "follow_up_required": document.querySelector('input[name="follow-up"]:checked')?.value || "", // For radio buttons
@@ -1034,23 +1057,23 @@ function populateFormFromJson(data) {
 
     // Set CAR Raised
     // Get the radio buttons
-const carYesRadio = document.querySelector("input[name='car'][value='yes']");
-const carNoRadio = document.querySelector("input[name='car'][value='no']");
+    const carYesRadio = document.querySelector("input[name='car'][value='yes']");
+    const carNoRadio = document.querySelector("input[name='car'][value='no']");
 
-// Use an if statement to check the condition and set the correct radio button
-if (data.car_raised === "yes") {
-    carYesRadio.checked = true;
-    carNoRadio.checked = false;
-    toggleCheck(carYesRadio);
-} else if (data.car_raised === "no") {
-    carYesRadio.checked = false;
-    carNoRadio.checked = true;
-    toggleCheck(carNoRadio);
-} else {
-    // Handle any other case, if needed (e.g., default behavior)
-    carYesRadio.checked = false;
-    carNoRadio.checked = false;
-}
+    // Use an if statement to check the condition and set the correct radio button
+    if (data.car_raised === "yes") {
+        carYesRadio.checked = true;
+        carNoRadio.checked = false;
+        toggleCheck(carYesRadio);
+    } else if (data.car_raised === "no") {
+        carYesRadio.checked = false;
+        carNoRadio.checked = true;
+        toggleCheck(carNoRadio);
+    } else {
+        // Handle any other case, if needed (e.g., default behavior)
+        carYesRadio.checked = false;
+        carNoRadio.checked = false;
+    }
 
 
 
@@ -1130,23 +1153,60 @@ if (data.car_raised === "yes") {
         ncrResolvedNoRadio.checked = false;
     }
 
+    document.getElementById('ncr-no-d').textContent = data.ncr_no;
+    document.getElementById('supplier-name-d').textContent = data.supplier_name;
+    document.getElementById('product-no-d').textContent = data.po_no;
+    document.getElementById('sales-order-no-d').textContent = data.sales_order_no;
+    document.getElementById('description-item-d').textContent = data.item_description;
+    document.getElementById('quantity-received-d').textContent = data.quantity_received;
+    document.getElementById('quantity-defective-d').textContent = data.quantity_defective;
+    document.getElementById('description-defect-d').textContent = data.description_of_defect;
+    document.getElementById('item-marked-nonconforming-d').textContent = data.item_marked_nonconforming;
+    document.getElementById('qa-name-d').textContent = data.quality_representative_name;
+    document.getElementById('qa-name-d').textContent = data.quality_representative_name;
+    document.getElementById('item-name-d').textContent = data.item_name;
+    document.getElementById('process-d').textContent = data.identify_process;
+    // document.querySelector('input[name="disposition-options"]:checked').value = data.dispositionOptions || "";
+    document.getElementById("disposition-details-d").value = data.dispositionDetails || "";
+    document.getElementById('drawing-update-required-d').value = data.drawingRequired || "";
+    document.getElementById("original-rev-number-d").value = data.originalRevNumber || "";
+    document.getElementById("updated-rev-number-d").value = data.updatedRevNumber || "";
+    document.getElementById('customer-notification-required-d').value = data.customerNotification || "";
+    document.getElementById("revision-date-d").value = data.revisionDate || "";
+    document.getElementById("engineering-review-date-d").value = data.engineeringReviewDate || "";
+    document.getElementById('resolved-d').value = data.resolved || "";
+    document.getElementById("ncr-no-d").textContent = data.ncr_no || "";
+    document.getElementById("supplier-name-d").textContent = data.supplier_name || "";
+    document.getElementById("product-no-d").textContent = data.po_no || "";
+    document.getElementById("sales-order-no-d").textContent = data.sales_order_no || "";
+    document.getElementById("description-item-d").textContent = data.item_description || "";
+    document.getElementById("quantity-received-d").textContent = data.quantity_received || "";
+    document.getElementById("quantity-defective-d").textContent = data.quantity_defective || "";
+    document.getElementById("description-defect-d").textContent = data.description_of_defect || "";
+    document.getElementById("item-marked-nonconforming-d").textContent = data.item_marked_nonconforming || "";
+    document.getElementById("qa-name-d").textContent = data.quality_representative_name || "";
+    document.getElementById("qa-date-d").textContent = data.date || "";
+    document.getElementById("process-d").textContent = data.identify_process || "";
+    document.getElementById("item-name-d").textContent = data.item_name || "";
+    document.getElementById("date-of-saved-d").textContent = data.date_of_saved || "";
+
 
 }
 
 clearNotification.addEventListener("click", () => {
-    if(user.role == "QA Inspector"){
+    if (user.role == "QA Inspector") {
         localStorage.setItem('QANotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Lead Engineer"){
+    else if (user.role == "Lead Engineer") {
         localStorage.setItem('ERNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Purchasing"){
+    else if (user.role == "Purchasing") {
         localStorage.setItem('PRNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Admin"){
+    else if (user.role == "Admin") {
         localStorage.setItem('ADNotification', JSON.stringify([]));
 
     }
