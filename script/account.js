@@ -1,13 +1,20 @@
-const starElements = document.querySelectorAll('.required');
 const user = JSON.parse(sessionStorage.getItem("currentUser"));
+const ncrNo = localStorage.getItem('ncrNo')
 const userName = document.getElementById('userName');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const clearNotification = document.getElementById("btnClearNotification")
+const starElements = document.querySelectorAll('.required');
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
 
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
+
+updateToolContent()
 setNotificationText()
+populateUserData(user);
 
-const ncrNo = localStorage.getItem('ncrNo')
 const requiredFields = [
     { fieldId: 'fname', errorId: 'firstname-error' },
     { fieldId: 'lname', errorId: 'lastname-error' },
@@ -19,11 +26,9 @@ const requiredFields = [
     { fieldId: 'gender', errorId: 'gender-error' },
     { fieldId: 'password', errorId: 'password-error' }
 ];
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
-userName.innerHTML = `${user.firstname}  ${user.lastname}`
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role
@@ -50,7 +55,6 @@ starElements.forEach(star => {
     star.style.display = 'none'; // Hide each star element
 });
 
-populateUserData(user);
 
 
 const footer = document.getElementById('footer-scroll');
@@ -79,9 +83,6 @@ function populateUserData(data) {
 // Function to update required fields dynamically
 function showRequiredFields() {
     let isvalid = true;
-
-    
-    
 
     requiredFields.forEach(({ fieldId, errorId }) => {
         const inputElement = document.getElementById(fieldId);
@@ -113,7 +114,6 @@ function showRequiredFields() {
 
 function attachInputEvents() {
     
-
     requiredFields.forEach(({ fieldId, errorId }) => {
         const inputElement = document.getElementById(fieldId);
         const errorMessage = document.getElementById(errorId);
@@ -147,10 +147,6 @@ document.getElementById('submit-btn').addEventListener('click', (e) => {
 
 // Common function for all pages
 window.onload = function () {
-    // // Check if the user is logged in
-    // if (localStorage.getItem('isLoggedIn') !== 'true') {
-    //     window.location.href = 'index.html'; // Redirect to login if not logged in
-    // }
 
     // Add logout button event listener
     const logoutBtn = document.getElementById('logoutBtn');
@@ -168,10 +164,10 @@ function logout() {
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
 
-
     // Redirect to the login page
     location.replace('index.html'); // This will replace the current history entry
 }
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -180,9 +176,6 @@ function toggleSettings() {
         settingsBox.style.display = "none"
     }
 }
-
-
-
 
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
@@ -267,12 +260,7 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
-function logout() {
-    localStorage.removeItem('isLoggedIn');
-    sessionStorage.removeItem('currentUser')
-    sessionStorage.removeItem('breadcrumbTrail')
-    location.replace('index.html')
-}
+
 
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
@@ -383,8 +371,6 @@ function setNotificationText() {
             })
         }
 
-
-
         notificationList.prepend(li)
     })
 }
@@ -401,13 +387,6 @@ function updateToolContent(){
     }
 }
 
-updateToolContent()
-const modal = document.getElementById("popup")
-const span = document.getElementById("closePopup")
-setNotificationText()
-// document.getElementById("clear").addEventListener("click", function () {
-//     document.querySelector("form").reset();
-// });
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {

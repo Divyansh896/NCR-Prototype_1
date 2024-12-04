@@ -1,7 +1,8 @@
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
+
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
-let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
@@ -9,9 +10,11 @@ const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
 const btnExport = document.getElementById('btnExportExcel')
+const btnEdit = document.querySelectorAll('.edit');
+const ncrNo = localStorage.getItem('ncrNo')
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 loadImages()
 updateToolContent()
-const btnEdit = document.querySelectorAll('.edit');
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
         // Retrieve the department from a data attribute in the button
@@ -35,9 +38,7 @@ function editNCR(ncr) {
     sessionStorage.setItem('data', JSON.stringify(ncr))
     window.location.href = 'edit_Report.html' // Adjust the URL as needed
 }
-const ncrNo = localStorage.getItem('ncrNo')
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
