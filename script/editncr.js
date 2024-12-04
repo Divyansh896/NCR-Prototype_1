@@ -299,6 +299,8 @@ function loadData() {
     const itemMarkedYes = document.getElementById('item-marked-yes'); // Radio button for Yes
     const itemMarkedNo = document.getElementById('item-marked-no');   // Radio button for No
 
+    
+
     // Checking the 'item_marked_nonconforming' value from 'qa' object
     if (retrievedNCRData.qa && retrievedNCRData.qa.item_marked_nonconforming !== undefined) {
         // If 'item_marked_nonconforming' is true, select the 'Yes' radio button
@@ -309,9 +311,10 @@ function loadData() {
             itemMarkedYes.checked = false; // Unmark 'Yes'
             itemMarkedNo.checked = true;  // Mark 'No' as checked
         }
+        
     }
 
-
+   
 
 }
 

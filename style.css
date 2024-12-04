@@ -100,11 +100,6 @@ h1 {
     font-size: 1.5rem;
 }
 
-legend {
-    padding: 0 5px;
-}
-
-
 .modal-buttons button {
     margin: 10px;
 }
@@ -258,14 +253,8 @@ details[open] .custom-summary::before {
 }
 
 .report-fieldsets{
-    margin: 20px;
+    margin: 5px 20px 20px 20px;
 }
-
-.report-fieldsets legend{
-    margin-left: 20px;
-}
-/* Header styles */
-
 
 /* Label styles */
 label {
@@ -1907,6 +1896,60 @@ td button:focus {
     padding: 10px;
 }
 
+
+/* help Page */
+.help-wrapper{
+    max-width: 75%;
+    margin:auto;
+}
+.help-wrapper>{
+    margin:1.5rem 0;
+    text-align:center;
+}
+.accordion{
+    background-color: white;
+    font-size: 1.01rem;
+    text-align: left;
+    width:100%;
+    padding:2rem 2.5rem;
+    border: none;
+    outline: none;
+    transition:0.4s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.accordion i{
+    font-size: 0.9rem;
+}
+
+.active,.accordion:hover{
+    background-color:rgb(245, 247, 248);
+}
+
+.help-answers{
+    padding: 0 2rem 2.5rem 2rem;
+    display: none;
+}
+
+.help-answers p{
+
+    font-size:1.2rem;
+    line-height: 1.4;
+    
+}
+.help-faq{
+    margin: 10px 0;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.help-faq.active{
+    border:none;
+}
+
+
 .info-icon{
     border-radius: 50%;
     color: rgb(77 149 233);
@@ -3305,3 +3348,5 @@ textarea:focus {
     }
 
 }
+
+
