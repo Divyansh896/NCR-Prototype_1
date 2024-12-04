@@ -100,10 +100,9 @@ h1 {
     font-size: 1.5rem;
 }
 
-legend {
-    padding: 0 5px;
+h3{
+    margin: 20px 0px 0px 20px;
 }
-
 
 .modal-buttons button {
     margin: 10px;
@@ -258,14 +257,8 @@ details[open] .custom-summary::before {
 }
 
 .report-fieldsets{
-    margin: 20px;
+    margin: 5px 20px 20px 20px;
 }
-
-.report-fieldsets legend{
-    margin-left: 20px;
-}
-/* Header styles */
-
 
 /* Label styles */
 label {

@@ -317,11 +317,11 @@ document.getElementById('downloadPdf').addEventListener('click', async function 
                 reject("Failed to load the image.");
             };
         });
-    }
+        }
 
 
-    pdf.save('Non_Conformance_Report.pdf');
-});
+        pdf.save('Non_Conformance_Report.pdf');
+    });
 
 //event for printing(same format and layout as pdf)
 document.getElementById('print').addEventListener('click', async function () {
