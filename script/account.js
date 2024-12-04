@@ -3,6 +3,8 @@ const user = JSON.parse(sessionStorage.getItem("currentUser"));
 const userName = document.getElementById('userName');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
+const clearNotification = document.getElementById("btnClearNotification")
+
 setNotificationText()
 
 const ncrNo = localStorage.getItem('ncrNo')
@@ -192,16 +194,74 @@ function toggleNotifications() {
 }
 
 // Optional: Hide the notification box if clicked outside
-document.addEventListener("click", function(event) {
+document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
     var iconBadge = document.querySelector(".icon-badge")
     var settingsBox = document.getElementById("settings-box")
     var settingsButton = document.getElementById("settings")
+    if (notificationBox.style.display == "block") {
+        if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
+            notificationBox.style.display = "none"
+            if (user.role == "QA Inspector") {
+                let notifications = JSON.parse(localStorage.getItem('QANotification')) || []
 
-    if (!notificationBox.contains(event.target) && !iconBadge.contains(event.target)) {
-        notificationBox.style.display = "none"
+                notifications = notifications.map(notification => {
+                    return {
+                        ...notification, // Copy all existing properties
+                        // ischecked: true// Override the `ischecked` property
+                        qachecked: true
+                    };
+
+                });
+                localStorage.setItem("QANotification", JSON.stringify(notifications))
+            }
+            else if (user.role == "Lead Engineer") {
+                let notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
+
+                notifications = notifications.map(notification => {
+                    return {
+                        ...notification, // Copy all existing properties
+                        // ischecked: true// Override the `ischecked` property
+                        engineerchecked: true
+                    };
+
+                });
+                localStorage.setItem("ERNotification", JSON.stringify(notifications))
+
+            }
+            else if (user.role == "Purchasing") {
+                let notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
+
+                notifications = notifications.map(notification => {
+                    return {
+                        ...notification, // Copy all existing properties
+                        // ischecked: true// Override the `ischecked` property
+                        purchasingchecked: true
+                    };
+
+                });
+                localStorage.setItem("PRNotification", JSON.stringify(notifications))
+
+            }
+            else if (user.role == "Admin") {
+                let notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
+
+                notifications = notifications.map(notification => {
+                    return {
+                        ...notification, // Copy all existing properties
+                        // ischecked: true// Override the `ischecked` property
+                        adminchecked: true
+                    };
+
+                });
+                localStorage.setItem("ADNotification", JSON.stringify(notifications))
+
+            }
+
+            setNotificationText()
+        }
     }
-    
+
 
     if (!settingsBox.contains(event.target) && !settingsButton.contains(event.target)) {
         settingsBox.style.display = "none"
@@ -221,11 +281,28 @@ function openTools() {
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
-    const notifications = JSON.parse(localStorage.getItem('notifications')) || []
-    // Set the notification count
-    const count = document.getElementById('notification-count')
-    count.innerHTML = notifications.length
-
+    const count = document.getElementById('notification-count');
+    let notifications 
+    if(user.role == "QA Inspector"){
+         notifications = JSON.parse(localStorage.getItem('QANotification')) || []
+        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked);
+        count.innerHTML = qauncheckedNotifications.length;
+    }
+    else if(user.role == "Lead Engineer"){
+         notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
+        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked);
+        count.innerHTML = eruncheckedNotifications.length;
+    }
+    else if(user.role == "Purchasing"){
+         notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
+        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked);
+        count.innerHTML = pruncheckedNotifications.length;
+    }
+    else if(user.role == "Admin"){
+         notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
+        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked);
+        count.innerHTML = aduncheckedNotifications.length;
+    }
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list') // Ensure this element exists in your HTML
     notificationList.innerHTML = '' // Clear existing list items
@@ -235,80 +312,83 @@ function setNotificationText() {
         const li = document.createElement('li')
         if (user.role == 'Lead Engineer') {
 
-            if (notificationText.includes('Engineering')) {
+            
+            if (notificationText.text.includes('Engineering')) {
                 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
-                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.text.slice(8, 16))
                 let report = AllReports[index]
                 if (Object.keys(report.engineering).length == 0) {
 
                     // engineering department person get the mail from qa (will show review and begin work)
-                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
                     li.addEventListener('click', () => {
                         // console.log()
-                        window.location.href = `logged_NCR.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                        window.location.href = `logged_NCR.html?${createQueryStringFromNotification(notificationText.text.slice(8, 16))}`
                     })
                 } else {
-                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
 
                     li.addEventListener('click', () => {
                         // console.log()
-                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and sent to purchasing department.`, 'images/confirmationIcon.webp')
+                        showPopup('Report already Filled', `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>has been already filled and sent to purchasing department.`, 'images/confirmationIcon.webp')
                     })
                 }
 
             } else {
                 // engineering department person sends the form to purchasing (will show has been sent to purchasing department)
-                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`
                 li.addEventListener('click', () => {
                     // will show popup
-                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                    showPopup('Notification Sent', `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`, 'images/confirmationIcon.webp')
                 })
             }
         } else if (user.role == 'Purchasing') {
-            if (notificationText.includes('Purchasing')) {
+            if (notificationText.text.includes('Purchasing')) {
                 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
-                let index = AllReports.findIndex(report => report.ncr_no == notificationText.slice(8, 16))
+                let index = AllReports.findIndex(report => report.ncr_no == notificationText.text.slice(8, 16))
                 let report = AllReports[index]
                 if (Object.keys(report.purchasing_decision).length == 0) {
 
                     // purchasing department person get the mail from qa (will show review and begin work)
-                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
                     li.addEventListener('click', () => {
                         // console.log()
-                        window.location.href = `purchasing_decision.html?${createQueryStringFromNotification(notificationText.slice(8, 16))}`
+                        window.location.href = `purchasing_decision.html?${createQueryStringFromNotification(notificationText.text.slice(8, 16))}`
                     })
                 } else {
-                    li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
+                    li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>Please review and begin work as assigned.`
 
                     li.addEventListener('click', () => {
                         // console.log()
-                        showPopup('Report already Filled', `<strong>${notificationText.slice(0, 16)}</strong><br><br>has been already filled and notified to other departments.`, 'images/confirmationIcon.webp')
+                        showPopup('Report already Filled', `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>has been already filled and notified to other departments.`, 'images/confirmationIcon.webp')
                     })
                 }
 
             } else {
                 // purchasing department person completes the form that's it.
-                li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+                li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`
                 li.addEventListener('click', () => {
                     // will show popup
-                    showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                    showPopup('Notification Sent', `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`, 'images/confirmationIcon.webp')
                 })
             }
         }
         else {
-            li.innerHTML = `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`
+            li.innerHTML = `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`
             li.addEventListener('click', () => {
                 // will show popup
-                showPopup('Notification Sent', `<strong>${notificationText.slice(0, 16)}</strong><br><br>${notificationText.slice(17)}`, 'images/confirmationIcon.webp')
+                showPopup('Notification Sent', `<strong>${notificationText.text.slice(0, 16)}</strong><br><br>${notificationText.text.slice(17)}`, 'images/confirmationIcon.webp')
             })
         }
+
 
 
         notificationList.prepend(li)
     })
 }
+
 function updateToolContent(){
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
@@ -422,3 +502,24 @@ function createQueryStringFromNotification(ncrNo) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+clearNotification.addEventListener("click", () => {
+    if(user.role == "QA Inspector"){
+        localStorage.setItem('QANotification', JSON.stringify([]));
+
+    }
+    else if(user.role == "Lead Engineer"){
+        localStorage.setItem('ERNotification', JSON.stringify([]));
+
+    }
+    else if(user.role == "Purchasing"){
+        localStorage.setItem('PRNotification', JSON.stringify([]));
+
+    }
+    else if(user.role == "Admin"){
+        localStorage.setItem('ADNotification', JSON.stringify([]));
+
+    }
+    setNotificationText()
+
+})
