@@ -328,9 +328,6 @@ nav ul a {
 
 /* Home page */
 
-#dashboard-h1{
-    text-align: left;
-}
 
 
 
@@ -357,7 +354,7 @@ nav ul a {
     background-repeat: no-repeat;
     color: #fff;
     flex: 0 1 30%;
-    padding: 10px 0;
+    padding: 20px 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
@@ -400,7 +397,7 @@ nav ul a {
 .featuresManageAcc button,
 .featuresCrossfireInsights button {
     border-radius: 20px;
-    width: 50%;
+    width: 60%;
     height: 35px;
 }
 
@@ -1921,6 +1918,17 @@ td button:focus {
 
 }
 
+@media screen and (min-width: 425px) {
+ 
+    .featuresCreateNCR button,
+    .featuresViewNCR button,
+    .featuresManageAcc button,
+    .featuresCrossfireInsights button{
+        width: 45%;
+    }
+
+}
+
 @media screen and (min-width: 768px) {
 
     /*genral*/
@@ -1969,6 +1977,13 @@ td button:focus {
     .featuresCrossfireInsights p {
         font-size: 1rem;
     }
+
+    .featuresCreateNCR button,
+.featuresViewNCR button,
+.featuresManageAcc button,
+.featuresCrossfireInsights button{
+    width: 50%;
+}
 
     .report-card {
         flex-direction: row;
@@ -2617,7 +2632,7 @@ td button:focus {
     .featuresViewNCR button,
     .featuresManageAcc button,
     .featuresCrossfireInsights button {
-        width: 62%;
+        width: 70%;
     }
 
 
@@ -2843,10 +2858,6 @@ td button:focus {
         font-size: 1.2rem;
     }
 
-    /* .form-row {
-        margin-left: 26px;
-    } */
-
     .form-row label,
     .form-row input,
     .form-row select {
@@ -2892,14 +2903,6 @@ td button:focus {
 
     .confirmation p {
         font-size: 1.2em;
-    }
-
-
-    .featuresCreateNCR button,
-    .featuresViewNCR button,
-    .featuresManageAcc button,
-    .featuresCrossfireInsights button {
-        width: 80%;
     }
 
     /*contact us*/
@@ -3038,6 +3041,8 @@ td button:focus {
     }
 
     /*home page */
+
+
     .main-container,
     .main-tab-nav,
     .main-container-graphs,
@@ -3081,7 +3086,7 @@ td button:focus {
     .featuresViewNCR button,
     .featuresManageAcc button,
     .featuresCrossfireInsights button {
-        width: 50%;
+        width: 60%;
         height: 50px;
     }
 
