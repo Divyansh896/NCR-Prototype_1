@@ -1902,6 +1902,23 @@ td button:focus {
     margin: 10px 0;
 }
 
+/* dark mode css */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header.dark-mode, footer.dark-mode {
+    background-color: #1e1e1e;
+}
+
+button.dark-mode, a.dark-mode {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+
+
 
 /*media*/
 @media screen and (min-width: 320px) {

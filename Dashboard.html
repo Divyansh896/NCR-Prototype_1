@@ -113,6 +113,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -144,8 +150,10 @@
             </div>
         </div>
         <div>
+
+            <!-- Skip links for the graphs and ncr reports -->
             <div class="left-align">
-                <h1>Dashboard</h1>
+                <div><h1>Dashboard</h1> / <a href="#ncr-tabs" class="skip-link">Recent NCR Reports</a> / <a href="#graphs" class="skip-link">Product Stats</a> </div>
             </div>
             <div class="main-container-dashboard" id="secetionsDashboard">
                 <!-- Section 1: Create NCR -->
@@ -214,7 +222,7 @@
             
         </div>
         <div class="main-tab-nav">
-            <section>
+            <section id="ncr-tabs">
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
                     <button id="btn-recent" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
@@ -266,6 +274,7 @@
             </section>
 
         </div>
+        
     </main>
 
     <!-- Footer -->
@@ -282,6 +291,7 @@
     <script src="script/home-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
     <script src="script/info_icon.js"></script>
+    <script src="script/darkmode.js"></script>
 
 </body>
 
