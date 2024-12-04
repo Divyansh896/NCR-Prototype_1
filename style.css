@@ -475,9 +475,10 @@ nav ul a {
     visibility: visible;
 }
 
-.supplier-name {
+.NcrNo {
     justify-content: left;
     width: 150px;
+    font-weight: bold;
 }
 
 /* Tab Navigation */

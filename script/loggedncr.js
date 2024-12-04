@@ -142,7 +142,7 @@ function prefillFormFromSavedData(savedData) {
         document.getElementById("engineering_review_date").value = savedData.engineeringReviewDate;
     }
 
-    document.getElementById('ncr-no-d').textContent = savedData.supplier_name;
+    document.getElementById('ncr-no-d').textContent = savedData.ncr_no;
     document.getElementById('supplier-name-d').textContent = savedData.supplier_name;
     document.getElementById('product-no-d').textContent = savedData.po_no;
     document.getElementById('sales-order-no-d').textContent = savedData.sales_order_no;
