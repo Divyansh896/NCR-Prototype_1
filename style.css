@@ -253,14 +253,8 @@ details[open] .custom-summary::before {
 }
 
 .report-fieldsets{
-    margin: 20px;
+    margin: 5px 20px 20px 20px;
 }
-
-.report-fieldsets legend{
-    margin-left: 20px;
-}
-/* Header styles */
-
 
 /* Label styles */
 label {
@@ -329,6 +323,13 @@ nav ul a {
 }
 
 /* Home page */
+
+#dashboard-h1{
+    text-align: left;
+}
+
+
+
 .main-container,
 .main-tab-nav,
 .main-container-graphs,
@@ -525,6 +526,7 @@ nav ul a {
 #graphs h2 {
     margin: 25px 0;
 }
+
 
 
 /* Create page */
@@ -1893,6 +1895,11 @@ td button:focus {
     padding: 10px;
 }
 
+
+/* help Page */
+/*  */
+
+
 .info-icon{
     border-radius: 50%;
     color: rgb(77 149 233);
@@ -2288,7 +2295,7 @@ button.dark-mode, a.dark-mode {
     }
 
     .two-cols-view .form-group {
-        margin-left: 18px;
+        margin-left: 10px;
     }
 
     .two-cols-view {
@@ -2401,11 +2408,6 @@ button.dark-mode, a.dark-mode {
         margin-bottom: 10px;
     }
 
-    /* ncr  report page */
-    /* .form-group {
-        margin-left: 90px;
-    } */
-
     .indicator {
         margin-left: 100px;
     }
@@ -2427,7 +2429,6 @@ button.dark-mode, a.dark-mode {
 
     .span-two-cols {
         grid-column: 1 / -1;
-        ;
     }
 
     .form-row label {
@@ -2743,10 +2744,6 @@ button.dark-mode, a.dark-mode {
         margin-left: 82px;
     }
 
-    .two-cols-view .form-group {
-        margin-left: 82px;
-    }
-
     .supplier-two-cols,
     .employee-two-cols {
         display: grid;
@@ -2952,10 +2949,6 @@ button.dark-mode, a.dark-mode {
     .chkboxes-logged-ncr .radio-button {
         width: 120px;
         text-align: center;
-    }
-
-    .two-cols-view .form-group {
-        margin-left: 115px;
     }
 
     .rad-report,
@@ -3322,3 +3315,5 @@ textarea:focus {
     }
 
 }
+
+
