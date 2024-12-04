@@ -253,14 +253,8 @@ details[open] .custom-summary::before {
 }
 
 .report-fieldsets{
-    margin: 20px;
+    margin: 5px 20px 20px 20px;
 }
-
-.report-fieldsets legend{
-    margin-left: 20px;
-}
-/* Header styles */
-
 
 /* Label styles */
 label {
@@ -329,6 +323,13 @@ nav ul a {
 }
 
 /* Home page */
+
+#dashboard-h1{
+    text-align: left;
+}
+
+
+
 .main-container,
 .main-tab-nav,
 .main-container-graphs,
@@ -441,8 +442,8 @@ nav ul a {
     background-color: #e2dfdf;
 }
 
-.report-card .supplier-name,
-.report-card-saved .supplier-name {
+.report-card .ReportNcrNo,
+.report-card-saved .ReportNcrNo {
     font-weight: bold;
 }
 
@@ -527,6 +528,7 @@ nav ul a {
 }
 
 
+
 /* Create page */
 /* Status Bar */
 .main-container-create {
@@ -537,6 +539,7 @@ nav ul a {
 }
 
 .status-bar {
+    background-color: #A0C6EE;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -544,7 +547,6 @@ nav ul a {
     text-align: left;
     /* Align text to the left */
     padding: 10px;
-    background-color: #f0f0f0;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
@@ -1893,6 +1895,7 @@ td button:focus {
     padding: 10px;
 }
 
+
 /* help Page */
 .help-wrapper{
     max-width: 75%;
@@ -1944,6 +1947,17 @@ td button:focus {
 .help-faq.active{
     border:none;
 }
+
+
+.info-icon{
+    border-radius: 50%;
+    color: rgb(77 149 233);
+    margin-left: 6px;
+}
+.info-description{
+    margin: 10px 0;
+}
+
 
 /*media*/
 @media screen and (min-width: 320px) {
@@ -2313,7 +2327,7 @@ td button:focus {
     }
 
     .two-cols-view .form-group {
-        margin-left: 18px;
+        margin-left: 10px;
     }
 
     .two-cols-view {
@@ -2426,11 +2440,6 @@ td button:focus {
         margin-bottom: 10px;
     }
 
-    /* ncr  report page */
-    /* .form-group {
-        margin-left: 90px;
-    } */
-
     .indicator {
         margin-left: 100px;
     }
@@ -2452,7 +2461,6 @@ td button:focus {
 
     .span-two-cols {
         grid-column: 1 / -1;
-        ;
     }
 
     .form-row label {
@@ -2768,10 +2776,6 @@ td button:focus {
         margin-left: 82px;
     }
 
-    .two-cols-view .form-group {
-        margin-left: 82px;
-    }
-
     .supplier-two-cols,
     .employee-two-cols {
         display: grid;
@@ -2977,10 +2981,6 @@ td button:focus {
     .chkboxes-logged-ncr .radio-button {
         width: 120px;
         text-align: center;
-    }
-
-    .two-cols-view .form-group {
-        margin-left: 115px;
     }
 
     .rad-report,
