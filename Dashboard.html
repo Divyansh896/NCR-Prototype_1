@@ -113,6 +113,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -144,9 +150,8 @@
             </div>
         </div>
         <div>
-            <div>
-                <h1 id="dashboard-h1">Dashboard</h1>
-            </div>
+            <div class="left-align">
+                <h1>Dashboard</h1> / <a href="#ncr-tabs" class="skip-link">Recent NCR Reports</a> / <a href="#graphs" class="skip-link">Product Stats</a>            </div>
             <div class="main-container-dashboard" id="secetionsDashboard">
                 <!-- Section 1: Create NCR -->
                 <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
@@ -214,7 +219,7 @@
             
         </div>
         <div class="main-tab-nav">
-            <section>
+            <section id="ncr-tabs">
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
                     <button id="btn-recent" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
@@ -266,6 +271,7 @@
             </section>
 
         </div>
+        
     </main>
 
     <!-- Footer -->
@@ -275,6 +281,9 @@
             <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
                 Policy</a>
         </p>
+        <p>
+            <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Help</a>
+        </p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -282,6 +291,7 @@
     <script src="script/home-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
     <script src="script/info_icon.js"></script>
+    <script src="script/darkmode.js"></script>
 
 </body>
 

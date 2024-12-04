@@ -100,10 +100,6 @@ h1 {
     font-size: 1.5rem;
 }
 
-h3{
-    margin: 20px 0px 0px 20px;
-}
-
 .modal-buttons button {
     margin: 10px;
 }
@@ -1896,6 +1892,11 @@ td button:focus {
     padding: 10px;
 }
 
+
+/* help Page */
+/*  */
+
+
 .info-icon{
     border-radius: 50%;
     color: rgb(77 149 233);
@@ -1904,6 +1905,23 @@ td button:focus {
 .info-description{
     margin: 10px 0;
 }
+
+/* dark mode css */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+header.dark-mode, footer.dark-mode {
+    background-color: #1e1e1e;
+}
+
+button.dark-mode, a.dark-mode {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+
 
 
 /*media*/
@@ -3302,3 +3320,5 @@ textarea:focus {
     }
 
 }
+
+
