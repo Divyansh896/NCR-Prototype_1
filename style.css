@@ -100,6 +100,11 @@ h1 {
     font-size: 1.5rem;
 }
 
+legend {
+    padding: 0 5px;
+}
+
+
 .modal-buttons button {
     margin: 10px;
 }
@@ -329,6 +334,13 @@ nav ul a {
 }
 
 /* Home page */
+
+#dashboard-h1{
+    text-align: left;
+}
+
+
+
 .main-container,
 .main-tab-nav,
 .main-container-graphs,
@@ -525,6 +537,7 @@ nav ul a {
 #graphs h2 {
     margin: 25px 0;
 }
+
 
 
 /* Create page */
@@ -2271,7 +2284,7 @@ td button:focus {
     }
 
     .two-cols-view .form-group {
-        margin-left: 18px;
+        margin-left: 10px;
     }
 
     .two-cols-view {
@@ -2384,11 +2397,6 @@ td button:focus {
         margin-bottom: 10px;
     }
 
-    /* ncr  report page */
-    /* .form-group {
-        margin-left: 90px;
-    } */
-
     .indicator {
         margin-left: 100px;
     }
@@ -2410,7 +2418,6 @@ td button:focus {
 
     .span-two-cols {
         grid-column: 1 / -1;
-        ;
     }
 
     .form-row label {
@@ -2726,10 +2733,6 @@ td button:focus {
         margin-left: 82px;
     }
 
-    .two-cols-view .form-group {
-        margin-left: 82px;
-    }
-
     .supplier-two-cols,
     .employee-two-cols {
         display: grid;
@@ -2935,10 +2938,6 @@ td button:focus {
     .chkboxes-logged-ncr .radio-button {
         width: 120px;
         text-align: center;
-    }
-
-    .two-cols-view .form-group {
-        margin-left: 115px;
     }
 
     .rad-report,
