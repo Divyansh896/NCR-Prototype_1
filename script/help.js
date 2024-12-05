@@ -216,29 +216,6 @@ function updateToolContent(){
 
 updateToolContent()
 
-// HelpPage
-document.addEventListener("click",function(){
-    //get all the buttons 
-    const help=document.getElementsByClassName("accordion");
-
-    //loop throught all the buttons to add click event 
-    for (let i=0; i<help.length; i++){
-        help[i].addEventListener("click",function(){
-            this.classList.toggle("active");
-            this.parentElement.classList.toggle("active");
-
-            const answer = this.nextElementSibling;
-            if(answer.style.display === "block"){
-                answer.style.display="none";
-            }
-            else{
-                answer.style.display="block";
-            }
-        });
-    }
-
-});
-
 // Create a query string from the NCR data
 function createQueryStringFromNotification(ncrNo) {
     let AllReports = JSON.parse(localStorage.getItem('AllReports'))
