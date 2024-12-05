@@ -805,9 +805,9 @@ function loadImages() {
 
     // List of image filenames in your 'productImages' folder
     const imageFiles = [
-        'screw image 1.jpg',
-        'screw image 2.jpg',
-        'screw image 3.jpg'
+        'screwimage1.jpg',
+        'screwimage2.jpg',
+        'screwimage3.jpg'
     ];
 
     imageContainer.style.display = 'flex'
@@ -820,6 +820,7 @@ function loadImages() {
         imgElement.style.width = '250px'
         imgElement.style.height = '250px'
         imgElement.style.marginLeft = '115px'
+        imgElement.style.marginTop = "20px"
         imageContainer.appendChild(imgElement);
     });
 }
