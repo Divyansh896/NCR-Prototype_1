@@ -8,6 +8,7 @@ const starElements = document.querySelectorAll('.required');
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 
@@ -501,4 +502,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

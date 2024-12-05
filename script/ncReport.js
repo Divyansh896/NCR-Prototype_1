@@ -12,9 +12,27 @@ const clearNotification = document.getElementById("btnClearNotification")
 const btnExport = document.getElementById('btnExportExcel')
 const btnEdit = document.querySelectorAll('.edit');
 const ncrNo = localStorage.getItem('ncrNo')
+const btnPrint = document.getElementById('print')
+const btnDownload = document.getElementById('downloadPdf')
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+
+const btnBackToTop = document.getElementById('btnBackToTop')
+
 loadImages()
 updateToolContent()
+initializeButtons()
+function initializeButtons(){
+    const report = JSON.parse(sessionStorage.getItem('data')) || {};
+    if(report['purchasing_decision']?.resolved === true){
+        btnPrint.style.display = 'block'
+        btnDownload.style.display = 'block'
+        btnExport.style.display = 'block'
+    }else{
+        btnPrint.style.display = 'none'
+        btnDownload.style.display = 'none'
+        btnExport.style.display = 'none'
+    }
+}
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
         // Retrieve the department from a data attribute in the button

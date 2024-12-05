@@ -14,6 +14,7 @@ const newNCR = document.getElementById("new-ncr-number")
 const inspName = document.getElementById("inspector-name")
 const ncrDate = document.getElementById("ncr-date")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 const reInspectRadioButtons = document.querySelectorAll('input[name="re-inspected"]')
 const ncrClosed = document.querySelectorAll('input[name="ncr-closed"]')
@@ -1212,4 +1213,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

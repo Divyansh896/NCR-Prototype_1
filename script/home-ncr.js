@@ -15,6 +15,7 @@ const footer = document.getElementById('footer-scroll')
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 
 setNotificationText()
@@ -78,12 +79,17 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 
-
-footer.addEventListener('click', () => {
+function BackToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
     })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })
 
 // Initialize button click event listeners

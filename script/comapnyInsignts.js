@@ -39,6 +39,8 @@ let suppliers = JSON.parse(localStorage.getItem('suppliers'));
 let employees = JSON.parse(localStorage.getItem('employees'));
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
+const footer = document.getElementById('footer-scroll')
 
 
 const userName = document.getElementById('userName')
@@ -916,4 +918,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

@@ -18,6 +18,7 @@ const supplierModal = document.getElementById("supplierModal")
 const closeModalButton = supplierModal.querySelector(".close")
 const addSupplierButton = document.getElementById("addSupplierButton")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 const footer = document.getElementById('footer-scroll')
 
@@ -1499,4 +1500,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })
