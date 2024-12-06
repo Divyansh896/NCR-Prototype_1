@@ -46,8 +46,8 @@
 
 
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge" aria-label="Show Notifications" onclick="toggleNotifications()"><span
-                            class="icon-text">Notifications</span>
+                    <button tabindex="4" type="button" class="icon-badge" aria-label="Show Notifications"
+                        onclick="toggleNotifications()"><span class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span id="notification-count" class="badge">3</span>
                     </button>
@@ -58,7 +58,8 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="5" type="button" id="settings" class="icon-badge" aria-label="Open Profile Settings" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge"
+                        aria-label="Open Profile Settings" onclick="toggleSettings()">
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
@@ -89,11 +90,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -147,7 +150,8 @@
                     <div class="autocomplete">
                         <div class="tooltip-container">
                             <label>Search NCR Number</label>
-                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" tabindex="7" />
+                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off"
+                                tabindex="7" />
                             <div id="autocomplete-list" class="autocomplete-items"></div>
                             <span class="tooltip">Type NCR number in here</span>
                         </div>
@@ -243,16 +247,23 @@
             <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
                 <thead>
                     <tr>
-                        <!-- <th>
-                            <input type="button" id="sortNcr" value="NCR Number">
-                        </th> -->
-                        <th>NCR Number</th>
-                        <th>Date</th>
+
+
+                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no">NCR Number
+                            <span class="sort-indicator" id="sort-ncr_no"></span>
+                            <span class="tooltip">Click to sort NCRs by ascending or descending order.</span>
+                        </th>
+                        <th class="sort-btn tooltip-container" data-sort-property="date">Date
+                            <span class="sort-indicator" id="sort-date"></span>
+                            <span class="tooltip">Click to sort NCRs by date in ascending or descending order.</span>
+
+                        </th>
                         <th>Supplier</th>
                         <th>Item description</th>
                         <th>NCR Status</th>
                         <!-- <th>NCR Stage</th> -->
                         <th>Controls</th>
+
                     </tr>
                 </thead>
                 <tbody id="ncr-tbody">
@@ -267,7 +278,8 @@
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
             <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get
+                Help</a>
         </p>
         <p>
             <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">

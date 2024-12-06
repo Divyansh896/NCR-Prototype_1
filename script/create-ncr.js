@@ -1144,7 +1144,7 @@ supplierDropdown.addEventListener("change", function () {
 
 // Close the modal when the user clicks the "X" button
 closeModalButton.addEventListener("click", () => {
-    closeSupplierPopup
+    closeSupplierPopup()
     populateSuppliers()
 })
 

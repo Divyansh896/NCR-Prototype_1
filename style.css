@@ -1493,9 +1493,9 @@ input[type="radio"] {
 
 td button {
     /* background: #007bff; */
-    border: 1px solid #007bff;
+    border: 1px solid #002C5C;
     border-radius: 25px;
-    color: #007bff;
+    color: #002C5C;
     text-decoration: none;
     cursor: pointer;
     font-size: 0.95em;
@@ -1515,7 +1515,7 @@ td button i {
 }
 
 td button:hover {
-    background: #0057b3bf;
+    background: #002C5C;
     color: white;
     text-decoration: none;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -1934,6 +1934,10 @@ button.dark-mode, a.dark-mode {
 
 #btnBackToTop:hover{
     color: #f7c4b3;
+}
+
+.ncr-table thead th.sort-btn{
+    color: #2afafa;
 }
 
 
