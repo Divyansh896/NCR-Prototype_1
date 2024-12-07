@@ -37,15 +37,6 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 
-
-
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-
 const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
 
 const currentPage = window.location.pathname // Get current page path
@@ -151,6 +142,7 @@ const enableFieldsForRole = (role) => {
         document.querySelector('#eng-save').addEventListener('click', function () {
             if (validateEngSection()) {
 
+                updateNCRReport()
                 // Implement your save logic here, like sending the data to the server
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
@@ -167,6 +159,7 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
+                updateNCRReport()
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // disableFields()

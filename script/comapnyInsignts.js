@@ -53,6 +53,7 @@ btnExportSupplier.addEventListener('click', () => {
         exportToExcelSupplier(supplierSelect.value);
     }
 });
+
 btnExportEmp.addEventListener('click', () => {
     if (employeeSelect.value === 'All') {
         exportAllEmployeesToExcel();
@@ -73,6 +74,7 @@ populateEmployees()
 populateAllSuppliers()
 populateAllEmployees()
 setNotificationText()
+
 // Initially, hide supplier details and show supplier list
 supplierDetails.style.display = 'none';
 supplierDataContainer.style.display = 'block';
@@ -159,6 +161,8 @@ function populateSupplierDetails() {
         supplierShippingMethod.textContent = supplier.shippingMethod;
     }
 }
+
+
 function populateEmployeeDetails() {
     let selectedEmployee = employeeSelect.value;
     let employee = employees.find(employee => employee.username === selectedEmployee);
@@ -175,6 +179,7 @@ function populateEmployeeDetails() {
         employeeGender.textContent = employee.gender;
     }
 }
+
 
 function populateAllSuppliers() {
     supplierDataContainer.innerHTML = ""; // Clear existing supplier data
@@ -235,6 +240,7 @@ function populateAllSuppliers() {
         supplierDataContainer.appendChild(supplierDiv);
     });
 }
+
 
 function populateAllEmployees() {
     employeeDataContainer.innerHTML = ""; // Clear existing employee data
@@ -304,6 +310,7 @@ function populateAllEmployees() {
     });
 }
 
+
 async function exportToExcelSupplier(supplierName) {
     console.log(supplierName)
     let index = suppliers.findIndex(supplier => supplier.supplierName == supplierName)
@@ -320,13 +327,6 @@ async function exportToExcelSupplier(supplierName) {
     worksheet.mergeCells('A2:E2')
     worksheet.getCell('A2').value = `Date of Report: ${new Date().toLocaleDateString()}`
     worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true }
-
-
-    // Create headers for QA, Engineering, and Purchasing
-    // worksheet.mergeCells('A3:B3')
-    // worksheet.getCell('A3').value = 'QA Information'
-    // worksheet.getCell('A3').alignment = { horizontal: 'Left' }
-    // worksheet.getCell('A3').font = { bold: true, underline: true, size: 18 }
 
     worksheet.getCell('A4').value = 'Supplier Name'
     worksheet.getCell('A4').font = { bold: true }
@@ -362,6 +362,8 @@ async function exportToExcelSupplier(supplierName) {
     const blob = new Blob([buffer], { type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" });
     saveAs(blob, `${supplier.supplierName}.xlsx`);
 }
+
+
 async function exportToExcelEmployee(employeeUsername) {
     console.log(employeeUsername);
     let index = employees.findIndex(employee => employee.username == employeeUsername);
@@ -481,6 +483,8 @@ async function exportAllSuppliersToExcel() {
     const blob = new Blob([buffer], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
     saveAs(blob, `All-Suppliers-Data-${new Date().toISOString().slice(0, 10)}.xlsx`);
 }
+
+
 async function exportAllEmployeesToExcel() {
     const workbook = new ExcelJS.Workbook();
     const worksheet = workbook.addWorksheet('All Employees');
@@ -699,10 +703,13 @@ function setNotificationText() {
         notificationList.prepend(li)
     })
 }
+
+
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools")
 
 }
+
 
 function logout() {
     localStorage.removeItem('isLoggedIn')
@@ -710,6 +717,7 @@ function logout() {
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+
 
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
@@ -721,8 +729,6 @@ function toggleSettings() {
 }
 
 
-
-
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
     if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
@@ -731,6 +737,7 @@ function toggleNotifications() {
         notificationBox.style.display = "none"
     }
 }
+
 
 document.addEventListener("click", function (event) {
     var notificationBox = document.getElementById("notification-box")
@@ -806,6 +813,7 @@ document.addEventListener("click", function (event) {
     }
 })
 
+
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {
     const modalContent = modal.querySelector('.modal-content')
@@ -856,6 +864,7 @@ function showPopup(title, message, icon, callback) {
     }
 }
 
+
 // Create a query string from the NCR data
 function createQueryStringFromNotification(ncrNo) {
     let AllReports = JSON.parse(localStorage.getItem('AllReports'))
@@ -899,6 +908,8 @@ function createQueryStringFromNotification(ncrNo) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+
 clearNotification.addEventListener("click", () => {
     if(user.role == "QA Inspector"){
         localStorage.setItem('QANotification', JSON.stringify([]));
@@ -920,15 +931,20 @@ clearNotification.addEventListener("click", () => {
 
 })
 
+
 function BackToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 }
+
+
 footer.addEventListener('click', () => {
     BackToTop()
 })
+
+
 btnBackToTop.addEventListener('click', ()=>{
     BackToTop()
 })

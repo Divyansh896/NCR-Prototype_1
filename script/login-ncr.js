@@ -1,6 +1,18 @@
-function onLoginSuccess() {
-    localStorage.setItem('isLoggedIn', 'true'); // Set the logged-in state
-}
+
+// Get the modal
+const modal = document.getElementById("popup");
+
+// Get the <span> element that closes the modal
+const span = document.getElementById("closePopup");
+
+// Hide error messages on input change
+document.getElementById("username").addEventListener("input", () => {
+    document.getElementById("username-error").style.display = 'none';
+});
+
+document.getElementById("password").addEventListener("input", () => {
+    document.getElementById("password-error").style.display = 'none';
+});
 
 // Handle Enter key navigation and login
 document.addEventListener("keydown", (event) => {
@@ -71,13 +83,11 @@ document.getElementById("btn-login").addEventListener("click", () => {
     }
 });
 
-// Hide error messages on input change
-document.getElementById("username").addEventListener("input", () => {
-    document.getElementById("username-error").style.display = 'none';
-});
-document.getElementById("password").addEventListener("input", () => {
-    document.getElementById("password-error").style.display = 'none';
-});
+
+
+function onLoginSuccess() {
+    localStorage.setItem('isLoggedIn', 'true'); // Set the logged-in state
+}
 
 function validateInputs() {
     let isValid = true;
@@ -107,11 +117,6 @@ function validateInputs() {
 }
 
 
-// Get the modal
-const modal = document.getElementById("popup");
-
-// Get the <span> element that closes the modal
-const span = document.getElementById("closePopup");
 
 function showPopup(title, message, icon) {
     const modalContent = modal.querySelector('.modal-content');
@@ -163,8 +168,3 @@ document.getElementById("togglePassword").addEventListener("click", function () 
 
 
 
-// document.addEventListener("DOMContentLoaded", function() {
-//     if(localStorage.getItem("isLoggedIn")){
-//         window.location.href = "home.html"
-//     }
-// });

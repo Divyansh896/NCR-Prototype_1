@@ -776,25 +776,26 @@ function logout() {
 
 function initializeItemBarChart() {
     // Initialize an object to store the count of each item
-    const itemCounts = {}
+    const itemCounts = {};
 
     // Count occurrences of each item name in the NCR data
     ncr.forEach(report => {
-        const itemName = report.qa.item_name // Access the item name from QA section
+        const itemName = report.qa.item_name; // Access the item name from QA section
         // Increment the count for the item name
         if (itemCounts[itemName]) {
-            itemCounts[itemName] += 1
+            itemCounts[itemName] += 1;
         } else {
-            itemCounts[itemName] = 1
+            itemCounts[itemName] = 1;
         }
-    })
+    });
 
     // Prepare data for the chart
-    const labels = Object.keys(itemCounts) // Unique item names as labels
-    const data = Object.values(itemCounts) // Counts as data points
+    const labels = Object.keys(itemCounts); // Unique item names as labels
+    const data = Object.values(itemCounts); // Counts as data points
 
     // Get the context of the canvas element
-    const ctx = document.getElementById('itemBarChart').getContext('2d')
+    const canvas = document.getElementById('itemBarChart')
+    const ctx = canvas.getContext('2d');
 
     // Create the bar chart
     new Chart(ctx, {
@@ -822,8 +823,17 @@ function initializeItemBarChart() {
                 }
             }
         }
-    })
+    });
+
+    // Create the description for screen readers
+    let description = "Bar chart displaying the count of different items in the reports, with item names on the x-axis and count on the y-axis. This chart shows the occurrence of the following items in the NCR reports: ";
+    description += Object.entries(itemCounts)
+        .map(([item, count]) => `${item}: ${count} occurrence${count > 1 ? 's' : ''}`)
+        .join(", ") + ".";
+
+    canvas.setAttribute('aria-label', description)
 }
+
 
 
 
@@ -849,7 +859,8 @@ function initializeDateLineChart(ncrData) {
     const reportCounts = dates.map(date => reportCountsByDate[date]) // Report counts matching dates
 
     // Get the context of the canvas element
-    const ctx = document.getElementById('dateLineChart').getContext('2d')
+    const canvas = document.getElementById('dateLineChart')
+    const ctx = canvas.getContext('2d')
 
     // Create the line chart
     new Chart(ctx, {
@@ -895,6 +906,11 @@ function initializeDateLineChart(ncrData) {
             }
         }
     })
+
+    let description = "Line chart showing the trend of NCR reports created or deleted over time, with dates on the x-axis and number of reports on the y-axis. The following dates are displayed: "
+    description += dates.map(date => `${date}: ${reportCountsByDate[date]} report${reportCountsByDate[date] > 1 ? 's' : ''}`).join(', ') + ".";
+
+    canvas.setAttribute('aria-label', description)
 }
 
 
