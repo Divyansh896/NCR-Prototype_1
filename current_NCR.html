@@ -199,8 +199,15 @@
             <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
                 <thead>
                     <tr>
-                        <th>NCR Number</th>
-                        <th>Date</th>
+                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no">NCR Number
+                            <span class="sort-indicator" id="sort-ncr_no"></span>
+                            <span class="tooltip">Click to sort NCRs by ascending or descending order.</span>
+                        </th>
+                        <th class="sort-btn tooltip-container" data-sort-property="date">Date
+                            <span class="sort-indicator" id="sort-date"></span>
+                            <span class="tooltip">Click to sort NCRs by date in ascending or descending order.</span>
+
+                        </th>
                         <th>Supplier</th>
                         <th>Item</th>
                         <!-- <th>NCR Stage</th> -->

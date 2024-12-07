@@ -16,6 +16,7 @@ const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
 const btnBackToTop = document.getElementById('btnBackToTop')
+const sortButtons = document.querySelectorAll('.sort-btn');
 
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 let currentFocus = -1
@@ -193,7 +194,6 @@ function populateTable(data, matchedStatus) {
 }
 
 // Event listener for the sort button
-const sortButtons = document.querySelectorAll('.sort-btn');
 sortButtons.forEach((button) => {
     button.addEventListener('click', () => {
         const status = document.querySelector('input[name="status"]:checked')?.value; // Get selected status

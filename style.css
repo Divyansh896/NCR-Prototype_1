@@ -1527,7 +1527,7 @@ td button:focus {
 }
 
 
-.icon-badge {
+.icon-badge, .link-icon-badge {
     position: relative;
     background: none;
     color: #333;
@@ -1551,7 +1551,7 @@ td button:focus {
     background-color: #333333c5;
 }
 
-.icon-badge .badge {
+.icon-badge .badge, .link-icon-badge .badge {
     position: absolute;
     top: -5px;
     right: -5px;

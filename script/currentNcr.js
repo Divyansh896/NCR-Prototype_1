@@ -14,9 +14,12 @@ const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
 const btnBackToTop = document.getElementById('btnBackToTop')
+const sortButtons = document.querySelectorAll('.sort-btn');
 
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 let currentFocus = -1
+let sortOrder = 'asc'; // Default sort order
+let currentSortProperty = 'ncr_no'; // Default sort by 'ncr_no'
 
 populateTable(AllReports) // Populate table initially
 setNotificationText()
@@ -65,6 +68,46 @@ function getReportStage(ncr) {
 }
 
 
+// Sort function to toggle between ascending and descending
+function sortData(NCRList, property) {
+    return NCRList.sort((a, b) => {
+        // If sorting by date, convert strings to Date objects
+        if (property === 'date') {
+            const dateA = new Date(a.qa.date);
+            const dateB = new Date(b.qa.date);
+            if (sortOrder === 'asc') {
+                return dateA - dateB;  // Ascending
+            } else {
+                return dateB - dateA;  // Descending
+            }
+        } else {
+            // Sorting by other properties like 'ncr_no'
+            if (sortOrder === 'asc') {
+                return a[property] > b[property] ? 1 : -1;
+            } else {
+                return a[property] < b[property] ? 1 : -1;
+            }
+        }
+    });
+}
+
+
+// Function to update the sort indicator
+function updateSortIndicator() {
+    // Reset all indicators
+    const indicators = document.querySelectorAll('.sort-indicator');
+    indicators.forEach(indicator => {
+        indicator.textContent = ''; // Clear the indicators
+    });
+
+    // Update the current sort indicator
+    const currentIndicator = document.getElementById(`sort-${currentSortProperty}`);
+    if (currentIndicator) {
+        currentIndicator.textContent = sortOrder === 'asc' ? '↑' : '↓'; // Up or Down arrow
+    }
+}
+
+
 function populateTable(data) {
     const tBody = document.getElementById('ncr-tbody');
     tBody.innerHTML = ''; // Clear the table
@@ -76,6 +119,8 @@ function populateTable(data) {
         resolvedItems = data.filter(ncr => ncr.qa.resolved === true && ncr.engineering.resolved == true && ncr.purchasing_decision.resolved != true);
     }
 
+    // Sort NCRList before populating the table
+    resolvedItems = sortData(resolvedItems, currentSortProperty);  // Sort by selected property
     // Display the count
     const count = resolvedItems.length;
     document.getElementById('record-count').textContent = `Open NCRs: ${count}`;
@@ -135,6 +180,26 @@ function viewNCR(ncr) {
     // Redirect to the appropriate page with NCR data as a query string
     window.location.href = `${redirectPage}?${createQueryString(ncr)}`;
 }
+
+
+// Event listener for the sort button
+sortButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        // Get the property to sort by from the data-sort-property attribute
+        currentSortProperty = button.getAttribute('data-sort-property');
+
+        // Toggle the sort order
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        
+        // Update the sort indicator based on the current sort
+        updateSortIndicator();
+        // Re-populate the table with sorted data based on the current property
+        populateTable(AllReports);
+    });
+});
+
+updateSortIndicator();
 
 
 // Function to handle the 'Edit' button click
