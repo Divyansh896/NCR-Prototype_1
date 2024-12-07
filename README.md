@@ -59,14 +59,10 @@ The NCR Tracking System is a web-based platform designed to streamline the manag
 3. **Purchasing Department**
    - Log in, review the resolved NCR, create material requisitions, and mark the NCR as "Closed" when the issue is addressed.
 
-## Technical Requirements
-- **Backend**: A database (e.g., MySQL, PostgreSQL) to store NCRs, user data, and attachments.
-- **Frontend**: React or Angular for dynamic and interactive user interfaces.
-- **Security**: SSL encryption, role-based authentication, and data access control.
-- **API Integration**: Future scalability with ERP systems and email services for notifications.
+
 
 ## Installation
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/ncr-tracking-system.git
+   git clone https://github.com/Divyansh896/NCR-Prototype_1.git
