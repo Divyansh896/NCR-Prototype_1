@@ -4,9 +4,10 @@
     box-sizing: border-box;
 }
 
-.img-details{
+.img-details {
     margin-bottom: 30px;
 }
+
 .required {
     color: red;
     margin: 5px;
@@ -252,16 +253,18 @@ details[open] .custom-summary::before {
     margin: 15px 0;
 }
 
-.report-fieldsets{
+.report-fieldsets {
     margin: 5px 20px 20px 20px;
+}
+
+h3{
+    margin: 5px 20px 0px 20px;
 }
 
 /* Label styles */
 label {
     display: block;
-    /* Makes labels take up the full width */
     margin-top: 1rem;
-    /* Space above each label */
     font-size: 1.1rem;
     font-weight: bold;
     text-align: left;
@@ -496,25 +499,17 @@ nav ul a {
 /* Show the active tab panel */
 .tab-panel.active {
     display: flex;
-    /* Use flexbox for alignment */
     flex-direction: column;
-    /* Stack content vertically */
 }
 
 #itemBarChart,
 #dateLineChart {
     width: 100%;
-    /* Full width of the container */
     height: 150px;
-    /* Small height */
     background-color: #f5f5f5;
-    /* Light gray background for better visibility */
     border: 2px solid #163650;
-    /* Blue border for a defined outline */
     border-radius: 8px;
-    /* Rounded corners */
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-    /* Light shadow effect */
 }
 
 #graphs {
@@ -532,7 +527,6 @@ nav ul a {
 .main-container-create {
     display: flex;
     flex-direction: column;
-    /* Stack the status bar and form vertically */
     height: auto;
 }
 
@@ -541,14 +535,11 @@ nav ul a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Align items to the start (top) */
     text-align: left;
-    /* Align text to the left */
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
     width: 100%;
-    /* Make the status bar full width */
 }
 
 .status-steps {
@@ -588,31 +579,22 @@ nav ul a {
     background-color: white;
     display: flex;
     flex-direction: column;
-    /* Stack items vertically */
     width: 100%;
-    /* Make the form full width */
     border-radius: 5px;
 }
 
 
-/* create page  */
 /* Fieldset Styles */
 fieldset {
     border: 1px solid #163650;
-    /* Example border style */
     border-radius: 5px;
-    /* Rounded corners */
     margin: 10px 0;
-    /* Space between fieldsets */
 }
 
 fieldset legend {
     margin-top: 10px;
-    /* Space above the legend */
     font-weight: bold;
-    /* Optional: make the legend text bold */
     font-size: 1rem;
-    /* Optional: adjust the font size */
 }
 
 .createNcr-verticalLayout,
@@ -634,7 +616,6 @@ fieldset legend {
     margin: 0 0 10px 0;
     border-radius: 5px;
     border: none;
-    /* Added border style */
     flex-direction: column;
     text-align: left;
 }
@@ -644,8 +625,7 @@ fieldset legend {
 }
 
 .form-section.active button,
-.btns-supplier button
- {
+.btns-supplier button {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -655,7 +635,7 @@ fieldset legend {
 
 .form-section.active button:hover,
 #saveAndLeaveBtn:hover,
-.continue-button-qa:hover, 
+.continue-button-qa:hover,
 .continue-button-eng:hover {
     background-color: #10223d;
 }
@@ -679,8 +659,7 @@ fieldset legend {
 #save1,
 #save2,
 #leaveWithoutSavingBtn,
-#cancelBtn
- {
+#cancelBtn {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -695,7 +674,7 @@ fieldset legend {
 #save1:hover,
 #save2:hover,
 #leaveWithoutSavingBtn:hover,
-#cancelBtn:hover{
+#cancelBtn:hover {
     background-color: #e0e0e0;
 }
 
@@ -707,7 +686,6 @@ fieldset legend {
 .form-section p {
     font-weight: bold;
     margin: 0;
-    /* Added margin reset */
 }
 
 .form-section span {
@@ -818,7 +796,6 @@ fieldset legend {
 
 .upload-icon {
     font-size: 48px !important;
-    /* Adjust size as needed */
 }
 
 #drop-area .tooltip {
@@ -831,12 +808,9 @@ fieldset legend {
 .resolved {
     display: grid;
     flex-direction: column;
-    /* Ensures label and span stack vertically */
     padding: 5px;
-    /* Adds space inside the div */
     overflow: hidden;
     grid-template-columns: repeat(2, 1fr);
-    /* Clips any overflow */
 }
 
 .description {
@@ -851,7 +825,6 @@ fieldset legend {
     width: 100%;
     max-width: 100%;
     overflow: hidden;
-    /* or overflow: auto; */
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
@@ -868,7 +841,6 @@ fieldset legend {
     white-space: normal;
     text-align: left;
     word-break: break-word;
-    /* Breaks long words */
     overflow-wrap: break-word;
 
 }
@@ -919,7 +891,7 @@ label.radio-button {
     justify-content: space-around;
     background-color: #fff;
     border-radius: 5px;
-    padding: 15px 10px;
+    padding: 0px 10px;
     flex-direction: column;
     gap: 10px;
     width: fit-content;
@@ -927,7 +899,6 @@ label.radio-button {
 
 .rad-create-ncr {
     align-items: center;
-    text-align: center;
     flex-direction: row;
 }
 
@@ -980,7 +951,6 @@ label.radio-button {
 .qa-info-logged-ncr,
 .eng-info-logged-ncr {
     display: grid;
-    /* grid-template-columns: 1fr 1fr; */
 }
 
 .qa-info-logged-ncr span,
@@ -991,7 +961,6 @@ label.radio-button {
 /* View NCR */
 .verticalLayout {
     width: 100%;
-    /* Ensure full width but no overflow */
     text-align: center;
     margin: 0 auto;
 }
@@ -1039,15 +1008,8 @@ label.radio-button {
     text-align: left;
 }
 
-/* .btns-supplier button {
-    margin: 10px 0;
-    
-}  */
-
-
 .autocomplete {
     position: relative;
-    /* display: inline-block; */
 }
 
 .autocomplete-items {
@@ -1135,7 +1097,6 @@ input[type="radio"] {
     margin: 20px 0px;
 }
 
-/* Bold Text for Status and Record Count */
 #status-filter,
 #record-count {
     font-weight: bold;
@@ -1208,12 +1169,19 @@ input[type="radio"] {
     font-weight: bold;
 }
 
-/* .view-btn, .edit-btn{
-    background-color: #007bff;
-    border-radius: 15px;
-    height: 30px;
-    width: auto;
-} */
+#defectedProdImages {
+    display: flex;
+    gap: 5px;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.dynamic-image {
+    width: 200px;
+    height: 200px;
+}
+
 /* Manage account */
 .account {
     border-radius: 10px 10px 0 0;
@@ -1260,54 +1228,6 @@ input[type="radio"] {
 .account legend img {
     height: 170px;
     width: 170px;
-}
-
-
-/* Contact us */
-.fieldset-contact {
-    flex-direction: column;
-    /* Stack elements vertically */
-    text-align: center;
-    margin: 0px 5% 2% 5%;
-}
-
-.fieldset-contact label {
-    font-weight: 600;
-    text-align: left;
-    margin-left: 2%;
-}
-
-.fieldset-contact #name,
-.fieldset-contact #email {
-    height: 40px;
-    width: 95%;
-}
-
-.fieldset-contact #message {
-    width: 65%;
-    height: 300px;
-    padding: 10px;
-    font-size: 1rem;
-    margin: 0px 20px;
-}
-
-/* Button Styling */
-.fieldset-contact button {
-    align-self: flex-end;
-    height: 45px;
-    background-color: #1a3153;
-    color: white;
-    width: 200px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    margin: 20px 0px;
-}
-
-/* Button Hover Effect */
-.fieldset-contact button:hover {
-    background-color: #394b6a;
 }
 
 
@@ -1376,56 +1296,39 @@ input[type="radio"] {
 .modal,
 .deletemodal {
     display: none;
-    /* Hidden by default */
     position: fixed;
-    /* Stay in place */
     z-index: 999;
-    /* Sit on top */
     left: 0;
     top: 0;
-    /* Start at the top */
     width: 100%;
-    /* Full width */
     height: 100%;
-    /* Full height */
     overflow: hidden;
-    /* Prevent scroll if needed */
     background-color: rgb(0, 0, 0);
-    /* Fallback color */
     background-color: rgba(0, 0, 0, 0.4);
-    /* Black w/ opacity */
     transition: opacity 0.5s ease;
-    /* Transition for the opacity */
 }
 
 .modal-content {
     background-color: #fefefe;
     border-radius: 8px;
-    /* Rounded corners */
     padding: 20px;
     border: 1px solid #888;
     width: 365px;
-    /* Set a fixed width */
     height: 200px;
     position: absolute;
-    /* Position relative to modal */
     left: 50%;
-    /* Center horizontally */
     top: 50%;
-    /* Center vertically */
     transform: translate(-50%, -50%);
-    /* Adjust to center */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    /* Shadow effect */
     opacity: 0;
-    /* Start hidden */
     transition: opacity 0.5s ease, transform 0.5s ease;
-    /* Transition for opacity and transform */
 }
-.modal-content-supplier{
+
+.modal-content-supplier {
     height: 85vh;
     overflow-y: scroll;
 }
+
 .modal-content p {
     margin-left: 55px;
     text-align: left;
@@ -1453,35 +1356,24 @@ input[type="radio"] {
 
 .error-message {
     color: red;
-    /* Red color for error messages */
     margin-top: 10px;
-    /* Space above the error message */
     font-size: 14px;
-    /* Font size for the error message */
     display: none;
-    /* Hide by default */
 }
 
 .header-container {
     display: flex;
-    /* Use flexbox to align items */
     align-items: center;
-    /* Center items vertically */
     margin-bottom: 20px;
-    /* Space below the header */
 }
 
 .icon-container {
     margin-right: 15px;
-    /* Space between icon and title */
 }
 
 .icon {
     width: 40px;
-    /* Width of the circle */
     height: 40px;
-    /* Height of the circle */
-    /* border-radius: 50%; Make it circular */
 
 }
 
@@ -1492,7 +1384,6 @@ input[type="radio"] {
 }
 
 td button {
-    /* background: #007bff; */
     border: 1px solid #002C5C;
     border-radius: 25px;
     color: #002C5C;
@@ -1608,9 +1499,11 @@ td button:focus {
     padding: 8px;
     border-bottom: 1px solid #ddd;
 }
-.notification-box ul li:hover{
+
+.notification-box ul li:hover {
     background-color: rgba(128, 128, 128, 0.095);
 }
+
 .notification-box ul li:last-child,
 .settings-box ul li:last-child {
     border-bottom: none;
@@ -1684,7 +1577,6 @@ td button:focus {
     border-radius: 4px;
     position: absolute;
     bottom: 55px;
-    /* Position above the button */
     left: 50%;
     transform: translateX(-50%);
     opacity: 0;
@@ -1738,13 +1630,11 @@ td button:focus {
     font-size: 12px;
     white-space: nowrap;
     visibility: hidden;
-    /* Initially hidden */
     z-index: 10;
 }
 
 .report-card {
     position: relative;
-    /* Ensure the tooltip is positioned correctly within the report card */
 }
 
 
@@ -1898,12 +1788,13 @@ td button:focus {
 /*  */
 
 
-.info-icon{
+.info-icon {
     border-radius: 50%;
     color: rgb(77 149 233);
     margin-left: 6px;
 }
-.info-description{
+
+.info-description {
     margin: 10px 0;
 }
 
@@ -1913,30 +1804,33 @@ body.dark-mode {
     color: #ffffff;
 }
 
-header.dark-mode, footer.dark-mode {
+header.dark-mode,
+footer.dark-mode {
     background-color: #1e1e1e;
 }
 
-button.dark-mode, a.dark-mode {
+button.dark-mode,
+a.dark-mode {
     background-color: #333333;
     color: #ffffff;
 }
-.info-description{
+
+.info-description {
     margin: 10px 0;
 }
 
-#btnBackToTop{
+#btnBackToTop {
     background-color: transparent;
     border-style: none;
     color: #dbc7c0;
     font-size: 1rem;
 }
 
-#btnBackToTop:hover{
+#btnBackToTop:hover {
     color: #f7c4b3;
 }
 
-.ncr-table thead th.sort-btn{
+.ncr-table thead th.sort-btn {
     color: #2afafa;
 }
 
@@ -1954,11 +1848,11 @@ button.dark-mode, a.dark-mode {
 }
 
 @media screen and (min-width: 425px) {
- 
+
     .featuresCreateNCR button,
     .featuresViewNCR button,
     .featuresManageAcc button,
-    .featuresCrossfireInsights button{
+    .featuresCrossfireInsights button {
         width: 45%;
     }
 
@@ -2014,11 +1908,11 @@ button.dark-mode, a.dark-mode {
     }
 
     .featuresCreateNCR button,
-.featuresViewNCR button,
-.featuresManageAcc button,
-.featuresCrossfireInsights button{
-    width: 50%;
-}
+    .featuresViewNCR button,
+    .featuresManageAcc button,
+    .featuresCrossfireInsights button {
+        width: 50%;
+    }
 
     .report-card {
         flex-direction: row;
@@ -2167,8 +2061,16 @@ button.dark-mode, a.dark-mode {
         width: 100%;
     }
 
-    .ncr-buttons{
+    .ncr-buttons {
         padding: 10px 20px;
+    }
+
+    /* report page*/
+    #defectedProdImages {
+        flex-direction: row;
+        justify-content: start;
+        margin: 20px 20px;
+        gap: 10px;
     }
 
     /* account */
@@ -2354,7 +2256,7 @@ button.dark-mode, a.dark-mode {
         margin-right: 30px;
     }
 
-    .modal-content-supplier{
+    .modal-content-supplier {
         height: 60vh;
         width: 670px;
     }
@@ -2506,8 +2408,7 @@ button.dark-mode, a.dark-mode {
     .main-tab-nav,
     .left-align,
     .main-container-graphs,
-    .main-container-dashboard
-     {
+    .main-container-dashboard {
         max-width: 1200px;
         margin: 0 auto;
         justify-content: space-between;
@@ -2515,12 +2416,12 @@ button.dark-mode, a.dark-mode {
     }
 
 
-    .main-container-dashboard{
+    .main-container-dashboard {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
-    
+
 
     .left-align {
         padding-bottom: 0;
@@ -2692,9 +2593,9 @@ button.dark-mode, a.dark-mode {
         display: block;
     }
 
-.radio-btn {
-    font-size: 1rem;
-}
+    .radio-btn {
+        font-size: 1rem;
+    }
 
     .status-steps {
         list-style: none;
@@ -2797,27 +2698,41 @@ button.dark-mode, a.dark-mode {
         width: 30%;
     }
 
-    .ncr-table tbody td:nth-child(6){
+    .ncr-table tbody td:nth-child(6) {
         display: flex;
         flex-direction: column;
     }
-    .modal-content-supplier{
+
+    .modal-content-supplier {
         height: 40vh;
         width: 670px;
     }
-    .modal-content-supplier .supplier-columns{
+
+    .modal-content-supplier .supplier-columns {
         width: 100%;
+    }
+
+    /* report page */
+    .dynamic-image{
+        width: 300px;
+        height: 300px;
     }
 }
 
 @media screen and (min-width: 1440px) {
 
+    /*general*/
     h1 {
         font-size: 2.5rem
     }
 
+    h3{
+        font-size: 1.1rem;
+    }
+
     label,
-    p {
+    p,
+    span {
         font-size: 1rem;
     }
 
@@ -2967,7 +2882,7 @@ button.dark-mode, a.dark-mode {
     }
 
     .chkboxes-logged-ncr .radio-button {
-        width: 120px;
+        width: 150px;
         text-align: center;
     }
 
@@ -2975,23 +2890,32 @@ button.dark-mode, a.dark-mode {
     .resolved {
         margin-left: 0;
     }
-    .ncr-table tbody td:nth-child(6){
+
+    .ncr-table tbody td:nth-child(6) {
         flex-direction: row;
     }
 
-    .modal-content-supplier{
+    .modal-content-supplier {
         height: 65vh;
         width: 760px;
     }
-    .modal-content-supplier .btns-supplier{
+
+    .modal-content-supplier .btns-supplier {
         align-items: flex-start;
         justify-content: flex-start;
     }
-    .modal-content-supplier .btns-supplier button{
+
+    .modal-content-supplier .btns-supplier button {
         margin: 10px;
         margin-left: 0;
         margin-right: 10px;
         width: 43%;
+    }
+
+    /* report page */
+    #defectedProdImages{
+        margin: 20px 40px;
+        gap: 40px;
     }
 }
 
@@ -3029,9 +2953,13 @@ button.dark-mode, a.dark-mode {
     h1 {
         font-size: 3rem;
     }
-    
-    h2{
+
+    h2 {
         font-size: 2.3rem;
+    }
+
+    h3{
+        font-size: 2rem;
     }
 
     label,
@@ -3039,8 +2967,8 @@ button.dark-mode, a.dark-mode {
     .featuresCreateNCR p,
     .featuresViewNCR p,
     .featuresManageAcc p,
-    .featuresCrossfireInsights p
-    {
+    .featuresCrossfireInsights p,
+    span {
         font-size: 1.7rem;
     }
 
@@ -3106,6 +3034,10 @@ button.dark-mode, a.dark-mode {
         width: 90%;
     }
 
+    .qa-info-section input, .qa-info-section select{
+        width: 90%; 
+    }
+
     .form-section textarea {
         font-size: 1.7rem;
     }
@@ -3125,20 +3057,19 @@ button.dark-mode, a.dark-mode {
         height: 50px;
     }
 
-    .report-card{
+    .report-card {
         height: 70px;
         font-size: 1.5rem
-
     }
 
-    .report-card button{
+    .report-card button {
         height: 50px;
         font-size: 1.5rem
     }
 
     .tab-button.active,
-    .tab-button{
-        font-size: 1.5rem 
+    .tab-button {
+        font-size: 1.5rem
     }
 
     /* view ncr */
@@ -3196,6 +3127,14 @@ button.dark-mode, a.dark-mode {
 
     .confirmation p {
         font-size: 2em;
+    }
+
+    .chkboxes-logged-ncr .radio-button {
+        width: 200px;
+    }
+
+    .rad-create-ncr .radio-button {
+        width: 100px;
     }
 
     /* account*/
@@ -3304,12 +3243,13 @@ button.dark-mode, a.dark-mode {
     .fieldset-contact #email {
         height: 60px;
     }
-    .modal-content-supplier{
+
+    .modal-content-supplier {
         height: 41vh;
         width: 1000px;
     }
-    
-    
+
+
 }
 
 /* Show a focus outline for all focusable elements */
@@ -3331,11 +3271,10 @@ textarea:focus {
     #supplier-container {
         width: 85%;
     }
+
     .modal-content-supplier {
         height: 29vh;
         width: 1061px;
     }
 
 }
-
-

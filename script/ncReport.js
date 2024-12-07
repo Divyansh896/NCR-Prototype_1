@@ -810,17 +810,12 @@ function loadImages() {
         'screwimage3.jpg'
     ];
 
-    imageContainer.style.display = 'flex'
-
     // Loop through the image files and create img elements
     imageFiles.forEach(imageFile => {
         const imgElement = document.createElement('img');
         imgElement.src = `/productImages/${imageFile}`; // URL pointing to the static folder
         imgElement.alt = imageFile; // Image file name as alt text
-        imgElement.style.width = '250px'
-        imgElement.style.height = '250px'
-        imgElement.style.marginLeft = '115px'
-        imgElement.style.marginTop = "20px"
+        imgElement.classList.add('dynamic-image'); // Add a class to the image
         imageContainer.appendChild(imgElement);
     });
 }
