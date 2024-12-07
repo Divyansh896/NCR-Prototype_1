@@ -20,7 +20,7 @@ let currentFocus = -1
 
 populateTable(AllReports) // Populate table initially
 setNotificationText()
-
+populateSuppliers()
 
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -46,18 +46,6 @@ if (user && user.role) {
 }
 
 
-
-
-
-// Smooth scroll to the top on footer click
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-
-
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -68,12 +56,14 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
+
 function getReportStage(ncr) {
     if (!ncr.qa.resolved) return 'QA'
     if (!ncr.engineering.resolved) return 'Engineering'
     if (!ncr.purchasing_decision.resolved) return 'Purchasing'
     return ''
 }
+
 
 function populateTable(data) {
     const tBody = document.getElementById('ncr-tbody');
@@ -125,6 +115,7 @@ function populateTable(data) {
         tBody.appendChild(row);
     });
 }
+
 
 function viewNCR(ncr) {
     // Determine the redirect page based on the user's role
@@ -195,6 +186,7 @@ function extractData(ncr) {
     }
 }
 
+
 function filterNcr(ncrData) {
     const search = document.getElementById('search');
     const ncrInput = document.getElementById('ncrInput').value.trim();
@@ -224,7 +216,6 @@ function filterNcr(ncrData) {
 
 // Attach filter events
 document.getElementById('search').addEventListener('change', () => filterNcr(AllReports));
-
 
 // Attach input event for NCR number input
 document.getElementById('ncrInput').addEventListener('input', () => filterNcr(AllReports));
@@ -287,6 +278,7 @@ ncrInput.addEventListener('input', function () {
     populateTable(filteredRecords);
 });
 
+
 // Keyboard navigation for autocomplete
 ncrInput.addEventListener('keydown', function (e) {
     const items = document.querySelectorAll('.autocomplete-item')
@@ -327,6 +319,8 @@ ncrInput.addEventListener('keydown', function (e) {
         }
     }
 })
+
+
 function addActive(items) {
     if (!items.length) return;
 
@@ -347,11 +341,10 @@ function addActive(items) {
 }
 
 
-
-
 function removeActive(items) {
     Array.from(items).forEach(item => item.classList.remove('active'))
 }
+
 
 // Click outside of autocomplete to close it
 document.addEventListener('click', function (e) {
@@ -359,6 +352,8 @@ document.addEventListener('click', function (e) {
         autocompleteList.innerHTML = ''
     }
 })
+
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -369,8 +364,6 @@ function toggleSettings() {
 }
 
 
-
-
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
     if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
@@ -379,6 +372,7 @@ function toggleNotifications() {
         notificationBox.style.display = "none"
     }
 }
+
 
 // Optional: Hide the notification box if clicked outside
 document.addEventListener("click", function (event) {
@@ -454,12 +448,16 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
+
+
 function logout() {
     localStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+
+
 // Create a query string from the NCR data
 function createQueryString(ncrData) {
     const { qa, engineering, purchasing_decision } = ncrData; // Destructure the NCR object
@@ -499,10 +497,12 @@ function createQueryString(ncrData) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
-
 }
+
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
@@ -608,11 +608,10 @@ function setNotificationText() {
             })
         }
 
-
-
         notificationList.prepend(li)
     })
 }
+
 
 function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
@@ -626,7 +625,9 @@ function updateToolContent() {
     }
 }
 
+
 updateToolContent()
+
 
 function populateSuppliers() {
     const supplierDropdown = document.getElementById("search");
@@ -646,7 +647,7 @@ function populateSuppliers() {
         supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
     });   
 }
-populateSuppliers()
+
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {
@@ -761,15 +762,20 @@ clearNotification.addEventListener("click", () => {
 
 })
 
+
 function BackToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 }
+
+
 footer.addEventListener('click', () => {
     BackToTop()
 })
+
+
 btnBackToTop.addEventListener('click', ()=>{
     BackToTop()
 })

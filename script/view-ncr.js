@@ -196,6 +196,8 @@ function populateTable(data, matchedStatus) {
 const sortButtons = document.querySelectorAll('.sort-btn');
 sortButtons.forEach((button) => {
     button.addEventListener('click', () => {
+        const status = document.querySelector('input[name="status"]:checked')?.value; // Get selected status
+
         // Get the property to sort by from the data-sort-property attribute
         currentSortProperty = button.getAttribute('data-sort-property');
 
@@ -205,7 +207,7 @@ sortButtons.forEach((button) => {
         // Update the sort indicator based on the current sort
         updateSortIndicator();
         // Re-populate the table with sorted data based on the current property
-        populateTable(AllReports, "incomplete");
+        populateTable(AllReports, status);
     });
 });
 
@@ -358,6 +360,7 @@ ncrInput.addEventListener('input', function () {
     const ncrData = AllReports
     const input = this.value.toUpperCase();
     const hasLetters = /[a-zA-Z]/; // Pattern to check for any letters
+    const status = document.querySelector('input[name="status"]:checked')?.value; // Get selected status
 
     // Check if the input contains any letters
     if (hasLetters.test(input)) {
@@ -388,7 +391,7 @@ ncrInput.addEventListener('input', function () {
         return ncrInput.value
     });
 
-    populateTable(filteredRecords);
+    populateTable(filteredRecords, status);
 });
 
 // Keyboard navigation for autocomplete
