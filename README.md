@@ -69,4 +69,4 @@ The NCR Tracking System is a web-based platform designed to streamline the manag
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/ncr-tracking-system.git
+   git clone https://github.com/Divyansh896/NCR-Prototype_1.git
