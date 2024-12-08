@@ -636,13 +636,15 @@ fieldset legend {
 .form-section.active button:hover,
 #saveAndLeaveBtn:hover,
 .continue-button-qa:hover,
-.continue-button-eng:hover {
+.continue-button-eng:hover,
+.continue-button-purch:hover {
     background-color: #10223d;
 }
 
 #saveAndLeaveBtn,
 .continue-button-qa,
-.continue-button-eng {
+.continue-button-eng,
+.continue-button-purch {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
