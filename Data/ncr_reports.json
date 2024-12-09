@@ -426,7 +426,7 @@
             }
         },
         "engineering": {
-            "disposition": "Use as is",
+            "disposition": "use as is",
             "disposition_options": {
                 "use_as_is": true,
                 "repair": false,
