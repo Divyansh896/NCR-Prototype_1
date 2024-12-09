@@ -1,7 +1,8 @@
+let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 const user = JSON.parse(sessionStorage.getItem("currentUser"))
+
 const userName = document.getElementById('userName')
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
-let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
@@ -9,9 +10,29 @@ const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
 const btnExport = document.getElementById('btnExportExcel')
+const btnEdit = document.querySelectorAll('.edit');
+const ncrNo = localStorage.getItem('ncrNo')
+const btnPrint = document.getElementById('print')
+const btnDownload = document.getElementById('downloadPdf')
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+
+const btnBackToTop = document.getElementById('btnBackToTop')
+
 loadImages()
 updateToolContent()
-const btnEdit = document.querySelectorAll('.edit');
+initializeButtons()
+function initializeButtons(){
+    const report = JSON.parse(sessionStorage.getItem('data')) || {};
+    if(report['purchasing_decision']?.resolved === true){
+        btnPrint.style.display = 'block'
+        btnDownload.style.display = 'block'
+        btnExport.style.display = 'block'
+    }else{
+        btnPrint.style.display = 'none'
+        btnDownload.style.display = 'none'
+        btnExport.style.display = 'none'
+    }
+}
 btnEdit.forEach(button => {
     button.addEventListener('click', () => {
         // Retrieve the department from a data attribute in the button
@@ -35,9 +56,7 @@ function editNCR(ncr) {
     sessionStorage.setItem('data', JSON.stringify(ncr))
     window.location.href = 'edit_Report.html' // Adjust the URL as needed
 }
-const ncrNo = localStorage.getItem('ncrNo')
 
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
 if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
@@ -786,21 +805,17 @@ function loadImages() {
 
     // List of image filenames in your 'productImages' folder
     const imageFiles = [
-        'screw image 1.jpg',
-        'screw image 2.jpg',
-        'screw image 3.jpg'
+        'screwimage1.jpg',
+        'screwimage2.jpg',
+        'screwimage3.jpg'
     ];
-
-    imageContainer.style.display = 'flex'
 
     // Loop through the image files and create img elements
     imageFiles.forEach(imageFile => {
         const imgElement = document.createElement('img');
         imgElement.src = `/productImages/${imageFile}`; // URL pointing to the static folder
         imgElement.alt = imageFile; // Image file name as alt text
-        imgElement.style.width = '250px'
-        imgElement.style.height = '250px'
-        imgElement.style.marginLeft = '115px'
+        imgElement.classList.add('dynamic-image'); // Add a class to the image
         imageContainer.appendChild(imgElement);
     });
 }

@@ -13,15 +13,19 @@ const dept = document.getElementById("department");
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const clearNotification = document.getElementById("btnClearNotification")
-
+const btnBackToTop = document.getElementById('btnBackToTop')
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
 const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+
 if (ncrLink && user.role == "QA Inspector") {
     ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
 }
-const modal = document.getElementById("popup")
-const span = document.getElementById("closePopup")
+
 setNotificationText()
 fillEmployeeDetailsFromURL()
+updateToolContent()
+
 const requiredFields = [
     { fieldId: 'empId', errorId: 'empID-error' },
     { fieldId: 'email', errorId: 'eMail-error' },
@@ -33,10 +37,10 @@ const requiredFields = [
 ];
 
 clearErrorMessage()
+
 document.getElementById("clear").addEventListener("click", function () {
     document.querySelector("form").reset();
 });
-
 
 
 addEmp.addEventListener("click", (e) => {
@@ -92,6 +96,7 @@ function showRequiredFields() {
 
     return isvalid; // Return the final validation result
 }
+
 function clearErrorMessage() {
 
 
@@ -111,7 +116,6 @@ function clearErrorMessage() {
 }
 
 
-
 document.getElementById('clear').addEventListener('click', () => {
     const spans = document.querySelectorAll('.error-message')
     spans.forEach(element => {
@@ -119,9 +123,9 @@ document.getElementById('clear').addEventListener('click', () => {
     });
 
 })
+
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
-
 }
 
 function setNotificationText() {
@@ -276,7 +280,7 @@ function updateToolContent() {
     }
 }
 
-updateToolContent()
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -515,4 +519,19 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

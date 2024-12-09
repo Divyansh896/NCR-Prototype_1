@@ -21,6 +21,7 @@ const purchdropdown = document.getElementById('purch-section')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 setNotificationText()
 
@@ -142,7 +143,7 @@ function prefillFormFromSavedData(savedData) {
         document.getElementById("engineering_review_date").value = savedData.engineeringReviewDate;
     }
 
-    document.getElementById('ncr-no-d').textContent = savedData.supplier_name;
+    document.getElementById('ncr-no-d').textContent = savedData.ncr_no;
     document.getElementById('supplier-name-d').textContent = savedData.supplier_name;
     document.getElementById('product-no-d').textContent = savedData.po_no;
     document.getElementById('sales-order-no-d').textContent = savedData.sales_order_no;
@@ -1188,4 +1189,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

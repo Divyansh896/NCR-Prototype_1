@@ -1,13 +1,22 @@
-const starElements = document.querySelectorAll('.required');
-const user = JSON.parse(sessionStorage.getItem("currentUser"));
-const userName = document.getElementById('userName');
-const notificationlist = document.getElementById('notification-list');
-const notificationCount = document.getElementById('notification-count');
-const clearNotification = document.getElementById("btnClearNotification")
-
-setNotificationText()
-
+const user = JSON.parse(sessionStorage.getItem("currentUser"))
 const ncrNo = localStorage.getItem('ncrNo')
+const userName = document.getElementById('userName')
+const notificationlist = document.getElementById('notification-list')
+const notificationCount = document.getElementById('notification-count')
+const clearNotification = document.getElementById("btnClearNotification")
+const starElements = document.querySelectorAll('.required')
+const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]')
+const modal = document.getElementById("popup")
+const span = document.getElementById("closePopup")
+const btnBackToTop = document.getElementById('btnBackToTop')
+const footer = document.getElementById('footer-scroll')
+
+userName.innerHTML = `${user.firstname}  ${user.lastname}`
+
+updateToolContent()
+setNotificationText()
+populateUserData(user)
+
 const requiredFields = [
     { fieldId: 'fname', errorId: 'firstname-error' },
     { fieldId: 'lname', errorId: 'lastname-error' },
@@ -18,12 +27,14 @@ const requiredFields = [
     { fieldId: 'bday', errorId: 'dob-error' },
     { fieldId: 'gender', errorId: 'gender-error' },
     { fieldId: 'password', errorId: 'password-error' }
-];
-const ncrLink = document.querySelector('a[aria-label="Create a new Non-Conformance Report"]');
+]
+
+
 if (ncrLink && user.role == "QA Inspector") {
-    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`;
+    ncrLink.href = `create_NCR.html?ncr_no=${ncrNo}`
 }
-userName.innerHTML = `${user.firstname}  ${user.lastname}`
+
+
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role
@@ -47,131 +58,113 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 starElements.forEach(star => {
-    star.style.display = 'none'; // Hide each star element
-});
+    star.style.display = 'none' // Hide each star element
+})
 
-populateUserData(user);
-
-
-const footer = document.getElementById('footer-scroll');
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    });
-});
 
 // Function to populate input fields with user data
 function populateUserData(data) {
-    document.getElementById('fname').value = data.firstname || '';
-    document.getElementById('lname').value = data.lastname || '';
-    document.getElementById('Uname').value = data.username || '';
-    document.getElementById('employeeId').value = data.employeeID || '';
-    document.getElementById('emailId').value = data.emailID || '';
-    document.getElementById('phone').value = data.phone || '';
-    document.getElementById('bday').value = data.dob || '';
-    document.getElementById('password').value = data.password || '';
-    const genderSelect = document.getElementById('gender');
-    genderSelect.value = data.gender; // Set the selected value
-    console.log(data.gender);
+    document.getElementById('fname').value = data.firstname || ''
+    document.getElementById('lname').value = data.lastname || ''
+    document.getElementById('Uname').value = data.username || ''
+    document.getElementById('employeeId').value = data.employeeID || ''
+    document.getElementById('emailId').value = data.emailID || ''
+    document.getElementById('phone').value = data.phone || ''
+    document.getElementById('bday').value = data.dob || ''
+    document.getElementById('password').value = data.password || ''
+    const genderSelect = document.getElementById('gender')
+    genderSelect.value = data.gender // Set the selected value
+    console.log(data.gender)
 }
 
 // Function to update required fields dynamically
 function showRequiredFields() {
-    let isvalid = true;
-
-    
-    
+    let isvalid = true
 
     requiredFields.forEach(({ fieldId, errorId }) => {
-        const inputElement = document.getElementById(fieldId);
-        const errorMessage = document.getElementById(errorId);
+        const inputElement = document.getElementById(fieldId)
+        const errorMessage = document.getElementById(errorId)
 
         if (!inputElement) {
-            console.warn(`Input element with id "${fieldId}" not found.`);
-            isvalid = false;
-            return;
+            console.warn(`Input element with id "${fieldId}" not found.`)
+            isvalid = false
+            return
         }
 
         if (!errorMessage) {
-            console.warn(`Error message element with id "${errorId}" not found.`);
-            isvalid = false;
-            return;
+            console.warn(`Error message element with id "${errorId}" not found.`)
+            isvalid = false
+            return
         }
 
         // Check if the input is empty
         if (inputElement.value.trim() === '') {
-            errorMessage.style.display = 'inline'; // Show error if empty
-            isvalid = false;
+            errorMessage.style.display = 'inline' // Show error if empty
+            isvalid = false
         } else {
-            errorMessage.style.display = 'none'; // Hide error if filled
+            errorMessage.style.display = 'none' // Hide error if filled
         }
-    });
+    })
 
-    return isvalid; // Return the final validation result
+    return isvalid // Return the final validation result
 }
 
 function attachInputEvents() {
     
-
     requiredFields.forEach(({ fieldId, errorId }) => {
-        const inputElement = document.getElementById(fieldId);
-        const errorMessage = document.getElementById(errorId);
+        const inputElement = document.getElementById(fieldId)
+        const errorMessage = document.getElementById(errorId)
 
 
-        const eventType = inputElement.tagName === 'SELECT' || inputElement.type === 'date' ? 'change' : 'input';
+        const eventType = inputElement.tagName === 'SELECT' || inputElement.type === 'date' ? 'change' : 'input'
 
         inputElement.addEventListener(eventType, () => {
             if (inputElement.value.trim() !== '') {
-                errorMessage.style.display = 'none'; // Hide error message when input is valid
+                errorMessage.style.display = 'none' // Hide error message when input is valid
             }
-        });
-    });
+        })
+    })
 }
 
 // Call this function after the DOM is loaded
-attachInputEvents();
+attachInputEvents()
 
 
 // Submit button event listener
 document.getElementById('submit-btn').addEventListener('click', (e) => {
     e.preventDefault()
     if (!showRequiredFields()) {
-        // e.preventDefault(); // Prevent form submission if invalid
+        // e.preventDefault() // Prevent form submission if invalid
         showPopup("Required Field missing","Please fill in the required fields before submitting.", "images/1382678.webp")
     } else {
 
         showPopup("Credentials updated", "You credentials has been updated successfully.", "images/confirmationIcon.webp")
     }
-});
+})
 
 // Common function for all pages
 window.onload = function () {
-    // // Check if the user is logged in
-    // if (localStorage.getItem('isLoggedIn') !== 'true') {
-    //     window.location.href = 'index.html'; // Redirect to login if not logged in
-    // }
 
     // Add logout button event listener
-    const logoutBtn = document.getElementById('logoutBtn');
+    const logoutBtn = document.getElementById('logoutBtn')
     if (logoutBtn) {
         logoutBtn.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default button behavior
-            logout(); // Call logout function
-        });
+            e.preventDefault() // Prevent default button behavior
+            logout() // Call logout function
+        })
     }
-};
+}
 
 function logout() {
     // Clear the logged-in state
-    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('isLoggedIn')
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
 
-
     // Redirect to the login page
-    location.replace('index.html'); // This will replace the current history entry
+    location.replace('index.html') // This will replace the current history entry
 }
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -180,9 +173,6 @@ function toggleSettings() {
         settingsBox.style.display = "none"
     }
 }
-
-
-
 
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
@@ -210,9 +200,9 @@ document.addEventListener("click", function (event) {
                         ...notification, // Copy all existing properties
                         // ischecked: true// Override the `ischecked` property
                         qachecked: true
-                    };
+                    }
 
-                });
+                })
                 localStorage.setItem("QANotification", JSON.stringify(notifications))
             }
             else if (user.role == "Lead Engineer") {
@@ -223,9 +213,9 @@ document.addEventListener("click", function (event) {
                         ...notification, // Copy all existing properties
                         // ischecked: true// Override the `ischecked` property
                         engineerchecked: true
-                    };
+                    }
 
-                });
+                })
                 localStorage.setItem("ERNotification", JSON.stringify(notifications))
 
             }
@@ -237,9 +227,9 @@ document.addEventListener("click", function (event) {
                         ...notification, // Copy all existing properties
                         // ischecked: true// Override the `ischecked` property
                         purchasingchecked: true
-                    };
+                    }
 
-                });
+                })
                 localStorage.setItem("PRNotification", JSON.stringify(notifications))
 
             }
@@ -251,9 +241,9 @@ document.addEventListener("click", function (event) {
                         ...notification, // Copy all existing properties
                         // ischecked: true// Override the `ischecked` property
                         adminchecked: true
-                    };
+                    }
 
-                });
+                })
                 localStorage.setItem("ADNotification", JSON.stringify(notifications))
 
             }
@@ -267,41 +257,36 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
-function logout() {
-    localStorage.removeItem('isLoggedIn');
-    sessionStorage.removeItem('currentUser')
-    sessionStorage.removeItem('breadcrumbTrail')
-    location.replace('index.html')
-}
+
 
 function openTools() {
-    document.querySelector(".tools-container").classList.toggle("show-tools");
+    document.querySelector(".tools-container").classList.toggle("show-tools")
 
 }
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
-    const count = document.getElementById('notification-count');
+    const count = document.getElementById('notification-count')
     let notifications 
     if(user.role == "QA Inspector"){
          notifications = JSON.parse(localStorage.getItem('QANotification')) || []
-        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked);
-        count.innerHTML = qauncheckedNotifications.length;
+        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked)
+        count.innerHTML = qauncheckedNotifications.length
     }
     else if(user.role == "Lead Engineer"){
          notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
-        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked);
-        count.innerHTML = eruncheckedNotifications.length;
+        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked)
+        count.innerHTML = eruncheckedNotifications.length
     }
     else if(user.role == "Purchasing"){
          notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
-        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked);
-        count.innerHTML = pruncheckedNotifications.length;
+        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked)
+        count.innerHTML = pruncheckedNotifications.length
     }
     else if(user.role == "Admin"){
          notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
-        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked);
-        count.innerHTML = aduncheckedNotifications.length;
+        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked)
+        count.innerHTML = aduncheckedNotifications.length
     }
     // Clear any existing notifications in the list to avoid duplicates
     const notificationList = document.getElementById('notification-list') // Ensure this element exists in your HTML
@@ -383,8 +368,6 @@ function setNotificationText() {
             })
         }
 
-
-
         notificationList.prepend(li)
     })
 }
@@ -401,13 +384,6 @@ function updateToolContent(){
     }
 }
 
-updateToolContent()
-const modal = document.getElementById("popup")
-const span = document.getElementById("closePopup")
-setNotificationText()
-// document.getElementById("clear").addEventListener("click", function () {
-//     document.querySelector("form").reset();
-// });
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {
@@ -465,7 +441,7 @@ function createQueryStringFromNotification(ncrNo) {
     let index = AllReports.findIndex(report => report.ncr_no == ncrNo)
     let ncrData = AllReports[index]
 
-    const { qa, engineering, purchasing_decision } = ncrData; // Destructure the NCR object
+    const { qa, engineering, purchasing_decision } = ncrData // Destructure the NCR object
     return new URLSearchParams({
         ncr_no: ncrData.ncr_no,
         supplier_name: qa.supplier_name,
@@ -500,26 +476,39 @@ function createQueryStringFromNotification(ncrNo) {
         ncr_closed: purchasing_decision.ncr_closed,
         resolved_purchasing: purchasing_decision.resolved, // Rename to avoid conflicts
         new_ncr_number: purchasing_decision.new_ncr_number
-    }).toString();
+    }).toString()
 }
 
 clearNotification.addEventListener("click", () => {
     if(user.role == "QA Inspector"){
-        localStorage.setItem('QANotification', JSON.stringify([]));
+        localStorage.setItem('QANotification', JSON.stringify([]))
 
     }
     else if(user.role == "Lead Engineer"){
-        localStorage.setItem('ERNotification', JSON.stringify([]));
+        localStorage.setItem('ERNotification', JSON.stringify([]))
 
     }
     else if(user.role == "Purchasing"){
-        localStorage.setItem('PRNotification', JSON.stringify([]));
+        localStorage.setItem('PRNotification', JSON.stringify([]))
 
     }
     else if(user.role == "Admin"){
-        localStorage.setItem('ADNotification', JSON.stringify([]));
+        localStorage.setItem('ADNotification', JSON.stringify([]))
 
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

@@ -10,6 +10,7 @@
     <title>Login - Crossfire</title>
     <link rel="stylesheet" href="login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="images/icon.ico">
 </head>
 
 <body id="login">
@@ -32,7 +33,7 @@
         <div id="wrapper">
             <div class="login-container" role="form" aria-labelledby="login-header">
                 <div class="logo-container">
-                    
+
                     <h1 id="login-header">Log In</h1>
                 </div>
                 <div aria-live="polite">
@@ -48,11 +49,12 @@
                         </div>
                         <span id="username-error" style="display:none;" class="error-message"></span>
                     </div>
+
                     <div class="tooltip-container">
                         <label for="password">Password</label>
                         <div class="password-container">
-                            <input type="password" id="password" name="password" placeholder="Enter your password" required
-                                aria-required="true" aria-label="Enter your Crossfire password" tabindex="2">
+                            <input type="password" id="password" name="password" placeholder="Enter your password"
+                                required aria-required="true" aria-label="Enter your Crossfire password" tabindex="2">
                             <span id="togglePassword" class="fa fa-eye" aria-hidden="true"></span>
                             <span class="tooltip">
                                 Enter the secure password associated with your Crossfire account.
@@ -60,18 +62,20 @@
                         </div>
                         <span id="password-error" style="display:none;" class="error-message"></span>
                     </div>
-                
+
                     <button id="btn-login" aria-label="Log in to your account" tabindex="3">Log In</button>
                 </div>
-                
+
             </div>
         </div>
     </main>
 
     <footer aria-label="Footer" id="login-footer">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
-        <p><a href="privacy_policy.html">Privacy Policy</a></p>
-        <p><a href="privacy_policy.html">Help</a></p>
+        <p>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+        </p>
     </footer>
     <script src="script/login-ncr.js"></script>
 </body>

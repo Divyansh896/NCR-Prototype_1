@@ -5,6 +5,7 @@ const notificationCount = document.getElementById('notification-count');
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 setNotificationText()
 const userName = document.getElementById('userName');
@@ -378,4 +379,17 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

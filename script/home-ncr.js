@@ -15,6 +15,7 @@ const footer = document.getElementById('footer-scroll')
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 
 setNotificationText()
@@ -78,12 +79,17 @@ if (user && user.role) {
     console.warn("User data not found in sessionStorage or missing role.")
 }
 
-
-footer.addEventListener('click', () => {
+function BackToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
     })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })
 
 // Initialize button click event listeners
@@ -294,13 +300,13 @@ function displayRecentReports(data) {
         reportCard.classList.add('report-card')
 
         // Supplier and report information
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
+        const NcrNo = document.createElement('span')
+        NcrNo.classList.add('NcrNo')
+        NcrNo.textContent = `NCR No - ${ncr.ncr_no}`
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `Supplier: ${ncr.qa?.supplier_name || 'Unknown Supplier'} - Date: ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         // Tooltip container and tooltip
         const tooltipContainer = document.createElement('div')
@@ -358,7 +364,7 @@ function displayRecentReports(data) {
         })
 
         // Append elements to the report card
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(NcrNo)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(pinIcon)
 
@@ -389,13 +395,14 @@ function displayPinnedReports() {
         reportCard.classList.add('report-card')
 
         // Assuming ncr is an individual object representing a report
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.qa?.supplier_name || 'Unknown Supplier'
+        // Supplier and report information
+        const NcrNo = document.createElement('span')
+        NcrNo.classList.add('NcrNo')
+        NcrNo.textContent = `NCR No - ${ncr.ncr_no}`
 
-        const reportinfo = document.createElement('span')
-        reportinfo.classList.add('reportInfo')
-        reportinfo.textContent = `${ncr.qa?.date || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
+        const reportInfo = document.createElement('span')
+        reportInfo.classList.add('reportInfo')
+        reportInfo.textContent = `Supplier: ${ncr.qa?.supplier_name || 'Unknown Supplier'} - Date: ${ncr.qa?.date || 'No Date Available'} - ${ncr.qa?.item_description?.substring(0, 80) || 'No Description Available'}...`
 
         const tooltipContainer = document.createElement('div')
         tooltipContainer.classList.add('tooltip-container')
@@ -450,8 +457,8 @@ function displayPinnedReports() {
         })
 
         // Append the unpin icon to the report card
-        reportCard.appendChild(supplierName)
-        reportCard.appendChild(reportinfo)
+        reportCard.appendChild(NcrNo)
+        reportCard.appendChild(reportInfo)
         reportCard.appendChild(unpinIcon)
 
         tooltipContainer.appendChild(reportCard)
@@ -477,13 +484,13 @@ function displaySavedReportsQa() {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
+        const NcrNo = document.createElement('span')
+        NcrNo.classList.add('NcrNo')
+        NcrNo.textContent = `NCR No - ${ncr.ncr_no || 'N/A'}`
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.description_item.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `Supplier: ${ncr.supplier_name || 'Unknown Supplier'} - Date: ${ncr.date_of_saved || 'No Date Available'} - ${ncr.description_item.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
         const continueButton = document.createElement('button')
@@ -506,7 +513,7 @@ function displaySavedReportsQa() {
             }, 100) // Short delay to ensure sessionStorage writes
         })
 
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(NcrNo)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(continueButton)
 
@@ -529,13 +536,13 @@ function displaySavedReportsEng() {
         const reportCard = document.createElement('div')
         reportCard.classList.add('report-card')
 
-        const supplierName = document.createElement('span')
-        supplierName.classList.add('supplier-name')
-        supplierName.textContent = ncr.supplier_name || 'Unknown Supplier'
+        const NcrNo = document.createElement('span')
+        NcrNo.classList.add('NcrNo')
+        NcrNo.textContent = `NCR No - ${ncr.ncr_no || 'NA'}` 
 
         const reportInfo = document.createElement('span')
         reportInfo.classList.add('reportInfo')
-        reportInfo.textContent = `${ncr.date_of_saved || 'No Date Available'} - NCR No: ${ncr.ncr_no || 'N/A'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`
+        reportInfo.textContent = `Supplier: ${ncr.supplier_name || 'N/A'} - Date: ${ncr.date_of_saved || 'No Date Available'} - ${ncr.dispositionDetails.substring(0, 80) || 'No Description Available'}...`
 
         // "Continue Editing" Button
         const continueButton = document.createElement('button')
@@ -552,7 +559,7 @@ function displaySavedReportsEng() {
             }
         })
 
-        reportCard.appendChild(supplierName)
+        reportCard.appendChild(NcrNo)
         reportCard.appendChild(reportInfo)
         reportCard.appendChild(continueButton) // Append the button to the card
 
@@ -769,25 +776,26 @@ function logout() {
 
 function initializeItemBarChart() {
     // Initialize an object to store the count of each item
-    const itemCounts = {}
+    const itemCounts = {};
 
     // Count occurrences of each item name in the NCR data
     ncr.forEach(report => {
-        const itemName = report.qa.item_name // Access the item name from QA section
+        const itemName = report.qa.item_name; // Access the item name from QA section
         // Increment the count for the item name
         if (itemCounts[itemName]) {
-            itemCounts[itemName] += 1
+            itemCounts[itemName] += 1;
         } else {
-            itemCounts[itemName] = 1
+            itemCounts[itemName] = 1;
         }
-    })
+    });
 
     // Prepare data for the chart
-    const labels = Object.keys(itemCounts) // Unique item names as labels
-    const data = Object.values(itemCounts) // Counts as data points
+    const labels = Object.keys(itemCounts); // Unique item names as labels
+    const data = Object.values(itemCounts); // Counts as data points
 
     // Get the context of the canvas element
-    const ctx = document.getElementById('itemBarChart').getContext('2d')
+    const canvas = document.getElementById('itemBarChart')
+    const ctx = canvas.getContext('2d');
 
     // Create the bar chart
     new Chart(ctx, {
@@ -815,8 +823,17 @@ function initializeItemBarChart() {
                 }
             }
         }
-    })
+    });
+
+    // Create the description for screen readers
+    let description = "Bar chart displaying the count of different items in the reports, with item names on the x-axis and count on the y-axis. This chart shows the occurrence of the following items in the NCR reports: ";
+    description += Object.entries(itemCounts)
+        .map(([item, count]) => `${item}: ${count} occurrence${count > 1 ? 's' : ''}`)
+        .join(", ") + ".";
+
+    canvas.setAttribute('aria-label', description)
 }
+
 
 
 
@@ -842,7 +859,8 @@ function initializeDateLineChart(ncrData) {
     const reportCounts = dates.map(date => reportCountsByDate[date]) // Report counts matching dates
 
     // Get the context of the canvas element
-    const ctx = document.getElementById('dateLineChart').getContext('2d')
+    const canvas = document.getElementById('dateLineChart')
+    const ctx = canvas.getContext('2d')
 
     // Create the line chart
     new Chart(ctx, {
@@ -888,6 +906,11 @@ function initializeDateLineChart(ncrData) {
             }
         }
     })
+
+    let description = "Line chart showing the trend of NCR reports created or deleted over time, with dates on the x-axis and number of reports on the y-axis. The following dates are displayed: "
+    description += dates.map(date => `${date}: ${reportCountsByDate[date]} report${reportCountsByDate[date] > 1 ? 's' : ''}`).join(', ') + ".";
+
+    canvas.setAttribute('aria-label', description)
 }
 
 

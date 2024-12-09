@@ -13,12 +13,17 @@ const records = document.getElementById('record-count')
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
+const sortButtons = document.querySelectorAll('.sort-btn');
+
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
 let currentFocus = -1
+let sortOrder = 'asc'; // Default sort order
+let currentSortProperty = 'ncr_no'; // Default sort by 'ncr_no'
 
 populateTable(AllReports) // Populate table initially
 setNotificationText()
-
+populateSuppliers()
 
 // Check if user data is available and has a role
 if (user && user.role) {
@@ -44,18 +49,6 @@ if (user && user.role) {
 }
 
 
-
-
-
-// Smooth scroll to the top on footer click
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-
-
 // Allow radio buttons to be selected with the 'Enter' key
 document.addEventListener('keydown', function (event) {
     if (event.key === 'Enter') {
@@ -66,12 +59,54 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
+
 function getReportStage(ncr) {
     if (!ncr.qa.resolved) return 'QA'
     if (!ncr.engineering.resolved) return 'Engineering'
     if (!ncr.purchasing_decision.resolved) return 'Purchasing'
     return ''
 }
+
+
+// Sort function to toggle between ascending and descending
+function sortData(NCRList, property) {
+    return NCRList.sort((a, b) => {
+        // If sorting by date, convert strings to Date objects
+        if (property === 'date') {
+            const dateA = new Date(a.qa.date);
+            const dateB = new Date(b.qa.date);
+            if (sortOrder === 'asc') {
+                return dateA - dateB;  // Ascending
+            } else {
+                return dateB - dateA;  // Descending
+            }
+        } else {
+            // Sorting by other properties like 'ncr_no'
+            if (sortOrder === 'asc') {
+                return a[property] > b[property] ? 1 : -1;
+            } else {
+                return a[property] < b[property] ? 1 : -1;
+            }
+        }
+    });
+}
+
+
+// Function to update the sort indicator
+function updateSortIndicator() {
+    // Reset all indicators
+    const indicators = document.querySelectorAll('.sort-indicator');
+    indicators.forEach(indicator => {
+        indicator.textContent = ''; // Clear the indicators
+    });
+
+    // Update the current sort indicator
+    const currentIndicator = document.getElementById(`sort-${currentSortProperty}`);
+    if (currentIndicator) {
+        currentIndicator.textContent = sortOrder === 'asc' ? '↑' : '↓'; // Up or Down arrow
+    }
+}
+
 
 function populateTable(data) {
     const tBody = document.getElementById('ncr-tbody');
@@ -84,6 +119,8 @@ function populateTable(data) {
         resolvedItems = data.filter(ncr => ncr.qa.resolved === true && ncr.engineering.resolved == true && ncr.purchasing_decision.resolved != true);
     }
 
+    // Sort NCRList before populating the table
+    resolvedItems = sortData(resolvedItems, currentSortProperty);  // Sort by selected property
     // Display the count
     const count = resolvedItems.length;
     document.getElementById('record-count').textContent = `Open NCRs: ${count}`;
@@ -124,6 +161,7 @@ function populateTable(data) {
     });
 }
 
+
 function viewNCR(ncr) {
     // Determine the redirect page based on the user's role
     let redirectPage;
@@ -142,6 +180,26 @@ function viewNCR(ncr) {
     // Redirect to the appropriate page with NCR data as a query string
     window.location.href = `${redirectPage}?${createQueryString(ncr)}`;
 }
+
+
+// Event listener for the sort button
+sortButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+
+        // Get the property to sort by from the data-sort-property attribute
+        currentSortProperty = button.getAttribute('data-sort-property');
+
+        // Toggle the sort order
+        sortOrder = sortOrder === 'asc' ? 'desc' : 'asc';
+        
+        // Update the sort indicator based on the current sort
+        updateSortIndicator();
+        // Re-populate the table with sorted data based on the current property
+        populateTable(AllReports);
+    });
+});
+
+updateSortIndicator();
 
 
 // Function to handle the 'Edit' button click
@@ -193,6 +251,7 @@ function extractData(ncr) {
     }
 }
 
+
 function filterNcr(ncrData) {
     const search = document.getElementById('search');
     const ncrInput = document.getElementById('ncrInput').value.trim();
@@ -222,7 +281,6 @@ function filterNcr(ncrData) {
 
 // Attach filter events
 document.getElementById('search').addEventListener('change', () => filterNcr(AllReports));
-
 
 // Attach input event for NCR number input
 document.getElementById('ncrInput').addEventListener('input', () => filterNcr(AllReports));
@@ -285,6 +343,7 @@ ncrInput.addEventListener('input', function () {
     populateTable(filteredRecords);
 });
 
+
 // Keyboard navigation for autocomplete
 ncrInput.addEventListener('keydown', function (e) {
     const items = document.querySelectorAll('.autocomplete-item')
@@ -325,6 +384,8 @@ ncrInput.addEventListener('keydown', function (e) {
         }
     }
 })
+
+
 function addActive(items) {
     if (!items.length) return;
 
@@ -345,11 +406,10 @@ function addActive(items) {
 }
 
 
-
-
 function removeActive(items) {
     Array.from(items).forEach(item => item.classList.remove('active'))
 }
+
 
 // Click outside of autocomplete to close it
 document.addEventListener('click', function (e) {
@@ -357,6 +417,8 @@ document.addEventListener('click', function (e) {
         autocompleteList.innerHTML = ''
     }
 })
+
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -367,8 +429,6 @@ function toggleSettings() {
 }
 
 
-
-
 function toggleNotifications() {
     var notificationBox = document.getElementById("notification-box")
     if (notificationBox.style.display === "none" || notificationBox.style.display === "") {
@@ -377,6 +437,7 @@ function toggleNotifications() {
         notificationBox.style.display = "none"
     }
 }
+
 
 // Optional: Hide the notification box if clicked outside
 document.addEventListener("click", function (event) {
@@ -452,12 +513,16 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
+
+
 function logout() {
     localStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('currentUser')
     sessionStorage.removeItem('breadcrumbTrail')
     location.replace('index.html')
 }
+
+
 // Create a query string from the NCR data
 function createQueryString(ncrData) {
     const { qa, engineering, purchasing_decision } = ncrData; // Destructure the NCR object
@@ -497,10 +562,12 @@ function createQueryString(ncrData) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools");
-
 }
+
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
@@ -606,11 +673,10 @@ function setNotificationText() {
             })
         }
 
-
-
         notificationList.prepend(li)
     })
 }
+
 
 function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
@@ -624,7 +690,9 @@ function updateToolContent() {
     }
 }
 
+
 updateToolContent()
+
 
 function populateSuppliers() {
     const supplierDropdown = document.getElementById("search");
@@ -644,7 +712,7 @@ function populateSuppliers() {
         supplierDropdown.appendChild(option); // Insert before "Add a Supplier"
     });   
 }
-populateSuppliers()
+
 
 // Show the modal with a title, message, and icon
 function showPopup(title, message, icon, callback) {
@@ -757,4 +825,22 @@ clearNotification.addEventListener("click", () => {
     }
     setNotificationText()
 
+})
+
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+
+
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+
+
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

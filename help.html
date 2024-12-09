@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css"> <!-- Link to your external CSS file -->
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="images/icon.ico">
 
     <style>
         html {
@@ -57,7 +58,7 @@
 
 
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                    <button tabindex="4" type="button" class="icon-badge" aria-label="Show Notifications" onclick="toggleNotifications()"><span
                             class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span id="notification-count" class="badge">3</span>
@@ -68,7 +69,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" aria-label="Open Profile Settings" onclick="toggleSettings()">
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
@@ -99,11 +100,13 @@
                                     <!-- Tools Container (hidden initially) -->
                                     <div class="tools-container" id="tools-container">
                                         <!-- Add Employee -->
-                                        <a class="tools-emp" id="add-emp" href="add_employee.html" aria-label="Add a new employee">
+                                        <a class="tools-emp" id="add-emp" href="add_employee.html"
+                                            aria-label="Add a new employee">
                                             <i class="fa fa-user-plus"></i> Add Employee
                                         </a>
                                         <!-- Add Supplier -->
-                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html" aria-label="Add a new supplier">
+                                        <a class="tools-emp" id="add-sup" href="Add_supplier.html"
+                                            aria-label="Add a new supplier">
                                             <i class="fa fa-truck"></i> Add Supplier
                                         </a>
                                     </div>
@@ -146,146 +149,127 @@
                 <p>This is a simple popup!</p>
                 <div id="error-message" class="error-message"></div> <!-- Error message area -->
             </div>
-            
+
         </div>
         <div id="help-wrapper">
             <h1>Help</h1>
             <!--1-->
             <div class="help-faq">
-                <button class="accordion" tabindex="6"><!---Question-->
-                    What is the role of the QA person in the NCR website?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        The QA person is responsible for filling out the QA part of the form and sending it to the engineering department. They can also add suppliers to the system.
-                    </p>
-               </div>
+                <details id="eng-section" tabindex="6"><!---Question-->
+                    The QA person is responsible for filling out the QA part of the form and sending it to the
+                    engineering department. They can also add suppliers to the system.
+
+                    <!---Answer-->
+                    <summary class="custom-summary">
+                        What is the role of the QA person in the NCR website?
+                    </summary>
+                </details>
             </div>
             <!--2-->
             <div class="help-faq">
-                <button class="accordion" tabindex="7"><!---Question-->
-                    How does the QA person notify the engineering department after completing their part?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        Once the QA person completes their part and sends the form, both the QA and engineering departments receive email notifications.
-                    </p>
-                </div>
+                <details id="eng-section" tabindex="7"><!---Question-->
+
+                    Once the QA person completes their part and sends the form, both the QA and engineering
+                    departments receive email notifications.
+                    <!-- <div class="help-answers"> -->
+                    <summary class="custom-summary"><!---Answer-->
+                        How does the QA person notify the engineering department after completing their part?
+                        <!-- <i class="fa fa-chevron-down" aria-hidden="true"></i> -->
+                    </summary>
+                    <!-- </div> -->
+                </details>
             </div>
             <!--3-->
             <div class="help-faq">
-                <button class="accordion" tabindex="8"><!---Question-->
-                    What can the engineering person do with the form?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        The engineering person can fill out their part of the form and view the QA part, but they cannot edit the QA part. 
-                    </p>
-                </div>
-            </div> 
-            <!--4--> 
-            <div class="help-faq">
-                <button class="accordion" tabindex="9"><!---Question-->
-                    How does the engineering person notify the purchasing department after completing their part?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        After completing their part, the engineering person sends the form, and both the engineering and purchasing departments receive email notifications.
-                        view the QA part, but they cannot edit the QA part. 
-                    </p>
-                </div>
-            </div> 
-            <!--5--> 
-            <div class="help-faq">
-                <button class="accordion" tabindex="10"><!---Question-->
-                    What is the role of the purchasing department in the NCR website?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        The purchasing department is responsible for filling out their part of the form and submitting it after receiving a notification from the engineering department.
-                    </p>
-                </div>
-            </div>    
-            <!--6--> 
-            <div class="help-faq">
-                <button class="accordion" tabindex="11"><!---Question-->
-                    Who has the authority to edit the form for all departments?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        Only the admin has the authority to edit the form for all departments.
-                    </p>
-                </div>
-            </div> 
-            <!--7--> 
-            <div class="help-faq">
-                <button class="accordion" tabindex="12"><!---Question-->
-                    Can the admin add suppliers and employees to the system?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        Yes, the admin can add both suppliers and employees to the system.
-                      </p>
-                </div>  
+                <details id="eng-section" tabindex="8">
+                    The engineering person can fill out their part of the form and view the QA part, but they cannot
+                    edit the QA part.
+
+                    <summary class="custom-summary">
+                        What can the engineering person do with the form?
+                    </summary>
+                </details>
             </div>
-            <!--8--> 
+            <!--4-->
             <div class="help-faq">
-                <button class="accordion" tabindex="13"><!---Question-->
-                    Can the QA person add suppliers to the system?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        Yes, the QA person can also add suppliers to the system.
-                    </p>
-                </div>  
-            </div>  
-            <!--9--> 
-            <div class="help-faq">
-                <button class="accordion" tabindex="14"><!---Question-->
-                    What happens after the purchasing department submits their part?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
-                        The process is complete, and the admin reviews the form for accuracy and final approval.
-                    </p>
-                </div>  
+                <details id="eng-section" tabindex="9">
+                    After completing their part, the engineering person sends the form, and both the engineering and
+                    purchasing departments receive email notifications.
+                    view the QA part, but they cannot edit the QA part.
+                    <summary class="custom-summary">
+                        How does the engineering person notify the purchasing department after completing their part?
+                    </summary>
+                </details>
             </div>
-            <!--9--> 
+            <!--5-->
             <div class="help-faq">
-                <button class="accordion" tabindex="15"><!---Question-->
-                    What should I do if I encounter an issue with the form?
-                    <i class="fa fa-chevron-down" aria-hidden="true"></i>        
-                </button>
-                <div class="help-answers">
-                    <p><!---Answer-->
+                <details id="eng-section" tabindex="10">
+                    The purchasing department is responsible for filling out their part of the form and submitting
+                    it after receiving a notification from the engineering department.
+                    <summary class="custom-summary">
+                        What is the role of the purchasing department in the NCR website?
+                    </summary>
+                </details>
+            </div>
+            <!--6-->
+            <div class="help-faq">
+                <details id="eng-section" tabindex="11">
+                    Only the admin has the authority to edit the form for all departments.
+                    <summary class="custom-summary">
+                        Who has the authority to edit the form for all departments?
+                    </summary>
+                </details>
+            </div>
+            <!--7-->
+            <div class="help-faq">
+                <details id="eng-section" tabindex="12">
+                    Yes, the admin can add both suppliers and employees to the system.
+                    <summary class="custom-summary">
+                        Can the admin add suppliers and employees to the system?
+                    </summary>
+                </details>
+            </div>
+            <!--8-->
+            <div class="help-faq">
+                <details id="eng-section" tabindex="13">
+                    Yes, the QA person can also add suppliers to the system.
+                    <summary class="custom-summary">
+                        Can the QA person add suppliers to the system?
+                    </summary>
+                </details>
+            </div>
+            <!--9-->
+            <div class="help-faq">
+                <details id="eng-section" tabindex="14">
+                    The process is complete, and the admin reviews the form for accuracy and final approval.
+                    <summary class="custom-summary">
+                        What happens after the purchasing department submits their part?
+                    </summary>
+                </details>
+            </div>
+            <!--9-->
+            <div class="help-faq">
+                    <details id="eng-section" tabindex="15">
                         If you encounter any issues with the form, please contact the admin for assistance.
-                    </p>
-                </div>  
-            </div>  
+                        <summary class="custom-summary">
+                            What should I do if I encounter an issue with the form?
+                        </summary>
+                    </details>
+            </div>
 
-        </div>         
+        </div>
 
-
-                
     </main>
 
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="16">Privacy
-                Policy</a></p>
-                <p>
-                    <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="17">Help</a>
-                </p>         
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+        </p>
+        <p>
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+        </p>
     </footer>
     <script src="script/help.js"></script>
     <script src="script/breadcrumb.js"></script>
