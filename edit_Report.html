@@ -257,6 +257,8 @@
                     <div class="form-group description">
                         <!-- Radio Buttons for Non-Conforming -->
                          <div class="rad-report description">
+                            <label for="item_marked_nonconforming">Item Marked Non-Conforming?</label>
+                            <span class="error-message" id="process-applicable-error">Description of the item defect is required.</span>
                             <div>
                                 <label for="item_marked_nonconforming">Item Marked Non-Conforming</label>
                                 <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
@@ -305,7 +307,7 @@
                             tabindex="24">
                             <option value="" disabled selected>Select a disposition</option>
                             <option value="rework">Rework</option>
-                            <option value="use_as_is">Use As Is</option>
+                            <option value="use as is">Use As Is</option>
                             <option value="repair">Repair</option>
                             <option value="scrap">Scrap</option>
                         </select>

@@ -669,7 +669,8 @@ function submitForm() {
         "new_ncr_number": newNcrNumberValue || 'NA',            // new NCR number
         "inspector_name": inspectorNameValue,           // inspector name
         "ncr_closed": ncrClosedValue === "yes" ? true : false,        // ncr closed value
-        "resolved": ncrResolvedValue === "yes" ? true : false      // resolved status based on NCR closed
+        "resolved": ncrResolvedValue === "yes" ? true : false,      // resolved status based on NCR closed
+        "operations_manager_name": `${user.firstname} ${user.lastname}`
     };
     AllReports[ncrIndex].status = ncrClosedValue == 'yes' ? 'completed' : 'incomplete'
 

@@ -164,7 +164,7 @@ function setSpanContentFromSession() {
     document.getElementById('car-raised').textContent = retrievedNCRData['purchasing_decision']?.car_raised === true ? 'Yes' : 'No';
     document.getElementById('car-number').textContent = retrievedNCRData['purchasing_decision']?.car_number || 'Not filled';
     document.getElementById('follow-up-required').textContent = retrievedNCRData['purchasing_decision']?.follow_up_required === true ? 'Yes' : 'No';
-    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || 'Not filled';
+    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || `${user.firstname} ${user.lastname}`
     document.getElementById('operations-manager-date').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_date || 'Not filled'; // Set date input value
     document.getElementById('inspector-name').textContent = retrievedNCRData['purchasing_decision']?.inspector_name || 'Not filled';
     document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
@@ -851,7 +851,7 @@ async function exportToExcel(ncrNum) {
     worksheet.getCell('A1').font = { bold: true, size: 20 }
 
     worksheet.mergeCells('A2:E2')
-    worksheet.getCell('A2').value = `Date of Report: ${report.qa.date}`
+    worksheet.getCell('A2').value = `NCR No: ${ncrNum} - Date of Report: ${report.qa.date}`
     worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true }
 
 
