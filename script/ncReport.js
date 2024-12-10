@@ -175,7 +175,27 @@ function setSpanContentFromSession() {
 
 
 // Call the function on page load
-document.addEventListener('DOMContentLoaded', setSpanContentFromSession)
+document.addEventListener("DOMContentLoaded", () => {
+    // Debug: Check the contents of sessionStorage before retrieving data
+    console.log("Debug: SessionStorage contents before retrieving data:", sessionStorage);
+
+    const retrievedNCRData = JSON.parse(sessionStorage.getItem("data")) || {};
+
+    // Debug: Log the retrieved NCR data
+    console.log("Debug: Retrieved NCR data from sessionStorage:", retrievedNCRData);
+
+    if (!retrievedNCRData.ncr_no) {
+        alert("No report found. Please submit a report first.");
+        window.location.href = "purchasing_decision.html"; // Redirect back if no data
+        return;
+    }
+
+    // Populate the page with retrieved data
+    setSpanContentFromSession(retrievedNCRData);
+
+    // Debug: Confirm data is being passed to setSpanContentFromSession
+    console.log("Debug: Data passed to setSpanContentFromSession:", retrievedNCRData);
+});
 
 
 //event for downloading a pdf

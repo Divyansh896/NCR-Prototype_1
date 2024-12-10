@@ -1536,12 +1536,18 @@ td button:focus {
     font-size: 12px;
     margin-left: 5px;
 }
-
+#help-wrapper .help-faq{
+    margin-bottom: 20px;
+}
 #userName {
     font-size: 1.4em;
     font-weight: 300;
 }
-
+#btnBackToTop{
+    background-color: transparent;
+    border-style: none;
+    color: wheat;
+}
 .tools {
     text-align: left;
 }
@@ -2609,7 +2615,7 @@ body.dark-mode select:focus {
 
     .answer-text,
     .custom-summary {
-        padding-left: 95px;
+        padding-left: 21px;
     }
 
     .custom-summary-loggedNcr {
@@ -3059,9 +3065,13 @@ body.dark-mode select:focus {
         padding-left: 20px;
     }
 
-    .answer-text,
+    .help-faq .custom-summary,
+    .help-faq .answer-text{
+        padding-left: 150px;
+    }
+    
     .custom-summary {
-        padding-left: 128px;
+        padding-left: 21px;
     }
 
     .confirmation p {
@@ -3277,7 +3287,7 @@ body.dark-mode select:focus {
     .featuresViewNCR button,
     .featuresManageAcc button,
     .featuresCrossfireInsights button {
-        width: 60%;
+        width: 50%;
         height: 50px;
     }
 
@@ -3291,6 +3301,9 @@ body.dark-mode select:focus {
         font-size: 1.5rem
     }
 
+    .NcrNo{
+        width: 270px;
+    }
     .tab-button.active,
     .tab-button {
         font-size: 1.5rem
@@ -3382,9 +3395,17 @@ body.dark-mode select:focus {
 
     .checkbox-button,
     .radio-button {
-        width: 370px;
+        width: 100%;
+        padding: 14px 20px;
     }
-
+    .rad-create-ncr .radio-button {
+        width: 126px;
+        text-align: center;
+    }
+    .modal-content{
+        width: 571px;
+        height: auto;
+    }
     /* account*/
 
     .account {
@@ -3440,7 +3461,7 @@ body.dark-mode select:focus {
 
     .custom-summary {
         font-size: 2em;
-        /* padding-left: 153px; */
+        padding-left: 22px;
     }
 
     /*privacy policy*/
