@@ -8,6 +8,8 @@ const userName = document.getElementById('userName');
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
+
 
 setNotificationText()
 updateToolContent()
@@ -34,15 +36,6 @@ if (user && user.role) {
 } else {
     console.warn("User data not found in sessionStorage or missing role.")
 }
-
-
-
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
 
 const retrievedNCRData = JSON.parse(sessionStorage.getItem('data'))
 
@@ -149,6 +142,7 @@ const enableFieldsForRole = (role) => {
         document.querySelector('#eng-save').addEventListener('click', function () {
             if (validateEngSection()) {
 
+                updateNCRReport()
                 // Implement your save logic here, like sending the data to the server
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
@@ -165,6 +159,7 @@ const enableFieldsForRole = (role) => {
         // Save changes when "Save" button is clicked
         document.querySelector('#purch-save').addEventListener('click', function () {
             if (validatePurchSection()) {
+                updateNCRReport()
                 showPopup('Changes saved', "Report has been updated", "images/green-check.webp") // Example feedback message
 
                 // disableFields()
@@ -207,6 +202,7 @@ function loadData() {
         'item-marked-yes': 'qa.item_marked_nonconforming',
         'resolvedQA': 'qa.resolved',
         'disposition-details': 'engineering.disposition_details',
+        
         'customer-notification': 'engineering.customer_notification_required',
         'original-rev-number': 'engineering.original_rev_number',
         'updated-rev-number': 'engineering.updated_rev_number',
@@ -217,6 +213,7 @@ function loadData() {
         'resolvedEng': 'engineering.resolved',
         'car-number': 'purchasing_decision.car_number',
         'operations-manager-name': 'purchasing_decision.operations_manager_name',
+            
         'operations-manager-date': 'purchasing_decision.operations_manager_date',
         'new-ncr-number': 'purchasing_decision.new_ncr_number',
         'inspector-name': 'purchasing_decision.inspector_name',
@@ -236,7 +233,8 @@ function loadData() {
                 field.value = (typeof value === 'number' && !isNaN(value)) ? value : 0;
             } else {
                 field.value = value || ''; // Fallback to an empty string if no value
-            }}
+            }
+        }
     }
 
     // Handle the process select dropdown
@@ -299,7 +297,7 @@ function loadData() {
     const itemMarkedYes = document.getElementById('item-marked-yes'); // Radio button for Yes
     const itemMarkedNo = document.getElementById('item-marked-no');   // Radio button for No
 
-    
+
 
     // Checking the 'item_marked_nonconforming' value from 'qa' object
     if (retrievedNCRData.qa && retrievedNCRData.qa.item_marked_nonconforming !== undefined) {
@@ -311,15 +309,17 @@ function loadData() {
             itemMarkedYes.checked = false; // Unmark 'Yes'
             itemMarkedNo.checked = true;  // Mark 'No' as checked
         }
-        
+
     }
 
-   
+
 
 }
 
 
-
+function isObjectEmpty(obj) {
+    return Object.keys(obj).length === 0; // Checks if the object has no keys
+}
 // Function to update an NCR report
 function updateNCRReport() {
 
@@ -389,61 +389,65 @@ function updateNCRReport() {
         process.wip_production_order = false;
     }
     AllReports[reportIndex].ncr_no = ncrNo;
-    AllReports[reportIndex].qa = {
-        supplier_name: supplierName,
-        po_no: productNo,
-        item_name: itemName,
-        sales_order_no: salesOrderNo,
-        item_description: descriptionItem,
-        quantity_received: quantityReceived,
-        quantity_defective: quantityDefective,
-        description_of_defect: descriptionDefect,
-        item_marked_nonconforming: itemNonconforming,
-        quality_representative_name: qaName,
-        date: qaDate,
-        resolved: resolvedQA,
-        process: process
+    if (!isObjectEmpty(AllReports[reportIndex].qa)) {
+        AllReports[reportIndex].qa = {
+            supplier_name: supplierName,
+            po_no: productNo,
+            item_name: itemName,
+            sales_order_no: salesOrderNo,
+            item_description: descriptionItem,
+            quantity_received: quantityReceived,
+            quantity_defective: quantityDefective,
+            description_of_defect: descriptionDefect,
+            item_marked_nonconforming: itemNonconforming,
+            quality_representative_name: qaName,
+            date: qaDate,
+            resolved: resolvedQA,
+            process: process
+        };
     }
 
+    if (!isObjectEmpty(AllReports[reportIndex].engineering)) {
+        AllReports[reportIndex].engineering = {
+            disposition: disposition,
+            disposition_options: {
+                use_as_is: disposition === 'use_as_is',
+                repair: disposition === 'repair',
+                rework: disposition === 'rework',
+                scrap: disposition === 'scrap'
+            },
+            customer_notification_required: customerNotification,
+            disposition_details: dispositionDetails,
+            drawing_update_required: drawingUpdateRequired,
+            original_rev_number: originalRevNumber,
+            updated_rev_number: updatedRevNumber,
+            engineer_name: engineerName,
+            revision_date: revisionDate,
+            engineering_review_date: engineeringReviewDate,
+            resolved: resolvedEng
+        };
+    }
 
-    AllReports[reportIndex].engineering = {
-        disposition: disposition,
-        disposition_options: {
-            use_as_is: disposition === 'use_as_is',
-            repair: disposition === 'repair',
-            rework: disposition === 'rework',
-            scrap: disposition === 'scrap'
-        },
-        customer_notification_required: customerNotification,
-        disposition_details: dispositionDetails,
-        drawing_update_required: drawingUpdateRequired,
-        original_rev_number: originalRevNumber,
-        updated_rev_number: updatedRevNumber,
-        engineer_name: engineerName,
-        revision_date: revisionDate,
-        engineering_review_date: engineeringReviewDate,
-        resolved: resolvedEng
-    };
-
-
-    AllReports[reportIndex].purchasing_decision = {
-        preliminary_decision: preliminaryDecision,
-        options: {
-            rework_in_house: option === 'rework_in_house',
-            scrap_in_house: option === 'scrap_in_house',
-            defer_to_engineering: option === 'defer_to_engineering'
-        },
-        car_raised: carRaised,
-        car_number: carNumber,
-        follow_up_required: followUpRequired,
-        operations_manager_name: operationsManagerName,
-        operations_manager_date: operationsManagerDate,
-        re_inspected_acceptable: reInspectedAcceptable,
-        new_ncr_number: newNCRNumber,
-        inspector_name: inspectorName,
-        ncr_closed: ncrClosed,
-        resolved: resolvedpurch // resolved flag from the purchasing decision
-    };
+    if (!isObjectEmpty(AllReports[reportIndex].purchasing_decision)) {
+        AllReports[reportIndex].purchasing_decision = {
+            preliminary_decision: preliminaryDecision,
+            options: {
+                rework_in_house: option === 'rework_in_house',
+                scrap_in_house: option === 'scrap_in_house',
+                defer_to_engineering: option === 'defer_to_engineering'
+            },
+            car_raised: carRaised,
+            car_number: carNumber,
+            follow_up_required: followUpRequired,
+            operations_manager_name: operationsManagerName,
+            operations_manager_date: operationsManagerDate,
+            re_inspected_acceptable: reInspectedAcceptable,
+            new_ncr_number: newNCRNumber,
+            inspector_name: inspectorName,
+            ncr_closed: ncrClosed,
+            resolved: resolvedpurch // resolved flag from the purchasing decision
+        };
+    }
 
     sessionStorage.setItem('data', JSON.stringify(data))
 
@@ -482,7 +486,7 @@ const validateQaSection = () => {
     formElements.forEach(field => {
         const inputElement = document.getElementById(field)
         const errorMessage = inputElement.nextElementSibling
-       // const errorMessage = inputElement.closest('.tooltip-container')?.nextElementSibling;
+        // const errorMessage = inputElement.closest('.tooltip-container')?.nextElementSibling;
 
         // Check if the input is empty
         if (inputElement.value.trim() === '' || inputElement.value.trim() == null) {
@@ -762,25 +766,25 @@ function openTools() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const count = document.getElementById('notification-count');
-    let notifications 
-    if(user.role == "QA Inspector"){
-         notifications = JSON.parse(localStorage.getItem('QANotification')) || []
-        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked);
+    let notifications
+    if (user.role == "QA Inspector") {
+        notifications = JSON.parse(localStorage.getItem('QANotification')) || []
+        const qauncheckedNotifications = notifications.filter(notification => !notification.qachecked);
         count.innerHTML = qauncheckedNotifications.length;
     }
-    else if(user.role == "Lead Engineer"){
-         notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
-        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked);
+    else if (user.role == "Lead Engineer") {
+        notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
+        const eruncheckedNotifications = notifications.filter(notification => !notification.engineerchecked);
         count.innerHTML = eruncheckedNotifications.length;
     }
-    else if(user.role == "Purchasing"){
-         notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
-        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked);
+    else if (user.role == "Purchasing") {
+        notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
+        const pruncheckedNotifications = notifications.filter(notification => !notification.purchasingchecked);
         count.innerHTML = pruncheckedNotifications.length;
     }
-    else if(user.role == "Admin"){
-         notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
-        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked);
+    else if (user.role == "Admin") {
+        notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
+        const aduncheckedNotifications = notifications.filter(notification => !notification.adminchecked);
         count.innerHTML = aduncheckedNotifications.length;
     }
     // Clear any existing notifications in the list to avoid duplicates
@@ -792,7 +796,7 @@ function setNotificationText() {
         const li = document.createElement('li')
         if (user.role == 'Lead Engineer') {
 
-            
+
             if (notificationText.text.includes('Engineering')) {
                 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
@@ -947,22 +951,35 @@ function createQueryStringFromNotification(ncrNo) {
     }).toString();
 }
 clearNotification.addEventListener("click", () => {
-    if(user.role == "QA Inspector"){
+    if (user.role == "QA Inspector") {
         localStorage.setItem('QANotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Lead Engineer"){
+    else if (user.role == "Lead Engineer") {
         localStorage.setItem('ERNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Purchasing"){
+    else if (user.role == "Purchasing") {
         localStorage.setItem('PRNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Admin"){
+    else if (user.role == "Admin") {
         localStorage.setItem('ADNotification', JSON.stringify([]));
 
     }
     setNotificationText()
 
+})
+
+function BackToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', () => {
+    BackToTop()
 })

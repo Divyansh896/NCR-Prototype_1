@@ -4,6 +4,8 @@ const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const modal = document.getElementById("popup")
 const span = document.getElementById("closePopup")
+const btnBackToTop = document.getElementById('btnBackToTop')
+
 setNotificationText()
 const userName = document.getElementById('userName');
 userName.innerHTML = `${user.firstname}  ${user.lastname}`
@@ -200,7 +202,6 @@ function setNotificationText() {
         notificationList.prepend(li)
     })
 }
-
 function updateToolContent(){
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
@@ -258,3 +259,16 @@ function createQueryStringFromNotification(ncrNo) {
         new_ncr_number: purchasing_decision.new_ncr_number
     }).toString();
 }
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
+})

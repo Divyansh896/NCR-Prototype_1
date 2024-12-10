@@ -18,6 +18,7 @@ const supplierModal = document.getElementById("supplierModal")
 const closeModalButton = supplierModal.querySelector(".close")
 const addSupplierButton = document.getElementById("addSupplierButton")
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 const footer = document.getElementById('footer-scroll')
 
@@ -131,8 +132,6 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-
-
 // Check if user data is available and has a role
 if (user && user.role) {
     // Update the Create NCR link based on user role
@@ -157,18 +156,9 @@ if (user && user.role) {
 }
 
 
-footer.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth' // Adds a smooth scroll effect
-    })
-})
-
-
 starElements.forEach(star => {
     star.style.display = 'none' // Hide each star element
 })
-
 
 
 // Add keyboard navigation functionality
@@ -189,12 +179,14 @@ document.addEventListener('keydown', function (event) {
     }
 })
 
+
 function preventNegativeInput(event) {
     if (event.target.value < 0) {
         showPopup('Invalid quantity', 'The quantity cannot be in negative!!\nEnter only positive values.', 'images/1382678.webp')
         event.target.value = 0
     }
 }
+
 
 function preventLessInput(event) {
     const quantityDefective = event.target; // The defective quantity input
@@ -216,11 +208,11 @@ function preventLessInput(event) {
 }
 
 
-
 function handleInput(event) {
     preventNegativeInput(event);
     preventLessInput(event);
 }
+
 
 // Only proceed if the user is QA
 if (user.role === 'QA Inspector' || user.role == 'Admin') {
@@ -587,8 +579,6 @@ if (user.role === 'QA Inspector' || user.role == 'Admin') {
 }
 
 
-
-
 function loadData(params) {
     const elements = [
         'qa-name-d', 'ncr-no-d', 'sales-order-no-d', 'quantity-received-d',
@@ -637,6 +627,7 @@ function sendMail() {
     // Open the Gmail compose window
     window.open(gmailLink, '_blank') // Opens in a new tab
 }
+
 
 function submitForm() {
     const today = new Date().toISOString().slice(0, 10)  // Get current date
@@ -700,11 +691,6 @@ function submitForm() {
 }
 
 
-
-
-
-
-
 // Function to convert files to base64
 function fileToBase64(file) {
     return new Promise((resolve, reject) => {
@@ -714,6 +700,7 @@ function fileToBase64(file) {
         reader.readAsDataURL(file)
     })
 }
+
 
 async function handleFiles(files) {
 
@@ -801,7 +788,6 @@ async function handleFiles(files) {
 }
 
 
-
 // Handle file selection
 mediaInput.addEventListener('change', function () {
     handleFiles(this.files)
@@ -821,7 +807,6 @@ dropArea.addEventListener('drop', e => {
     const files = e.dataTransfer.files
     handleFiles(files)
 })
-
 
 
 // Show the modal with a title, message, and icon
@@ -874,6 +859,7 @@ function showPopup(title, message, icon, callback) {
     }
 }
 
+
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -882,8 +868,6 @@ function toggleSettings() {
         settingsBox.style.display = "none"
     }
 }
-
-
 
 
 function toggleNotifications() {
@@ -969,6 +953,8 @@ document.addEventListener("click", function (event) {
         settingsBox.style.display = "none"
     }
 })
+
+
 function logout() {
     localStorage.removeItem('isLoggedIn')
     sessionStorage.removeItem('currentUser')
@@ -976,10 +962,12 @@ function logout() {
     location.replace('index.html')
 }
 
+
 function openTools() {
     document.querySelector(".tools-container").classList.toggle("show-tools")
 
 }
+
 
 function sendNotification(ncrNum) {
     let QANotification = JSON.parse(localStorage.getItem("QANotification"))
@@ -1002,6 +990,7 @@ function sendNotification(ncrNum) {
     // Update the notification display
     setNotificationText()
 }
+
 
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
@@ -1133,6 +1122,7 @@ function closeSupplierPopup() {
     }, 500)
 }
 
+
 // Show modal when "Add a Supplier" is selected
 supplierDropdown.addEventListener("change", function () {
     if (supplierDropdown.value === "addSupplier") {
@@ -1141,11 +1131,13 @@ supplierDropdown.addEventListener("change", function () {
     }
 })
 
+
 // Close the modal when the user clicks the "X" button
 closeModalButton.addEventListener("click", () => {
-    closeSupplierPopup
+    closeSupplierPopup()
     populateSuppliers()
 })
+
 
 // Event listener for adding a new supplier
 addSupplierButton.addEventListener("click", function () {
@@ -1184,6 +1176,7 @@ addSupplierButton.addEventListener("click", function () {
         showPopup("Required field missing!", "Please enter all the data before procedding.", "images/1382678.webp");
     }
 });
+
 
 function validateSupplierInputs() {
     const fields = [
@@ -1294,6 +1287,7 @@ window.addEventListener("click", function (event) {
     }
 })
 
+
 function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
@@ -1306,7 +1300,9 @@ function updateToolContent() {
     }
 }
 
+
 updateToolContent()
+
 
 function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) {
     const modal = document.querySelector('.deletemodal')
@@ -1369,6 +1365,7 @@ function deleteImgConfirm(title, message, icon, btnDelete, btnCancel, callback) 
     }
 }
 
+
 function saveReportData() {
     // Collect data from each input field
     const reportData = {
@@ -1423,6 +1420,7 @@ function saveReportData() {
     }
 }
 
+
 // Function to save data to localStorage
 function saveDataToLocalStorage(reportData) {
     // Retrieve existing saved reports from localStorage
@@ -1445,9 +1443,12 @@ function saveDataToLocalStorage(reportData) {
     alert("Report saved successfully!")
 }
 
+
 // Attach the save function to the save button
 document.getElementById("save1").addEventListener("click", saveReportData)
 document.getElementById("save2").addEventListener("click", saveReportData)
+
+
 
 // Create a query string from the NCR data
 function createQueryStringFromNotification(ncrNo) {
@@ -1493,10 +1494,29 @@ function createQueryStringFromNotification(ncrNo) {
     }).toString();
 }
 
+
 clearNotification.addEventListener("click", () => {
     if (user.role == "QA Inspector") {
         localStorage.setItem('QANotification', JSON.stringify([]));
     }
     setNotificationText()
 
+})
+
+
+function BackToTop(){
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+
+
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+
+
+btnBackToTop.addEventListener('click', ()=>{
+    BackToTop()
 })

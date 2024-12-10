@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="images/icon.ico">
 
 </head>
 
@@ -48,7 +49,7 @@
 
 
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                    <button tabindex="4" type="button" class="icon-badge" aria-label="Show Notifications" onclick="toggleNotifications()"><span
                             class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span id="notification-count" class="badge">3</span>
@@ -60,7 +61,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" aria-label="Open Profile Settings" onclick="toggleSettings()">
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
@@ -150,8 +151,6 @@
             </div>
         </div>
         <div>
-
-            <!-- Skip links for the graphs and ncr reports -->
             <div class="left-align">
                 <h1>Dashboard</h1> 
             </div>
@@ -238,42 +237,49 @@
 
                 <!-- Tab Content -->
                 <div class="tab-content">
-                    <!-- recent reports -->
-                    <div id="recent-reports" class="tab-panel active">
-                        <h2>Recent NCRs</h2>
-                        <div id="recentReportsContainer"></div>
+                    <!-- Recent reports -->
+                    <div id="recent-reports" class="tab-panel active" aria-labelledby="recentReportsTab" tabindex="12">
+                        <h2 id="recentReportsTab">Recent NCRs</h2>
+                        <div id="recentReportsContainer" aria-label="Container for displaying recent NCR reports."></div>
                     </div>
-                    <!-- pinned reports  -->
-                    <div id="pinned-reports" class="tab-panel">
-                        <h2>Pinned NCRs</h2>
-                        <div id="pinnedReportsContainer"></div>
+                    <!-- Pinned reports -->
+                    <div id="pinned-reports" class="tab-panel" aria-labelledby="pinnedReportsTab" tabindex="13">
+                        <h2 id="pinnedReportsTab">Pinned NCRs</h2>
+                        <div id="pinnedReportsContainer" aria-label="Container for displaying pinned NCR reports."></div>
                     </div>
-                    <!-- saved reports -->
-                    <div id="saved-reports" class="tab-panel">
-                        <h2>Saved NCRs</h2>
-                        <div id="savedReportsContainer"></div>
+                    <!-- Saved reports -->
+                    <div id="saved-reports" class="tab-panel" aria-labelledby="savedReportsTab" tabindex="14">
+                        <h2 id="savedReportsTab">Saved NCRs</h2>
+                        <div id="savedReportsContainer" aria-label="Container for displaying saved NCR reports."></div>
                     </div>
-
                 </div>
+                
             </section>
         </div>
         <div class="main-container-graphs">
             <section id="graphs">
                 <div class="linegraph">
-                    <h2>NCR Reports Trend Over Time <span class="info-icon"
-                        data-description="The 'NCR Reports Trend Over Time' provides a visual representation of the NCR reports that have been created or deleted over time.">ℹ️</span> </h2>
-                        <div class="info-description"></div>
-                    <canvas id="dateLineChart" tabindex="12"></canvas>
+                    <h2>
+                        NCR Reports Trend Over Time
+                        <span class="info-icon" aria-label="Information about NCR reports trend over time" data-description="The 'NCR Reports Trend Over Time' provides a visual representation of the NCR reports that have been created or deleted over time."><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                    </h2>
+                    <div class="info-description"></div>
+                    <!-- Add aria-label to the canvas element for screen readers -->
+                    <canvas id="dateLineChart" tabindex="15" ></canvas>
                 </div>
+                
                 <div class="bargraph">
-                    <h2>Item Occurrence in NCR Reports<span class="info-icon"
-                        data-description="The 'Item Occurrence in NCR Reports' offers a clear visual analysis of recurring defective items, helping identify patterns and prioritize corrective actions.">ℹ️</span></h2>
-                        <div class="info-description"></div>
-                    <canvas id="itemBarChart" tabindex="13"></canvas>
+                    <h2>
+                        Item Occurrence in NCR Reports
+                        <span class="info-icon" aria-label="Information about item occurrence in NCR reports" data-description="The 'Item Occurrence in NCR Reports' offers a clear visual analysis of recurring defective items, helping identify patterns and prioritize corrective actions."><i class="fa fa-info-circle" aria-hidden="true"></i></span>
+                    </h2>
+                    <div class="info-description"></div>
+                    <!-- Make the description accessible without hiding it visually -->
+                    <canvas id="itemBarChart" tabindex="16"></canvas>
                 </div>
             </section>
-
         </div>
+        
         
     </main>
 
@@ -281,13 +287,14 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="17">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="18">Get Help</a>
         </p>
         <p>
-            <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Help</a>
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="19">
         </p>
     </footer>
+    
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@latest"></script>
@@ -298,4 +305,5 @@
 
 </body>
 
+</html>
 </html>

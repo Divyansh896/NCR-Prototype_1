@@ -21,6 +21,7 @@ const purchdropdown = document.getElementById('purch-section')
 const notificationlist = document.getElementById('notification-list');
 const notificationCount = document.getElementById('notification-count');
 const clearNotification = document.getElementById("btnClearNotification")
+const btnBackToTop = document.getElementById('btnBackToTop')
 
 setNotificationText()
 
@@ -142,7 +143,7 @@ function prefillFormFromSavedData(savedData) {
         document.getElementById("engineering_review_date").value = savedData.engineeringReviewDate;
     }
 
-    document.getElementById('ncr-no-d').textContent = savedData.supplier_name;
+    document.getElementById('ncr-no-d').textContent = savedData.ncr_no;
     document.getElementById('supplier-name-d').textContent = savedData.supplier_name;
     document.getElementById('product-no-d').textContent = savedData.po_no;
     document.getElementById('sales-order-no-d').textContent = savedData.sales_order_no;
@@ -224,7 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closeModal.addEventListener('click', () => {
         hideLeaveConfirmationModal(); // Simply hide the modal
     });
-    
+
     leaveConfirmationModal.addEventListener('click', (event) => {
         if (event.target === leaveConfirmationModal) {
             hideLeaveConfirmationModal();
@@ -736,7 +737,7 @@ function loadData(params) {
         'qa-name-d', 'ncr-no-d', 'sales-order-no-d', 'quantity-received-d',
         'quantity-defective-d', 'qa-date-d', 'supplier-name-d',
         'product-no-d', 'process-d', 'description-item-d',
-        'description-defect-d', 'item-marked-nonconforming-d','item-name-d'
+        'description-defect-d', 'item-marked-nonconforming-d', 'item-name-d'
     ];
 
     // Define process values with labels showing 'Yes' or 'No'
@@ -876,25 +877,25 @@ function openTools() {
 function setNotificationText() {
     // Retrieve and parse notifications from localStorage
     const count = document.getElementById('notification-count');
-    let notifications 
-    if(user.role == "QA Inspector"){
-         notifications = JSON.parse(localStorage.getItem('QANotification')) || []
-        const qauncheckedNotifications = notifications.filter(notification =>  !notification.qachecked);
+    let notifications
+    if (user.role == "QA Inspector") {
+        notifications = JSON.parse(localStorage.getItem('QANotification')) || []
+        const qauncheckedNotifications = notifications.filter(notification => !notification.qachecked);
         count.innerHTML = qauncheckedNotifications.length;
     }
-    else if(user.role == "Lead Engineer"){
-         notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
-        const eruncheckedNotifications = notifications.filter(notification =>  !notification.engineerchecked);
+    else if (user.role == "Lead Engineer") {
+        notifications = JSON.parse(localStorage.getItem('ERNotification')) || []
+        const eruncheckedNotifications = notifications.filter(notification => !notification.engineerchecked);
         count.innerHTML = eruncheckedNotifications.length;
     }
-    else if(user.role == "Purchasing"){
-         notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
-        const pruncheckedNotifications = notifications.filter(notification =>  !notification.purchasingchecked);
+    else if (user.role == "Purchasing") {
+        notifications = JSON.parse(localStorage.getItem('PRNotification')) || []
+        const pruncheckedNotifications = notifications.filter(notification => !notification.purchasingchecked);
         count.innerHTML = pruncheckedNotifications.length;
     }
-    else if(user.role == "Admin"){
-         notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
-        const aduncheckedNotifications = notifications.filter(notification =>  !notification.adminchecked);
+    else if (user.role == "Admin") {
+        notifications = JSON.parse(localStorage.getItem('ADNotification')) || []
+        const aduncheckedNotifications = notifications.filter(notification => !notification.adminchecked);
         count.innerHTML = aduncheckedNotifications.length;
     }
     // Clear any existing notifications in the list to avoid duplicates
@@ -906,7 +907,7 @@ function setNotificationText() {
         const li = document.createElement('li')
         if (user.role == 'Lead Engineer') {
 
-            
+
             if (notificationText.text.includes('Engineering')) {
                 let AllReports = JSON.parse(localStorage.getItem('AllReports'))
 
@@ -1033,8 +1034,8 @@ function submitForm() {
     // Correctly handle boolean values for checkboxes
     let drawingUpdate = document.querySelector('input[name="drawing-required"]:checked')?.checked || false;
     let customerNotification = document.querySelector('input[name="customer-notif"]:checked')?.checked || false;
-// Get the resolved status from the radio button group
-let resolvedStatus = document.querySelector('input[name="resolved"]:checked')?.value === 'yes';
+    // Get the resolved status from the radio button group
+    let resolvedStatus = document.querySelector('input[name="resolved"]:checked')?.value === 'yes';
 
     let originalRevNumber = document.getElementById("original_rev_number")?.value || null;
     let updatedRevNumber = document.getElementById("updated_rev_number")?.value || 'Not applicable';
@@ -1170,22 +1171,35 @@ function createQueryStringFromNotification(ncrNo) {
     }).toString();
 }
 clearNotification.addEventListener("click", () => {
-    if(user.role == "QA Inspector"){
+    if (user.role == "QA Inspector") {
         localStorage.setItem('QANotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Lead Engineer"){
+    else if (user.role == "Lead Engineer") {
         localStorage.setItem('ERNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Purchasing"){
+    else if (user.role == "Purchasing") {
         localStorage.setItem('PRNotification', JSON.stringify([]));
 
     }
-    else if(user.role == "Admin"){
+    else if (user.role == "Admin") {
         localStorage.setItem('ADNotification', JSON.stringify([]));
 
     }
     setNotificationText()
 
+})
+
+function BackToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Adds a smooth scroll effect
+    })
+}
+footer.addEventListener('click', () => {
+    BackToTop()
+})
+btnBackToTop.addEventListener('click', () => {
+    BackToTop()
 })

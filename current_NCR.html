@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="breadcrumb.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="icon" href="images/icon.ico">
 </head>
 
 <body>
@@ -46,7 +47,7 @@
 
 
                 <li>
-                    <button tabindex="4" type="button" class="icon-badge" onclick="toggleNotifications()"><span
+                    <button tabindex="4" type="button" class="icon-badge" aria-label="Show Notifications" onclick="toggleNotifications()"><span
                             class="icon-text">Notifications</span>
                         <span><i class="fa fa-bell"></i></span>
                         <span id="notification-count" class="badge">3</span>
@@ -58,7 +59,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="5" type="button" id="settings" class="icon-badge" onclick="toggleSettings()">
+                    <button tabindex="5" type="button" id="settings" class="icon-badge" aria-label="Open Profile Settings" onclick="toggleSettings()">
                         <span class="icon-text">Settings</span>
                         <span><i class="fa fa-cog"></i></span>
                     </button>
@@ -204,8 +205,15 @@
             <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
                 <thead>
                     <tr>
-                        <th>NCR Number</th>
-                        <th>Date</th>
+                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no">NCR Number
+                            <span class="sort-indicator" id="sort-ncr_no"></span>
+                            <span class="tooltip">Click to sort NCRs by ascending or descending order.</span>
+                        </th>
+                        <th class="sort-btn tooltip-container" data-sort-property="date">Date
+                            <span class="sort-indicator" id="sort-date"></span>
+                            <span class="tooltip">Click to sort NCRs by date in ascending or descending order.</span>
+
+                        </th>
                         <th>Supplier</th>
                         <th>Item</th>
                         <!-- <th>NCR Stage</th> -->
@@ -224,11 +232,11 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="12">Privacy
-                Policy</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
         </p>
         <p>
-            <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="13">Help</a>
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
         </p>
     </footer>
 
