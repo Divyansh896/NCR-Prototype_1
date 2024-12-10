@@ -115,7 +115,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
                         <span class="icon-text">Dark Mode</span>
                         <span><i class="fa fa-moon-o"></i></span>
                     </button>
@@ -152,7 +152,8 @@
         </div>
         <div>
             <div class="left-align">
-                <h1>Dashboard</h1> / <a href="#ncr-tabs" class="skip-link">Recent NCR Reports</a> / <a href="#graphs" class="skip-link">Product Stats</a>            </div>
+                <h1>Dashboard</h1> 
+            </div>
             <div class="main-container-dashboard" id="secetionsDashboard">
                 <!-- Section 1: Create NCR -->
                 <section class="featuresCreateNCR" aria-labelledby="create-ncr-header">
@@ -160,7 +161,7 @@
                         <h2 id="create-ncr-header">Create NCR</h2>
                         <p id="create-ncr-p">Generate a new report to track issues and ensure system quality</p>
                         <div class="tooltip-container">
-                            <button id="createNcr" aria-label="Go to Create NCR page" tabindex="6"><i
+                            <button id="createNcr" aria-label="Go to Create NCR page" tabindex="7"><i
                                     class="fa fa-fw fa-pencil"></i> Create NCR</button>
                             <span class="tooltip">
                                 Click here to create a new NCR report.
@@ -175,7 +176,7 @@
                         <h2 id="view-ncr-header">NCR Log</h2>
                         <p>Browse and review reports to gain insights and drive quality.</p>
                         <div class="tooltip-container">
-                            <button id="viewNcr" aria-label="Go to View NCR page" tabindex="7"><i
+                            <button id="viewNcr" aria-label="Go to View NCR page" tabindex="8"><i
                                     class="fa fa-fw fa-search"></i>
                                 NCR log</button>
                             <span class="tooltip">
@@ -191,7 +192,7 @@
                         <h2 id="manage-account-header">Manage Account</h2>
                         <p>Update your profile, settings, and account preferences easily.</p>
                         <div class="tooltip-container">
-                            <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="8"><i
+                            <button id="ManageAcc" aria-label="Go to Manage Account page" tabindex="9"><i
                                     class="fa fa-fw fa-user-circle"></i> Manage Account</button>
                             <span class="tooltip">
                                 Click here to manage your account details.
@@ -200,12 +201,12 @@
                     </div>
                 </section>
                 <!-- Section 4: Manage Account -->
-                <section class="featuresCrossfireInsights" aria-labelledby="manage-account-header" id="crossfireInsightsSection">
+                <section class="featuresCrossfireInsights" aria-labelledby="Company-insights-header" id="crossfireInsightsSection">
                     <div>
-                        <h2 id="manage-account-header">Crossfire Insights</h2>
+                        <h2 id="Company-insights-header">Crossfire Insights</h2>
                         <p>Manage and export supplier and employee data.</p>
                         <div class="tooltip-container">
-                            <button id="CrossfireInsights" aria-label="Go to Crossfire Insights page" tabindex="8">
+                            <button id="CrossfireInsights" aria-label="Go to Crossfire Insights page" tabindex="10">
                                 <i class="fa fa-fw fa-user-circle"></i> Crossfire Insights
                             </button>
                             <span class="tooltip">
@@ -223,13 +224,13 @@
             <section id="ncr-tabs">
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
-                    <button id="btn-recent" class="tab-button active" tabindex="9"><i class="fa fa-clock-o"
+                    <button id="btn-recent" class="tab-button active" tabindex="11"><i class="fa fa-clock-o"
                             aria-hidden="true"></i>
                         Recent NCRs</button>
-                    <button id="btn-pinned" class="tab-button" tabindex="10"><i class="fa fa-thumb-tack"
+                    <button id="btn-pinned" class="tab-button" tabindex="12"><i class="fa fa-thumb-tack"
                             aria-hidden="true"></i>
                         Pinned NCRs</button>
-                    <button id="btn-saved" class="tab-button" tabindex="11"><i class="fa fa-save"
+                    <button id="btn-saved" class="tab-button" tabindex="13"><i class="fa fa-save"
                             aria-hidden="true"></i>
                         Saved NCRs</button>
                 </div>
@@ -237,17 +238,17 @@
                 <!-- Tab Content -->
                 <div class="tab-content">
                     <!-- Recent reports -->
-                    <div id="recent-reports" class="tab-panel active" aria-labelledby="recentReportsTab" tabindex="12">
+                    <div id="recent-reports" class="tab-panel active" aria-labelledby="recentReportsTab" tabindex="14">
                         <h2 id="recentReportsTab">Recent NCRs</h2>
                         <div id="recentReportsContainer" aria-label="Container for displaying recent NCR reports."></div>
                     </div>
                     <!-- Pinned reports -->
-                    <div id="pinned-reports" class="tab-panel" aria-labelledby="pinnedReportsTab" tabindex="13">
+                    <div id="pinned-reports" class="tab-panel" aria-labelledby="pinnedReportsTab" tabindex="15">
                         <h2 id="pinnedReportsTab">Pinned NCRs</h2>
                         <div id="pinnedReportsContainer" aria-label="Container for displaying pinned NCR reports."></div>
                     </div>
                     <!-- Saved reports -->
-                    <div id="saved-reports" class="tab-panel" aria-labelledby="savedReportsTab" tabindex="14">
+                    <div id="saved-reports" class="tab-panel" aria-labelledby="savedReportsTab" tabindex="16">
                         <h2 id="savedReportsTab">Saved NCRs</h2>
                         <div id="savedReportsContainer" aria-label="Container for displaying saved NCR reports."></div>
                     </div>
@@ -304,4 +305,5 @@
 
 </body>
 
+</html>
 </html>

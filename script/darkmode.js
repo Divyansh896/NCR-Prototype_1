@@ -1,24 +1,50 @@
-// Select the dark mode toggle button
-const darkModeToggle = document.getElementById("darkModeToggle");
+let currentUser = JSON.parse(sessionStorage.getItem("currentUser"));
+let themes = JSON.parse(localStorage.getItem("themes"));  // Retrieve themes from localStorage
+let Userthemes = [
+    { username: "jsmith", theme: "cold" },
+    { username: "dhenry", theme: "cold" },
+    { username: "bmiller", theme: "cold" },
+    { username: "gwhite", theme: "cold" },
+];
 
-// Check for saved user preference
-const userPrefersDark = window.localStorage.getItem("darkMode") === "enabled";
-
-// Enable dark mode if the user had previously set it
-if (userPrefersDark) {
-    document.body.classList.add("dark-mode");
-    darkModeToggle.innerHTML = '<span class="icon-text">Light Mode</span><i class="fa fa-sun-o"></i>';
+// Initialize themes in localStorage if not set
+if (!themes) {
+    localStorage.setItem('themes', JSON.stringify(Userthemes));
+    themes = Userthemes;  // Set themes to default if not found
 }
 
-// Toggle dark mode on click
-darkModeToggle.addEventListener("click", () => {
-    const isDarkMode = document.body.classList.toggle("dark-mode");
+// Function to apply the theme for the current user
+function applyUserTheme(themes) {
+    const userTheme = themes.find(user => user.username === currentUser.username);
+    if (userTheme) {
+        if (userTheme.theme === "dark") {
+            document.body.classList.add("dark-mode");
+            document.body.classList.remove("cold-mode");
+        } else if (userTheme.theme === "cold") {
+            document.body.classList.add("cold-mode");
+            document.body.classList.remove("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode", "cold-mode");
+        }
+    } else {
+        console.log("User not found.");
+    }
+}
 
-    // Update button text/icon
-    darkModeToggle.innerHTML = isDarkMode
-        ? '<span class="icon-text">Light Mode</span><i class="fa fa-sun-o"></i>'
-        : '<span class="icon-text">Dark Mode</span><i class="fa fa-moon-o"></i>';
-
-    // Save user preference
-    window.localStorage.setItem("darkMode", isDarkMode ? "enabled" : "disabled");
+// Function to toggle the theme for the current user
+document.getElementById('darkModeToggle').addEventListener("click", () => {
+    const currentUserTheme = themes.find(u => u.username === currentUser.username);
+    if (currentUserTheme) {
+        const newTheme = currentUserTheme.theme === "dark" ? "cold" : "dark";
+        currentUserTheme.theme = newTheme;  // Update user's theme
+        localStorage.setItem("themes", JSON.stringify(themes));  // Save updated themes in localStorage
+        applyUserTheme(themes);  // Apply the new theme
+    }
 });
+
+// Initialize the theme when the page loads
+if (currentUser) {
+    applyUserTheme(themes);  // Apply the stored theme on page load
+} else {
+    console.log("No user is logged in.");
+}

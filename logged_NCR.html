@@ -114,6 +114,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -182,7 +188,7 @@
                 <div class="form-container">
 
                     <!-- QA Rep Dropdown -->
-                    <details id="qa-section" tabindex="6">
+                    <details id="qa-section" tabindex="7">
                         <summary class="custom-summary custom-summary-loggedNcr"
                             aria-label="Quality assurance department details">Quality Inforamtion
                         </summary>
@@ -276,13 +282,13 @@
                                     <label class="radio-button" tabindex="7">
                                         <input type="radio" id="use_as_is" name="disposition-options"
                                             aria-label="Use as is option" class="hidden-radio"
-                                            onclick="toggleRadio(this)" value="Use as is">
+                                            onclick="toggleRadio(this)" value="Use as is" tabindex="8">
                                         Use as is
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
                                 </div>
                                 <div class="tooltip-container">
-                                    <label class="radio-button" tabindex="8">
+                                    <label class="radio-button" tabindex="9">
                                         <input type="radio" id="repair" name="disposition-options"
                                             aria-label="Repair option" class="hidden-radio" onclick="toggleRadio(this)"
                                             value="Repair">
@@ -294,7 +300,7 @@
                                     <label class="radio-button" tabindex="9">
                                         <input type="radio" id="rework" name="disposition-options"
                                             aria-label="Rework option" class="hidden-radio" onclick="toggleRadio(this)"
-                                            value="Rework">
+                                            value="Rework" tabindex="10">
                                         Rework
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -303,7 +309,7 @@
                                     <label class="radio-button" tabindex="10">
                                         <input type="radio" id="scrap" name="disposition-options"
                                             aria-label="Scrap option" class="hidden-radio" onclick="toggleRadio(this)"
-                                            value="Scrap">
+                                            value="Scrap" tabindex="11">
                                         Scrap
                                     </label>
                                     <span class="tooltip">Click to check this option</span>
@@ -323,7 +329,7 @@
                                     </p>
                                     <textarea id="disposition-details" rows="3"
                                         aria-describedby="disposition-details-desc" placeholder="Disposition details"
-                                        tabindex="11"></textarea>
+                                        tabindex="12"></textarea>
                                     <span class="tooltip ttip-descr">Type in disposition details</span>
                                 </div>
 
@@ -342,7 +348,7 @@
                                 <div class="tooltip-container">
                                     <label class="radio-button" tabindex="12">
                                         <input type="radio" id="drawing-required-yes" name="drawing-required"
-                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                            value="yes" class="hidden-radio" onclick="toggleRadio(this)" tabindex="13">
                                         Yes
                                     </label>
                                     <span class="tooltip">Click to check yes</span>
@@ -350,7 +356,7 @@
                                 <div class="tooltip-container">
                                     <label class="radio-button" tabindex="13">
                                         <input type="radio" id="drawing-required-no" name="drawing-required" value="no"
-                                            class="hidden-radio" onclick="toggleRadio(this)">
+                                            class="hidden-radio" onclick="toggleRadio(this)" tabindex="14">
                                         No
                                     </label>
                                     <span class="tooltip">Click to check no</span>
@@ -365,12 +371,12 @@
 
                             <div class="btn-eng-create">
                                 <button type="button" id="clear-btn1" aria-label="Clear all the input fields"
-                                    tabindex="14">Clear</button>
-                                <button type="button" id="save1" aria-label="Save current progress" tabindex="15">
+                                    tabindex="15">Clear</button>
+                                <button type="button" id="save1" aria-label="Save current progress" tabindex="16">
                                     Save
                                 </button>
                                 <button type="button" id="next-btn1" aria-label="Move to next step"
-                                    tabindex="16">Next</button>
+                                    tabindex="17">Next</button>
                             </div>
                         </fieldset>
 
@@ -385,7 +391,7 @@
                                     <div class="tooltip-container">
                                         <input type="number" id="original_rev_number"
                                             aria-label="Original Version Number" placeholder="Original Version Number"
-                                            tabindex="17">
+                                            tabindex="18">
                                         <span class="tooltip">Enter original version number</span>
                                         <span class="required" id="original_rev_number-error"></span>
                                     </div>
@@ -395,7 +401,7 @@
                                         <div class="info-description"></div>
                                         <input type="number" id="updated_rev_number"
                                             aria-label="Updated Revision Number" placeholder="Updated Revision Number"
-                                            tabindex="18">
+                                            tabindex="19">
                                         <span class="required" id="updated_rev_number-error"></span>
                                         <span class="tooltip">Enter updated revision number</span>
                                     </div>
@@ -410,7 +416,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button" tabindex="19">
                                                 <input type="radio" id="customer-notif-yes" name="customer-notif"
-                                                    value="yes" class="hidden-radio" onclick="toggleRadio(this)">
+                                                    value="yes" class="hidden-radio" onclick="toggleRadio(this)" tabindex="20">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to check yes</span>
@@ -418,7 +424,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button" tabindex="20">
                                                 <input type="radio" id="customer-notif-no" name="customer-notif"
-                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)">
+                                                    value="no" class="hidden-radio" onclick="toggleRadio(this)" tabindex="21">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to check no</span>
@@ -431,7 +437,7 @@
                                         data-description="The Revision Date in an NCR report specifies the date when the document or drawing was last updated. It ensures clear tracking of changes and helps maintain accurate records for version control and compliance."><i class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                         <div class="info-description"></div>
                                         <input type="date" id="revision_date" aria-label="Revision Date"
-                                            name="revision_date" tabindex="21">
+                                            name="revision_date" tabindex="22">
                                         <span class="required" id="revision_date-error"></span>
                                         <span class="tooltip">Enter revision date of NCR</span>
                                     </div>
@@ -441,7 +447,7 @@
                                         <div class="tooltip-container">
                                         <input type="date" id="engineering_review_date"
                                             aria-label="Engineering Review Date" name="engineering_review_date"
-                                            tabindex="22">
+                                            tabindex="23">
                                         <span class="required" id="engineering_review_date-error"></span>
                                         <span class="tooltip">Select engineering review date</span>
                                     </div>
@@ -454,7 +460,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button" tabindex="23">
                                                 <input type="radio" id="resolved-yes" name="resolved" value="yes"
-                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                    class="hidden-radio" onclick="toggleRadio(this)" tabindex="24">
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to check yes</span>
@@ -462,7 +468,7 @@
                                         <div class="tooltip-container">
                                             <label class="radio-button" tabindex="24">
                                                 <input type="radio" id="resolved-no" name="resolved" value="no"
-                                                    class="hidden-radio" onclick="toggleRadio(this)">
+                                                    class="hidden-radio" onclick="toggleRadio(this)" tabindex="25">
                                                 No
                                             </label>
                                             <span class="tooltip">Click to check no</span>
@@ -471,12 +477,12 @@
                                 </div>
                             </div>
                             <div class="btn-eng-create">
-                                <button type="button" id="back-btn1" tabindex="25">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="26">Clear</button>
-                                <button type="button" id="save2" aria-label="Save current progress" tabindex="27">
+                                <button type="button" id="back-btn1" tabindex="26">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="27">Clear</button>
+                                <button type="button" id="save2" aria-label="Save current progress" tabindex="28">
                                     Save
                                 </button>
-                                <button type="button" id="next-btn2" tabindex="28">Next</button>
+                                <button type="button" id="next-btn2" tabindex="29">Next</button>
                             </div>
                         </fieldset>
 
@@ -516,9 +522,9 @@
                             </div>
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to previous step"
-                                    tabindex="29">Back</button>
+                                    tabindex="30">Back</button>
                                 <button type="submit" id="submit-btn" aria-label="Submit the form"
-                                    tabindex="30">Submit</button>
+                                    tabindex="31">Submit</button>
                             </div>
                         </fieldset>
 
@@ -531,17 +537,19 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="32">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="33">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="34">
         </p>
     </footer>
 
     <script src="script/loggedncr.js"></script>
     <script src="script/breadcrumb.js"></script>
     <script src="script/info_icon.js"></script>
+    <script src="script/darkmode.js"></script>
+
 
 
 </body>

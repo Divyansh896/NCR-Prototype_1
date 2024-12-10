@@ -113,6 +113,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -234,7 +240,7 @@
                 <div></div>
                 <div>
                     <div class="tooltip-container">
-                        <button id="btn-reset" tabindex="13">Reset</button>
+                        <button id="btn-reset" tabindex="15">Reset</button>
                         <span class="tooltip ttip-btn-reset">Click to reset all filters</span>
                     </div>
                 </div>
@@ -250,11 +256,11 @@
                     <tr>
 
 
-                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no">NCR Number
+                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no"tabindex="16">NCR Number
                             <span class="sort-indicator" id="sort-ncr_no"></span>
                             <span class="tooltip">Click to sort NCRs by ascending or descending order.</span>
                         </th>
-                        <th class="sort-btn tooltip-container" data-sort-property="date">Date
+                        <th class="sort-btn tooltip-container" data-sort-property="date" tabindex="17">Date
                             <span class="sort-indicator" id="sort-date"></span>
                             <span class="tooltip">Click to sort NCRs by date in ascending or descending order.</span>
 
@@ -278,17 +284,19 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="18">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="19">Get
                 Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="20">
         </p>
     </footer>
 
     <script src="script/view-ncr.js"></script>
     <script src="script/breadcrumb.js"></script>
+    <script src="script/darkmode.js"></script>
+
 
 </body>
 

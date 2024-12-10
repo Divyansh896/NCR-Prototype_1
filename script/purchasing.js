@@ -238,21 +238,58 @@ document.getElementById("back-btn2").addEventListener("click", () => {
 
 // Event listener for the submit button
 document.getElementById("submit-btn").addEventListener("click", (e) => {
-    e.preventDefault() // Prevent default form submission
+    e.preventDefault(); // Prevent default form submission
 
-    if (validateFields1() && validateFields2) {
+    // Retrieve ncrNo dynamically
+    const ncrNoFromStorage = localStorage.getItem("ncrNo") || queryParams.get('ncr_no');
+    console.log("Debug: Retrieved ncrNo for submission:", ncrNoFromStorage);
 
-        // Show the popup and wait for it to close
-        showPopup('Form submitted', 'Your Purchasing department form has been submitted', '<i class="fa fa-envelope" aria-hidden="true"></i>', () => {
-            // This callback will execute after the popup is closed
-            submitForm(user.role) // Call the form submission
-            //sendMail() // Call the email sending function
-            window.location.href = "Dashboard.html" // Redirect to home.html
-
-            sendNotification(ncrNo)
-        })
+    if (!ncrNoFromStorage) {
+        alert("Unable to proceed. NCR Number is missing.");
+        return;
     }
-})
+
+    // Validate fields before proceeding
+    if (validateFields1() && validateFields2()) {
+        // Show the popup for submission confirmation
+        showPopup(
+            'Form submitted',
+            'Your Purchasing department form has been submitted',
+            '<i class="fa fa-envelope" aria-hidden="true"></i>',
+            () => {
+                // Callback after popup is closed
+                try {
+                    submitForm(); // Save the form data to AllReports
+                    console.log("Debug: Form submission completed.");
+
+                    // Update localStorage with the modified AllReports
+                    const AllReports = JSON.parse(localStorage.getItem("AllReports")) || [];
+                    const report = AllReports.find(report => report.ncr_no === ncrNoFromStorage);
+
+                    if (report) {
+                        // Save the updated report in sessionStorage for navigation
+                        sessionStorage.setItem("data", JSON.stringify(report));
+                        console.log("Debug: Saved updated report to sessionStorage:", report);
+
+                        // Confirm navigation to the report page
+                        const userConfirmed = confirm("Your Purchasing department form has been submitted. Would you like to navigate to the report page for further actions?");
+                        if (userConfirmed) {
+                            window.location.href = "NC_Report.html";
+                        } else {
+                            window.location.href = "Dashboard.html"; // Redirect to the dashboard if not viewing the report
+                        }
+                    } else {
+                        console.error(`Error: Report with ncrNo ${ncrNoFromStorage} not found.`);
+                    }
+                } catch (error) {
+                    console.error("Error during form submission or navigation:", error);
+                }
+            }
+        );
+    } else {
+        console.warn("Validation failed. Please fill out all required fields.");
+    }
+});
 function toggleSettings() {
     var settingsBox = document.getElementById("settings-box")
     if (settingsBox.style.display === "none" || settingsBox.style.display === "") {
@@ -669,7 +706,8 @@ function submitForm() {
         "new_ncr_number": newNcrNumberValue || 'NA',            // new NCR number
         "inspector_name": inspectorNameValue,           // inspector name
         "ncr_closed": ncrClosedValue === "yes" ? true : false,        // ncr closed value
-        "resolved": ncrResolvedValue === "yes" ? true : false      // resolved status based on NCR closed
+        "resolved": ncrResolvedValue === "yes" ? true : false,      // resolved status based on NCR closed
+        "operations_manager_name": `${user.firstname} ${user.lastname}`
     };
     AllReports[ncrIndex].status = ncrClosedValue == 'yes' ? 'completed' : 'incomplete'
 

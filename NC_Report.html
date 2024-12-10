@@ -42,7 +42,7 @@
                 </li>
 
                 <li>
-                    <a href="view.html" class="linksNav" tabindex="3"
+                    <a href="NCR_log.html" class="linksNav" tabindex="3"
                         aria-label="View existing Non-Conformance Reports">
                         <i class="fa fa-fw fa-search"></i>NCR log
 
@@ -115,7 +115,12 @@
                         </ul>
                     </div>
                 </li>
-
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
 
@@ -153,16 +158,16 @@
             </div>
             <!---Download File Button-->
             <div class="button-container">
-                <button id="print" class="ncr-buttons"><i class="fa fa-print" aria-hidden="true"></i> Print NCR</button>
-                <button id="downloadPdf" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i> Download
+                <button id="print" tabindex="7" class="ncr-buttons"><i class="fa fa-print" aria-hidden="true"></i> Print NCR</button>
+                <button id="downloadPdf" tabindex="8" class="ncr-buttons"><i class="fa fa-download" aria-hidden="true"></i> Download
                     NCR</button>
 
-                <button id="btnExportExcel" class="ncr-buttons"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
+                <button id="btnExportExcel" tabindex="9" class="ncr-buttons"><i class="fa fa-file-excel-o" aria-hidden="true"></i>
                     Export To Excel</button>
             </div>
 
-            <details>
-                <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
+            <details tabindex="10">
+                <summary class="custom-summary"  aria-label="Quality assurance department details">Quality Assurance
                     Report</summary>
                 <div class="two-cols-view">
                     <!-- First Column -->
@@ -172,7 +177,7 @@
                             <div class="form-group">
                                 <label for="qa-name">Name:</label>
                                 <span class="qa-editable" id="qa-name" name="qa_name"
-                                    placeholder="Enter QA representative name" tabindex="7"></span>
+                                    placeholder="Enter QA representative name"></span>
                             </div>
                         </fieldset>
                         <h3>Product Inforamtion</h3>
@@ -180,51 +185,51 @@
                             <div class="form-group">
                                 <label for="ncr-no">NCR No.:</label>
                                 <span class="qa-editable" id="ncr-no" name="ncr_no" readonly
-                                    placeholder="Enter NCR number" tabindex="8"></span>
+                                    placeholder="Enter NCR number"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="item-name">Item Name</label>
-                                <span class="qa-editable" id="item-name" name="item_name" readonly
+                                <span class="qa-editable" id="item-name" name="item_name" readonly 
                                     placeholder="Item Name"></span>
                             </div>
                             <div class="form-group">
                                 <label for="qa-date">QA Date:</label>
-                                <span class="qa-editable" id="qa-date" name="qa_date" required tabindex="12"></span>
+                                <span class="qa-editable" id="qa-date" name="qa_date" required></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="supplier-name">Supplier Name:</label>
                                 <span class="qa-editable" id="supplier-name" name="supplier_name"
-                                    placeholder="Enter supplier name" required tabindex="13"></span>
+                                    placeholder="Enter supplier name" required></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="product-no">Product No.:</label>
                                 <span class="qa-editable" id="product-no" name="product_no"
-                                    placeholder="Enter product number" required tabindex="14"></span>
+                                    placeholder="Enter product number" required></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="sales-order-no">Sales Order No.:</label>
                                 <span class="qa-editable" id="sales-order-no" name="sales_order_no"
-                                    placeholder="Enter sales order number" tabindex="9"></span>
+                                    placeholder="Enter sales order number"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="quantity-received">Quantity Received:</label>
                                 <span class="qa-editable" id="quantity-received" name="quantity_received"
-                                    placeholder="Enter quantity received" tabindex="10"></span>
+                                    placeholder="Enter quantity received"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="quantity-defective">Quantity Defective:</label>
                                 <span class="qa-editable" id="quantity-defective" name="quantity_defective"
-                                    placeholder="Enter quantity defective" tabindex="11"></span>
+                                    placeholder="Enter quantity defective"></span>
                             </div>
                             <div class="form-group">
                                 <label for="process">Identify Process Applicable:</label>
-                                <span class="qa-editable" id="qa-process" name="process" required tabindex="16">
+                                <span class="qa-editable" id="qa-process" name="process" required>
                                 </span>
                             </div>
                         </fieldset>
@@ -236,13 +241,13 @@
                                 <div class="form-group">
                                     <label for="description-item">Description of Item (Including SAP No):</label>
                                     <span class="qa-editable" id="description-item" name="description_item"
-                                        placeholder="Enter description of item" required tabindex="17"></span>
+                                        placeholder="Enter description of item" required></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description-defect">Description of Defect:</label>
                                     <span class="qa-editable" id="description-defect" name="description_defect"
-                                        placeholder="Enter description of defect" required tabindex="18"></span>
+                                        placeholder="Enter description of defect" required ></span>
                                 </div>
 
                                 <!-- Radio-like buttons -->
@@ -250,15 +255,15 @@
                                 <div class="form-group">
                                     <label>Item Marked Non-Conforming?:</label>
                                     <span class="qa-editable" id="item-marked-yes" name="item_marked_nonconforming"
-                                        value="yes" tabindex="19"></span>
+                                        value="yes"></span>
 
                                     <span class="qa-editable" id="item-marked-no" name="item_marked_nonconforming"
-                                        value="no" tabindex="20"></span>
+                                        value="no"></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="resolved">Resolved:</label>
                                     <span class="qa-editable" id="qa-resolved" name="resolved" aria-label="Resolved"
-                                        tabindex="15"></span>
+                                        ></span>
                                 </div>
 
                             </div>
@@ -269,7 +274,7 @@
 
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" data-department="QA Inspector" tabindex="22">Edit</button>
+                    <button class="edit" data-department="QA Inspector" tabindex="11">Edit</button>
                 </div>
 
             </details>
@@ -277,8 +282,8 @@
 
             <!-- Engineering department -->
 
-            <details>
-                <summary class="custom-summary" aria-label="Engineering department details">Engineering</summary>
+            <details tabindex="12">
+                <summary class="custom-summary"  aria-label="Engineering department details">Engineering</summary>
                 <div class="two-cols-view">
                     <!-- First Column -->
                     <div class="form-row">
@@ -288,7 +293,7 @@
                                 <div class="form-group">
                                     <label for="engineer-name">Name:</label>
                                     <span class="eng-editable" id="engineer-name" name="engineer_name"
-                                        aria-label="Engineer Name" tabindex="23"
+                                        aria-label="Engineer Name"
                                         placeholder="Enter engineer's name..."></span>
                                 </div>
                             </div>
@@ -298,19 +303,19 @@
                             <div class="form-group">
                                 <label for="original-rev-number">Original Revision Number:</label>
                                 <span class="eng-editable" id="original-rev-number" name="original_rev_number"
-                                    aria-label="Original Revision Number" tabindex="26"
+                                    aria-label="Original Revision Number"
                                     placeholder="e.g., Rev-001"></span>
                             </div>
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="resolved">Resolved:</label>
                                     <span class="eng-editable" id="eng-resolved" name="resolved" aria-label="Resolved"
-                                        tabindex="30"></span>
+                                        ></span>
                                 </div>
                                 <div class="form-group">
                                     <label for="customer-notification">Customer Notification:</label>
                                     <span class="eng-editable" id="customer-notification" name="customer_notification"
-                                        aria-label="Customer Notification Required" tabindex="31"></span>
+                                        aria-label="Customer Notification Required"></span>
                                 </div>
 
                             </div>
@@ -318,21 +323,21 @@
                                 <div class="form-group">
                                     <label for="updated-rev-number">Updated Revision Number:</label>
                                     <span class="eng-editable" id="updated-rev-number" name="updated_rev_number"
-                                        aria-label="Updated Revision Number" tabindex="27"
+                                        aria-label="Updated Revision Number"
                                         placeholder="e.g., Rev-002"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="revision-date">Revision Date:</label>
                                     <span class="eng-editable" id="revision-date" name="revision_date"
-                                        aria-label="Revision Date" tabindex="28"></span>
+                                        aria-label="Revision Date"></span>
                                 </div>
 
                                 <div class="form-group">
                                     <label for="engineering-review-date">Engineering Review Date:</label>
                                     <span class="eng-editable" id="engineering-review-date"
                                         name="engineering_review_date" aria-label="Engineering Review Date"
-                                        tabindex="29"></span>
+                                        ></span>
                                 </div>
                             </div>
                         </fieldset>
@@ -343,33 +348,33 @@
                             <div class="form-group">
                                 <label for="disposition">Disposition:</label>
                                 <span class="eng-editable" id="disposition" name="disposition" aria-label="Disposition"
-                                    tabindex="24">
+                                    >
                                 </span>
                             </div>
                             <div class="form-group">
                                 <label for="disposition-details">Disposition Details:</label>
                                 <span class="eng-editable" id="disposition-details" name="disposition_details"
-                                    aria-label="Disposition Details" rows="4" tabindex="25"
+                                    aria-label="Disposition Details" rows="4"
                                     placeholder="Enter details about the disposition..."></span>
                             </div>
                             <div class="form-group">
                                 <label for="drawing-update-required">Drawing Update:</label>
                                 <span class="eng-editable" id="drawing-update-required" name="drawing_update_required"
-                                    aria-label="Drawing Update Required" tabindex="32"></span>
+                                    aria-label="Drawing Update Required"></span>
                             </div>
                         </fieldset>
                     </div>
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" data-department="Lead Engineer" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Lead Engineer" tabindex="13">Edit</button>
                 </div>
             </details>
 
 
 
             <!-- purchasing department -->
-            <details>
+            <details tabindex="14">
                 <summary class="custom-summary" aria-label="Purchasing department details">Purchasing Decision</summary>
                 <div class="two-cols-view">
                     <div class="form-row">
@@ -378,7 +383,7 @@
                             <div class="form-group">
                                 <label for="inspector-name">Name:</label>
                                 <span class="purch-editable" id="inspector-name" name="inspector_name"
-                                    aria-label="Inspector Name" tabindex="44"></span>
+                                    aria-label="Inspector Name"></span>
                             </div>
                         </fieldset>
                         <h3>Product Description</h3>
@@ -386,43 +391,32 @@
                             <div class="form-group">
                                 <label for="car-raised">CAR Raised:</label>
                                 <span class="purch-editable" id="car-raised" name="car_raised" aria-label="CAR Raised"
-                                    tabindex="37"></span>
+                                    ></span>
                             </div>
                             <div class="form-group">
                                 <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
                                 <span class="purch-editable" id="re-inspected-acceptable" name="re_inspected_acceptable"
-                                    aria-label="Re-Inspected Acceptable" tabindex="42"></span>
+                                    aria-label="Re-Inspected Acceptable"></span>
                             </div>
                             <div class="form-group">
                                 <label for="car-number">CAR Number:</label>
                                 <span class="purch-editable" id="car-number" name="car_number" aria-label="CAR Number"
-                                    tabindex="38"></span>
+                                    ></span>
                             </div>
                             <div class="form-group">
                                 <label for="new-ncr-number">New NCR Number:</label>
                                 <span class="purch-editable" id="new-ncr-number" name="new_ncr_number"
-                                    aria-label="New NCR Number" tabindex="43"></span>
+                                    aria-label="New NCR Number"></span>
                             </div>
                             <div class="form-group">
                                 <label for="operations-manager-date">Operations Manager Date:</label>
                                 <span class="purch-editable" id="operations-manager-date" name="operations_manager_date"
-                                    aria-label="Operations Manager Date" tabindex="41"></span>
+                                    aria-label="Operations Manager Date"></span>
                             </div>
                             <div class="form-group">
                                 <label for="operations-manager-name">Operations Manager Name:</label>
                                 <span class="purch-editable" id="operations-manager-name" name="operations_manager_name"
-                                    aria-label="Operations Manager Name" tabindex="40"></span>
-                            </div>
-                            <div class="form-group">
-                                <label for="ncr-closed">NCR Closed:</label>
-                                <span class="purch-editable" id="ncr-closed" name="ncr_closed" aria-label="NCR Closed"
-                                    tabindex="45"></span>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="resolved">Resolved:</label>
-                                <span class="purch-editable" id="pu-resolved" name="resolved" aria-label="Resolved"
-                                    tabindex="46"></span>
+                                    aria-label="Operations Manager Name"></span>
                             </div>
                         </fieldset>
                     </div>
@@ -432,29 +426,40 @@
                             <div class="form-group">
                                 <label for="preliminary-decision">Preliminary Decision:</label>
                                 <span class="purch-editable" id="preliminary-decision" name="preliminary_decision"
-                                    aria-label="Preliminary Decision" tabindex="35"></span>
+                                    aria-label="Preliminary Decision"></span>
                             </div>
 
                             <div class="form-group">
                                 <label for="options">Select Disposition Option:</label>
-                                <span id="options" class="purch-editable" name="option" tabindex="36">
+                                <span id="options" class="purch-editable" name="option">
                                 </span>
                             </div>
                             <div class="form-group">
                                 <label for="follow-up-required">Follow-Up Required:</label>
                                 <span class="purch-editable" id="follow-up-required" name="follow_up_required"
-                                    aria-label="Follow-Up Required" tabindex="39"></span>
+                                    aria-label="Follow-Up Required"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="ncr-closed">NCR Closed:</label>
+                                <span class="purch-editable" id="ncr-closed" name="ncr_closed" aria-label="NCR Closed"
+                                    ></span>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="resolved">Resolved:</label>
+                                <span class="purch-editable" id="pu-resolved" name="resolved" aria-label="Resolved"
+                                    ></span>
                             </div>
                         </fieldset>
                     </div>
                 </div>
                 <!---Buttons-->
                 <div class="btn-report">
-                    <button class="edit" data-department="Purchasing" tabindex="22">Edit</button>
+                    <button class="edit" data-department="Purchasing" tabindex="15">Edit</button>
                 </div>
 
             </details>
-            <details class="img-details">
+            <details class="img-details" tabindex="16" >
                 <summary class="custom-summary" aria-label="Defected product images">Defected product images</summary>
                 <div class="form-row">
                     <div id="defectedProdImages">
@@ -468,12 +473,12 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="17">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="18">Get
                 Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="19">
         </p>
     </footer>
 
@@ -483,6 +488,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script/darkmode.js"></script>
+
 
     <!-- <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.0/build/qrcode.min.js"></script>

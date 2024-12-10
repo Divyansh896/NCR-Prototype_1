@@ -113,6 +113,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -147,10 +153,10 @@
             <section>
                 <!-- Tab Navigation -->
                 <div class="tab-navigation">
-                    <button id="btn-supplier" class="tab-button active" tabindex="9"><i class="fa fa-truck"
+                    <button id="btn-supplier" class="tab-button active" tabindex="7"><i class="fa fa-truck"
                             aria-hidden="true"></i>
                         Suppliers</button>
-                    <button id="btn-employee" class="tab-button" tabindex="10"><i class="fa fa-user"
+                    <button id="btn-employee" class="tab-button" tabindex="8"><i class="fa fa-user"
                             aria-hidden="true"></i>
                         Employees</button>
                 </div>
@@ -162,7 +168,7 @@
                         <h2 id="supplier-info">Supplier Information</h2>
                         <div class="supplier-selection-container">
                             <label for="supplier-select" id="supplier-select-label">Select a Supplier</label>
-                            <select id="supplier-select" name="supplier-select" tabindex="15" aria-labelledby="supplier-select-label"
+                            <select id="supplier-select" name="supplier-select" tabindex="9" aria-labelledby="supplier-select-label"
                                 aria-describedby="supplier-info">
                                 <option value="">Select a Supplier</option>
                                 <!-- Dynamically populated options will go here -->
@@ -207,7 +213,7 @@
                                 </div>
                                 
                                 <div class="supplier-actions">
-                                    <button id="export-supplier" >Export</button>
+                                    <button id="export-supplier"  tabindex="10">Export</button>
                                     <button id="edit-supplier" class="action-btn">Edit</button>
                                 </div>
                             </div>
@@ -302,15 +308,17 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="11">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="12">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="13">
         </p>
     </footer>
     <script src="script/comapnyInsignts.js"></script>
     <script src="script/breadcrumb.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/exceljs/4.3.0/exceljs.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+    <script src="script/darkmode.js"></script>
+
 </body>

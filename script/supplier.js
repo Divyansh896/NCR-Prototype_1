@@ -47,14 +47,14 @@ document.getElementById("submit-btn").addEventListener('click', function (e) {
         country.nextElementSibling.textContent = "Country name is required !"
         isvalid=false
     }
-    if (postalcode == "" || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(postalcode.value)) {
+    if (postalcode.value == "" || !/^[A-Za-z]\d[A-Za-z] \d[A-Za-z]\d$/.test(postalcode.value)) {
         showPopup('Required fields missing', 'Please enter the valid postal code.', 'images/1382678.webp')
         postalcode.nextElementSibling.style.display = "block"
         postalcode.nextElementSibling.textContent = "Postalcode name is required !"
         isvalid=false
     }
     const regex = /^\+1-\d{3}-\d{3}-\d{4}$/;
-    if (!regex.test(phoneNumber)) {
+    if (!regex.test(phoneNumber.value)) {
         showPopup('Required fields missing', 'Please enter the valid phone number.', 'images/1382678.webp')
         contact.nextElementSibling.style.display = "block"
         contact.nextElementSibling.textContent = "Contact name is required !"

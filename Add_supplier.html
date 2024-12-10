@@ -109,6 +109,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -144,25 +150,25 @@
                     <div class="two-cols">
                         <div class="tooltip-container">
                             <label for="supplierName">Supplier Name (Required)</label>
-                            <input type="text" id="supplierName" name="supplierName" tabindex="6" placeholder="Enter supplier Name">
+                            <input type="text" id="supplierName" name="supplierName" tabindex="7" placeholder="Enter supplier Name">
                             <span class="error-message" id="supplier-name-error"></span>
                             <span class="tooltip">Enter the supplier's name</span>
                         </div>
                         <div class="tooltip-container">
                             <label for="address">Address (Required)</label>
-                            <input type="text" id="address" name="address" tabindex="7" placeholder="Enter Address">
+                            <input type="text" id="address" name="address" tabindex="8" placeholder="Enter Address">
                             <span class="error-message" id="address-error"></span>
                             <span class="tooltip">Enter the address of the supplier</span>
                         </div>
                         <div class="tooltip-container">
                             <label for="city">City (Required)</label>
-                            <input type="text" id="city" name="city" tabindex="8" placeholder="Enter City">
+                            <input type="text" id="city" name="city" tabindex="9" placeholder="Enter City">
                             <span class="error-message" id="city-error"></span>
                             <span class="tooltip">Enter the city where the supplier is located</span>
                         </div>
                         <div class="tooltip-container">
                             <label for="country">Country (Required)</label>
-                            <input type="text" id="country" name="country" tabindex="9" placeholder="Enter Country">
+                            <input type="text" id="country" name="country" tabindex="10" placeholder="Enter Country">
                             <span class="error-message" id="country-error"></span>
                             <span class="tooltip">Enter the country of the supplier</span>
                         </div>
@@ -170,19 +176,19 @@
                     <div class="two-cols">
                         <div class="tooltip-container">
                             <label for="postalCode">Postal Code (Required)</label>
-                            <input type="text" id="postalCode" name="postalCode" tabindex="10" placeholder="A9A 9A9">
+                            <input type="text" id="postalCode" name="postalCode" tabindex="11" placeholder="A9A 9A9">
                             <span class="error-message" id="postal-code-error"></span>
                             <span class="tooltip">Enter the postal code of the supplier (L3B 4A8)</span>
                         </div>
                         <div class="tooltip-container">
                             <label for="contact">Contact (Required)</label>
-                            <input type="tel" id="contact" name="contact" tabindex="11" placeholder="905 329 7272">
+                            <input type="tel" id="contact" name="contact" tabindex="12" placeholder="905 329 7272">
                             <span class="error-message" id="contact-error"></span>
                             <span class="tooltip">Enter the contact number of the supplier</span>
                         </div>
                         <div class="tooltip-container">
                             <label for="shippingMethod">Shipping Method (Required)</label>
-                            <select id="shippingMethod" name="shippingMethod" tabindex="12">
+                            <select id="shippingMethod" name="shippingMethod" tabindex="13">
                                 <option value="">Select a shipping method</option>
                                 <option value="air">Air</option>
                                 <option value="sea">Sea</option>
@@ -205,8 +211,8 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="15">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="16">Get Help</a>
         </p>
         <p>
             <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
@@ -214,6 +220,8 @@
     </footer>
     <script src="script/supplier.js"></script>
     <script src="script/breadcrumb.js"></script>
+    <script src="script/darkmode.js"></script>
+
 </body>
 
 </html>

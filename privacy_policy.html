@@ -122,6 +122,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -153,22 +159,22 @@
         <div id="privacy-wrapper">
             <div>
                 <h1>Privacy Policy</h1>
-                <details id="Privacy-policy" tabindex="8">
+                <details id="Privacy-policy" tabindex="7">
                     <summary id="table-of-contents" aria-label="Table of content">Table of content</summary>
                     <ol class="summ-policy">
-                        <li><a href="#intro" tabindex="9" class="smooth-scroll">Introduction</a></li>
-                        <li><a href="#information-collection" tabindex="10" class="smooth-scroll">Information We
+                        <li><a href="#intro" tabindex="8" class="smooth-scroll">Introduction</a></li>
+                        <li><a href="#information-collection" tabindex="9" class="smooth-scroll">Information We
                                 Collect</a></li>
-                        <li><a href="#use-information" tabindex="11" class="smooth-scroll">How We Use Your
+                        <li><a href="#use-information" tabindex="10" class="smooth-scroll">How We Use Your
                                 Information</a></li>
-                        <li><a href="#information-sharing" tabindex="12" class="smooth-scroll">Information Sharing</a>
+                        <li><a href="#information-sharing" tabindex="11" class="smooth-scroll">Information Sharing</a>
                         </li>
-                        <li><a href="#data-security" tabindex="13" class="smooth-scroll">Data Security</a></li>
-                        <li><a href="#third-party-links" tabindex="14" class="smooth-scroll">Third-Party Links</a></li>
-                        <li><a href="#privacy-rights" tabindex="15" class="smooth-scroll">Your Privacy Rights</a></li>
-                        <li><a href="#changes-policy" tabindex="16" class="smooth-scroll">Changes to This Privacy
+                        <li><a href="#data-security" tabindex="12" class="smooth-scroll">Data Security</a></li>
+                        <li><a href="#third-party-links" tabindex="13" class="smooth-scroll">Third-Party Links</a></li>
+                        <li><a href="#privacy-rights" tabindex="14" class="smooth-scroll">Your Privacy Rights</a></li>
+                        <li><a href="#changes-policy" tabindex="15" class="smooth-scroll">Changes to This Privacy
                                 Policy</a></li>
-                        <li><a href="#contact-us" tabindex="17" class="smooth-scroll">Contact us</a></li>
+                        <li><a href="#contact-us" tabindex="16" class="smooth-scroll">Contact us</a></li>
                     </ol>
                 </details>
 
@@ -273,8 +279,8 @@
                     at:</p>
                 <div class="contact-info">
                     <p><strong>Crossfire NCR Corporation</strong></p>
-                    <p>Email: <a href="mailto:Cross.fire12@gmail.com">Cross.fire12@gmail.com</a></p>
-                    <p>Phone: <a href="tel:+1905xxxxxxx">(905)-xxx-xxxx</a></p>
+                    <p>Email: <a tabindex="17" href="mailto:Cross.fire12@gmail.com">Cross.fire12@gmail.com</a></p>
+                    <p>Phone: <a tabindex="18" href="tel:+1905xxxxxxx">(905)-xxx-xxxx</a></p>
                 </div>
             </section>
         </div>
@@ -283,16 +289,18 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="19">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="20">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="21">
         </p>
     </footer>
     <script src="script/help.js"></script>
     <script src="script/privacyPolicy.js"></script>
     <script src="script/breadcrumb.js"></script>
+    <script src="script/darkmode.js"></script>
+
 </body>
 
 </html>

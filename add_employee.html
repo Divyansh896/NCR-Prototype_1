@@ -112,6 +112,12 @@
                         </ul>
                     </div>
                 </li>
+                <li>
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
+                        <span class="icon-text">Dark Mode</span>
+                        <span><i class="fa fa-moon-o"></i></span>
+                    </button>
+                </li>
             </ul>
         </nav>
     </header>
@@ -150,7 +156,7 @@
                             <label for="firstName">First Name:</label>
                             <span class="tooltip">Enter the employee's first name</span>
                             <input type="text" id="firstName" name="firstName" placeholder="Enter first name"
-                            aria-label="Enter employee's first name here" tabindex="6">
+                            aria-label="Enter employee's first name here" tabindex="7">
                         </div>
                         <span class="error-message" id="fName-error">First Name is required !</span>
 
@@ -158,7 +164,7 @@
                             <label for="lastName">Last Name:</label>
                             <span class="tooltip">Enter the employee's last name</span>
                             <input type="text" id="lastName" name="lastName" placeholder="Enter last name"
-                            aria-label="Enter employee's last name" tabindex="7">
+                            aria-label="Enter employee's last name" tabindex="8">
                         </div>
                         <span class="error-message" id="lName-error">Last Name is required !</span>
 
@@ -166,14 +172,14 @@
                             <label for="empId">Employee Id:</label>
                             <span class="tooltip">Enter the employee's unique ID</span>
                             <input type="number" id="empId" name="empId" placeholder="0000"
-                            aria-label="Enter employee ID here" tabindex="8">
+                            aria-label="Enter employee ID here" tabindex="9">
                         </div>
                         <span class="error-message" id="empID-error">Employee ID is required !</span>
 
                         <div class="tooltip-container">
                             <label for="dob">Date of Birth:</label>
                             <span class="tooltip">Select the employee's date of birth</span>
-                            <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="9">
+                            <input type="date" id="dob" name="dob" aria-label="Select date of birth" tabindex="10">
                         </div>
                         <span class="error-message" id="DOB-error">Date of birth is required !</span>
                     </div>
@@ -183,7 +189,7 @@
                             <label for="email">Email ID:</label>
                             <span class="tooltip">Enter the employee's email address</span>
                             <input type="email" id="email" name="email" placeholder="abc@crossfire.ca"
-                                aria-label="Enter email ID" tabindex="10">
+                                aria-label="Enter email ID" tabindex="11">
                         </div>
                         <span class="error-message" id="eMail-error">Email Address is required !</span>
 
@@ -191,14 +197,14 @@
                             <label for="password">Password:</label>
                             <span class="tooltip">Enter a password for the employee</span>
                             <input type="password" id="password" name="password" placeholder="password"
-                                aria-label="Enter password" tabindex="11">
+                                aria-label="Enter password" tabindex="12">
                             </div>
                             <span class="error-message" id="password-error">Password is required !</span>
 
                         <div class="tooltip-container">
                             <label for="department">Departments:</label>
                             <span class="tooltip">Select the employee's department</span>
-                            <select id="department" name="department" aria-label="Select department" tabindex="12">
+                            <select id="department" name="department" aria-label="Select department" tabindex="13">
                                 <option value="" disabled selected hidden>Select a department</option>
                                 <option value="QA">QA</option>
                                 <option value="engineer">Engineer</option>
@@ -208,10 +214,10 @@
                         <span class="error-message" id="dept-error">Selection of department is required !</span>
 
                         <div class="tooltip-container">
-                            <div class="btns-employee">
-                                <button type="button" id="clear" aria-label="Clear button" tabindex="13">Clear</button>
+                            <div class="btns-supplier">
+                                <button type="button" id="clear" aria-label="Clear button" tabindex="14">Clear</button>
                                 <span class="tooltip">Clear all fields</span>
-                                <button type="submit" id="add" aria-label="Add employee button" tabindex="14">Add
+                                <button type="submit" id="add" aria-label="Add employee button" tabindex="15">Add
                                     Employee</button>
                                 <span class="tooltip">Add the employee to the system</span>
                             </div>
@@ -226,16 +232,18 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="16">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="17">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="18">
         </p>
     </footer>
 
     <script src="script/breadcrumb.js"></script>
     <script src="script/addEmp.js"></script>
+    <script src="script/darkmode.js"></script>
+
 </body>
 
 </html>

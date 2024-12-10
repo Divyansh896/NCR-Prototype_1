@@ -164,7 +164,7 @@ function setSpanContentFromSession() {
     document.getElementById('car-raised').textContent = retrievedNCRData['purchasing_decision']?.car_raised === true ? 'Yes' : 'No';
     document.getElementById('car-number').textContent = retrievedNCRData['purchasing_decision']?.car_number || 'Not filled';
     document.getElementById('follow-up-required').textContent = retrievedNCRData['purchasing_decision']?.follow_up_required === true ? 'Yes' : 'No';
-    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || 'Not filled';
+    document.getElementById('operations-manager-name').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_name || `${user.firstname} ${user.lastname}`
     document.getElementById('operations-manager-date').textContent = retrievedNCRData['purchasing_decision']?.operations_manager_date || 'Not filled'; // Set date input value
     document.getElementById('inspector-name').textContent = retrievedNCRData['purchasing_decision']?.inspector_name || 'Not filled';
     document.getElementById('ncr-closed').textContent = retrievedNCRData['purchasing_decision']?.ncr_closed === true ? 'Yes' : 'No';
@@ -175,7 +175,27 @@ function setSpanContentFromSession() {
 
 
 // Call the function on page load
-document.addEventListener('DOMContentLoaded', setSpanContentFromSession)
+document.addEventListener("DOMContentLoaded", () => {
+    // Debug: Check the contents of sessionStorage before retrieving data
+    console.log("Debug: SessionStorage contents before retrieving data:", sessionStorage);
+
+    const retrievedNCRData = JSON.parse(sessionStorage.getItem("data")) || {};
+
+    // Debug: Log the retrieved NCR data
+    console.log("Debug: Retrieved NCR data from sessionStorage:", retrievedNCRData);
+
+    if (!retrievedNCRData.ncr_no) {
+        alert("No report found. Please submit a report first.");
+        window.location.href = "purchasing_decision.html"; // Redirect back if no data
+        return;
+    }
+
+    // Populate the page with retrieved data
+    setSpanContentFromSession(retrievedNCRData);
+
+    // Debug: Confirm data is being passed to setSpanContentFromSession
+    console.log("Debug: Data passed to setSpanContentFromSession:", retrievedNCRData);
+});
 
 
 //event for downloading a pdf
@@ -851,7 +871,7 @@ async function exportToExcel(ncrNum) {
     worksheet.getCell('A1').font = { bold: true, size: 20 }
 
     worksheet.mergeCells('A2:E2')
-    worksheet.getCell('A2').value = `Date of Report: ${report.qa.date}`
+    worksheet.getCell('A2').value = `NCR No: ${ncrNum} - Date of Report: ${report.qa.date}`
     worksheet.getCell('A2').alignment = { horizontal: 'center', wrapText: true }
 
 

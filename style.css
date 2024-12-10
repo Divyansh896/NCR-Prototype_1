@@ -185,6 +185,11 @@ details {
 
 }
 
+.answer-text,
+.custom-summary {
+    padding-left: 30px;
+}
+
 
 .custom-summary::after {
     content: "";
@@ -257,7 +262,7 @@ details[open] .custom-summary::before {
     margin: 5px 20px 20px 20px;
 }
 
-h3{
+h3 {
     margin: 5px 20px 0px 20px;
 }
 
@@ -637,14 +642,19 @@ fieldset legend {
 #saveAndLeaveBtn:hover,
 .continue-button-qa:hover,
 .continue-button-eng:hover,
-.continue-button-purch:hover {
+.continue-button-purch:hover,
+#edit-supplier:hover,
+#edit-employee:hover,
+#add:hover {
     background-color: #10223d;
 }
 
 #saveAndLeaveBtn,
 .continue-button-qa,
 .continue-button-eng,
-.continue-button-purch {
+.continue-button-purch,
+#edit-supplier,
+#edit-employee {
     background-color: #1a3153;
     color: #f4f4f4;
     margin: 10px 10px;
@@ -661,7 +671,8 @@ fieldset legend {
 #save1,
 #save2,
 #leaveWithoutSavingBtn,
-#cancelBtn {
+#cancelBtn,
+#clear {
     background-color: #fff;
     border: #1a3153 solid;
     color: #1a3153;
@@ -676,12 +687,14 @@ fieldset legend {
 #save1:hover,
 #save2:hover,
 #leaveWithoutSavingBtn:hover,
-#cancelBtn:hover {
+#cancelBtn:hover,
+#clear:hover {
     background-color: #e0e0e0;
 }
 
 .continue-button-qa,
-.continue-button-eng {
+.continue-button-eng,
+.continue-button-purch {
     font-size: 14.4px;
 }
 
@@ -866,7 +879,7 @@ fieldset legend {
     transition: background-color 0.3s, color 0.3s;
     border: #4c6488, solid;
     border-radius: 20px;
-    width: 150px;
+    width: 100%;
 }
 
 .checkbox-button input[type="checkbox"],
@@ -971,15 +984,14 @@ label.radio-button {
 .filter-section,
 .supplier-columns,
 .employee-columns {
-    margin: 0 auto;
-    /* Center align and prevent overflow */
+    margin: 0 10%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     max-width: 100%;
-    /* Prevent overflow on smaller screens */
 }
-
+.filter-section{
+    margin: 0 auto;
+}
 .filter-section #search,
 .filter-section #ncrInput,
 .filter-section #Departments,
@@ -1096,7 +1108,7 @@ input[type="radio"] {
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
-    margin: 20px 0px;
+    margin: 20px 10%;
 }
 
 #status-filter,
@@ -1280,10 +1292,6 @@ input[type="radio"] {
     margin-bottom: 10px;
 }
 
-.contact-info {
-    font-size: 1.7rem;
-}
-
 .contact-info a {
     color: #1a3153;
     text-decoration-line: underline;
@@ -1420,7 +1428,8 @@ td button:focus {
 }
 
 
-.icon-badge, .link-icon-badge {
+.icon-badge,
+.link-icon-badge {
     position: relative;
     background: none;
     color: #333;
@@ -1444,7 +1453,8 @@ td button:focus {
     background-color: #333333c5;
 }
 
-.icon-badge .badge, .link-icon-badge .badge {
+.icon-badge .badge,
+.link-icon-badge .badge {
     position: absolute;
     top: -5px;
     right: -5px;
@@ -1526,12 +1536,18 @@ td button:focus {
     font-size: 12px;
     margin-left: 5px;
 }
-
+#help-wrapper .help-faq{
+    margin-bottom: 20px;
+}
 #userName {
     font-size: 1.4em;
     font-weight: 300;
 }
-
+#btnBackToTop{
+    background-color: transparent;
+    border-style: none;
+    color: wheat;
+}
 .tools {
     text-align: left;
 }
@@ -1683,7 +1699,6 @@ td button:focus {
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    /* color: #1a3153; */
 }
 
 #supplier-select,
@@ -1692,6 +1707,11 @@ td button:focus {
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 4px;
+}
+
+#edit-supplier,
+#edit-employee {
+    width: 35%;
 }
 
 /* Supplier Details */
@@ -1713,12 +1733,10 @@ td button:focus {
 .supplier-detail label,
 .employee-detail label {
     font-weight: bold;
-    /* color: #555; */
 }
 
 .supplier-detail span,
 .employee-detail span {
-    /* color: #333; */
     word-wrap: break-word;
     margin-top: 1rem;
 }
@@ -1785,10 +1803,16 @@ td button:focus {
     padding: 10px;
 }
 
+.ncr-table .statusColor{
+    color: green;
+}
 
 /* help Page */
 /*  */
 
+.answer-text {
+    padding: 20px 20px;
+}
 
 .info-icon {
     border-radius: 50%;
@@ -1801,40 +1825,225 @@ td button:focus {
 }
 
 /* dark mode css */
+/* Global Dark Mode Styles */
 body.dark-mode {
     background-color: #121212;
     color: #ffffff;
 }
 
-header.dark-mode,
-footer.dark-mode {
+/* Header Styles for Dark Mode */
+body.dark-mode header {
     background-color: #1e1e1e;
 }
 
-button.dark-mode,
-a.dark-mode {
-    background-color: #333333;
+body.dark-mode .logo-container img {
+    filter: brightness(0) invert(1); /* Adjust logo color for dark mode */
+}
+body.dark-mode header{
+    border-bottom: 1px solid white;
+}
+body.dark-mode nav a, body.dark-mode h1{
+    color: white;
+}
+
+body.dark-mode nav a:hover{
+    color: rgb(250, 238, 238);
+}
+
+body.dark-mode nav #notification-box a, body.dark-mode nav #settings-box a, body.dark-mode .status-bar,body.dark-mode .status-bar h1, body.dark-mode .form-section.active button, body.dark-mode #btn-reset{
+    color: #1e1e1e;
+}
+body.dark-mode .form-section.active, body.dark-mode .form-container, body.dark-mode .chkboxes-create-ncr, body.dark-mode .rad-create-ncr, body.dark-mode .ncr-table tbody tr:nth-child(odd), body.dark-mode .chkboxes-logged-ncr, body.dark-mode .account{
+    background-color: #1e1e1e;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1) brightness(100) contrast(100);
+}
+body.dark-mode .ncr-table tbody tr:nth-child(even){
+background-color: #393939;
+}
+body.dark-mode .radio-button, body.dark-mode .ncr-table .statusColor, body.dark-mode #search, body.dark-mode .contact-info a, body.dark-mode .summ-policy a{
+    color: #ffffff;
+}
+body.dark-mode .form-section.active button,
+body.dark-mode .btns-supplier button, body.dark-mode #btn-reset{
+background-color:#ffffff;
+}
+/* body.dark-mode .notification-box ul li:hover{
+    background-color: transparent;
+    color: white;
+} */
+
+body.dark-mode .form-section.active button:hover,
+body.dark-mode .btns-supplier button:hover{
+    background-color: #b8b8b8;
+}
+body.dark-mode #footer-scroll{
+    background-color: #3d3f41;
+}
+body.dark-mode nav ul:hover {
+    color: #4f4e4e; /* Highlight color for dark mode */
+}
+
+body.dark-mode .icon-badge {
+    background-color: #333;
     color: #ffffff;
 }
 
-.info-description {
-    margin: 10px 0;
+body.dark-mode .icon-badge:hover {
+    background-color: white;
 }
 
-#btnBackToTop {
-    background-color: transparent;
-    border-style: none;
-    color: #dbc7c0;
-    font-size: 1rem;
+/* Breadcrumbs for Dark Mode */
+body.dark-mode .breadcrumb {
+    background-color: #1e1e1e;
+    color: #ffffff;
 }
 
-#btnBackToTop:hover {
-    color: #f7c4b3;
+body.dark-mode .breadcrumb-item {
+    color: #ffffff;
 }
 
-.ncr-table thead th.sort-btn {
-    color: #2afafa;
+body.dark-mode .breadcrumb-item.active {
+    color: white;
 }
+
+/* Section Styles for Dark Mode */
+body.dark-mode .featuresCreateNCR,
+body.dark-mode .featuresViewNCR,
+body.dark-mode .featuresManageAcc,
+body.dark-mode .featuresCrossfireInsights {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+
+body.dark-mode .featuresCreateNCR h2,
+body.dark-mode .featuresViewNCR h2,
+body.dark-mode .featuresManageAcc h2,
+body.dark-mode .featuresCrossfireInsights h2 {
+    color: white;
+}
+
+body.dark-mode nav #notification-list li, body.dark-mode nav #settings-box li{
+    color: black;
+}
+
+body.dark-mode .featuresCreateNCR p,
+body.dark-mode .featuresViewNCR p,
+body.dark-mode .featuresManageAcc p,
+body.dark-mode .featuresCrossfireInsights p {
+    color: #ffffff;
+}
+
+/* Button Styles for Dark Mode */
+body.dark-mode button,
+body.dark-mode .tab-button {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+
+
+body.dark-mode button:hover,
+body.dark-mode .tab-button:hover {
+    background-color: white;
+    color: #000;
+}
+
+/* Tooltip Styles for Dark Mode */
+body.dark-mode .tooltip-container .tooltip {
+    background-color: #333;
+    color: #ffffff;
+}
+
+body.dark-mode .tooltip-container .tooltip:hover {
+    background-color: white;
+    color: #000;
+}
+
+/* Footer Styles for Dark Mode */
+body.dark-mode footer {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode footer a {
+    color: #ffffff ;
+}
+
+body.dark-mode footer a:hover {
+    color: #fbe9e9;
+}
+
+/* Modal Styles for Dark Mode */
+body.dark-mode .modal {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+body.dark-mode .modal-content {
+    background-color: #222;
+    color: #ffffff;
+}
+
+body.dark-mode .modal-content .close {
+    color: #ffffff;
+}
+
+/* Input Fields for Dark Mode */
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+
+body.dark-mode input:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+    border-color: white;
+}
+
+/* Chart Background for Dark Mode */
+body.dark-mode .linegraph, 
+body.dark-mode .bargraph {
+    background-color: #1e1e1e;
+    border: 1px solid #333;
+}
+
+body.dark-mode canvas {
+    background-color: #333;
+}
+
+/* Notification Box Styles */
+/* body.dark-mode #notification-box, body.dark-mode #settings-box {
+    background-color: #333;
+    color: #ffffff;
+} */
+
+body.dark-mode #notification-box .badge {
+    background-color: white;
+}
+
+
+body.dark-mode button:focus,
+body.dark-mode input[type="text"]:focus,
+body.dark-mode input[type="password"]:focus,
+body.dark-mode input[type="date"]:focus,
+body.dark-mode input[type="email"]:focus,
+body.dark-mode input[type="number"]:focus,
+body.dark-mode input[type="tel"]:focus,
+body.dark-mode select:focus textarea:focus,
+body.dark-mode textarea:focus,
+body.dark-mode select:focus {
+    border: 3px solid black;
+    background-color: #333333;
+}
+
+
+
+
 
 
 /*media*/
@@ -1986,19 +2195,22 @@ a.dark-mode {
     .filter-section,
     .supplier-columns,
     .employee-columns {
-        margin: 0 auto;
+        
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         /* justify-content: space-evenly; */
         gap: 10px;
     }
 
-
+    .filter-section{
+        margin: 0 auto;
+    }
     .filter-section div,
     .supplier-columns div,
     .employee-columns div {
         width: 90%;
         text-align: left;
+        align-items: end;
     }
 
 
@@ -2323,12 +2535,15 @@ a.dark-mode {
     /*view ncr*/
 
 
-    .filter-section,
-    .supplier-columns,
-    .employee-columns {
+    .filter-section {
         margin: 0 auto;
         width: 70%;
         align-items: center;
+    }
+
+    .supplier-columns,
+    .employee-columns {
+        align-items: start;
     }
 
     .radio-button {
@@ -2395,8 +2610,12 @@ a.dark-mode {
 
     .custom-summary {
         font-size: 1.5em;
-        padding-left: 95px;
         font-weight: 550;
+    }
+
+    .answer-text,
+    .custom-summary {
+        padding-left: 21px;
     }
 
     .custom-summary-loggedNcr {
@@ -2573,12 +2792,6 @@ a.dark-mode {
         width: 70%;
     }
 
-
-    .checkbox-button,
-    .radio-button {
-        width: 100px;
-    }
-
     .main-container-create {
         flex-direction: row;
     }
@@ -2715,7 +2928,7 @@ a.dark-mode {
     }
 
     /* report page */
-    .dynamic-image{
+    .dynamic-image {
         width: 300px;
         height: 300px;
     }
@@ -2728,7 +2941,7 @@ a.dark-mode {
         font-size: 2.5rem
     }
 
-    h3{
+    h3 {
         font-size: 1.1rem;
     }
 
@@ -2845,12 +3058,20 @@ a.dark-mode {
 
     .custom-summary {
         font-size: 1.2em;
-        padding-left: 128px;
         font-weight: 600;
     }
 
     .custom-summary-loggedNcr {
         padding-left: 20px;
+    }
+
+    .help-faq .custom-summary,
+    .help-faq .answer-text{
+        padding-left: 150px;
+    }
+    
+    .custom-summary {
+        padding-left: 21px;
     }
 
     .confirmation p {
@@ -2915,13 +3136,13 @@ a.dark-mode {
     }
 
     /* report page */
-    #defectedProdImages{
+    #defectedProdImages {
         margin: 20px 40px;
         gap: 40px;
     }
 }
 
-@media screen and (min-width: 1760px) {
+@media screen and (min-width: 2000px) {
 
     /* General */
     header img {
@@ -2960,7 +3181,7 @@ a.dark-mode {
         font-size: 2.3rem;
     }
 
-    h3{
+    h3 {
         font-size: 2rem;
     }
 
@@ -3005,6 +3226,16 @@ a.dark-mode {
         margin: 0px 10px;
     }
 
+    /*navigation bar*/
+    .icon-badge .fa {
+        font-size: 22px;
+    }
+
+    .icon-badge {
+        width: 50px;
+        height: 50px;
+    }
+
     /*home page */
 
 
@@ -3036,8 +3267,9 @@ a.dark-mode {
         width: 90%;
     }
 
-    .qa-info-section input, .qa-info-section select{
-        width: 90%; 
+    .qa-info-section input,
+    .qa-info-section select {
+        width: 90%;
     }
 
     .form-section textarea {
@@ -3055,7 +3287,7 @@ a.dark-mode {
     .featuresViewNCR button,
     .featuresManageAcc button,
     .featuresCrossfireInsights button {
-        width: 60%;
+        width: 50%;
         height: 50px;
     }
 
@@ -3069,10 +3301,35 @@ a.dark-mode {
         font-size: 1.5rem
     }
 
+    .NcrNo{
+        width: 270px;
+    }
     .tab-button.active,
     .tab-button {
         font-size: 1.5rem
     }
+
+    .report-card .pinIcon,
+    .report-card .unpinIcon {
+        width: 50px;
+        height: 50px;
+    }
+
+    #btn-recent,
+    #btn-saved,
+    #btn-pinned,
+    #btn-supplier,
+    #btn-employee,
+    #export-supplier,
+    #export-employee,
+    .continue-button-qa,
+    .continue-button-eng,
+    .continue-button-purch {
+        width: auto;
+    }
+
+    
+        
 
     /* view ncr */
     .filter-section {
@@ -3093,6 +3350,7 @@ a.dark-mode {
 
     .filter-section {
         margin: 40px 200px;
+        width: auto;
     }
 
     .ncr-table thead th,
@@ -3135,10 +3393,19 @@ a.dark-mode {
         width: 200px;
     }
 
-    .rad-create-ncr .radio-button {
-        width: 100px;
+    .checkbox-button,
+    .radio-button {
+        width: 100%;
+        padding: 14px 20px;
     }
-
+    .rad-create-ncr .radio-button {
+        width: 126px;
+        text-align: center;
+    }
+    .modal-content{
+        width: 571px;
+        height: auto;
+    }
     /* account*/
 
     .account {
@@ -3194,7 +3461,7 @@ a.dark-mode {
 
     .custom-summary {
         font-size: 2em;
-        /* padding-left: 153px; */
+        padding-left: 22px;
     }
 
     /*privacy policy*/
@@ -3268,6 +3535,13 @@ textarea:focus {
     border: 2px solid black;
     /* Add a subtle black border */
 }
+body.dark-mode input:focus,
+body.dark-mode button:focus,
+body.dark-mode select:focus,
+body.dark-mode textarea:focus {
+    border: 2px solid #ffffff;
+    /* Add a subtle black border */
+}
 
 @media screen and (min-width:2560px) {
     #supplier-container {
@@ -3275,7 +3549,7 @@ textarea:focus {
     }
 
     .modal-content-supplier {
-        height: 29vh;
+        height: 100vh;
         width: 1061px;
     }
 

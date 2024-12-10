@@ -805,7 +805,7 @@ function initializeItemBarChart() {
             datasets: [{
                 label: 'Occurrences of Items in Reports', // Dataset label
                 data: data, // Set data from item counts
-                backgroundColor: 'rgba(2, 188, 188, 0.85)', // Darker bar color with less transparency
+                backgroundColor: 'rgba(2, 188, 188, 0.85)', //  er bar color with less transparency
                 borderColor: 'rgba(2, 188, 188, 0.85)', // Even darker border color for contrast
                 borderWidth: 1, // Slightly thicker border to make the bars stand out
             }]
@@ -1071,7 +1071,21 @@ function setNotificationText() {
     })
 }
 
-
+// Helper function to get the correct localStorage key based on user role
+function getLocalStorageKey() {
+    switch (user.role) {
+        case "QA Inspector":
+            return 'QANotification';
+        case "Lead Engineer":
+            return 'ERNotification';
+        case "Purchasing":
+            return 'PRNotification';
+        case "Admin":
+            return 'ADNotification';
+        default:
+            return '';
+    }
+}
 function updateToolContent() {
     const toolsContainer = document.querySelector('.tools')
     const emp = document.getElementById('add-emp')
