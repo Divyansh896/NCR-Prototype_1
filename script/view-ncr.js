@@ -101,8 +101,8 @@ function populateTable(data, matchedStatus) {
 
         // Determine the status display for incomplete NCRs
         const statusDisplay = ncr.status === 'incomplete'
-            ? `<span style="color: green"><i class="fa fa-folder-open"></i> Open -</span>`
-            : `<span style="color: gray"><i class="fa fa-check"></i> Closed</span>`; // Status for completed/archived
+            ? `<span class="statusColor" ><i class="fa fa-folder-open"></i> Open -</span>`
+            : `<span class="statusColor" style="color: gray"><i class="fa fa-check"></i> Closed</span>`; // Status for completed/archived
 
         // Set the inner HTML of the row
         row.innerHTML = `
