@@ -500,15 +500,20 @@ clearNotification.addEventListener("click", () => {
 
 })
 
+
 function BackToTop(){
     window.scrollTo({
         top: 0,
         behavior: 'smooth' // Adds a smooth scroll effect
     })
 }
+
+
 footer.addEventListener('click', () => {
     BackToTop()
 })
+
+
 btnBackToTop.addEventListener('click', ()=>{
     BackToTop()
 })

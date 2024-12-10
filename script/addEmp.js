@@ -528,9 +528,11 @@ function BackToTop(){
     })
 }
 
+
 footer.addEventListener('click', () => {
     BackToTop()
 })
+
 
 btnBackToTop.addEventListener('click', ()=>{
     BackToTop()
