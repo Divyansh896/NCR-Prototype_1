@@ -1536,7 +1536,9 @@ td button:focus {
     font-size: 12px;
     margin-left: 5px;
 }
-
+#help-wrapper .help-faq{
+    margin-bottom: 20px;
+}
 #userName {
     font-size: 1.4em;
     font-weight: 300;
