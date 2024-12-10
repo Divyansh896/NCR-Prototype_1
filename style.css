@@ -1856,7 +1856,7 @@ body.dark-mode nav #notification-box a, body.dark-mode nav #settings-box a, body
 body.dark-mode .form-section.active, body.dark-mode .form-container, body.dark-mode .chkboxes-create-ncr, body.dark-mode .rad-create-ncr, body.dark-mode .ncr-table tbody tr:nth-child(odd), body.dark-mode .chkboxes-logged-ncr, body.dark-mode .account{
     background-color: #1e1e1e;
 }
-input[type="date"]::-webkit-calendar-picker-indicator {
+body.dark-mode input[type="date"]::-webkit-calendar-picker-indicator {
     filter: invert(1) brightness(100) contrast(100);
 }
 body.dark-mode .ncr-table tbody tr:nth-child(even){
@@ -3287,7 +3287,7 @@ body.dark-mode select:focus {
     .featuresViewNCR button,
     .featuresManageAcc button,
     .featuresCrossfireInsights button {
-        width: 50%;
+        width: 55%;
         height: 50px;
     }
 
