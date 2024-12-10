@@ -1826,7 +1826,7 @@ body.dark-mode {
 }
 
 /* Header Styles for Dark Mode */
-body.dark-mode header {
+body.dark-mode header, body.dark-mode #supplier-container {
     background-color: #1e1e1e;
 }
 
@@ -1844,7 +1844,7 @@ body.dark-mode nav a:hover{
     color: rgb(250, 238, 238);
 }
 
-body.dark-mode nav #notification-box a, body.dark-mode nav #settings-box a, body.dark-mode .status-bar,body.dark-mode .status-bar h1, body.dark-mode .form-section.active button, body.dark-mode #btn-reset{
+body.dark-mode nav #notification-box a, body.dark-mode nav #settings-box a, body.dark-mode .status-bar,body.dark-mode .status-bar h1, body.dark-mode .form-section.active button, body.dark-mode #btn-reset, body.dark-mode #edit-supplier{
     color: #1e1e1e;
 }
 body.dark-mode .form-section.active, body.dark-mode .form-container, body.dark-mode .chkboxes-create-ncr, body.dark-mode .rad-create-ncr, body.dark-mode .ncr-table tbody tr:nth-child(odd), body.dark-mode .chkboxes-logged-ncr, body.dark-mode .account{
@@ -1860,7 +1860,7 @@ body.dark-mode .radio-button, body.dark-mode .ncr-table .statusColor, body.dark-
     color: #ffffff;
 }
 body.dark-mode .form-section.active button,
-body.dark-mode .btns-supplier button, body.dark-mode #btn-reset{
+body.dark-mode .btns-supplier button, body.dark-mode #btn-reset, body.dark-mode #edit-supplier{
 background-color:#ffffff;
 }
 /* body.dark-mode .notification-box ul li:hover{
