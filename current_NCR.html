@@ -111,7 +111,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
                         <span class="icon-text">Dark Mode</span>
                         <span><i class="fa fa-moon-o"></i></span>
                     </button>
@@ -153,7 +153,7 @@
                     <div class="autocomplete">
                         <div class="tooltip-container">
                             <label for="ncrInput">Search NCR Number</label>
-                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" tabindex="6" />
+                            <input type="text" id="ncrInput" placeholder="Type NCR Number" autocomplete="off" tabindex="7" />
                             <div id="autocomplete-list" class="autocomplete-items"></div>
                             <span class="tooltip">Enter the NCR number to search for a specific report.</span>
                         </div>
@@ -162,7 +162,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="search">Search by supplier</label>
-                            <select name="search" id="search" class="serach-bar" required tabindex="7" aria-label="Search by supplier">
+                            <select name="search" id="search" class="serach-bar" required tabindex="8" aria-label="Search by supplier">
                                 <option value="All">All Suppliers</option>
                                 <option value="SteelWorks Ltd">SteelWorks Ltd</option>
                                 <option value="ConcreteFast">ConcreteFast</option>
@@ -179,7 +179,7 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="dateFrom">Start Date of NCR</label>
-                            <input type="date" name="dateFrom" id="dateFrom" tabindex="8">
+                            <input type="date" name="dateFrom" id="dateFrom" tabindex="9">
                             <span class="tooltip ttip-filter">Select the start date to filter NCR reports by date range.</span>
                         </div>
                     </div>
@@ -187,14 +187,14 @@
                     <div>
                         <div class="tooltip-container">
                             <label for="dateTo">End Date of NCR</label>
-                            <input type="date" name="dateTo" id="dateTo" tabindex="9">
+                            <input type="date" name="dateTo" id="dateTo" tabindex="10">
                             <span class="tooltip ttip-filter">Select the end date to filter NCR reports by date range.</span>
                         </div>
                     </div>
                 </div>
                 <div></div>
                 <div>
-                    <button id="btn-reset" tabindex="10">Reset</button>
+                    <button id="btn-reset" tabindex="11">Reset</button>
                 </div>
             </div>
 
@@ -205,11 +205,11 @@
             <table class="ncr-table" id="ncr-table" aria-label="List of NCRs">
                 <thead>
                     <tr>
-                        <th class="sort-btn tooltip-container" data-sort-property="ncr_no">NCR Number
+                        <th class="sort-btn tooltip-container" tabindex="12" data-sort-property="ncr_no">NCR Number
                             <span class="sort-indicator" id="sort-ncr_no"></span>
                             <span class="tooltip">Click to sort NCRs by ascending or descending order.</span>
                         </th>
-                        <th class="sort-btn tooltip-container" data-sort-property="date">Date
+                        <th class="sort-btn tooltip-container"tabindex="13" data-sort-property="date">Date
                             <span class="sort-indicator" id="sort-date"></span>
                             <span class="tooltip">Click to sort NCRs by date in ascending or descending order.</span>
 
@@ -236,7 +236,7 @@
                 Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="16">
         </p>
     </footer>
 

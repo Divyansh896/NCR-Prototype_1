@@ -116,7 +116,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
                         <span class="icon-text">Dark Mode</span>
                         <span><i class="fa fa-moon-o"></i></span>
                     </button>
@@ -201,7 +201,7 @@
                 <div class="form-container">
 
                     <!-- QA Rep Dropdown -->
-                    <details id="qa-section" tabindex="6">
+                    <details id="qa-section" tabindex="7">
                         <summary class="custom-summary custom-summary-loggedNcr"
                             aria-label="Quality assurance department details">Quality Information
                         </summary>
@@ -274,7 +274,7 @@
                         </div>
                     </details>
 
-                    <details id="eng-section" tabindex="7">
+                    <details id="eng-section" tabindex="8">
                         <summary class="custom-summary custom-summary-loggedNcr"
                             aria-label="Engineering department details">Engineering Information
                         </summary>
@@ -344,7 +344,7 @@
                                     <div class="tooltip-container">
                                         <span class="tooltip">Choose the action to take for the NCR item, such as return
                                             or rework.</span>
-                                        <select id="decision" aria-label="Select the primary decision">
+                                        <select id="decision" aria-label="Select the primary decision" tabindex="9">
                                             <option value="" selected disabled>Select preliminary decision</option>
                                             <option value="return">Return to Supplier</option>
                                             <option value="rework">Rework "In-House"</option>
@@ -364,7 +364,7 @@
                                                     class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                         <div class="info-description"></div>
                                         <div class="tooltip-container">
-                                            <select id="return-options" aria-label="Select return option">
+                                            <select id="return-options" aria-label="Select return option" tabindex="10">
                                                 <option value="" selected disabled>Select return option</option>
                                                 <option value="rework">Rework</option>
                                                 <option value="replacement">Replacement</option>
@@ -376,8 +376,6 @@
                                             select an option for
                                             return.</span>
                                     </div>
-
-
                                     <!-- Follow-up Required -->
                                     <label>Follow-up Required? <span class="info-icon"
                                             data-description="'Follow-up Required?' in an NCR report indicates whether additional actions or checks are needed after implementing corrective measures. This ensures the issue is fully resolved and prevents recurrence, maintaining compliance with quality standards."><i
@@ -389,7 +387,7 @@
                                     <div class="rad-create-ncr" aria-label="Follow-up required options">
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button" tabindex="11">
                                                     <input type="radio" name="follow-up" value="yes"
                                                         class="hidden-radio" aria-label="Follow-up required, yes"
                                                         onclick="toggleCheck(this)"> Yes
@@ -400,9 +398,9 @@
                                         </div>
                                         <div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button" tabindex="12">
                                                     <input type="radio" name="follow-up" value="no" class="hidden-radio"
-                                                        aria-label="Follow-up required, no" onclick="toggleCheck(this)">
+                                                        aria-label="Follow-up required, no" onclick="toggleCheck(this)" tabindex="12">
                                                     No
                                                 </label>
                                                 <span class="tooltip">Click to select follow up is not required.</span>
@@ -419,7 +417,7 @@
                                     <div class="info-description"></div>
                                     <div class="tooltip-container">
                                         <input type="text" id="follow-type" placeholder="Enter follow-up type"
-                                            aria-label="Enter follow-up type">
+                                            aria-label="Enter follow-up type" tabindex="13">
 
                                         <span class="tooltip">Provide a description of the follow-up action (e.g.,
                                             inspection).</span>
@@ -433,7 +431,7 @@
                                     <div class="info-description"></div>
                                     <div class="tooltip-container">
                                         <input type="date" id="follow-date"
-                                            aria-label="Select the expected follow-up date">
+                                            aria-label="Select the expected follow-up date" tabindex="14">
 
                                         <span class="tooltip">Select the date by which the follow-up should be
                                             completed.</span>
@@ -471,18 +469,18 @@
 
                                     <div class="rad-create-ncr">
                                         <div class="tooltip-container">
-                                            <label class="radio-button">
+                                            <label class="radio-button" tabindex="18">
                                                 <input type="radio" name="car" value="yes" class="hidden-radio"
-                                                    onclick="toggleCheck(this)">
+                                                    onclick="toggleCheck(this)" >
                                                 Yes
                                             </label>
                                             <span class="tooltip">Click to select yes.</span>
 
                                         </div>
                                         <div class="tooltip-container">
-                                            <label class="radio-button">
+                                            <label class="radio-button" tabindex="19">
                                                 <input type="radio" name="car" value="no" class="hidden-radio"
-                                                    onclick="toggleCheck(this)">
+                                                    onclick="toggleCheck(this)" >
                                                 No
                                             </label>
                                             <span class="tooltip">Click to select no.</span>
@@ -501,18 +499,18 @@
 
                                         <div class="rad-create-ncr">
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button"tabindex="20">
                                                     <input type="radio" name="re-inspected" value="yes"
-                                                        class="hidden-radio" onclick="toggleCheck(this)">
+                                                        class="hidden-radio" onclick="toggleCheck(this)" >
                                                     Yes
                                                 </label>
                                                 <span class="tooltip">Click to select yes.</span>
 
                                             </div>
                                             <div class="tooltip-container">
-                                                <label class="radio-button">
+                                                <label class="radio-button"tabindex="21">
                                                     <input type="radio" name="re-inspected" value="no"
-                                                        class="hidden-radio" onclick="toggleCheck(this)">
+                                                        class="hidden-radio" onclick="toggleCheck(this)" >
                                                     No
                                                 </label>
                                                 <span class="tooltip">Click to select no.</span>
@@ -526,7 +524,7 @@
                                                 class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                     <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <input type="text" id="inspector-name" placeholder="Enter inspector's name">
+                                        <input type="text" id="inspector-name" placeholder="Enter inspector's name" tabindex="22">
                                         <span class="tooltip">Enter the full name of the inspector responsible.</span>
                                     </div>
                                     <span class="error-message" id="inspector-name-error" aria-live="polite">Please
@@ -540,7 +538,7 @@
                                                 class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                     <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <input type="date" id="ncr-date">
+                                        <input type="date" id="ncr-date" tabindex="23">
                                         <span class="tooltip">Select the date when the NCR was issued.</span>
                                     </div>
                                     <span class="error-message" id="ncr-date-error" aria-live="polite">Please provide
@@ -554,7 +552,7 @@
                                                     class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                         <div class="info-description"></div>
                                         <div class="tooltip-container">
-                                            <input type="date" id="quality-date">
+                                            <input type="date" id="quality-date" tabindex="24">
                                             <span class="tooltip">Select Quality Department Closure Date.</span>
                                         </div>
                                         <span class="tooltip">Select the date the Quality Department closed the
@@ -576,7 +574,7 @@
                                                 class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                     <div class="info-description"></div>
                                     <div class="tooltip-container">
-                                        <input type="text" id="car-details" placeholder="Indicate car#">
+                                        <input type="text" id="car-details" placeholder="Indicate car#" tabindex="25">
                                         <span class="tooltip">Indicate car #</span>
                                     </div>
                                     <span class="error-message" id="car-details-error">Please enter the car #</span>
@@ -588,7 +586,7 @@
                                                     class="fa fa-info-circle" aria-hidden="true"></i></span></label>
                                         <div class="info-description"></div>
                                         <div class="tooltip-container">
-                                            <input type="text" id="new-ncr-number" placeholder="Enter new NCR number">
+                                            <input type="text" id="new-ncr-number" placeholder="Enter new NCR number" tabindex="26">
 
                                             <span class="tooltip">Enter the NCR number for the new report, if
                                                 required.</span>
@@ -608,7 +606,7 @@
                                         <div>
                                             <div class="tooltip-container">
 
-                                                <label class="radio-button">
+                                                <label class="radio-button" tabindex="27">
                                                     <input type="radio" name="ncr-closed" value="yes"
                                                         class="hidden-radio" onclick="toggleCheck(this)">
                                                     Yes
@@ -620,7 +618,7 @@
                                         <div>
                                             <div class="tooltip-container">
 
-                                                <label class="radio-button">
+                                                <label class="radio-button" tabindex="28">
                                                     <input type="radio" name="ncr-closed" value="no"
                                                         class="hidden-radio" onclick="toggleCheck(this)">
                                                     No
@@ -644,7 +642,7 @@
                                             <div>
                                                 <div class="tooltip-container">
 
-                                                    <label class="radio-button">
+                                                    <label class="radio-button" tabindex="29">
                                                         <input type="radio" name="ncr-resolved" value="yes"
                                                             class="hidden-radio" onclick="toggleCheck(this)">
                                                         Yes
@@ -656,9 +654,9 @@
                                             <div>
                                                 <div class="tooltip-container">
 
-                                                    <label class="radio-button">
+                                                    <label class="radio-button"tabindex="30">
                                                         <input type="radio" name="ncr-resolved" value="no"
-                                                            class="hidden-radio" onclick="toggleCheck(this)">
+                                                            class="hidden-radio" onclick="toggleCheck(this)" >
                                                         No
                                                     </label>
                                                     <span class="tooltip">Choose "No" if the NCR is not resolved.</span>
@@ -674,11 +672,11 @@
                             </div>
                             <!-- Buttons -->
                             <div class="btn-qa-create">
-                                <button type="button" id="back-btn1" tabindex="23">Back</button>
-                                <button type="button" id="clear-btn2" tabindex="24">Clear</button>
+                                <button type="button" id="back-btn1" tabindex="31">Back</button>
+                                <button type="button" id="clear-btn2" tabindex="32">Clear</button>
                                 <button type="button" id="save2" aria-label="Save current progress"
-                                    tabindex="25">Save</button>
-                                <button type="button" id="next-btn2" tabindex="26">Next</button>
+                                    tabindex="33">Save</button>
+                                <button type="button" id="next-btn2" tabindex="34">Next</button>
                             </div>
 
                         </fieldset>
@@ -712,8 +710,8 @@
                             <!-- Buttons -->
                             <div class="btn-qa-create">
                                 <button type="button" id="back-btn2" aria-label="Move to the previous step"
-                                    tabindex="27">Back</button>
-                                <button id="submit-btn" aria-label="Submit the form" tabindex="28">Submit</button>
+                                    tabindex="35">Back</button>
+                                <button id="submit-btn" aria-label="Submit the form" tabindex="36">Submit</button>
                             </div>
                         </fieldset>
 
@@ -726,12 +724,12 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="37">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="38">Get
                 Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="39">
         </p>
     </footer>
 

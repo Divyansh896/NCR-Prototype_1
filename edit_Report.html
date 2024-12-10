@@ -114,7 +114,7 @@
                     </div>
                 </li>
                 <li>
-                    <button tabindex="15" type="button" id="darkModeToggle" class="icon-badge">
+                    <button tabindex="6" type="button" id="darkModeToggle" class="icon-badge">
                         <span class="icon-text">Dark Mode</span>
                         <span><i class="fa fa-moon-o"></i></span>
                     </button>
@@ -150,7 +150,7 @@
         <!-- Main Content -->
         <h1>Non-Conformance Report</h1>
         <details>
-            <summary class="custom-summary" aria-label="Quality assurance department details">Quality Assurance
+            <summary class="custom-summary" tabindex="7" aria-label="Quality assurance department details">Quality Assurance
                 representative</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
             <div class="two-cols-edit two-cols-view tooltip-edit-page">
@@ -161,7 +161,7 @@
                         <div class="form-group">
                             <label for="qa-name">QA Name</label>
                             <input type="text" class="qa-editable" id="qa-name" name="qa_name"
-                                placeholder="Enter QA representative name" required tabindex="7">
+                                placeholder="Enter QA representative name" required tabindex="8">
                                 <span class="error-message">QA representative name is required.</span>
                                 <span class="tooltip">Enter Quality representative name.</span>
                         </div>
@@ -169,12 +169,12 @@
                     <div class="form-group">
                         <label for="ncr-no">NCR No.</label>
                         <input type="text" readonly class="qa-editable" id="ncr-no" name="ncr_no"
-                            placeholder="Enter NCR number" required tabindex="8">
+                            placeholder="Enter NCR number" required tabindex="9">
                     </div>
 
                     <div class="form-group">
                         <label for="item-name">Select Item:</label>
-                        <select class="qa-editable" name="items" id="item-name" required>
+                        <select class="qa-editable" name="items" id="item-name" required tabindex="10">
                             <option value="Hex Bolts">Hex Bolts</option>
                             <option value="Lock Nut">Lock Nut</option>
                             <option value="Screws">Screws</option>
@@ -191,19 +191,19 @@
                     <div class="form-group">
                         <label for="sales-order-no">Sales Order No. <span class="required">*</span></label>
                         <input type="text" class="qa-editable" id="sales-order-no" name="sales_order_no"
-                            placeholder="Enter sales order number" required tabindex="9">
+                            placeholder="Enter sales order number" required tabindex="11">
                             <span class="error-message">Sales order number is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="quantity-received">Quantity Received</label>
                         <input type="number" class="qa-editable" id="quantity-received" name="quantity_received"
-                            placeholder="Enter quantity received" required tabindex="10">
+                            placeholder="Enter quantity received" required tabindex="12">
                             <span class="error-message">Quantity of item received is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="quantity-defective">Quantity Defective</label>
                         <input type="number" class="qa-editable" id="quantity-defective" name="quantity_defective"
-                            placeholder="Enter quantity defective" required tabindex="11">
+                            placeholder="Enter quantity defective" required tabindex="13">
                             <span class="error-message">Quantity of item defective is required.</span>
                     </div>
                 </div>
@@ -211,25 +211,25 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="qa-date">QA Date</label>
-                        <input type="date" class="qa-editable" id="qa-date" name="qa_date" required tabindex="12">
+                        <input type="date" class="qa-editable" id="qa-date" name="qa_date" required tabindex="14">
                         <span class="error-message">QA date is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="supplier-name">Supplier Name</label>
                         <select class="qa-editable" id="supplier-name" name="supplier_name"
-                            placeholder="Enter supplier name" required tabindex="13"></select>
+                            placeholder="Enter supplier name" required tabindex="15"></select>
                             <span class="error-message">Supplier name is required.</span>
                     </div>
                     <div class="form-group">
                         <label for="product-no">Product No.</label>
                         <input type="text" class="qa-editable" id="product-no" name="product_no"
-                            placeholder="Enter product number" required tabindex="14">
+                            placeholder="Enter product number" required tabindex="16">
                             <span class="error-message">Product number is required.</span>
                     </div>
 
                     <div class="form-group">
                         <label for="process">Identify Process Applicable</label>
-                        <select class="qa-editable" id="process" name="process" required tabindex="16">
+                        <select class="qa-editable" id="process" name="process" required tabindex="17">
                             <option value="">Select a Process</option>
                             <option value="Supplier or Rec-Insp">Supplier</option>
                             <option value="WIP (Production order)">WIP</option>
@@ -248,14 +248,14 @@
                     <div class="form-group description">
                         <label for="description-item">Description of Item (Including SAP No.)</label>
                         <textarea class="qa-editable" id="description-item" name="description_item"
-                            placeholder="Enter description of item" required tabindex="17"></textarea>
+                            placeholder="Enter description of item" required tabindex="18"></textarea>
                             <span class="error-message">Description of the item is required.</span>
                     </div>
 
                     <div class="form-group description">
                         <label for="description-defect">Description of Defect</label>
                         <textarea class="qa-editable" id="description-defect" name="description_defect"
-                            placeholder="Enter description of defect" required tabindex="18"></textarea>
+                            placeholder="Enter description of defect" required tabindex="19"></textarea>
                             <span class="error-message">Description of the item defect is required.</span>
                     </div>
 
@@ -268,17 +268,17 @@
                             <div>
                                 <!-- <label for="item_marked_nonconforming">Item Marked Non-Conforming</label> -->
                                 <input type="radio" id="item-marked-yes" name="item_marked_nonconforming" value="yes"
-                                    tabindex="19">
+                                    tabindex="20">
                                 <label for="item-marked-yes">Yes</label>
 
                                 <input type="radio" id="item-marked-no" name="item_marked_nonconforming" value="no"
-                                    tabindex="20">
+                                    tabindex="21">
                                 <label for="item-marked-no">No</label>
                             </div>
                         </div>
                         <div class="resolved">
                             <input class="qa-editable" type="checkbox" id="resolvedQA" name="resolved"
-                                aria-label="Resolved" tabindex="15">
+                                aria-label="Resolved" tabindex="22">
                             <label for="resolved">Resolved:</label>
                         </div>
                     </div>
@@ -286,12 +286,12 @@
             </div>
             <!-- Buttons -->
             <div class="btn-report">
-                <button class="save" id="qa-save" tabindex="22">Save</button>
+                <button class="save" id="qa-save" tabindex="23">Save</button>
             </div>
         </details>
 
         <details>
-            <summary class="custom-summary" aria-label="Engineering department details">Engineering</summary>
+            <summary class="custom-summary" tabindex="24" aria-label="Engineering department details">Engineering</summary>
             <!-- <p class="indicator">* indicate required fields.</p> -->
             <div class="two-cols-edit two-cols-view">
                 <div class="form-row">
@@ -301,7 +301,7 @@
 
                                 <label for="engineer-name">Engineer Name: <span class="required">*</span></label>
                                 <input type="text" class="eng-editable" id="engineer-name" name="engineer_name"
-                                    aria-label="Engineer Name" tabindex="23" placeholder="Enter engineer's name...">
+                                    aria-label="Engineer Name" tabindex="25" placeholder="Enter engineer's name...">
                                     <span class="tooltip">Enter Engineer name is empty.</span>
                             </div>
                         </div>
@@ -310,7 +310,7 @@
                     <div class="form-group">
                         <label for="disposition">Disposition:</label>
                         <select class="eng-editable" id="disposition" name="disposition" aria-label="Disposition"
-                            tabindex="24">
+                            tabindex="26">
                             <option value="" disabled selected>Select a disposition</option>
                             <option value="rework">Rework</option>
                             <option value="use as is">Use As Is</option>
@@ -323,13 +323,13 @@
                         <label for="original-rev-number">Original Revision Number: <span
                                 class="required">*</span></label>
                         <input type="text" class="eng-editable" id="original-rev-number" name="original_rev_number"
-                            aria-label="Original Revision Number" tabindex="26" placeholder="e.g., Rev-001">
+                            aria-label="Original Revision Number" tabindex="27" placeholder="e.g., Rev-001">
                     </div>
 
                     <div class="form-group">
                         <label for="updated-rev-number">Updated Revision Number: <span class="required">*</span></label>
                         <input type="text" class="eng-editable" id="updated-rev-number" name="updated_rev_number"
-                            aria-label="Updated Revision Number" tabindex="27" placeholder="e.g., Rev-002">
+                            aria-label="Updated Revision Number" tabindex="28" placeholder="e.g., Rev-002">
                     </div>
                 </div>
 
@@ -338,21 +338,21 @@
                     <div class="form-group">
                         <label for="revision-date">Revision Date: <span class="required">*</span></label>
                         <input type="date" class="eng-editable" id="revision-date" name="revision_date"
-                            aria-label="Revision Date" tabindex="28">
+                            aria-label="Revision Date" tabindex="29">
                     </div>
 
                     <div class="form-group">
                         <label for="engineering-review-date">Engineering Review Date: <span
                                 class="required">*</span></label>
                         <input type="date" class="eng-editable" id="engineering-review-date"
-                            name="engineering_review_date" aria-label="Engineering Review Date" tabindex="29">
+                            name="engineering_review_date" aria-label="Engineering Review Date" tabindex="30">
                     </div>
                 </div>
                 <div class="form-row span-two-cols">
                     <div class="form-group description">
                         <label for="disposition-details">Disposition Details: <span class="required">*</span></label>
                         <textarea class="eng-editable" id="disposition-details" name="disposition_details"
-                            aria-label="Disposition Details" rows="4" tabindex="25"
+                            aria-label="Disposition Details" rows="4" tabindex="31"
                             placeholder="Enter details about the disposition..."></textarea>
                     </div>
                 </div>
@@ -363,17 +363,17 @@
                     <div class="form-row">
                         <div class="rad-report">
                             <input type="checkbox" class="eng-editable" id="resolvedEng" name="resolved"
-                                aria-label="Resolved" tabindex="30">
+                                aria-label="Resolved" tabindex="32">
                             <label for="resolved">Resolved:</label>
                         </div>
                         <div class="rad-report">
                             <input type="checkbox" class="eng-editable" id="customer-notification"
-                                name="customer_notification" aria-label="Customer Notification Required" tabindex="31">
+                                name="customer_notification" aria-label="Customer Notification Required" tabindex="32">
                             <label for="customer-notification">Customer Notification Required:</label>
                         </div>
                         <div class="rad-report">
                             <input type="checkbox" class="eng-editable" id="drawing-update-required"
-                                name="drawing_update_required" aria-label="Drawing Update Required" tabindex="32">
+                                name="drawing_update_required" aria-label="Drawing Update Required" tabindex="33">
                             <label for="drawing-update-required">Drawing Update Required:</label>
                         </div>
                     </div>
@@ -412,13 +412,13 @@
                     <div class="form-group">
                         <label for="car-number">CAR Number: <span class="required">*</span></label>
                         <input class="purch-editable" type="text" id="car-number" name="car_number"
-                            aria-label="CAR Number" tabindex="38" placeholder="e.g., CAR-12345">
+                            aria-label="CAR Number" tabindex="37" placeholder="e.g., CAR-12345">
                     </div>
                     <div class="form-group">
                         <label for="operations-manager-name">Operations Manager Name: <span
                                 class="required">*</span></label>
                         <input class="purch-editable" type="text" id="operations-manager-name"
-                            name="operations_manager_name" aria-label="Operations Manager Name" tabindex="40"
+                            name="operations_manager_name" aria-label="Operations Manager Name" tabindex="38"
                             placeholder="Enter operations manager's name...">
                     </div>
 
@@ -431,7 +431,7 @@
                         <label for="operations-manager-date">Operations Manager Date: <span
                                 class="required">*</span></label>
                         <input class="purch-editable" type="date" id="operations-manager-date"
-                            name="operations_manager_date" aria-label="Operations Manager Date" tabindex="41">
+                            name="operations_manager_date" aria-label="Operations Manager Date" tabindex="39">
                     </div>
 
 
@@ -439,13 +439,13 @@
                     <div class="form-group">
                         <label for="new-ncr-number">New NCR Number: <span class="required">*</span></label>
                         <input class="purch-editable" type="text" id="new-ncr-number" name="new_ncr_number"
-                            aria-label="New NCR Number" tabindex="43" placeholder="e.g., NCR-001">
+                            aria-label="New NCR Number" tabindex="40" placeholder="e.g., NCR-001">
                     </div>
 
                     <div class="form-group">
                         <label for="inspector-name">Inspector Name: <span class="required">*</span></label>
                         <input class="purch-editable" type="text" id="inspector-name" name="inspector_name"
-                            aria-label="Inspector Name" tabindex="44" placeholder="Enter inspector's name...">
+                            aria-label="Inspector Name" tabindex="41" placeholder="Enter inspector's name...">
                     </div>
                 </div>
             </div>
@@ -457,18 +457,18 @@
 
                         <div class="rad-report">
                             <input class="purch-editable" type="checkbox" id="car-raised" name="car_raised"
-                                aria-label="CAR Raised" tabindex="37">
+                                aria-label="CAR Raised" tabindex="42">
                             <label for="car-raised">CAR Raised:</label>
                         </div>
 
                         <div class="rad-report">
                             <input class="purch-editable" type="checkbox" id="re-inspected-acceptable"
-                                name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="42">
+                                name="re_inspected_acceptable" aria-label="Re-Inspected Acceptable" tabindex="43">
                             <label for="re-inspected-acceptable">Re-Inspected Acceptable:</label>
                         </div>
                         <div class="rad-report">
                             <input class="purch-editable" type="checkbox" id="follow-up-required"
-                                name="follow_up_required" aria-label="Follow-Up Required" tabindex="39">
+                                name="follow_up_required" aria-label="Follow-Up Required" tabindex="44">
                             <label for="follow-up-required">Follow-Up Required:</label>
                         </div>
                         <div class="rad-report">
@@ -489,7 +489,7 @@
 
             <!-- Buttons -->
             <div class="btn-report">
-                <button class="save" id="purch-save" tabindex="48">Save</button>
+                <button class="save" id="purch-save" tabindex="47">Save</button>
             </div>
 
         </details>
@@ -499,11 +499,11 @@
     <footer aria-label="Footer" id="footer-scroll">
         <p>&copy; 2024 Crossfire. All rights reserved.</p>
         <p>
-            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="14">Privacy
-                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="15">Get Help</a>
+            <a href="privacy_policy.html" class="linksFooter" aria-label="Go to Privacy Policy" tabindex="48">Privacy
+                Policy</a> | <a href="help.html" class="linksFooter" aria-label="Go to Help Page" tabindex="49">Get Help</a>
         </p>
         <p>
-            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop">
+            <input type="button" value="Back To Top" aria-label="Go back to top of the page" id="btnBackToTop" tabindex="50">
         </p>
     </footer>
 
