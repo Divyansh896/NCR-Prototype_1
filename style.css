@@ -633,7 +633,7 @@ fieldset legend {
 .btns-supplier button {
     background-color: #1a3153;
     color: #f4f4f4;
-    margin: 10px 10px;
+    margin: 10px 10px 0px 0px;
     height: 40px;
     width: 95%;
 }
@@ -716,8 +716,8 @@ fieldset legend {
 .btns-supplier {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    justify-content: flex-end;
+    align-items: flex-start;
+    justify-content: flex-start;
 }
 
 .form-section label,
@@ -1323,7 +1323,6 @@ input[type="radio"] {
     border-radius: 8px;
     padding: 20px;
     border: 1px solid #888;
-    width: 365px;
     height: 200px;
     position: absolute;
     left: 50%;
@@ -1335,7 +1334,7 @@ input[type="radio"] {
 }
 
 .modal-content-supplier {
-    height: 85vh;
+    height: auto;
     overflow-y: scroll;
 }
 
@@ -2209,8 +2208,7 @@ body.dark-mode select:focus {
     .supplier-columns div,
     .employee-columns div {
         width: 90%;
-        text-align: left;
-        align-items: end;
+        text-align: center;
     }
 
 
@@ -2471,7 +2469,6 @@ body.dark-mode select:focus {
     }
 
     .modal-content-supplier {
-        height: 60vh;
         width: 670px;
     }
 
@@ -2919,12 +2916,12 @@ body.dark-mode select:focus {
     }
 
     .modal-content-supplier {
-        height: 40vh;
         width: 670px;
     }
 
     .modal-content-supplier .supplier-columns {
         width: 100%;
+        margin: 0px auto;
     }
 
     /* report page */
@@ -3119,7 +3116,6 @@ body.dark-mode select:focus {
     }
 
     .modal-content-supplier {
-        height: 65vh;
         width: 760px;
     }
 
@@ -3514,7 +3510,6 @@ body.dark-mode select:focus {
     }
 
     .modal-content-supplier {
-        height: 41vh;
         width: 1000px;
     }
 
@@ -3549,7 +3544,6 @@ body.dark-mode textarea:focus {
     }
 
     .modal-content-supplier {
-        height: 100vh;
         width: 1061px;
     }
 
