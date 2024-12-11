@@ -1334,7 +1334,7 @@ input[type="radio"] {
 }
 
 .modal-content-supplier {
-    height: auto;
+    height: 445px;
     overflow-y: scroll;
 }
 
