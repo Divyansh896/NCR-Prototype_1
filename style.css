@@ -2040,10 +2040,25 @@ body.dark-mode select:focus {
     background-color: #333333;
 }
 
+body.dark-mode .tooltip-container .tooltip::after{
+    border-color: #333 transparent transparent transparent;
+}
 
+.ncr-table thead th.sort-btn{
+    color: #00efff;
+}
 
+.ncr-table thead th.sort-btn .tooltip{
+    /* visibility:visible;
+    opacity: 1; */
+    white-space: break-spaces;
+    bottom: 72px;
 
+}
 
+.ncr-table thead th.sort-btn .tooltip::after{
+    top: 130px;
+}
 
 /*media*/
 @media screen and (min-width: 320px) {
