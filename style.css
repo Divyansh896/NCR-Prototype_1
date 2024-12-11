@@ -157,7 +157,7 @@ nav ul {
 
 nav li {
     margin-top: 25px;
-    padding: 9px;
+    padding: 6px;
 }
 
 nav:hover ul {
@@ -2505,7 +2505,9 @@ body.dark-mode select:focus {
         align-items: center;
     }
 
-
+    nav li{
+        padding:9px;
+    }
     /*general*/
     h1 {
         font-size: 2rem;
