@@ -5,7 +5,7 @@ A custom-built web application designed for manufacturers to manage Non-Conforma
 ---
 
 ## 👥 About Stellar Co.
-**Stellar Co.** is a student-led development team formed at **Niagara College** in early 2025. Our capstone projects pair us with real-world organizations to solve genuine business problems. For this engagement, we partnered with a mid-sized manufacturing firm to replace spreadsheets and email chains with a unified **NCR Tracking System**.
+**Stellar Co.** is a student-led development team formed at **Niagara College** in late 2024. Our capstone projects pair us with real-world organizations to solve genuine business problems. For this engagement, we partnered with a mid-sized manufacturing firm to replace spreadsheets and email chains with a unified **NCR Tracking System**.
 
 The application mirrors the clean architecture, documentation style, and agile approach we used for the **NIA CRM** project while targeting a different domain—quality management instead of membership relations.
 
