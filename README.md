@@ -17,8 +17,7 @@ The application mirrors the clean architecture, documentation style, and agile a
 - [Divyansh](https://github.com/Divyansh896)
 - [Elizaveta Lazareva](https://github.com/Eliza707707)
 - [Rohit Thakur](https://github.com/rohitthaku-rt)
-- [Khushi Vij](https://github.com/Khushivij08)
-- [Tania](https://github.com/Tania2024-design)
+
 
 ---
 
