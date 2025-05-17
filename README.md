@@ -1,68 +1,112 @@
-# NCR Tracking System
+# NCR Tracking System – Stellar Co.
 
-## Overview
-The NCR Tracking System is a web-based platform designed to streamline the management and tracking of defective products through Non-Conformance Reports (NCRs). This system enables collaboration between the Quality Assurance (QA) team, engineers, and the purchasing department to track, resolve, and document defective product issues efficiently.
+A custom-built web application designed for manufacturers to manage Non-Conformance Reports (NCRs) for defective products—streamlining quality-assurance workflows across QA, Engineering, and Purchasing teams.
 
-## Features
-### 1. **User Authentication & Roles**
-- Role-based access for QA personnel, engineers, and purchasing department members.
-- Secure login system with role-specific permissions.
+---
 
-### 2. **Dashboard**
-- Personalized dashboards for QA personnel, engineers, and the purchasing department, displaying NCR statuses (e.g., Open, In Progress, Resolved, Closed).
-- Overview of ongoing and past NCRs.
+## 👥 About Stellar Co.
+**Stellar Co.** is a student-led development team formed at **Niagara College** in early 2025. Our capstone projects pair us with real-world organizations to solve genuine business problems. For this engagement, we partnered with a mid-sized manufacturing firm to replace spreadsheets and email chains with a unified **NCR Tracking System**.
 
-### 3. **Creating an NCR Report (QA Personnel)**
-- QA personnel can create a new NCR by entering product details, defect descriptions, and attaching supporting documents.
-- Fields include:
-  - Product ID, Description
-  - Defect Type (e.g., Packaging, Functional, Material)
-  - Severity (e.g., Critical, Major, Minor)
-  - Photos or documents
-- The report is submitted to the engineer for further investigation.
+The application mirrors the clean architecture, documentation style, and agile approach we used for the **NIA CRM** project while targeting a different domain—quality management instead of membership relations.
 
-### 4. **Reviewing and Updating NCR Reports (Engineers)**
-- Engineers can review assigned NCRs, investigate the defects, and propose corrective actions.
-- Ability to add comments and attach files to support investigations.
-- Update NCR status to "In Progress" or "Resolved."
+> This repo reflects our commitment to secure code, intuitive UX, and robust back-end design. We’re proud to showcase it alongside the NIA CRM as proof of our versatility.
 
-### 5. **Purchasing Department Actions**
-- After an NCR is marked "Resolved" by the engineer, it is forwarded to the purchasing department.
-- The purchasing team can review the NCR, create material requisitions, and update the status to "Closed" when actions are completed.
+---
 
-### 6. **Reporting & Analytics**
-- Generate reports on NCR statuses, defect types, and performance metrics.
-- Analytics tools track recurring defects, resolution times, and departmental performance.
+## 🤝 Collaborators
+- [Divyansh](https://github.com/Divyansh896)
+- [Elizaveta Lazareva](https://github.com/Eliza707707)
+- [Rohit Thakur](https://github.com/rohitthaku-rt)
+- [Khushi Vij](https://github.com/Khushivij08)
+- [Tania](https://github.com/Tania2024-design)
 
-### 7. **Notifications & Alerts**
-- Email and in-app notifications for status updates, new NCRs, and required actions.
-- Real-time alerts to ensure timely responses.
+---
 
-### 8. **Search & Filter Functionality**
-- Search NCRs by filters like Product ID, Date of Discovery, Defect Type, and Status.
-- Quick access to relevant NCR information.
+## 📌 Table of Contents
+1. [Introduction](#introduction)  
+2. [Project Overview](#project-overview)  
+3. [Key Features](#key-features)  
+4. [Technical Stack](#technical-stack)  
+5. [Functional Modules](#functional-modules)  
+6. [Security & Compliance](#security--compliance)  
+7. [Performance Requirements](#performance-requirements)  
+8. [Interface Requirements](#interface-requirements)  
+9. [Other Non-functional Attributes](#other-non-functional-attributes)  
+10. [Hosted Link & Login Info](#hosted-link--login-info)  
 
-### 9. **Audit Trail & History**
-- Maintain a detailed log of all actions taken on each NCR, including status changes, user actions, and comments.
+---
 
-### 10. **Mobile-Friendly Design**
-- A responsive design ensuring access on desktops, tablets, and smartphones.
+## 🧩 Introduction
+The **NCR Tracking System** is a responsive web app that centralizes all defect reports in one place, ensuring traceability, accountability, and faster resolution. The system went from concept to deployment between **September – December 2024**.
 
-## User Flow
+---
 
-1. **QA Personnel**
-   - Log in, create a new NCR, and submit it for review by the engineer.
+## 📊 Project Overview
+### 🎯 Objective
+Eliminate email-driven NCRs by giving QA, Engineers, and Purchasing a single workflow with status tracking, attachments, and analytics.
 
-2. **Engineer**
-   - Log in, review assigned NCRs, investigate defects, propose solutions, and forward to the purchasing department if parts are needed.
+### ⏳ Timeline
+September 2024 – December 2024  
+(Requirements → Design → Development → Testing → Deployment)
 
-3. **Purchasing Department**
-   - Log in, review the resolved NCR, create material requisitions, and mark the NCR as "Closed" when the issue is addressed.
+### 👥 Team Members
+See the [Collaborators](#-collaborators) list.
 
+---
 
+## 🛠 Key Features
+| Feature                 | Description                                                         |
+|-------------------------|---------------------------------------------------------------------|
+| **Role-Based Access**   | Separate permissions for QA, Engineers, Purchasing, Admin               |
+| **Dynamic Dashboards**  | At-a-glance counts for Open, In Progress, Resolved, Closed         |
+| **Full NCR Lifecycle**  | Create, assign, comment, attach evidence, change status            |
+| **Search & Filters**    | Product ID, Defect Type, Severity, Date, Status                    |
+| **Analytics Reports**   | Export PDF/CSV; charts for recurring defects & lead time           |
+| **Mobile-First UI**     | TailwindCSS for responsive screens                                 |
 
-## Installation
+---
 
-1. Clone this repository:
-   ```bash
-   git clone https://github.com/Divyansh896/NCR-Prototype_1.git
+## ⚙️ Technical Stack
+
+| Layer        | Technologies & Tools                              |
+|--------------|---------------------------------------------------|
+| **Markup**   | HTML5                                             |
+| **Styling**  | CSS3 (Flexbox, Grid, media queries)               |
+| **Logic**    | Vanilla JavaScript (ES6+)                         |
+| **Data**     | `fetch()` API → loads seed data from `ncr_reports.json` and updates state in `localStorage` |
+
+*The app uses the browser’s native **Fetch API** to read a local JSON file as initial seed data, giving realistic CRUD-style interaction while remaining 100 % front-end.*
+
+---
+
+## 🧩 Functional Modules
+1. **User & Role Management** – Admins manage users/roles.  
+2. **NCR Creation** – QA logs product defects with photos/docs.  
+3. **Investigation Workflow** – Engineers add root-cause analysis & corrective actions.  
+4. **Purchasing Actions** – Generate POs/material requisitions before closure.  
+5. **Reporting Dashboard** – Visualize realtime graphs and export reports.  
+6. **Audit Trail** – Immutable log of every status change & comment.
+
+---
+
+## 🔧 Other Non-functional Attributes
+Security | Reliability | Maintainability | Portability | Extensibility
+
+---
+
+## 🌐 Hosted Link & Login Info
+**URL**: *Coming soon*  
+
+### Test Users
+| Username               | Password | Role       |
+|---------------------|----------|------------|
+| jsmith         | jsmithqa | QA         |
+| dhenry        | dhenryer | Engineer   |
+| bmiller | bmilleroc | Purchasing |
+| gwhite | gwhitead | Admin |
+
+---
+
+📄 **User Manual PDF**: _Coming soon_
+
+> Developed by **Stellar Co.** 🚀
